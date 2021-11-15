@@ -1,0 +1,31 @@
+{
+  "name": "@ts-templates/node12",
+  "version": "1.0.0",
+  "description": "Template for TypeScript project using Node.js v12",
+  "private": true,
+  "scripts": {
+    "lint": "eslint '**/*.{js,ts}'",
+    "prepare": "husky install",
+    "start": "ts-node src/main.ts",
+    "test": "jest --passWithNoTests"
+  },
+  "devDependencies": {
+    "@jest/types": "27.0.6",
+    "@tsconfig/node12": "1.0.9",
+    "@types/jest": "27.0.2",
+    "@types/node": "12.20.15",
+    "@typescript-eslint/eslint-plugin": "5.3.1",
+    "eslint": "8.2.0",
+    "eslint-config-standard-with-typescript": "21.0.1",
+    "eslint-plugin-import": "2.25.3",
+    "eslint-plugin-jest": "25.2.4",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "5.1.1",
+    "husky": "7.0.4",
+    "jest": "27.0.6",
+    "lint-staged": "12.0.2",
+    "ts-jest": "27.0.7",
+    "ts-node": "10.4.0",
+    "typescript": "4.4.4"
+  }
+}
