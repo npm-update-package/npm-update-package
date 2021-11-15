@@ -5,14 +5,17 @@ export const main = async (): Promise<void> => {
   const outdatedPackages = await getOutdatedPackages()
   console.debug({ outdatedPackages })
 
-  // TODO: loop for outdated packages
-  // TODO: create branch
+  for (const outdatedPackage of outdatedPackages) {
+    console.debug({ outdatedPackage })
 
-  // TODO: update packages
+    // TODO: create branch
 
-  // TODO: commit & push
+    // TODO: update packages
 
-  // TODO: create PR
-  // TODO: remove branch
-  // TODO: /loop for outdated packages
+    // TODO: commit & push
+
+    // TODO: create PR
+
+    // TODO: remove branch
+  }
 }
