@@ -12,7 +12,8 @@
   "dependencies": {
     "fp-ts": "2.11.5",
     "lodash": "4.14.2",
-    "npm-check-updates": "12.0.2"
+    "npm-check-updates": "12.0.2",
+    "semver": "7.3.5"
   },
   "devDependencies": {
     "@jest/types": "27.0.6",
@@ -20,6 +21,7 @@
     "@types/jest": "27.0.2",
     "@types/lodash": "4.14.177",
     "@types/node": "12.20.15",
+    "@types/semver": "7.3.9",
     "@typescript-eslint/eslint-plugin": "5.3.1",
     "eslint": "8.2.0",
     "eslint-config-standard-with-typescript": "21.0.1",
