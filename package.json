@@ -1,5 +1,5 @@
 {
-  "name": "@ts-templates/node12",
+  "name": "npm-update-package",
   "version": "1.0.0",
   "description": "Template for TypeScript project using Node.js v12",
   "private": true,
