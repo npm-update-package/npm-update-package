@@ -1,3 +1,12 @@
-import { greet } from './greet'
+// TODO: get outdated packages
 
-console.log(greet('World'))
+// TODO: loop for outdated packages
+// TODO: create branch
+
+// TODO: update packages
+
+// TODO: commit & push
+
+// TODO: create PR
+// TODO: remove branch
+// TODO: /loop for outdated packages
