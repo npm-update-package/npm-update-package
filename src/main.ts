@@ -1,12 +1,18 @@
-// TODO: get outdated packages
+import { getOutdatedPackages } from './getOutdatedPackages'
 
-// TODO: loop for outdated packages
-// TODO: create branch
+export const main = async (): Promise<void> => {
+  // get outdated packages
+  const outdatedPackages = await getOutdatedPackages()
+  console.debug({ outdatedPackages })
 
-// TODO: update packages
+  // TODO: loop for outdated packages
+  // TODO: create branch
 
-// TODO: commit & push
+  // TODO: update packages
 
-// TODO: create PR
-// TODO: remove branch
-// TODO: /loop for outdated packages
+  // TODO: commit & push
+
+  // TODO: create PR
+  // TODO: remove branch
+  // TODO: /loop for outdated packages
+}
