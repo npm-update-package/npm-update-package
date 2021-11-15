@@ -1,7 +1,7 @@
 {
   "name": "npm-update-package",
   "version": "1.0.0",
-  "description": "Template for TypeScript project using Node.js v12",
+  "description": "CLI tool for creating pull request to update npm packages",
   "private": true,
   "scripts": {
     "lint": "eslint '**/*.{js,ts}'",

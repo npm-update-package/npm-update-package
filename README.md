@@ -2,7 +2,7 @@
 
 # npm-update-package
 
-Template for TypeScript project using Node.js v12
+CLI tool for creating pull request to update npm packages
 
 ## Features
 
@@ -19,5 +19,5 @@ Template for TypeScript project using Node.js v12
 1. [Create repository](https://github.com/ts-templates/node14/generate) using template
 2. Replace provisional string with actual string
     - `npm-update-package` => your package name
-    - `Template for TypeScript project using Node.js v12` => your package description
+    - `CLI tool for creating pull request to update npm packages` => your package description
 3. Implement `src/main.ts`
