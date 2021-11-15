@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint '**/*.{js,ts}'",
     "prepare": "husky install",
-    "start": "ts-node src/main.ts",
+    "start": "ts-node src/cli.ts",
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
