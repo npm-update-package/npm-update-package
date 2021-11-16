@@ -6,7 +6,7 @@ export class PackageVersion {
   readonly minor: number
   readonly patch: number
 
-  constructor ({
+  private constructor ({
     version,
     major,
     minor,
