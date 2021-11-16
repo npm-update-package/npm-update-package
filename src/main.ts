@@ -1,4 +1,5 @@
 import { createBranchName } from './createBranchName'
+import { createCommitMessage } from './createCommitMessage'
 import { createGitHub } from './createGitHub'
 import { createPackageManager } from './createPackageManager'
 import { getOutdatedPackages } from './getOutdatedPackages'
@@ -46,7 +47,28 @@ export const main = async (): Promise<void> => {
 
     await packageManager.install()
 
-    // TODO: commit & push
+    // TODO: add only necessary files （package.json & package-lock.json or yarn.lock）
+    await git.addAll()
+    const message = createCommitMessage(outdatedPackage)
+    console.debug({ message })
+
+    if (process.env.AUTHOR_NAME !== undefined && process.env.AUTHOR_EMAIL !== undefined) {
+      const name = await git.getConfig('user.name')
+      console.debug({ name })
+
+      const email = await git.getConfig('user.email')
+      console.debug({ email })
+
+      await git.setConfig('user.name', process.env.AUTHOR_NAME)
+      await git.setConfig('user.email', process.env.AUTHOR_EMAIL)
+      await git.commit(message)
+      await git.setConfig('user.name', name)
+      await git.setConfig('user.email', email)
+    } else {
+      await git.commit(message)
+    }
+
+    // TODO: push to remote repository
 
     // TODO: create PR
 
