@@ -61,15 +61,15 @@ export const main = async (): Promise<void> => {
     const message = createCommitMessage(outdatedPackage)
     console.debug({ message })
 
-    if (process.env.AUTHOR_NAME !== undefined && process.env.AUTHOR_EMAIL !== undefined) {
+    if (process.env.AGIT_USER_NAME !== undefined && process.env.GIT_USER_EMAIL !== undefined) {
       const name = await git.getConfig('user.name')
       console.debug({ name })
 
       const email = await git.getConfig('user.email')
       console.debug({ email })
 
-      await git.setConfig('user.name', process.env.AUTHOR_NAME)
-      await git.setConfig('user.email', process.env.AUTHOR_EMAIL)
+      await git.setConfig('user.name', process.env.AGIT_USER_NAME)
+      await git.setConfig('user.email', process.env.GIT_USER_EMAIL)
       await git.commit(message)
       await git.setConfig('user.name', name)
       await git.setConfig('user.email', email)
