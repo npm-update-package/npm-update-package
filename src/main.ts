@@ -2,6 +2,8 @@ import { createBranchName } from './createBranchName'
 import { createCommitMessage } from './createCommitMessage'
 import { createGitHub } from './createGitHub'
 import { createPackageManager } from './createPackageManager'
+import { createPullRequestBody } from './createPullRequestBody'
+import { createPullRequestTitle } from './createPullRequestTitle'
 import { getOutdatedPackages } from './getOutdatedPackages'
 import { updateOutdatedPackage } from './updateOutdatedPackage'
 import { Git } from './Git'
@@ -14,7 +16,15 @@ export const main = async (): Promise<void> => {
   const terminal = new Terminal()
   const git = new Git(terminal)
   const gitRepo = await git.getRepository()
+  console.debug({ gitRepo })
+
   const github = createGitHub(gitRepo)
+  const githubRepo = await github.fetchRepository({
+    owner: gitRepo.owner,
+    repo: gitRepo.name
+  })
+  console.debug({ githubRepo })
+
   const remoteBranches = await github.fetchBranches({
     owner: gitRepo.owner,
     repo: gitRepo.name
@@ -69,8 +79,20 @@ export const main = async (): Promise<void> => {
     }
 
     await git.push(branchName)
+    const title = createPullRequestTitle(outdatedPackage)
+    console.debug({ title })
 
-    // TODO: create PR
+    const body = createPullRequestBody(outdatedPackage)
+    console.debug({ body })
+
+    await github.createPullRequest({
+      owner: gitRepo.owner,
+      repo: gitRepo.name,
+      base: githubRepo.default_branch,
+      head: branchName,
+      title,
+      body
+    })
 
     // TODO: remove branch
   }
