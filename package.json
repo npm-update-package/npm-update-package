@@ -10,6 +10,7 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
+    "@octokit/rest": "18.12.0",
     "execa": "5.1.1",
     "fp-ts": "2.11.5",
     "git-url-parse": "9.0.1",
