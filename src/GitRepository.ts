@@ -44,8 +44,4 @@ export class GitRepository {
   get isGitHubDotCom (): boolean {
     return this.host === 'github.com'
   }
-
-  toString (): string {
-    return this.url
-  }
 }
