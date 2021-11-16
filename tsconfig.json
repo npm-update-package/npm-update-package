@@ -4,6 +4,7 @@
     "types": [
       "node",
       "jest"
-    ]
+    ],
+    "resolveJsonModule": true
   }
 }
