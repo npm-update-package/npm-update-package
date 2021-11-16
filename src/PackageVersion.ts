@@ -37,8 +37,4 @@ export class PackageVersion {
       patch: semver.patch
     })
   }
-
-  toString (): string {
-    return this.version
-  }
 }

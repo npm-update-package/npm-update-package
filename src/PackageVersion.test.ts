@@ -22,11 +22,4 @@ describe('PackageVersion', () => {
       })
     })
   })
-
-  describe('toString', () => {
-    it('returns version string', () => {
-      const packageVersion = PackageVersion.of('^1.2.3')
-      expect(packageVersion.toString()).toBe('1.2.3')
-    })
-  })
 })
