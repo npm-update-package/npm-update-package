@@ -1,4 +1,6 @@
-import parse from 'git-url-parse'
+// TODO: create type definition
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const parse = require('git-url-parse')
 
 export class GitRepository {
   readonly url: string
