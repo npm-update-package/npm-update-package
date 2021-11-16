@@ -56,7 +56,6 @@ export const main = async (): Promise<void> => {
     }
 
     await packageManager.install()
-
     // TODO: add only necessary files （package.json & package-lock.json or yarn.lock）
     await git.addAll()
     const message = createCommitMessage(outdatedPackage)
