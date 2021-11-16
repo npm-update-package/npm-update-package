@@ -1,5 +1,7 @@
 import type { OutdatedPackage } from './types/OutdatedPackage'
 
+// TODO: include update type (major/minor/patch)
+// TODO: include current version
 export const createPullRequestTitle = (outdatedPackage: OutdatedPackage): string => {
   const packageName = outdatedPackage.name
   const newVersion = outdatedPackage.newVersion.version

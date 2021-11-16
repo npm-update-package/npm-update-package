@@ -2,6 +2,7 @@ import pkg from '../package.json'
 import type { OutdatedPackage } from './types/OutdatedPackage'
 
 // TODO: add link to package names
+// TODO: include update type (major/minor/patch)
 export const createPullRequestBody = (outdatedPackage: OutdatedPackage): string => {
   const packageName = outdatedPackage.name
   const currentVersion = outdatedPackage.currentVersion.version
