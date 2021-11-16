@@ -1,7 +1,7 @@
-import type { Dependencies } from './types/Dependencies'
+import type { PackageDependencies } from './types/PackageDependencies'
 import { readPackageJson } from './readPackageJson'
 
-export const readAllDependencies = async (filePath: string): Promise<Dependencies> => {
+export const readAllDependencies = async (filePath: string): Promise<PackageDependencies> => {
   const {
     dependencies,
     devDependencies,

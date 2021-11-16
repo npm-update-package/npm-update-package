@@ -1,10 +1,10 @@
-import type { Dependencies } from './Dependencies'
+import type { PackageDependencies } from './PackageDependencies'
 
 export interface Package {
   name: string
   version: string
-  dependencies?: Dependencies
-  devDependencies?: Dependencies
-  peerDependencies?: Dependencies
-  optionalDependencies?: Dependencies
+  dependencies?: PackageDependencies
+  devDependencies?: PackageDependencies
+  peerDependencies?: PackageDependencies
+  optionalDependencies?: PackageDependencies
 }
