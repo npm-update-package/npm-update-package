@@ -68,7 +68,7 @@ export const main = async (): Promise<void> => {
       await git.commit(message)
     }
 
-    // TODO: push to remote repository
+    await git.push(branchName)
 
     // TODO: create PR
 
