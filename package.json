@@ -13,7 +13,7 @@
     "@octokit/rest": "18.12.0",
     "execa": "5.1.1",
     "fp-ts": "2.11.5",
-    "git-url-parse": "9.0.1",
+    "git-url-parse": "11.6.0",
     "io-ts": "2.2.16",
     "lodash": "4.14.2",
     "npm-check-updates": "12.0.2",
@@ -23,7 +23,6 @@
   "devDependencies": {
     "@jest/types": "27.0.6",
     "@tsconfig/node12": "1.0.9",
-    "@types/git-url-parse": "9.0.1",
     "@types/jest": "27.0.2",
     "@types/lodash": "4.14.177",
     "@types/node": "12.20.15",
