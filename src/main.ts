@@ -93,7 +93,7 @@ export const main = async (): Promise<void> => {
       title,
       body
     })
-
-    // TODO: remove branch
+    await git.checkout('-')
+    await git.removeBranch(branchName)
   }
 }
