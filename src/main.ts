@@ -1,6 +1,8 @@
 import { createBranchName } from './createBranchName'
 import { createGitHub } from './createGitHub'
+import { createPackageManager } from './createPackageManager'
 import { getOutdatedPackages } from './getOutdatedPackages'
+import { updateOutdatedPackage } from './updateOutdatedPackage'
 import { Git } from './Git'
 import { Terminal } from './Terminal'
 
@@ -21,6 +23,8 @@ export const main = async (): Promise<void> => {
   const remoteBranchNames = remoteBranches.map(({ name }) => name)
   console.debug({ remoteBranchNames })
 
+  const packageManager = createPackageManager(terminal)
+
   for (const outdatedPackage of outdatedPackages) {
     console.debug({ outdatedPackage })
 
@@ -33,8 +37,14 @@ export const main = async (): Promise<void> => {
     }
 
     await git.createBranch(branchName)
+    const updatedPackages = await updateOutdatedPackage(outdatedPackage)
+    console.debug({ updatedPackages })
 
-    // TODO: update packages
+    if (updatedPackages.length !== 1) {
+      throw new Error(`Failed to update packages. name=${outdatedPackage.name}`)
+    }
+
+    await packageManager.install()
 
     // TODO: commit & push
 
