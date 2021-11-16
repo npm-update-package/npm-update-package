@@ -6,7 +6,7 @@ export class GitRepository {
   readonly owner: string
   readonly name: string
 
-  constructor ({
+  private constructor ({
     url,
     host,
     owner,
