@@ -3,3 +3,34 @@
 # npm-update-package
 
 CLI tool for creating pull request to update npm packages
+
+## Installation
+
+If you are using npm:
+
+```sh
+npm i -g npm-update-package
+```
+
+If you are using Yarn:
+
+```sh
+yarn global add npm-update-package
+```
+
+## Usage
+
+```sh
+npm-update-package
+```
+
+## Options
+
+You can specify options via environments.
+
+|environments|required|value|
+|---|---|---|
+|`GIT_USER_EMAIL`||Git's `user.email`|
+|`GIT_USER_NAME`||Git's `user.name`|
+|`GITHUB_TOKEN`|✓|GitHub token|
+|`PACKAGE_MANAGER`|✓|`npm` or `yarn`|
