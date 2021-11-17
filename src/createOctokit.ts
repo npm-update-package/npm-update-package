@@ -2,6 +2,7 @@ import { Octokit } from '@octokit/rest'
 import pkg from '../package.json'
 import type { GitRepository } from './GitRepository'
 
+// TODO: add logs using logger
 export const createOctokit = (repository: GitRepository): Octokit => {
   if (process.env.GITHUB_TOKEN === undefined) {
     throw new Error('process.env.GITHUB_TOKEN is undefined')

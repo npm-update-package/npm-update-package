@@ -1,5 +1,6 @@
 import type { OutdatedPackage } from './types/OutdatedPackage'
 
+// TODO: add logs using logger
 // TODO: include update type (major/minor/patch)
 // TODO: include current version
 export const createCommitMessage = (outdatedPackage: OutdatedPackage): string => {

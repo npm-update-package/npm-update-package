@@ -2,6 +2,7 @@ import execa from 'execa'
 import type { ExecaReturnValue } from 'execa'
 import { isExecaReturnValue } from './isExecaReturnValue'
 
+// TODO: add logs using logger
 export class Terminal {
   async run (
     command: string,

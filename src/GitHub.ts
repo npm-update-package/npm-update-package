@@ -3,6 +3,7 @@ import type {
   RestEndpointMethodTypes
 } from '@octokit/rest'
 
+// TODO: add logs using logger
 export class GitHub {
   constructor (private readonly octokit: Octokit) {}
 
