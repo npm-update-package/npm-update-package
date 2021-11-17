@@ -1,6 +1,6 @@
 import { Octokit } from '@octokit/rest'
 import pkg from '../package.json'
-import type { GitRepository } from './GitRepository'
+import type { GitRepository } from './values/GitRepository'
 
 // TODO: add logs using logger
 export const createOctokit = (repository: GitRepository): Octokit => {

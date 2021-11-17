@@ -1,4 +1,4 @@
-import { GitRepository } from './GitRepository'
+import { GitRepository } from './values/GitRepository'
 import type { Terminal } from './Terminal'
 
 // TODO: add logs using logger

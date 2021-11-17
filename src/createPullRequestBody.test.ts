@@ -1,5 +1,5 @@
+import { PackageVersion } from './values/PackageVersion'
 import { createPullRequestBody } from './createPullRequestBody'
-import { PackageVersion } from './PackageVersion'
 
 describe('createPullRequestBody', () => {
   it('returns pull request body', () => {

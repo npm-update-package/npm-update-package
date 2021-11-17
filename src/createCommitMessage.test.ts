@@ -1,5 +1,5 @@
+import { PackageVersion } from './values/PackageVersion'
 import { createCommitMessage } from './createCommitMessage'
-import { PackageVersion } from './PackageVersion'
 
 describe('createCommitMessage', () => {
   it('returns commit message', () => {

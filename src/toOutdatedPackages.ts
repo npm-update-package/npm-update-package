@@ -1,6 +1,6 @@
 import type { NcuOutdatedPackages } from './types/NcuOutdatedPackages'
 import type { OutdatedPackage } from './types/OutdatedPackage'
-import { PackageVersion } from './PackageVersion'
+import { PackageVersion } from './values/PackageVersion'
 import { readAllDependencies } from './readAllDependencies'
 
 // TODO: add logs using logger

@@ -1,5 +1,5 @@
+import type { GitRepository } from './values/GitRepository'
 import { GitHub } from './GitHub'
-import type { GitRepository } from './GitRepository'
 import { createOctokit } from './createOctokit'
 
 // TODO: add logs using logger

@@ -1,5 +1,5 @@
+import { PackageVersion } from './values/PackageVersion'
 import { createBranchName } from './createBranchName'
-import { PackageVersion } from './PackageVersion'
 
 describe('createBranchName', () => {
   it('returns branch name', () => {

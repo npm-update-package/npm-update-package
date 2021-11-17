@@ -1,5 +1,5 @@
+import { PackageVersion } from './values/PackageVersion'
 import { createPullRequestTitle } from './createPullRequestTitle'
-import { PackageVersion } from './PackageVersion'
 
 describe('createPullRequestTitle', () => {
   it('returns pull request title', () => {
