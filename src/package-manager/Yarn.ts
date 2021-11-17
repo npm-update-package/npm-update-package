@@ -1,7 +1,6 @@
 import type { Terminal } from '../Terminal'
 import type { PackageManager } from './PackageManager'
 
-// TODO: add logs using logger
 export class Yarn implements PackageManager {
   constructor (private readonly terminal: Terminal) {}
 
