@@ -7,6 +7,7 @@ import { createPackageManager } from './createPackageManager'
 import { createPullRequestBody } from './createPullRequestBody'
 import { createPullRequestTitle } from './createPullRequestTitle'
 import { getOutdatedPackages } from './getOutdatedPackages'
+import { logger } from './logger'
 import { updateOutdatedPackage } from './updateOutdatedPackage'
 import { Git } from './Git'
 import { Terminal } from './Terminal'
@@ -14,45 +15,45 @@ import { Terminal } from './Terminal'
 // TODO: add logs using logger
 export const main = async (): Promise<void> => {
   const outdatedPackages = await getOutdatedPackages()
-  console.debug({ outdatedPackages })
+  logger.debug(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
 
   const terminal = new Terminal()
   const git = new Git(terminal)
   const gitRepo = await git.getRepository()
-  console.debug({ gitRepo })
+  logger.debug(`gitRepo=${JSON.stringify(gitRepo)}`)
 
   const github = createGitHub(gitRepo)
   const githubRepo = await github.fetchRepository({
     owner: gitRepo.owner,
     repo: gitRepo.name
   })
-  console.debug({ githubRepo })
+  logger.debug(`githubRepo=${JSON.stringify(githubRepo)}`)
 
   const remoteBranches = await github.fetchBranches({
     owner: gitRepo.owner,
     repo: gitRepo.name
   })
-  console.debug({ remoteBranches })
+  logger.debug(`remoteBranches=${JSON.stringify(remoteBranches)}`)
 
   const remoteBranchNames = remoteBranches.map(({ name }) => name)
-  console.debug({ remoteBranchNames })
+  logger.debug(`remoteBranchNames=${JSON.stringify(remoteBranchNames)}`)
 
   const packageManager = createPackageManager(terminal)
 
   for (const outdatedPackage of outdatedPackages) {
-    console.debug({ outdatedPackage })
+    logger.debug(`outdatedPackage=${JSON.stringify(outdatedPackage)}`)
 
     const branchName = createBranchName(outdatedPackage)
-    console.debug({ branchName })
+    logger.debug(`branchName=${branchName}`)
 
     if (remoteBranchNames.includes(branchName)) {
-      console.log(`${branchName} branch already exists on ${gitRepo.url}`)
+      logger.info(`${branchName} branch already exists on ${gitRepo.url}`)
       continue
     }
 
     await git.createBranch(branchName)
     const updatedPackages = await updateOutdatedPackage(outdatedPackage)
-    console.debug({ updatedPackages })
+    logger.debug(`updatedPackages=${JSON.stringify(updatedPackages)}`)
 
     if (updatedPackages.length !== 1) {
       throw new Error(`Failed to update packages. name=${outdatedPackage.name}`)
@@ -62,14 +63,14 @@ export const main = async (): Promise<void> => {
     // TODO: add only necessary files （package.json & package-lock.json or yarn.lock）
     await git.addAll()
     const message = createCommitMessage(outdatedPackage)
-    console.debug({ message })
+    logger.debug(`message=${message}`)
 
     if (process.env.AGIT_USER_NAME !== undefined && process.env.GIT_USER_EMAIL !== undefined) {
       const name = await git.getConfig('user.name')
-      console.debug({ name })
+      logger.debug(`name=${name}`)
 
       const email = await git.getConfig('user.email')
-      console.debug({ email })
+      logger.debug(`email=${email}`)
 
       await git.setConfig('user.name', process.env.AGIT_USER_NAME)
       await git.setConfig('user.email', process.env.GIT_USER_EMAIL)
@@ -82,10 +83,10 @@ export const main = async (): Promise<void> => {
 
     await git.push(branchName)
     const title = createPullRequestTitle(outdatedPackage)
-    console.debug({ title })
+    logger.debug(`title=${title}`)
 
     const body = createPullRequestBody(outdatedPackage)
-    console.debug({ body })
+    logger.debug(`body=${body}`)
 
     await github.createPullRequest({
       owner: gitRepo.owner,
