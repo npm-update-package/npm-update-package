@@ -9,6 +9,7 @@ import { updateOutdatedPackage } from './updateOutdatedPackage'
 import { Git } from './Git'
 import { Terminal } from './Terminal'
 
+// TODO: add logs using logger
 export const main = async (): Promise<void> => {
   const outdatedPackages = await getOutdatedPackages()
   console.debug({ outdatedPackages })
