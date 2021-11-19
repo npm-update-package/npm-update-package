@@ -5,6 +5,7 @@ import { logger } from './logger'
 import { Git } from './Git'
 import { Terminal } from './Terminal'
 import { OutdatedPackageUpdater } from './OutdatedPackageUpdater'
+import { PullRequestCreator } from './PullRequestCreator'
 import { RemoteBranchExistenceChecker } from './RemoteBranchExistenceChecker'
 
 export const main = async (): Promise<void> => {
@@ -36,15 +37,18 @@ export const main = async (): Promise<void> => {
   })
   logger.debug(`remoteBranches=${JSON.stringify(remoteBranches)}`)
 
-  const remoteBranchExistenceChecker = RemoteBranchExistenceChecker.of(remoteBranches)
   const packageManager = createPackageManager(terminal)
+  const remoteBranchExistenceChecker = RemoteBranchExistenceChecker.of(remoteBranches)
+  const pullRequestCreator = new PullRequestCreator({
+    github,
+    gitRepo,
+    githubRepo
+  })
   const outdatedPackageUpdater = new OutdatedPackageUpdater({
     git,
-    gitRepo,
-    github,
-    githubRepo,
     packageManager,
-    remoteBranchExistenceChecker
+    remoteBranchExistenceChecker,
+    pullRequestCreator
   })
 
   for (const outdatedPackage of outdatedPackages) {

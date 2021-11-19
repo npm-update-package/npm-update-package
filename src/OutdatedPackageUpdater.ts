@@ -1,50 +1,34 @@
-// TODO: Keep it less than 100 lines.
-
 import type { PackageManager } from './package-manager/PackageManager'
 import type { OutdatedPackage } from './types/OutdatedPackage'
-import type { GitRepository } from './values/GitRepository'
 import type { RemoteBranchExistenceChecker } from './RemoteBranchExistenceChecker'
 import { createBranchName } from './createBranchName'
 import { createCommitMessage } from './createCommitMessage'
-import { createPullRequestBody } from './createPullRequestBody'
-import { createPullRequestTitle } from './createPullRequestTitle'
 import type { Git } from './Git'
-import type {
-  GitHub,
-  Repository as GitHubRepository
-} from './GitHub'
 import { logger } from './logger'
+import type { PullRequestCreator } from './PullRequestCreator'
 import { updateOutdatedPackage } from './updateOutdatedPackage'
 
 export class OutdatedPackageUpdater {
   private readonly git: Git
-  private readonly gitRepo: GitRepository
-  private readonly github: GitHub
-  private readonly githubRepo: GitHubRepository
   private readonly packageManager: PackageManager
   private readonly remoteBranchExistenceChecker: RemoteBranchExistenceChecker
+  private readonly pullRequestCreator: PullRequestCreator
 
   constructor ({
     git,
-    gitRepo,
-    github,
-    githubRepo,
     packageManager,
-    remoteBranchExistenceChecker
+    remoteBranchExistenceChecker,
+    pullRequestCreator
   }: {
     git: Git
-    gitRepo: GitRepository
-    github: GitHub
-    githubRepo: GitHubRepository
     packageManager: PackageManager
     remoteBranchExistenceChecker: RemoteBranchExistenceChecker
+    pullRequestCreator: PullRequestCreator
   }) {
     this.git = git
-    this.gitRepo = gitRepo
-    this.github = github
-    this.githubRepo = githubRepo
     this.packageManager = packageManager
     this.remoteBranchExistenceChecker = remoteBranchExistenceChecker
+    this.pullRequestCreator = pullRequestCreator
   }
 
   async update (outdatedPackage: OutdatedPackage): Promise<void> {
@@ -89,21 +73,10 @@ export class OutdatedPackageUpdater {
     }
 
     await this.git.push(branchName)
-    const title = createPullRequestTitle(outdatedPackage)
-    logger.debug(`title=${title}`)
-    const body = createPullRequestBody(outdatedPackage)
-    logger.debug(`body=${body}`)
-    const pullRequest = await this.github.createPullRequest({
-      owner: this.gitRepo.owner,
-      repo: this.gitRepo.name,
-      base: this.githubRepo.default_branch,
-      head: branchName,
-      title,
-      body
+    await this.pullRequestCreator.create({
+      outdatedPackage,
+      branchName
     })
-    logger.debug(`pullRequest=${JSON.stringify(pullRequest)}`)
-    logger.info(`Pull request for ${outdatedPackage.name} has created. ${pullRequest.html_url}`)
-
     await this.git.checkout('-')
     await this.git.removeBranch(branchName)
     logger.info(`${branchName} branch has removed.`)
