@@ -11,7 +11,7 @@ import { createPullRequestTitle } from './createPullRequestTitle'
 import type { Git } from './Git'
 import type {
   GitHub,
-  GitHubRepository
+  Repository as GitHubRepository
 } from './GitHub'
 import { logger } from './logger'
 import { updateOutdatedPackage } from './updateOutdatedPackage'

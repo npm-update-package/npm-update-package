@@ -5,13 +5,13 @@ import type {
 import type { ValuesType } from 'utility-types'
 
 export type GitHubBranch = ValuesType<RestEndpointMethodTypes['repos']['listBranches']['response']['data']>
-export type GitHubRepository = RestEndpointMethodTypes['repos']['get']['response']['data']
+export type Repository = RestEndpointMethodTypes['repos']['get']['response']['data']
 
 // TODO: add logs using logger
 export class GitHub {
   constructor (private readonly octokit: Octokit) {}
 
-  async fetchRepository (params: RestEndpointMethodTypes['repos']['get']['parameters']): Promise<GitHubRepository> {
+  async fetchRepository (params: RestEndpointMethodTypes['repos']['get']['parameters']): Promise<Repository> {
     const { data } = await this.octokit.repos.get(params)
     return data
   }
