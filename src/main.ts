@@ -1,3 +1,5 @@
+import { PullRequestCreator } from './actions/PullRequestCreator'
+import { RemoteBranchExistenceChecker } from './actions/RemoteBranchExistenceChecker'
 import { createGitHub } from './createGitHub'
 import { createPackageManager } from './createPackageManager'
 import { getOutdatedPackages } from './getOutdatedPackages'
@@ -5,8 +7,6 @@ import { logger } from './logger'
 import { Git } from './Git'
 import { Terminal } from './Terminal'
 import { OutdatedPackageUpdater } from './OutdatedPackageUpdater'
-import { PullRequestCreator } from './PullRequestCreator'
-import { RemoteBranchExistenceChecker } from './RemoteBranchExistenceChecker'
 
 export const main = async (): Promise<void> => {
   const outdatedPackages = await getOutdatedPackages()

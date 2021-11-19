@@ -1,11 +1,11 @@
+import type { PullRequestCreator } from './actions/PullRequestCreator'
+import type { RemoteBranchExistenceChecker } from './actions/RemoteBranchExistenceChecker'
 import type { PackageManager } from './package-manager/PackageManager'
 import type { OutdatedPackage } from './types/OutdatedPackage'
-import type { RemoteBranchExistenceChecker } from './RemoteBranchExistenceChecker'
 import { createBranchName } from './createBranchName'
 import { createCommitMessage } from './createCommitMessage'
 import type { Git } from './Git'
 import { logger } from './logger'
-import type { PullRequestCreator } from './PullRequestCreator'
 import { updateOutdatedPackage } from './updateOutdatedPackage'
 
 export class OutdatedPackageUpdater {
