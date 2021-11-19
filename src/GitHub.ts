@@ -3,9 +3,9 @@ import type {
   RestEndpointMethodTypes
 } from '@octokit/rest'
 import type { ValuesType } from 'utility-types'
-import type { GitHubRepository } from './types/GitHubRepository'
 
 export type GitHubBranch = ValuesType<RestEndpointMethodTypes['repos']['listBranches']['response']['data']>
+export type GitHubRepository = RestEndpointMethodTypes['repos']['get']['response']['data']
 
 // TODO: add logs using logger
 export class GitHub {

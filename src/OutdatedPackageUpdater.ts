@@ -1,7 +1,6 @@
 // TODO: Keep it less than 100 lines.
 
 import type { PackageManager } from './package-manager/PackageManager'
-import type { GitHubRepository } from './types/GitHubRepository'
 import type { OutdatedPackage } from './types/OutdatedPackage'
 import type { GitRepository } from './values/GitRepository'
 import type { RemoteBranchExistenceChecker } from './RemoteBranchExistenceChecker'
@@ -10,7 +9,10 @@ import { createCommitMessage } from './createCommitMessage'
 import { createPullRequestBody } from './createPullRequestBody'
 import { createPullRequestTitle } from './createPullRequestTitle'
 import type { Git } from './Git'
-import type { GitHub } from './GitHub'
+import type {
+  GitHub,
+  GitHubRepository
+} from './GitHub'
 import { logger } from './logger'
 import { updateOutdatedPackage } from './updateOutdatedPackage'
 
