@@ -55,4 +55,6 @@ export const main = async (): Promise<void> => {
     logger.debug(`outdatedPackage=${JSON.stringify(outdatedPackage)}`)
     await outdatedPackageUpdater.update(outdatedPackage)
   }
+
+  // TODO: show numbers of updated/skipped package
 }
