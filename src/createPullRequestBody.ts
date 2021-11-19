@@ -1,7 +1,6 @@
 import pkg from '../package.json'
 import type { OutdatedPackage } from './types/OutdatedPackage'
 
-// TODO: add logs using logger
 // TODO: add link to package names
 // TODO: include update type (major/minor/patch)
 export const createPullRequestBody = (outdatedPackage: OutdatedPackage): string => {
