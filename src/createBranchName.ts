@@ -1,5 +1,7 @@
 import type { OutdatedPackage } from './types/OutdatedPackage'
 
 export const createBranchName = (outdatedPackage: OutdatedPackage): string => {
-  return `npm-update-package/${outdatedPackage.name}/v${outdatedPackage.newVersion.version}`
+  const packageName = outdatedPackage.name
+  const newVersion = outdatedPackage.newVersion.version
+  return `npm-update-package/${packageName}/v${newVersion}`
 }
