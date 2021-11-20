@@ -1,6 +1,8 @@
-import type { PackageManager } from './package-manager/PackageManager'
-import { Npm } from './package-manager/Npm'
-import { Yarn } from './package-manager/Yarn'
+import {
+  Npm,
+  Yarn
+} from './package-manager'
+import type { PackageManager } from './package-manager'
 import { logger } from './logger'
 import type { Terminal } from './Terminal'
 

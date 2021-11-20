@@ -1,4 +1,4 @@
-import type { PackageManager } from './package-manager/PackageManager'
+import type { PackageManager } from './package-manager'
 import type { PullRequestCreator } from './pull-request-creator/PullRequestCreator'
 import type { RemoteBranchExistenceChecker } from './remote-branch-existence-checker'
 import type { OutdatedPackage } from './types/OutdatedPackage'
