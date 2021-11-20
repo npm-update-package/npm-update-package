@@ -11,8 +11,8 @@ export type Repository = RestEndpointMethodTypes['repos']['get']['response']['da
 export class GitHub {
   constructor (private readonly octokit: Octokit) {}
 
-  async fetchRepository (params: RestEndpointMethodTypes['repos']['get']['parameters']): Promise<Repository> {
-    const { data } = await this.octokit.repos.get(params)
+  async createPullRequest (params: RestEndpointMethodTypes['pulls']['create']['parameters']): Promise<PullRequest> {
+    const { data } = await this.octokit.pulls.create(params)
     return data
   }
 
@@ -21,8 +21,8 @@ export class GitHub {
     return data
   }
 
-  async createPullRequest (params: RestEndpointMethodTypes['pulls']['create']['parameters']): Promise<PullRequest> {
-    const { data } = await this.octokit.pulls.create(params)
+  async fetchRepository (params: RestEndpointMethodTypes['repos']['get']['parameters']): Promise<Repository> {
+    const { data } = await this.octokit.repos.get(params)
     return data
   }
 }
