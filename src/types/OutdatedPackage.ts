@@ -1,4 +1,4 @@
-import type { PackageVersion } from '../values/PackageVersion'
+import type { PackageVersion } from '../values'
 
 export interface OutdatedPackage {
   name: string

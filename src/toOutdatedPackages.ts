@@ -2,7 +2,7 @@ import type {
   NcuOutdatedPackages,
   OutdatedPackage
 } from './types'
-import { PackageVersion } from './values/PackageVersion'
+import { PackageVersion } from './values'
 import { logger } from './logger'
 import { readAllDependencies } from './readAllDependencies'
 

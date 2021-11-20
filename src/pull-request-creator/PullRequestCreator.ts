@@ -1,5 +1,5 @@
 import type { OutdatedPackage } from '../types'
-import type { GitRepository } from '../values/GitRepository'
+import type { GitRepository } from '../values'
 import type {
   GitHub,
   Repository as GitHubRepository

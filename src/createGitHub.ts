@@ -1,4 +1,4 @@
-import type { GitRepository } from './values/GitRepository'
+import type { GitRepository } from './values'
 import { GitHub } from './GitHub'
 import { createOctokit } from './createOctokit'
 

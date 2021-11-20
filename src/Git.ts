@@ -1,4 +1,4 @@
-import { GitRepository } from './values/GitRepository'
+import { GitRepository } from './values'
 import { logger } from './logger'
 import type { Terminal } from './Terminal'
 
