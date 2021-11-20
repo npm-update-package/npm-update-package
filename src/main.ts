@@ -1,4 +1,4 @@
-import { PullRequestCreator } from './pull-request-creator/PullRequestCreator'
+import { PullRequestCreator } from './pull-request-creator'
 import { RemoteBranchExistenceChecker } from './remote-branch-existence-checker'
 import { createGitHub } from './createGitHub'
 import { createPackageManager } from './createPackageManager'
