@@ -1,4 +1,4 @@
-import type { OutdatedPackage } from './types/OutdatedPackage'
+import type { OutdatedPackage } from './types'
 import { runNcu } from './runNcu'
 
 // TODO: add test

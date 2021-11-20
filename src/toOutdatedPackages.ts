@@ -1,5 +1,7 @@
-import type { NcuOutdatedPackages } from './types/NcuOutdatedPackages'
-import type { OutdatedPackage } from './types/OutdatedPackage'
+import type {
+  NcuOutdatedPackages,
+  OutdatedPackage
+} from './types'
 import { PackageVersion } from './values/PackageVersion'
 import { logger } from './logger'
 import { readAllDependencies } from './readAllDependencies'

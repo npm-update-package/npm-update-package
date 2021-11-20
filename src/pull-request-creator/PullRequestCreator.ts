@@ -1,4 +1,4 @@
-import type { OutdatedPackage } from '../types/OutdatedPackage'
+import type { OutdatedPackage } from '../types'
 import type { GitRepository } from '../values/GitRepository'
 import type {
   GitHub,

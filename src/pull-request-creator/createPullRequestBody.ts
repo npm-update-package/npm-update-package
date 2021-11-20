@@ -1,5 +1,5 @@
 import pkg from '../../package.json'
-import type { OutdatedPackage } from '../types/OutdatedPackage'
+import type { OutdatedPackage } from '../types'
 
 // TODO: add link to package names
 // TODO: include update type (major/minor/patch)

@@ -1,4 +1,4 @@
-import type { PackageDependencies } from './types/PackageDependencies'
+import type { PackageDependencies } from './types'
 import { logger } from './logger'
 import { readPackageJson } from './readPackageJson'
 

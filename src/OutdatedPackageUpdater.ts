@@ -1,7 +1,7 @@
 import type { PackageManager } from './package-manager'
 import type { PullRequestCreator } from './pull-request-creator'
 import type { RemoteBranchExistenceChecker } from './remote-branch-existence-checker'
-import type { OutdatedPackage } from './types/OutdatedPackage'
+import type { OutdatedPackage } from './types'
 import { createBranchName } from './createBranchName'
 import { createCommitMessage } from './createCommitMessage'
 import type { Git } from './Git'
