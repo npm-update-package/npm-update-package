@@ -3,6 +3,7 @@ import type { PackageManager } from './package-manager/PackageManager'
 import { Npm } from './package-manager/Npm'
 import { Yarn } from './package-manager/Yarn'
 
+// TODO: add test
 // TODO: add logs using logger
 export const createPackageManager = (terminal: Terminal): PackageManager => {
   switch (process.env.PACKAGE_MANAGER) {

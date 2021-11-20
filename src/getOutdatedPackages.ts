@@ -3,6 +3,7 @@ import type { OutdatedPackage } from './types/OutdatedPackage'
 import { isNcuOutdatedPackages } from './isNcuOutdatedPackages'
 import { toOutdatedPackages } from './toOutdatedPackages'
 
+// TODO: add test
 // TODO: add logs using logger
 export const getOutdatedPackages = async (): Promise<OutdatedPackage[]> => {
   const result = await run({

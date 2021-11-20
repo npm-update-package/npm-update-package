@@ -8,6 +8,7 @@ export type Branch = ValuesType<RestEndpointMethodTypes['repos']['listBranches']
 export type PullRequest = RestEndpointMethodTypes['pulls']['create']['response']['data']
 export type Repository = RestEndpointMethodTypes['repos']['get']['response']['data']
 
+// TODO: add test
 export class GitHub {
   constructor (private readonly octokit: Octokit) {}
 

@@ -1,5 +1,6 @@
 import type { Branch } from '../GitHub'
 
+// TODO: add test
 export class RemoteBranchExistenceChecker {
   constructor (private readonly remoteBranchNames: string[]) {}
 

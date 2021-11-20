@@ -24,6 +24,7 @@ const ExecaReturnValueType = intersection([
   })
 ])
 
+// TODO: add test
 export const isExecaReturnValue = (value: unknown): value is ExecaReturnValue => {
   return ExecaReturnValueType.is(value)
 }

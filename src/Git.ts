@@ -1,6 +1,7 @@
 import { GitRepository } from './values/GitRepository'
 import type { Terminal } from './Terminal'
 
+// TODO: add test
 // TODO: add logs using logger
 export class Git {
   constructor (private readonly terminal: Terminal) {}

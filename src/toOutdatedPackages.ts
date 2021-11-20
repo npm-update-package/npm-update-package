@@ -3,6 +3,7 @@ import type { OutdatedPackage } from './types/OutdatedPackage'
 import { PackageVersion } from './values/PackageVersion'
 import { readAllDependencies } from './readAllDependencies'
 
+// TODO: add test
 // TODO: add logs using logger
 export const toOutdatedPackages = async (outdatedPackages: NcuOutdatedPackages): Promise<OutdatedPackage[]> => {
   const dependencies = await readAllDependencies('./package.json')

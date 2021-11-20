@@ -8,6 +8,7 @@ import { Git } from './Git'
 import { Terminal } from './Terminal'
 import { OutdatedPackageUpdater } from './OutdatedPackageUpdater'
 
+// TODO: add test
 export const main = async (): Promise<void> => {
   const outdatedPackages = await getOutdatedPackages()
   logger.debug(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)

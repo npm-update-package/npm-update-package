@@ -8,6 +8,7 @@ import type { Git } from './Git'
 import { logger } from './logger'
 import { updateOutdatedPackage } from './updateOutdatedPackage'
 
+// TODO: add test
 export class OutdatedPackageUpdater {
   private readonly git: Git
   private readonly packageManager: PackageManager

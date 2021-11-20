@@ -8,6 +8,7 @@ import type {
 } from '../GitHub'
 import { logger } from '../logger'
 
+// TODO: add test
 export class PullRequestCreator {
   private readonly github: GitHub
   private readonly gitRepo: GitRepository
