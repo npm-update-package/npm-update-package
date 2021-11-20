@@ -1,10 +1,10 @@
+import type { Ncu } from '../ncu'
 import type { PackageManager } from '../package-manager'
 import type { PullRequestCreator } from '../pull-request-creator'
 import type { RemoteBranchExistenceChecker } from '../remote-branch-existence-checker'
 import type { OutdatedPackage } from '../types'
 import type { Git } from '../Git'
 import { logger } from '../logger'
-import { updateOutdatedPackage } from '../updateOutdatedPackage'
 import { createBranchName } from './createBranchName'
 import { createCommitMessage } from './createCommitMessage'
 
@@ -12,22 +12,26 @@ import { createCommitMessage } from './createCommitMessage'
 export class OutdatedPackageUpdater {
   private readonly git: Git
   private readonly packageManager: PackageManager
+  private readonly ncu: Ncu
   private readonly remoteBranchExistenceChecker: RemoteBranchExistenceChecker
   private readonly pullRequestCreator: PullRequestCreator
 
   constructor ({
     git,
     packageManager,
+    ncu,
     remoteBranchExistenceChecker,
     pullRequestCreator
   }: {
     git: Git
     packageManager: PackageManager
+    ncu: Ncu
     remoteBranchExistenceChecker: RemoteBranchExistenceChecker
     pullRequestCreator: PullRequestCreator
   }) {
     this.git = git
     this.packageManager = packageManager
+    this.ncu = ncu
     this.remoteBranchExistenceChecker = remoteBranchExistenceChecker
     this.pullRequestCreator = pullRequestCreator
   }
@@ -44,7 +48,7 @@ export class OutdatedPackageUpdater {
     await this.git.createBranch(branchName)
     logger.info(`${branchName} branch has created.`)
 
-    const updatedPackages = await updateOutdatedPackage(outdatedPackage)
+    const updatedPackages = await this.ncu.update(outdatedPackage)
     logger.debug(`updatedPackages=${JSON.stringify(updatedPackages)}`)
 
     if (updatedPackages.length !== 1) {

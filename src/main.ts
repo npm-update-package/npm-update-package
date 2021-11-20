@@ -49,6 +49,7 @@ export const main = async (): Promise<void> => {
   const outdatedPackageUpdater = new OutdatedPackageUpdater({
     git,
     packageManager,
+    ncu,
     remoteBranchExistenceChecker,
     pullRequestCreator
   })
