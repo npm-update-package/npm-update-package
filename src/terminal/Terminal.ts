@@ -1,7 +1,7 @@
 import execa from 'execa'
 import type { ExecaReturnValue } from 'execa'
+import { logger } from '../logger'
 import { isExecaReturnValue } from './isExecaReturnValue'
-import { logger } from './logger'
 
 // TODO: add test
 export class Terminal {

@@ -1,4 +1,4 @@
-import type { Terminal } from '../Terminal'
+import type { Terminal } from '../terminal'
 import type { PackageManager } from './PackageManager'
 
 // TODO: add test

@@ -3,8 +3,8 @@ import {
   Yarn
 } from './package-manager'
 import type { PackageManager } from './package-manager'
+import type { Terminal } from './terminal'
 import { logger } from './logger'
-import type { Terminal } from './Terminal'
 
 // TODO: add test
 export const createPackageManager = (terminal: Terminal): PackageManager => {

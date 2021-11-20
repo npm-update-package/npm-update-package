@@ -1,6 +1,6 @@
+import type { Terminal } from './terminal'
 import { GitRepository } from './values'
 import { logger } from './logger'
-import type { Terminal } from './Terminal'
 
 // TODO: add test
 export class Git {
