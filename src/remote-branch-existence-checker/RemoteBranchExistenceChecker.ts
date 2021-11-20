@@ -1,5 +1,5 @@
-import type { Branch } from './GitHub'
-import { logger } from './logger'
+import type { Branch } from '../GitHub'
+import { logger } from '../logger'
 
 // TODO: add test
 export class RemoteBranchExistenceChecker {

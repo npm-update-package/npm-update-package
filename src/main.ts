@@ -1,10 +1,10 @@
 import { PullRequestCreator } from './pull-request-creator/PullRequestCreator'
+import { RemoteBranchExistenceChecker } from './remote-branch-existence-checker'
 import { createGitHub } from './createGitHub'
 import { createPackageManager } from './createPackageManager'
 import { getOutdatedPackages } from './getOutdatedPackages'
 import { logger } from './logger'
 import { Git } from './Git'
-import { RemoteBranchExistenceChecker } from './RemoteBranchExistenceChecker'
 import { Terminal } from './Terminal'
 import { OutdatedPackageUpdater } from './OutdatedPackageUpdater'
 
