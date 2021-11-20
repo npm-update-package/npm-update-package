@@ -1,10 +1,8 @@
-import {
-  Npm,
-  Yarn
-} from './package-manager'
-import type { PackageManager } from './package-manager'
-import type { Terminal } from './terminal'
-import { logger } from './logger'
+import { logger } from '../logger'
+import type { Terminal } from '../terminal'
+import { Npm } from './Npm'
+import type { PackageManager } from './PackageManager'
+import { Yarn } from './Yarn'
 
 // TODO: add test
 export const createPackageManager = (terminal: Terminal): PackageManager => {
