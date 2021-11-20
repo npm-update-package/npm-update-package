@@ -1,16 +1,17 @@
+import { Ncu } from './ncu'
 import { OutdatedPackageUpdater } from './outdated-package-updater'
 import { PullRequestCreator } from './pull-request-creator'
 import { RemoteBranchExistenceChecker } from './remote-branch-existence-checker'
 import { createGitHub } from './createGitHub'
 import { createPackageManager } from './createPackageManager'
-import { getOutdatedPackages } from './getOutdatedPackages'
 import { logger } from './logger'
 import { Git } from './Git'
 import { Terminal } from './Terminal'
 
 // TODO: add test
 export const main = async (): Promise<void> => {
-  const outdatedPackages = await getOutdatedPackages()
+  const ncu = new Ncu()
+  const outdatedPackages = await ncu.check()
   logger.debug(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
 
   if (outdatedPackages.length === 0) {
