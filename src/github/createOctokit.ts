@@ -1,7 +1,7 @@
 import { Octokit } from '@octokit/rest'
 import pkg from '../../package.json'
+import type { GitRepository } from '../git'
 import { logger } from '../logger'
-import type { GitRepository } from '../values'
 
 // TODO: add test
 export const createOctokit = (repository: GitRepository): Octokit => {

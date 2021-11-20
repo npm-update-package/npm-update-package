@@ -1,10 +1,10 @@
+import type { Git } from '../git'
 import { logger } from '../logger'
 import type { Ncu } from '../ncu'
 import type { PackageManager } from '../package-manager'
 import type { PullRequestCreator } from '../pull-request-creator'
 import type { RemoteBranchExistenceChecker } from '../remote-branch-existence-checker'
 import type { OutdatedPackage } from '../types'
-import type { Git } from '../Git'
 import { createBranchName } from './createBranchName'
 import { createCommitMessage } from './createCommitMessage'
 

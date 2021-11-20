@@ -1,4 +1,4 @@
-import { Git } from './Git'
+import { Git } from './git'
 import { createGitHub } from './github'
 import { logger } from './logger'
 import { Ncu } from './ncu'
