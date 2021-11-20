@@ -39,4 +39,5 @@ You can specify options via environments.
 |`GIT_USER_EMAIL`||Git's `user.email`|
 |`GIT_USER_NAME`||Git's `user.name`|
 |`GITHUB_TOKEN`|✓|GitHub token|
+|`LOG_LEVEL`||`debug` or `info`|
 |`PACKAGE_MANAGER`|✓|`npm` or `yarn`|
