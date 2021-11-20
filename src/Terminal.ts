@@ -1,9 +1,9 @@
 import execa from 'execa'
 import type { ExecaReturnValue } from 'execa'
 import { isExecaReturnValue } from './isExecaReturnValue'
+import { logger } from './logger'
 
 // TODO: add test
-// TODO: add logs using logger
 export class Terminal {
   async run (
     command: string,
@@ -19,7 +19,9 @@ export class Terminal {
     try {
       return await this.run(command, ...args)
     } catch (e) {
+      logger.debug(`e=${JSON.stringify(e)}`)
       const value: unknown = e instanceof Error ? JSON.parse(JSON.stringify(e)) : e
+      logger.debug(`value=${JSON.stringify(value)}`)
 
       if (isExecaReturnValue(value)) {
         return value

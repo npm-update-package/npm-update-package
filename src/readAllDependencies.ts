@@ -1,8 +1,8 @@
 import type { PackageDependencies } from './types/PackageDependencies'
+import { logger } from './logger'
 import { readPackageJson } from './readPackageJson'
 
 // TODO: add test
-// TODO: add logs using logger
 export const readAllDependencies = async (filePath: string): Promise<PackageDependencies> => {
   const {
     dependencies,
@@ -10,6 +10,10 @@ export const readAllDependencies = async (filePath: string): Promise<PackageDepe
     peerDependencies,
     optionalDependencies
   } = await readPackageJson(filePath)
+  logger.debug(`dependencies=${JSON.stringify(dependencies)}`)
+  logger.debug(`devDependencies=${JSON.stringify(devDependencies)}`)
+  logger.debug(`peerDependencies=${JSON.stringify(peerDependencies)}`)
+  logger.debug(`optionalDependencies=${JSON.stringify(optionalDependencies)}`)
   return {
     ...dependencies,
     ...devDependencies,

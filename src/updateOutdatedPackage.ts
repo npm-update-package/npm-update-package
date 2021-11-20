@@ -1,10 +1,10 @@
 import { run } from 'npm-check-updates'
 import type { OutdatedPackage } from './types/OutdatedPackage'
 import { isNcuOutdatedPackages } from './isNcuOutdatedPackages'
+import { logger } from './logger'
 import { toOutdatedPackages } from './toOutdatedPackages'
 
 // TODO: add test
-// TODO: add logs using logger
 // TODO: rename to updatePackageJson (or execute PackageManager.install() here)
 export const updateOutdatedPackage = async (outdatedPackage: OutdatedPackage): Promise<OutdatedPackage[]> => {
   const result = await run({
@@ -12,6 +12,7 @@ export const updateOutdatedPackage = async (outdatedPackage: OutdatedPackage): P
     filter: outdatedPackage.name,
     upgrade: true
   })
+  logger.debug(`result=${JSON.stringify(result)}`)
 
   if (!isNcuOutdatedPackages(result)) {
     throw new Error('result is not NcuOutdatedPackages')
