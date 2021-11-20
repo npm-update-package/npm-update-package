@@ -2,8 +2,8 @@ import { run } from 'npm-check-updates'
 import type { Options } from 'npm-check-updates/build/src/types'
 import type { OutdatedPackage } from '../types'
 import { logger } from '../logger'
-import { toOutdatedPackages } from '../toOutdatedPackages'
 import { isNcuOutdatedPackages } from './isNcuOutdatedPackages'
+import { toOutdatedPackages } from './toOutdatedPackages'
 
 // TODO: add test
 export class Ncu {

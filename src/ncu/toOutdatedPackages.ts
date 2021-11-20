@@ -1,10 +1,10 @@
 import type {
   NcuOutdatedPackages,
   OutdatedPackage
-} from './types'
-import { PackageVersion } from './values'
-import { logger } from './logger'
-import { readAllDependencies } from './readAllDependencies'
+} from '../types'
+import { PackageVersion } from '../values'
+import { logger } from '../logger'
+import { readAllDependencies } from '../readAllDependencies'
 
 // TODO: add test
 export const toOutdatedPackages = async (outdatedPackages: NcuOutdatedPackages): Promise<OutdatedPackage[]> => {
