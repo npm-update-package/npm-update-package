@@ -1,3 +1,4 @@
+import { OutdatedPackageUpdater } from './outdated-package-updater'
 import { PullRequestCreator } from './pull-request-creator'
 import { RemoteBranchExistenceChecker } from './remote-branch-existence-checker'
 import { createGitHub } from './createGitHub'
@@ -6,7 +7,6 @@ import { getOutdatedPackages } from './getOutdatedPackages'
 import { logger } from './logger'
 import { Git } from './Git'
 import { Terminal } from './Terminal'
-import { OutdatedPackageUpdater } from './OutdatedPackageUpdater'
 
 // TODO: add test
 export const main = async (): Promise<void> => {

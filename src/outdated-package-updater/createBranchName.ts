@@ -1,4 +1,4 @@
-import type { OutdatedPackage } from './types'
+import type { OutdatedPackage } from '../types'
 
 export const createBranchName = (outdatedPackage: OutdatedPackage): string => {
   const packageName = outdatedPackage.name

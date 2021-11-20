@@ -1,4 +1,4 @@
-import type { OutdatedPackage } from './types'
+import type { OutdatedPackage } from '../types'
 
 // TODO: include update type (major/minor/patch)
 export const createCommitMessage = (outdatedPackage: OutdatedPackage): string => {
