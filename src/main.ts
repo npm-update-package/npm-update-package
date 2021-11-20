@@ -38,8 +38,8 @@ export const main = async (): Promise<void> => {
   })
   logger.debug(`remoteBranches=${JSON.stringify(remoteBranches)}`)
 
-  const packageManager = createPackageManager(terminal)
   const remoteBranchExistenceChecker = RemoteBranchExistenceChecker.of(remoteBranches)
+  const packageManager = createPackageManager(terminal)
   const pullRequestCreator = new PullRequestCreator({
     github,
     gitRepo,
