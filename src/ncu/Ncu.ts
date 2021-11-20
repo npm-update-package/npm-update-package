@@ -1,7 +1,7 @@
 import { run } from 'npm-check-updates'
 import type { Options } from 'npm-check-updates/build/src/types'
-import type { OutdatedPackage } from '../types'
 import { logger } from '../logger'
+import type { OutdatedPackage } from '../types'
 import { isNcuOutdatedPackages } from './isNcuOutdatedPackages'
 import { toOutdatedPackages } from './toOutdatedPackages'
 
