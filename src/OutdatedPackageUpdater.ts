@@ -1,5 +1,5 @@
-import type { PullRequestCreator } from './actions/PullRequestCreator'
 import type { RemoteBranchExistenceChecker } from './actions/RemoteBranchExistenceChecker'
+import type { PullRequestCreator } from './pull-request-creator/PullRequestCreator'
 import type { PackageManager } from './package-manager/PackageManager'
 import type { OutdatedPackage } from './types/OutdatedPackage'
 import { createBranchName } from './createBranchName'

@@ -1,5 +1,5 @@
-import { PullRequestCreator } from './actions/PullRequestCreator'
 import { RemoteBranchExistenceChecker } from './actions/RemoteBranchExistenceChecker'
+import { PullRequestCreator } from './pull-request-creator/PullRequestCreator'
 import { createGitHub } from './createGitHub'
 import { createPackageManager } from './createPackageManager'
 import { getOutdatedPackages } from './getOutdatedPackages'

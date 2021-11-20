@@ -1,12 +1,12 @@
 import type { OutdatedPackage } from '../types/OutdatedPackage'
 import type { GitRepository } from '../values/GitRepository'
-import { createPullRequestBody } from '../createPullRequestBody'
-import { createPullRequestTitle } from '../createPullRequestTitle'
 import type {
   GitHub,
   Repository as GitHubRepository
 } from '../GitHub'
 import { logger } from '../logger'
+import { createPullRequestBody } from './createPullRequestBody'
+import { createPullRequestTitle } from './createPullRequestTitle'
 
 // TODO: add test
 export class PullRequestCreator {

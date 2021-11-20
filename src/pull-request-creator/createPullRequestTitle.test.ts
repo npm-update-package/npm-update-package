@@ -1,4 +1,4 @@
-import { PackageVersion } from './values/PackageVersion'
+import { PackageVersion } from '../values/PackageVersion'
 import { createPullRequestTitle } from './createPullRequestTitle'
 
 describe('createPullRequestTitle', () => {

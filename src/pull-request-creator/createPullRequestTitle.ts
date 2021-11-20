@@ -1,4 +1,4 @@
-import type { OutdatedPackage } from './types/OutdatedPackage'
+import type { OutdatedPackage } from '../types/OutdatedPackage'
 
 // TODO: include update type (major/minor/patch)
 export const createPullRequestTitle = (outdatedPackage: OutdatedPackage): string => {
