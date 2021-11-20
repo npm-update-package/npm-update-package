@@ -18,6 +18,12 @@ If you are using Yarn:
 yarn global add npm-update-package
 ```
 
+Or, you can use [npx](https://docs.npmjs.com/cli/v8/commands/npx).
+
+```sh
+npx npm-update-package
+```
+
 ## Usage
 
 ```sh
