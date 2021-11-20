@@ -5,5 +5,8 @@ module.exports = {
   ],
   parserOptions: {
     project: './tsconfig.json'
+  },
+  rules: {
+    'no-console': 'error'
   }
 }
