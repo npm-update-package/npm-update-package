@@ -1,4 +1,5 @@
 import type { Branch } from '../GitHub'
+import { logger } from '../logger'
 
 // TODO: add test
 export class RemoteBranchExistenceChecker {
@@ -6,6 +7,7 @@ export class RemoteBranchExistenceChecker {
 
   static of (remoteBranches: Branch[]): RemoteBranchExistenceChecker {
     const remoteBranchNames = remoteBranches.map(({ name }) => name)
+    logger.debug(`remoteBranchNames=${JSON.stringify(remoteBranchNames)}`)
     return new RemoteBranchExistenceChecker(remoteBranchNames)
   }
 

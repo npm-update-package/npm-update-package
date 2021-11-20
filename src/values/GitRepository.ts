@@ -1,3 +1,5 @@
+import { logger } from '../logger'
+
 // TODO: create type definition
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const parse = require('git-url-parse')
@@ -27,6 +29,7 @@ export class GitRepository {
 
   static of (url: string): GitRepository {
     const gitUrl = parse(url)
+    logger.debug(`gitUrl=${JSON.stringify(gitUrl)}`)
     return new GitRepository({
       url: gitUrl.toString('https'),
       host: gitUrl.resource,

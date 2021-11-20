@@ -1,8 +1,8 @@
 import { GitRepository } from './values/GitRepository'
+import { logger } from './logger'
 import type { Terminal } from './Terminal'
 
 // TODO: add test
-// TODO: add logs using logger
 export class Git {
   constructor (private readonly terminal: Terminal) {}
 
@@ -38,6 +38,7 @@ export class Git {
 
   async getRepository (): Promise<GitRepository> {
     const url = await this.getRemoteUrl()
+    logger.debug(`url=${url}`)
     return GitRepository.of(url)
   }
 
