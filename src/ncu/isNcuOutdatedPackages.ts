@@ -1,4 +1,4 @@
-import type { NcuOutdatedPackages } from '../types'
+import type { NcuOutdatedPackages } from './NcuOutdatedPackages'
 
 // TODO: add test
 export const isNcuOutdatedPackages = (value: unknown): value is NcuOutdatedPackages => {
