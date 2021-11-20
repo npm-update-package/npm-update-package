@@ -1,12 +1,12 @@
+import { createPackageManager } from './createPackageManager'
+import { Git } from './Git'
+import { createGitHub } from './github'
+import { logger } from './logger'
 import { Ncu } from './ncu'
 import { OutdatedPackageUpdater } from './outdated-package-updater'
 import { PullRequestCreator } from './pull-request-creator'
 import { RemoteBranchExistenceChecker } from './remote-branch-existence-checker'
 import { Terminal } from './terminal'
-import { createGitHub } from './createGitHub'
-import { createPackageManager } from './createPackageManager'
-import { logger } from './logger'
-import { Git } from './Git'
 
 // TODO: add test
 export const main = async (): Promise<void> => {

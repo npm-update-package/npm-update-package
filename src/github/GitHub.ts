@@ -2,11 +2,9 @@ import type {
   Octokit,
   RestEndpointMethodTypes
 } from '@octokit/rest'
-import type { ValuesType } from 'utility-types'
-
-export type Branch = ValuesType<RestEndpointMethodTypes['repos']['listBranches']['response']['data']>
-export type PullRequest = RestEndpointMethodTypes['pulls']['create']['response']['data']
-export type Repository = RestEndpointMethodTypes['repos']['get']['response']['data']
+import type { Branch } from './Branch'
+import type { PullRequest } from './PullRequest'
+import type { Repository } from './Repository'
 
 // TODO: add test
 export class GitHub {

@@ -1,10 +1,10 @@
-import type { OutdatedPackage } from '../types'
-import type { GitRepository } from '../values'
 import type {
   GitHub,
   Repository as GitHubRepository
-} from '../GitHub'
+} from '../github'
 import { logger } from '../logger'
+import type { OutdatedPackage } from '../types'
+import type { GitRepository } from '../values'
 import { createPullRequestBody } from './createPullRequestBody'
 import { createPullRequestTitle } from './createPullRequestTitle'
 

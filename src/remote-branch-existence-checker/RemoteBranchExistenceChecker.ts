@@ -1,4 +1,4 @@
-import type { Branch } from '../GitHub'
+import type { Branch } from '../github'
 import { logger } from '../logger'
 
 // TODO: add test
