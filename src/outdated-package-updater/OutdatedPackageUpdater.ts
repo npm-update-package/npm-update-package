@@ -37,6 +37,9 @@ export class OutdatedPackageUpdater {
     this.pullRequestCreator = pullRequestCreator
   }
 
+  /**
+   * Update outdated package. Don't run in parallel because it includes file operations.
+   */
   async update (outdatedPackage: OutdatedPackage): Promise<UpdateResult> {
     const branchName = createBranchName(outdatedPackage)
     logger.debug(`branchName=${branchName}`)
