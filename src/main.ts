@@ -1,4 +1,5 @@
 import {
+  Committer,
   Git,
   BranchCleaner
 } from './git'
@@ -47,23 +48,25 @@ export const main = async (): Promise<void> => {
   })
   logger.debug(`remoteBranches=${JSON.stringify(remoteBranches)}`)
 
+  const committer = new Committer(git)
+  const branchCleaner = new BranchCleaner(git)
+  const outdatedPackageUpdater = new OutdatedPackageUpdater({
+    packageManager,
+    ncu
+  })
   const remoteBranchExistenceChecker = RemoteBranchExistenceChecker.of(remoteBranches)
   const pullRequestCreator = new PullRequestCreator({
     github,
     gitRepo,
     githubRepo
   })
-  const branchCleaner = new BranchCleaner(git)
-  const outdatedPackageUpdater = new OutdatedPackageUpdater({
-    packageManager,
-    ncu
-  })
   const outdatedPackageProcessor = new OutdatedPackageProcessor({
     git,
+    committer,
+    branchCleaner,
     outdatedPackageUpdater,
     remoteBranchExistenceChecker,
-    pullRequestCreator,
-    branchCleaner
+    pullRequestCreator
   })
   const outdatedPackagesProcessor = new OutdatedPackagesProcessor(outdatedPackageProcessor)
   const results = await outdatedPackagesProcessor.process(outdatedPackages)

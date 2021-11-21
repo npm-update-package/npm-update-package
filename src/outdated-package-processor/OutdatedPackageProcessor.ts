@@ -1,4 +1,5 @@
 import type {
+  Committer,
   Git,
   BranchCleaner
 } from '../git'
@@ -17,29 +18,33 @@ import type { UpdateResult } from './UpdateResult'
 export class OutdatedPackageProcessor {
   // TODO: remove git from here by creating class using git
   private readonly git: Git
+  private readonly committer: Committer
+  private readonly branchCleaner: BranchCleaner
   private readonly outdatedPackageUpdater: OutdatedPackageUpdater
   private readonly remoteBranchExistenceChecker: RemoteBranchExistenceChecker
   private readonly pullRequestCreator: PullRequestCreator
-  private readonly branchCleaner: BranchCleaner
 
   constructor ({
     git,
+    committer,
+    branchCleaner,
     outdatedPackageUpdater,
     remoteBranchExistenceChecker,
-    pullRequestCreator,
-    branchCleaner
+    pullRequestCreator
   }: {
     git: Git
+    committer: Committer
+    branchCleaner: BranchCleaner
     outdatedPackageUpdater: OutdatedPackageUpdater
     remoteBranchExistenceChecker: RemoteBranchExistenceChecker
     pullRequestCreator: PullRequestCreator
-    branchCleaner: BranchCleaner
   }) {
     this.git = git
+    this.committer = committer
+    this.branchCleaner = branchCleaner
     this.outdatedPackageUpdater = outdatedPackageUpdater
     this.remoteBranchExistenceChecker = remoteBranchExistenceChecker
     this.pullRequestCreator = pullRequestCreator
-    this.branchCleaner = branchCleaner
   }
 
   /**
@@ -68,20 +73,7 @@ export class OutdatedPackageProcessor {
     const message = createCommitMessage(outdatedPackage)
     logger.debug(`message=${message}`)
 
-    if (process.env.GIT_USER_NAME !== undefined && process.env.GIT_USER_EMAIL !== undefined) {
-      const name = await this.git.getConfig('user.name')
-      logger.debug(`name=${name}`)
-      const email = await this.git.getConfig('user.email')
-      logger.debug(`email=${email}`)
-      await this.git.setConfig('user.name', process.env.GIT_USER_NAME)
-      await this.git.setConfig('user.email', process.env.GIT_USER_EMAIL)
-      await this.git.commit(message)
-      await this.git.setConfig('user.name', name)
-      await this.git.setConfig('user.email', email)
-    } else {
-      await this.git.commit(message)
-    }
-
+    await this.committer.commit(message)
     await this.git.push(branchName)
     await this.pullRequestCreator.create({
       outdatedPackage,
