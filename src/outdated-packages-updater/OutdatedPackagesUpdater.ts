@@ -8,7 +8,6 @@ import type { OutdatedPackage } from '../types'
 export class OutdatedPackagesUpdater {
   constructor (private readonly outdatedPackageUpdater: OutdatedPackageUpdater) {}
 
-  // NOTE: DO NOT run OutdatedPackageUpdater.update() in parallel
   async update (outdatedPackages: OutdatedPackage[]): Promise<UpdateResult[]> {
     const results: UpdateResult[] = []
 
