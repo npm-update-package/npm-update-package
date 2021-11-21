@@ -22,6 +22,7 @@ export const main = async (): Promise<void> => {
   logger.info(`There are ${outdatedPackages.length} outdated packages.`)
 
   const terminal = new Terminal()
+  const packageManager = createPackageManager(terminal)
   const git = new Git(terminal)
   const gitRepo = await git.getRepository()
   logger.debug(`gitRepo=${JSON.stringify(gitRepo)}`)
@@ -40,7 +41,6 @@ export const main = async (): Promise<void> => {
   logger.debug(`remoteBranches=${JSON.stringify(remoteBranches)}`)
 
   const remoteBranchExistenceChecker = RemoteBranchExistenceChecker.of(remoteBranches)
-  const packageManager = createPackageManager(terminal)
   const pullRequestCreator = new PullRequestCreator({
     github,
     gitRepo,
