@@ -1,6 +1,6 @@
 import {
   Git,
-  GitBranchCleaner
+  BranchCleaner
 } from './git'
 import {
   createGitHub,
@@ -53,7 +53,7 @@ export const main = async (): Promise<void> => {
     gitRepo,
     githubRepo
   })
-  const gitBranchCleaner = new GitBranchCleaner(git)
+  const branchCleaner = new BranchCleaner(git)
   const outdatedPackageUpdater = new OutdatedPackageUpdater({
     packageManager,
     ncu
@@ -63,7 +63,7 @@ export const main = async (): Promise<void> => {
     outdatedPackageUpdater,
     remoteBranchExistenceChecker,
     pullRequestCreator,
-    gitBranchCleaner
+    branchCleaner
   })
   const outdatedPackagesProcessor = new OutdatedPackagesProcessor(outdatedPackageProcessor)
   const results = await outdatedPackagesProcessor.process(outdatedPackages)

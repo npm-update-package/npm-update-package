@@ -2,7 +2,7 @@ import { logger } from '../logger'
 import type { Git } from './Git'
 
 // TODO: add test
-export class GitBranchCleaner {
+export class BranchCleaner {
   constructor (private readonly git: Git) {}
 
   async clean (): Promise<void> {
