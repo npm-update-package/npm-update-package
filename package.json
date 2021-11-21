@@ -24,7 +24,6 @@
     "@jest/types": "27.0.6",
     "@tsconfig/node12": "1.0.9",
     "@types/jest": "27.0.3",
-    "@types/lodash": "4.14.177",
     "@types/node": "12.20.15",
     "@types/parse-github-url": "1.0.0",
     "@types/semver": "7.3.9",
