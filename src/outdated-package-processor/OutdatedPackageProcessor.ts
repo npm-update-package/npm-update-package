@@ -1,6 +1,7 @@
 import type {
   Committer,
-  Git
+  Git,
+  PackageFilesAdder
 } from '../git'
 import type {
   PullRequestCreator,
@@ -17,30 +18,34 @@ import { createCommitMessage } from './createCommitMessage'
 
 // TODO: add test
 export class OutdatedPackageProcessor {
-  private readonly git: Git
   private readonly committer: Committer
+  private readonly git: Git
   private readonly outdatedPackageUpdater: OutdatedPackageUpdater
-  private readonly remoteBranchExistenceChecker: RemoteBranchExistenceChecker
+  private readonly packageFilesAdder: PackageFilesAdder
   private readonly pullRequestCreator: PullRequestCreator
+  private readonly remoteBranchExistenceChecker: RemoteBranchExistenceChecker
 
   constructor ({
-    git,
     committer,
+    git,
     outdatedPackageUpdater,
-    remoteBranchExistenceChecker,
-    pullRequestCreator
+    packageFilesAdder,
+    pullRequestCreator,
+    remoteBranchExistenceChecker
   }: {
-    git: Git
     committer: Committer
+    git: Git
     outdatedPackageUpdater: OutdatedPackageUpdater
-    remoteBranchExistenceChecker: RemoteBranchExistenceChecker
+    packageFilesAdder: PackageFilesAdder
     pullRequestCreator: PullRequestCreator
+    remoteBranchExistenceChecker: RemoteBranchExistenceChecker
   }) {
-    this.git = git
     this.committer = committer
+    this.git = git
     this.outdatedPackageUpdater = outdatedPackageUpdater
-    this.remoteBranchExistenceChecker = remoteBranchExistenceChecker
+    this.packageFilesAdder = packageFilesAdder
     this.pullRequestCreator = pullRequestCreator
+    this.remoteBranchExistenceChecker = remoteBranchExistenceChecker
   }
 
   /**
@@ -64,8 +69,7 @@ export class OutdatedPackageProcessor {
     await this.outdatedPackageUpdater.update(outdatedPackage)
     logger.info(`${outdatedPackage.name} has updated from v${outdatedPackage.currentVersion.version} to v${outdatedPackage.newVersion.version}`)
 
-    // TODO: add only necessary files （package.json & package-lock.json or yarn.lock）
-    await this.git.addAll()
+    await this.packageFilesAdder.add()
     const message = createCommitMessage(outdatedPackage)
     logger.debug(`message=${message}`)
 

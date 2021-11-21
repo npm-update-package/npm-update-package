@@ -1,6 +1,7 @@
 import {
   Committer,
-  Git
+  Git,
+  PackageFilesAdder
 } from './git'
 import {
   createGitHub,
@@ -52,18 +53,20 @@ export const main = async (): Promise<void> => {
     packageManager,
     ncu
   })
-  const remoteBranchExistenceChecker = RemoteBranchExistenceChecker.of(remoteBranches)
+  const packageFilesAdder = new PackageFilesAdder(git)
   const pullRequestCreator = new PullRequestCreator({
     github,
     gitRepo,
     githubRepo
   })
+  const remoteBranchExistenceChecker = RemoteBranchExistenceChecker.of(remoteBranches)
   const outdatedPackageProcessor = new OutdatedPackageProcessor({
-    git,
     committer,
+    git,
     outdatedPackageUpdater,
-    remoteBranchExistenceChecker,
-    pullRequestCreator
+    packageFilesAdder,
+    pullRequestCreator,
+    remoteBranchExistenceChecker
   })
   const outdatedPackagesProcessor = new OutdatedPackagesProcessor(outdatedPackageProcessor)
   const results = await outdatedPackagesProcessor.process(outdatedPackages)
