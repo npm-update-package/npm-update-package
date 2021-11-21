@@ -1,1 +1,0 @@
-export { readPackageJson } from './readPackageJson'
