@@ -6,6 +6,7 @@ export class OutdatedPackagesUpdater {
   constructor (private readonly outdatedPackageUpdater: OutdatedPackageUpdater) {}
 
   async update (outdatedPackages: OutdatedPackage[]): Promise<void> {
+    // NOTE: DO NOT run in parallel
     for (const outdatedPackage of outdatedPackages) {
       logger.debug(`outdatedPackage=${JSON.stringify(outdatedPackage)}`)
       await this.outdatedPackageUpdater.update(outdatedPackage)
