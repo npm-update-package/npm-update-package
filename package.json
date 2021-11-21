@@ -17,7 +17,6 @@
     "log4js": "6.3.0",
     "npm-check-updates": "12.0.2",
     "parse-github-url": "1.0.2",
-    "read-package-json": "4.1.1",
     "semver": "7.3.5"
   },
   "devDependencies": {
