@@ -4,7 +4,7 @@ import { createGitHub } from './github'
 import { logger } from './logger'
 import { Ncu } from './ncu'
 import { OutdatedPackageUpdater } from './outdated-package-updater'
-import { OutdatedPackagesUpdater } from './outdated-packages-updater'
+import { OutdatedPackagesProcessor } from './outdated-packages-processor'
 import { createPackageManager } from './package-manager'
 import { PullRequestCreator } from './pull-request-creator'
 import { RemoteBranchExistenceChecker } from './remote-branch-existence-checker'
@@ -57,8 +57,8 @@ export const main = async (): Promise<void> => {
     pullRequestCreator,
     gitBranchCleaner
   })
-  const outdatedPackagesUpdater = new OutdatedPackagesUpdater(outdatedPackageUpdater)
-  const results = await outdatedPackagesUpdater.update(outdatedPackages)
+  const outdatedPackagesProcessor = new OutdatedPackagesProcessor(outdatedPackageUpdater)
+  const results = await outdatedPackagesProcessor.process(outdatedPackages)
   logger.debug(`results=${JSON.stringify(results)}`)
 
   const updatedPackages = results

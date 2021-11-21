@@ -5,10 +5,10 @@ import type {
 } from '../outdated-package-updater'
 import type { OutdatedPackage } from '../types'
 
-export class OutdatedPackagesUpdater {
+export class OutdatedPackagesProcessor {
   constructor (private readonly outdatedPackageUpdater: OutdatedPackageUpdater) {}
 
-  async update (outdatedPackages: OutdatedPackage[]): Promise<UpdateResult[]> {
+  async process (outdatedPackages: OutdatedPackage[]): Promise<UpdateResult[]> {
     const results: UpdateResult[] = []
 
     for (const outdatedPackage of outdatedPackages) {
