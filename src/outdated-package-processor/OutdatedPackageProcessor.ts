@@ -1,8 +1,7 @@
 import type { Git } from '../git'
 import type { GitBranchCleaner } from '../git-branch-cleaner'
 import { logger } from '../logger'
-import type { Ncu } from '../ncu'
-import type { PackageManager } from '../package-manager'
+import type { OutdatedPackageUpdater } from '../outdated-package-updater'
 import type { PullRequestCreator } from '../pull-request-creator'
 import type { RemoteBranchExistenceChecker } from '../remote-branch-existence-checker'
 import type { OutdatedPackage } from '../types'
@@ -14,30 +13,26 @@ import type { UpdateResult } from './UpdateResult'
 export class OutdatedPackageProcessor {
   // TODO: remove git from here by creating class using git
   private readonly git: Git
-  private readonly packageManager: PackageManager
-  private readonly ncu: Ncu
+  private readonly outdatedPackageUpdater: OutdatedPackageUpdater
   private readonly remoteBranchExistenceChecker: RemoteBranchExistenceChecker
   private readonly pullRequestCreator: PullRequestCreator
   private readonly gitBranchCleaner: GitBranchCleaner
 
   constructor ({
     git,
-    packageManager,
-    ncu,
+    outdatedPackageUpdater,
     remoteBranchExistenceChecker,
     pullRequestCreator,
     gitBranchCleaner
   }: {
     git: Git
-    packageManager: PackageManager
-    ncu: Ncu
+    outdatedPackageUpdater: OutdatedPackageUpdater
     remoteBranchExistenceChecker: RemoteBranchExistenceChecker
     pullRequestCreator: PullRequestCreator
     gitBranchCleaner: GitBranchCleaner
   }) {
     this.git = git
-    this.packageManager = packageManager
-    this.ncu = ncu
+    this.outdatedPackageUpdater = outdatedPackageUpdater
     this.remoteBranchExistenceChecker = remoteBranchExistenceChecker
     this.pullRequestCreator = pullRequestCreator
     this.gitBranchCleaner = gitBranchCleaner
@@ -61,14 +56,7 @@ export class OutdatedPackageProcessor {
     await this.git.createBranch(branchName)
     logger.info(`${branchName} branch has created.`)
 
-    const updatedPackages = await this.ncu.update(outdatedPackage)
-    logger.debug(`updatedPackages=${JSON.stringify(updatedPackages)}`)
-
-    if (updatedPackages.length !== 1) {
-      throw new Error(`Failed to update ${outdatedPackage.name}.`)
-    }
-
-    await this.packageManager.install()
+    await this.outdatedPackageUpdater.update(outdatedPackage)
     logger.info(`${outdatedPackage.name} has updated from v${outdatedPackage.currentVersion.version} to v${outdatedPackage.newVersion.version}`)
 
     // TODO: add only necessary files （package.json & package-lock.json or yarn.lock）
