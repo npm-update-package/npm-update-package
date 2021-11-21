@@ -1,9 +1,10 @@
 import { run } from 'npm-check-updates'
 import type { Options } from 'npm-check-updates/build/src/types'
 import { logger } from '../logger'
+import { readAllDependencies } from '../read-all-dependencies'
 import type { OutdatedPackage } from '../types'
 import { isNcuOutdatedPackages } from './isNcuOutdatedPackages'
-import { toOutdatedPackages } from './toOutdatedPackages'
+import { NcuOutdatedPackagesConverter } from './NcuOutdatedPackagesConverter'
 
 // TODO: add test
 export class Ncu {
@@ -22,6 +23,7 @@ export class Ncu {
   }
 
   private async run (options: Options): Promise<OutdatedPackage[]> {
+    const currentDependencies = await readAllDependencies('./package.json')
     const result = await run(options)
     logger.debug(`result=${JSON.stringify(result)}`)
 
@@ -29,6 +31,7 @@ export class Ncu {
       throw new Error('result is not NcuOutdatedPackages')
     }
 
-    return await toOutdatedPackages(result)
+    const ncuOutdatedPackagesConverter = new NcuOutdatedPackagesConverter(currentDependencies)
+    return ncuOutdatedPackagesConverter.toOutdatedPackages(result)
   }
 }
