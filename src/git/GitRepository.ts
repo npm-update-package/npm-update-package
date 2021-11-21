@@ -1,8 +1,5 @@
+import parse from 'parse-github-url'
 import { logger } from '../logger'
-
-// TODO: create type definition
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const parse = require('git-url-parse')
 
 export class GitRepository {
   readonly host: string
@@ -24,12 +21,27 @@ export class GitRepository {
   }
 
   static of (url: string): GitRepository {
-    const gitUrl = parse(url)
-    logger.debug(`gitUrl=${JSON.stringify(gitUrl)}`)
+    const parsed = parse(url)
+    logger.debug(`parsed=${JSON.stringify(parsed)}`)
+
+    if (parsed === null) {
+      throw new Error(`Failed to parse url. url=${url}`)
+    }
+
+    const {
+      host,
+      owner,
+      name
+    } = parsed
+
+    if (host === null || owner === null || name === null) {
+      throw new Error(`Failed to parse url. url=${url}`)
+    }
+
     return new GitRepository({
-      host: gitUrl.resource,
-      owner: gitUrl.owner,
-      name: gitUrl.name
+      host,
+      owner,
+      name
     })
   }
 
