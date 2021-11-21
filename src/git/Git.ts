@@ -31,6 +31,11 @@ export class Git {
     return stdout.trim()
   }
 
+  async getCurrentBranch (): Promise<string> {
+    const { stdout } = await this.terminal.run('git', 'rev-parse', '--abbrev-ref', 'HEAD')
+    return stdout.trim()
+  }
+
   async getRemoteUrl (): Promise<string> {
     const { stdout } = await this.terminal.run('git', 'remote', 'get-url', '--push', 'origin')
     return stdout.trim()
