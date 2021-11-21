@@ -7,6 +7,13 @@ module.exports = {
     project: './tsconfig.json'
   },
   rules: {
-    'no-console': 'error'
+    'import/order': ['error', {
+      alphabetize: {
+        order: 'asc',
+        caseInsensitive: true
+      }
+    }],
+    'no-console': 'error',
+    'sort-imports': 'off'
   }
 }
