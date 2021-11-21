@@ -53,7 +53,10 @@ export const main = async (): Promise<void> => {
     packageManager,
     ncu
   })
-  const packageFilesAdder = new PackageFilesAdder(git)
+  const packageFilesAdder = new PackageFilesAdder({
+    git,
+    packageManager
+  })
   const pullRequestCreator = new PullRequestCreator({
     github,
     gitRepo,
