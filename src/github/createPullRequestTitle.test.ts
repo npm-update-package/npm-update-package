@@ -1,3 +1,4 @@
+import { UpdateType } from '../enums'
 import { PackageVersion } from '../values'
 import { createPullRequestTitle } from './createPullRequestTitle'
 
@@ -7,7 +8,7 @@ describe('createPullRequestTitle', () => {
       name: 'package-name',
       currentVersion: PackageVersion.of('1.0.0'),
       newVersion: PackageVersion.of('1.2.3'),
-      type: 'minor'
+      type: UpdateType.Patch
     })
     expect(actual).toBe('chore(deps): update package-name to v1.2.3')
   })

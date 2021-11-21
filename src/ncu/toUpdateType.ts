@@ -1,17 +1,17 @@
-import type { UpdateType } from '../types'
+import { UpdateType } from '../enums'
 import type { PackageVersion } from '../values'
 
 export const toUpdateType = (currentVersion: PackageVersion, newVersion: PackageVersion): UpdateType => {
   if (currentVersion.major !== newVersion.major) {
-    return 'major'
+    return UpdateType.Major
   }
 
   if (currentVersion.minor !== newVersion.minor) {
-    return 'minor'
+    return UpdateType.Minor
   }
 
   if (currentVersion.patch !== newVersion.patch) {
-    return 'patch'
+    return UpdateType.Patch
   }
 
   throw new Error('Both versions are same.')

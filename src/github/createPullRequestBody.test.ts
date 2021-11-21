@@ -1,3 +1,4 @@
+import { UpdateType } from '../enums'
 import { PackageVersion } from '../values'
 import { createPullRequestBody } from './createPullRequestBody'
 
@@ -7,7 +8,7 @@ describe('createPullRequestBody', () => {
       name: 'package-name',
       currentVersion: PackageVersion.of('1.0.0'),
       newVersion: PackageVersion.of('1.2.3'),
-      type: 'minor'
+      type: UpdateType.Patch
     })
     expect(actual).toBe(`This PR updates these packages:
 
