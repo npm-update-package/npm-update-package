@@ -11,7 +11,7 @@ import type { OutdatedPackageUpdater } from '../outdated-package-updater'
 import type { OutdatedPackage } from '../types'
 import { createBranchName } from './createBranchName'
 import { createCommitMessage } from './createCommitMessage'
-import type { UpdateResult } from './UpdateResult'
+import type { Result } from './Result'
 
 // TODO: add test
 export class OutdatedPackageProcessor {
@@ -44,7 +44,7 @@ export class OutdatedPackageProcessor {
   /**
    * Don't run in parallel because it includes file operations.
    */
-  async process (outdatedPackage: OutdatedPackage): Promise<UpdateResult> {
+  async process (outdatedPackage: OutdatedPackage): Promise<Result> {
     const branchName = createBranchName(outdatedPackage)
     logger.debug(`branchName=${branchName}`)
 

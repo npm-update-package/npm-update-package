@@ -1,2 +1,2 @@
 export { OutdatedPackageProcessor } from './OutdatedPackageProcessor'
-export type { UpdateResult } from './UpdateResult'
+export type { Result } from './Result'
