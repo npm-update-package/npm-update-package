@@ -58,11 +58,15 @@ export const main = async (): Promise<void> => {
   const results = await outdatedPackagesUpdater.update(outdatedPackages)
   logger.debug(`results=${JSON.stringify(results)}`)
 
-  const updatedPackages = results.filter(({ updated }) => updated).map(({ outdatedPackage }) => outdatedPackage)
+  const updatedPackages = results
+    .filter(({ updated }) => updated)
+    .map(({ outdatedPackage }) => outdatedPackage)
   logger.debug(`updatedPackages=${JSON.stringify(updatedPackages)}`)
   logger.info(`${updatedPackages.length} packages has updated.`)
 
-  const skippedPackages = results.filter(({ skipped }) => skipped).map(({ outdatedPackage }) => outdatedPackage)
+  const skippedPackages = results
+    .filter(({ skipped }) => skipped)
+    .map(({ outdatedPackage }) => outdatedPackage)
   logger.debug(`skippedPackages=${JSON.stringify(skippedPackages)}`)
   logger.info(`${skippedPackages.length} packages has skipped.`)
 }
