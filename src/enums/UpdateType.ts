@@ -3,6 +3,5 @@ export const UpdateType = {
   Minor: 'minor',
   Patch: 'patch'
 } as const
-
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export type UpdateType = typeof UpdateType[keyof typeof UpdateType]
