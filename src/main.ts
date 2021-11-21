@@ -1,4 +1,5 @@
 import { Git } from './git'
+import { GitBranchCleaner } from './git-branch-cleaner'
 import { createGitHub } from './github'
 import { logger } from './logger'
 import { Ncu } from './ncu'
@@ -47,12 +48,14 @@ export const main = async (): Promise<void> => {
     gitRepo,
     githubRepo
   })
+  const gitBranchCleaner = new GitBranchCleaner(git)
   const outdatedPackageUpdater = new OutdatedPackageUpdater({
     git,
     packageManager,
     ncu,
     remoteBranchExistenceChecker,
-    pullRequestCreator
+    pullRequestCreator,
+    gitBranchCleaner
   })
   const outdatedPackagesUpdater = new OutdatedPackagesUpdater(outdatedPackageUpdater)
   const results = await outdatedPackagesUpdater.update(outdatedPackages)

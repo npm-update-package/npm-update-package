@@ -1,4 +1,5 @@
 import type { Git } from '../git'
+import type { GitBranchCleaner } from '../git-branch-cleaner'
 import { logger } from '../logger'
 import type { Ncu } from '../ncu'
 import type { PackageManager } from '../package-manager'
@@ -11,30 +12,35 @@ import type { UpdateResult } from './UpdateResult'
 
 // TODO: add test
 export class OutdatedPackageUpdater {
+  // TODO: remove git from here by creating class using git
   private readonly git: Git
   private readonly packageManager: PackageManager
   private readonly ncu: Ncu
   private readonly remoteBranchExistenceChecker: RemoteBranchExistenceChecker
   private readonly pullRequestCreator: PullRequestCreator
+  private readonly gitBranchCleaner: GitBranchCleaner
 
   constructor ({
     git,
     packageManager,
     ncu,
     remoteBranchExistenceChecker,
-    pullRequestCreator
+    pullRequestCreator,
+    gitBranchCleaner
   }: {
     git: Git
     packageManager: PackageManager
     ncu: Ncu
     remoteBranchExistenceChecker: RemoteBranchExistenceChecker
     pullRequestCreator: PullRequestCreator
+    gitBranchCleaner: GitBranchCleaner
   }) {
     this.git = git
     this.packageManager = packageManager
     this.ncu = ncu
     this.remoteBranchExistenceChecker = remoteBranchExistenceChecker
     this.pullRequestCreator = pullRequestCreator
+    this.gitBranchCleaner = gitBranchCleaner
   }
 
   /**
@@ -89,8 +95,7 @@ export class OutdatedPackageUpdater {
       outdatedPackage,
       branchName
     })
-    await this.git.checkout('-')
-    await this.git.removeBranch(branchName)
+    await this.gitBranchCleaner.clean()
     logger.info(`${branchName} branch has removed.`)
 
     return {
