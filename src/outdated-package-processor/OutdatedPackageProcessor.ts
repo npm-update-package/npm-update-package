@@ -11,7 +11,7 @@ import { createCommitMessage } from './createCommitMessage'
 import type { UpdateResult } from './UpdateResult'
 
 // TODO: add test
-export class OutdatedPackageUpdater {
+export class OutdatedPackageProcessor {
   // TODO: remove git from here by creating class using git
   private readonly git: Git
   private readonly packageManager: PackageManager
@@ -44,9 +44,9 @@ export class OutdatedPackageUpdater {
   }
 
   /**
-   * Update outdated package. Don't run in parallel because it includes file operations.
+   * Don't run in parallel because it includes file operations.
    */
-  async update (outdatedPackage: OutdatedPackage): Promise<UpdateResult> {
+  async process (outdatedPackage: OutdatedPackage): Promise<UpdateResult> {
     const branchName = createBranchName(outdatedPackage)
     logger.debug(`branchName=${branchName}`)
 

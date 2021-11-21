@@ -3,7 +3,7 @@ import { GitBranchCleaner } from './git-branch-cleaner'
 import { createGitHub } from './github'
 import { logger } from './logger'
 import { Ncu } from './ncu'
-import { OutdatedPackageUpdater } from './outdated-package-updater'
+import { OutdatedPackageProcessor } from './outdated-package-processor'
 import { OutdatedPackagesProcessor } from './outdated-packages-processor'
 import { createPackageManager } from './package-manager'
 import { PullRequestCreator } from './pull-request-creator'
@@ -49,7 +49,7 @@ export const main = async (): Promise<void> => {
     githubRepo
   })
   const gitBranchCleaner = new GitBranchCleaner(git)
-  const outdatedPackageUpdater = new OutdatedPackageUpdater({
+  const outdatedPackageProcessor = new OutdatedPackageProcessor({
     git,
     packageManager,
     ncu,
@@ -57,7 +57,7 @@ export const main = async (): Promise<void> => {
     pullRequestCreator,
     gitBranchCleaner
   })
-  const outdatedPackagesProcessor = new OutdatedPackagesProcessor(outdatedPackageUpdater)
+  const outdatedPackagesProcessor = new OutdatedPackagesProcessor(outdatedPackageProcessor)
   const results = await outdatedPackagesProcessor.process(outdatedPackages)
   logger.debug(`results=${JSON.stringify(results)}`)
 
