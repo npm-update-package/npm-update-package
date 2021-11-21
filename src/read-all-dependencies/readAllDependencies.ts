@@ -1,6 +1,6 @@
-import { logger } from './logger'
+import { logger } from '../logger'
+import type { PackageDependencies } from './PackageDependencies'
 import { readPackageJson } from './readPackageJson'
-import type { PackageDependencies } from './types'
 
 // TODO: add test
 export const readAllDependencies = async (filePath: string): Promise<PackageDependencies> => {

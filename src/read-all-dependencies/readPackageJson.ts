@@ -1,4 +1,4 @@
-import type { Package } from './types'
+import type { Package } from './Package'
 
 // TODO: create type definition
 // eslint-disable-next-line @typescript-eslint/no-var-requires

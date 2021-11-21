@@ -1,5 +1,5 @@
 import { logger } from '../logger'
-import { readAllDependencies } from '../readAllDependencies'
+import { readAllDependencies } from '../read-all-dependencies'
 import type { OutdatedPackage } from '../types'
 import { PackageVersion } from '../values'
 import type { NcuOutdatedPackages } from './NcuOutdatedPackages'
