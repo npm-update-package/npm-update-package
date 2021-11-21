@@ -55,7 +55,14 @@ export const main = async (): Promise<void> => {
     pullRequestCreator
   })
   const outdatedPackagesUpdater = new OutdatedPackagesUpdater(outdatedPackageUpdater)
-  await outdatedPackagesUpdater.update(outdatedPackages)
+  const results = await outdatedPackagesUpdater.update(outdatedPackages)
+  logger.debug(`results=${JSON.stringify(results)}`)
 
-  // TODO: show numbers of updated/skipped package
+  const updatedPackages = results.filter(({ updated }) => updated).map(({ outdatedPackage }) => outdatedPackage)
+  logger.debug(`updatedPackages=${JSON.stringify(updatedPackages)}`)
+
+  const skippedPackages = results.filter(({ skipped }) => skipped).map(({ outdatedPackage }) => outdatedPackage)
+  logger.debug(`skippedPackages=${JSON.stringify(skippedPackages)}`)
+
+  logger.info(`${updatedPackages.length} packages has updated. ${skippedPackages.length} packages has skipped.`)
 }
