@@ -16,7 +16,6 @@ import type { UpdateResult } from './UpdateResult'
 
 // TODO: add test
 export class OutdatedPackageProcessor {
-  // TODO: remove git from here by creating class using git
   private readonly git: Git
   private readonly committer: Committer
   private readonly branchCleaner: BranchCleaner
