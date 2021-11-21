@@ -3,6 +3,7 @@ import { createGitHub } from './github'
 import { logger } from './logger'
 import { Ncu } from './ncu'
 import { OutdatedPackageUpdater } from './outdated-package-updater'
+import { OutdatedPackagesUpdater } from './outdated-packages-updater'
 import { createPackageManager } from './package-manager'
 import { PullRequestCreator } from './pull-request-creator'
 import { RemoteBranchExistenceChecker } from './remote-branch-existence-checker'
@@ -53,11 +54,8 @@ export const main = async (): Promise<void> => {
     remoteBranchExistenceChecker,
     pullRequestCreator
   })
-
-  for (const outdatedPackage of outdatedPackages) {
-    logger.debug(`outdatedPackage=${JSON.stringify(outdatedPackage)}`)
-    await outdatedPackageUpdater.update(outdatedPackage)
-  }
+  const outdatedPackagesUpdater = new OutdatedPackagesUpdater(outdatedPackageUpdater)
+  await outdatedPackagesUpdater.update(outdatedPackages)
 
   // TODO: show numbers of updated/skipped package
 }
