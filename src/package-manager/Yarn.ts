@@ -5,6 +5,13 @@ import type { PackageManager } from './PackageManager'
 export class Yarn implements PackageManager {
   constructor (private readonly terminal: Terminal) {}
 
+  get packageFiles (): string[] {
+    return [
+      'package.json',
+      'yarn.lock'
+    ]
+  }
+
   /**
    * @see https://classic.yarnpkg.com/en/docs/cli/install
    */
