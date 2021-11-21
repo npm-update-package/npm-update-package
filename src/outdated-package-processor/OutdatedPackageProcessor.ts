@@ -1,7 +1,6 @@
 import type {
   Committer,
-  Git,
-  BranchCleaner
+  Git
 } from '../git'
 import type {
   PullRequestCreator,
@@ -18,7 +17,6 @@ import type { UpdateResult } from './UpdateResult'
 export class OutdatedPackageProcessor {
   private readonly git: Git
   private readonly committer: Committer
-  private readonly branchCleaner: BranchCleaner
   private readonly outdatedPackageUpdater: OutdatedPackageUpdater
   private readonly remoteBranchExistenceChecker: RemoteBranchExistenceChecker
   private readonly pullRequestCreator: PullRequestCreator
@@ -26,21 +24,18 @@ export class OutdatedPackageProcessor {
   constructor ({
     git,
     committer,
-    branchCleaner,
     outdatedPackageUpdater,
     remoteBranchExistenceChecker,
     pullRequestCreator
   }: {
     git: Git
     committer: Committer
-    branchCleaner: BranchCleaner
     outdatedPackageUpdater: OutdatedPackageUpdater
     remoteBranchExistenceChecker: RemoteBranchExistenceChecker
     pullRequestCreator: PullRequestCreator
   }) {
     this.git = git
     this.committer = committer
-    this.branchCleaner = branchCleaner
     this.outdatedPackageUpdater = outdatedPackageUpdater
     this.remoteBranchExistenceChecker = remoteBranchExistenceChecker
     this.pullRequestCreator = pullRequestCreator
@@ -78,7 +73,8 @@ export class OutdatedPackageProcessor {
       outdatedPackage,
       branchName
     })
-    await this.branchCleaner.clean()
+    await this.git.checkout('-')
+    await this.git.removeBranch(branchName)
     logger.info(`${branchName} branch has removed.`)
 
     return {

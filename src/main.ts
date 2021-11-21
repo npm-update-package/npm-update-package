@@ -1,7 +1,6 @@
 import {
   Committer,
-  Git,
-  BranchCleaner
+  Git
 } from './git'
 import {
   createGitHub,
@@ -49,7 +48,6 @@ export const main = async (): Promise<void> => {
   logger.debug(`remoteBranches=${JSON.stringify(remoteBranches)}`)
 
   const committer = new Committer(git)
-  const branchCleaner = new BranchCleaner(git)
   const outdatedPackageUpdater = new OutdatedPackageUpdater({
     packageManager,
     ncu
@@ -63,7 +61,6 @@ export const main = async (): Promise<void> => {
   const outdatedPackageProcessor = new OutdatedPackageProcessor({
     git,
     committer,
-    branchCleaner,
     outdatedPackageUpdater,
     remoteBranchExistenceChecker,
     pullRequestCreator
