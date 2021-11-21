@@ -8,10 +8,12 @@ import type {
 } from '../github'
 import { logger } from '../logger'
 import type { OutdatedPackageUpdater } from '../outdated-package-updater'
-import type { OutdatedPackage } from '../types'
+import type {
+  OutdatedPackage,
+  Result
+} from '../types'
 import { createBranchName } from './createBranchName'
 import { createCommitMessage } from './createCommitMessage'
-import type { Result } from './Result'
 
 // TODO: add test
 export class OutdatedPackageProcessor {

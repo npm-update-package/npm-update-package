@@ -1,9 +1,9 @@
 import { logger } from '../logger'
+import type { OutdatedPackageProcessor } from '../outdated-package-processor'
 import type {
-  OutdatedPackageProcessor,
+  OutdatedPackage,
   Result
-} from '../outdated-package-processor'
-import type { OutdatedPackage } from '../types'
+} from '../types'
 
 export class OutdatedPackagesProcessor {
   constructor (private readonly outdatedPackageProcessor: OutdatedPackageProcessor) {}
