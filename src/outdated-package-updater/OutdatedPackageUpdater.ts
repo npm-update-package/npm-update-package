@@ -7,6 +7,7 @@ import type { RemoteBranchExistenceChecker } from '../remote-branch-existence-ch
 import type { OutdatedPackage } from '../types'
 import { createBranchName } from './createBranchName'
 import { createCommitMessage } from './createCommitMessage'
+import type { UpdateResult } from './UpdateResult'
 
 // TODO: add test
 export class OutdatedPackageUpdater {
@@ -36,13 +37,16 @@ export class OutdatedPackageUpdater {
     this.pullRequestCreator = pullRequestCreator
   }
 
-  async update (outdatedPackage: OutdatedPackage): Promise<void> {
+  async update (outdatedPackage: OutdatedPackage): Promise<UpdateResult> {
     const branchName = createBranchName(outdatedPackage)
     logger.debug(`branchName=${branchName}`)
 
     if (this.remoteBranchExistenceChecker.check(branchName)) {
       logger.info(`Skip ${outdatedPackage.name} because ${branchName} branch already exists on remote.`)
-      return
+      return {
+        outdatedPackage,
+        skipped: true
+      }
     }
 
     await this.git.createBranch(branchName)
@@ -85,5 +89,10 @@ export class OutdatedPackageUpdater {
     await this.git.checkout('-')
     await this.git.removeBranch(branchName)
     logger.info(`${branchName} branch has removed.`)
+
+    return {
+      outdatedPackage,
+      updated: true
+    }
   }
 }
