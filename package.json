@@ -13,7 +13,6 @@
     "@octokit/rest": "18.12.0",
     "execa": "5.1.1",
     "fp-ts": "2.11.5",
-    "git-url-parse": "11.6.0",
     "io-ts": "2.2.16",
     "log4js": "6.3.0",
     "npm-check-updates": "12.0.2",
