@@ -6,7 +6,8 @@ describe('createPullRequestBody', () => {
     const actual = createPullRequestBody({
       name: 'package-name',
       currentVersion: PackageVersion.of('1.0.0'),
-      newVersion: PackageVersion.of('1.2.3')
+      newVersion: PackageVersion.of('1.2.3'),
+      type: 'minor'
     })
     expect(actual).toBe(`This PR updates these packages:
 

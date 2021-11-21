@@ -6,7 +6,8 @@ describe('createPullRequestTitle', () => {
     const actual = createPullRequestTitle({
       name: 'package-name',
       currentVersion: PackageVersion.of('1.0.0'),
-      newVersion: PackageVersion.of('1.2.3')
+      newVersion: PackageVersion.of('1.2.3'),
+      type: 'minor'
     })
     expect(actual).toBe('chore(deps): update package-name to v1.2.3')
   })
