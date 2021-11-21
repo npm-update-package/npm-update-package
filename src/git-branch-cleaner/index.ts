@@ -1,1 +1,0 @@
-export { GitBranchCleaner } from './GitBranchCleaner'

@@ -1,5 +1,5 @@
-import type { Git } from '../git'
 import { logger } from '../logger'
+import type { Git } from './Git'
 
 // TODO: add test
 export class GitBranchCleaner {

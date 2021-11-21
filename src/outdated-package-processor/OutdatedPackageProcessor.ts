@@ -1,5 +1,7 @@
-import type { Git } from '../git'
-import type { GitBranchCleaner } from '../git-branch-cleaner'
+import type {
+  Git,
+  GitBranchCleaner
+} from '../git'
 import type { RemoteBranchExistenceChecker } from '../github'
 import type { PullRequestCreator } from '../github/pull-request-creator'
 import { logger } from '../logger'

@@ -1,5 +1,7 @@
-import { Git } from './git'
-import { GitBranchCleaner } from './git-branch-cleaner'
+import {
+  Git,
+  GitBranchCleaner
+} from './git'
 import {
   createGitHub,
   RemoteBranchExistenceChecker
