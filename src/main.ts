@@ -1,6 +1,9 @@
 import { Git } from './git'
 import { GitBranchCleaner } from './git-branch-cleaner'
-import { createGitHub } from './github'
+import {
+  createGitHub,
+  RemoteBranchExistenceChecker
+} from './github'
 import { PullRequestCreator } from './github/pull-request-creator'
 import { logger } from './logger'
 import { Ncu } from './ncu'
@@ -8,7 +11,6 @@ import { OutdatedPackageProcessor } from './outdated-package-processor'
 import { OutdatedPackageUpdater } from './outdated-package-updater'
 import { OutdatedPackagesProcessor } from './outdated-packages-processor'
 import { createPackageManager } from './package-manager'
-import { RemoteBranchExistenceChecker } from './remote-branch-existence-checker'
 import { Terminal } from './terminal'
 
 // TODO: add test
