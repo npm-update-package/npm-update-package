@@ -3,6 +3,9 @@ module.exports = {
     'standard-with-typescript',
     'plugin:jest/recommended'
   ],
+  plugins: [
+    'eslint-plugin-tsdoc'
+  ],
   parserOptions: {
     project: './tsconfig.json'
   },
@@ -14,6 +17,7 @@ module.exports = {
       }
     }],
     'no-console': 'error',
-    'sort-imports': 'off'
+    'sort-imports': 'off',
+    'tsdoc/syntax': 'warn'
   }
 }
