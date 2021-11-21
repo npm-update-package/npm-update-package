@@ -5,23 +5,19 @@ import { logger } from '../logger'
 const parse = require('git-url-parse')
 
 export class GitRepository {
-  readonly url: string
   readonly host: string
   readonly owner: string
   readonly name: string
 
   private constructor ({
-    url,
     host,
     owner,
     name
   }: {
-    url: string
     host: string
     owner: string
     name: string
   }) {
-    this.url = url
     this.host = host
     this.owner = owner
     this.name = name
@@ -31,7 +27,6 @@ export class GitRepository {
     const gitUrl = parse(url)
     logger.debug(`gitUrl=${JSON.stringify(gitUrl)}`)
     return new GitRepository({
-      url: gitUrl.toString('https'),
       host: gitUrl.resource,
       owner: gitUrl.owner,
       name: gitUrl.name

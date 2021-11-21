@@ -8,7 +8,6 @@ describe('GitRepository', () => {
 
         it('returns new GitRepository instance', () => {
           const repo = GitRepository.of(url)
-          expect(repo.url).toBe('https://github.com/munierujp/npm-update-package.git')
           expect(repo.host).toBe('github.com')
           expect(repo.owner).toBe('munierujp')
           expect(repo.name).toBe('npm-update-package')
@@ -22,7 +21,6 @@ describe('GitRepository', () => {
 
         it('returns new GitRepository instance', () => {
           const repo = GitRepository.of(url)
-          expect(repo.url).toBe('https://git.example.com/munierujp/npm-update-package.git')
           expect(repo.host).toBe('git.example.com')
           expect(repo.owner).toBe('munierujp')
           expect(repo.name).toBe('npm-update-package')
@@ -38,7 +36,6 @@ describe('GitRepository', () => {
 
         it('returns new GitRepository instance', () => {
           const repo = GitRepository.of(url)
-          expect(repo.url).toBe('https://github.com/munierujp/npm-update-package.git')
           expect(repo.host).toBe('github.com')
           expect(repo.owner).toBe('munierujp')
           expect(repo.name).toBe('npm-update-package')
@@ -52,7 +49,6 @@ describe('GitRepository', () => {
 
         it('returns new GitRepository instance', () => {
           const repo = GitRepository.of(url)
-          expect(repo.url).toBe('https://git.example.com/munierujp/npm-update-package.git')
           expect(repo.host).toBe('git.example.com')
           expect(repo.owner).toBe('munierujp')
           expect(repo.name).toBe('npm-update-package')
