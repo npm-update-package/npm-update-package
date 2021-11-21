@@ -2,8 +2,10 @@ import type {
   Git,
   BranchCleaner
 } from '../git'
-import type { RemoteBranchExistenceChecker } from '../github'
-import type { PullRequestCreator } from '../github/pull-request-creator'
+import type {
+  PullRequestCreator,
+  RemoteBranchExistenceChecker
+} from '../github'
 import { logger } from '../logger'
 import type { OutdatedPackageUpdater } from '../outdated-package-updater'
 import type { OutdatedPackage } from '../types'

@@ -4,9 +4,9 @@ import {
 } from './git'
 import {
   createGitHub,
+  PullRequestCreator,
   RemoteBranchExistenceChecker
 } from './github'
-import { PullRequestCreator } from './github/pull-request-creator'
 import { logger } from './logger'
 import { Ncu } from './ncu'
 import { OutdatedPackageProcessor } from './outdated-package-processor'

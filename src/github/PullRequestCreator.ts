@@ -1,10 +1,10 @@
-import type { GitRepository } from '../../git'
-import { logger } from '../../logger'
-import type { OutdatedPackage } from '../../types'
-import type { GitHub } from '../GitHub'
-import type { Repository as GitHubRepository } from '../Repository'
+import type { GitRepository } from '../git'
+import { logger } from '../logger'
+import type { OutdatedPackage } from '../types'
 import { createPullRequestBody } from './createPullRequestBody'
 import { createPullRequestTitle } from './createPullRequestTitle'
+import type { GitHub } from './GitHub'
+import type { Repository as GitHubRepository } from './Repository'
 
 // TODO: add test
 export class PullRequestCreator {

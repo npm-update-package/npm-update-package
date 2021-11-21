@@ -1,4 +1,4 @@
-import { PackageVersion } from '../../values'
+import { PackageVersion } from '../values'
 import { createPullRequestBody } from './createPullRequestBody'
 
 describe('createPullRequestBody', () => {
