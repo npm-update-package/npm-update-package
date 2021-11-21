@@ -60,9 +60,9 @@ export const main = async (): Promise<void> => {
 
   const updatedPackages = results.filter(({ updated }) => updated).map(({ outdatedPackage }) => outdatedPackage)
   logger.debug(`updatedPackages=${JSON.stringify(updatedPackages)}`)
+  logger.info(`${updatedPackages.length} packages has updated.`)
 
   const skippedPackages = results.filter(({ skipped }) => skipped).map(({ outdatedPackage }) => outdatedPackage)
   logger.debug(`skippedPackages=${JSON.stringify(skippedPackages)}`)
-
-  logger.info(`${updatedPackages.length} packages has updated. ${skippedPackages.length} packages has skipped.`)
+  logger.info(`${skippedPackages.length} packages has skipped.`)
 }
