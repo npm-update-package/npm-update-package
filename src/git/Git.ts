@@ -10,10 +10,6 @@ export class Git {
     await this.terminal.run('git', 'add', ...files)
   }
 
-  async addAll (): Promise<void> {
-    await this.terminal.run('git', 'add', '--all')
-  }
-
   async checkout (branchName: string): Promise<void> {
     await this.terminal.run('git', 'checkout', branchName)
   }
