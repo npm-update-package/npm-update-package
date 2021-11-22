@@ -3,14 +3,12 @@ import type { PackageManager } from './PackageManager'
 
 // TODO: add test
 export class Yarn implements PackageManager {
-  constructor (private readonly terminal: Terminal) {}
+  readonly packageFiles = [
+    'package.json',
+    'yarn.lock'
+  ]
 
-  get packageFiles (): string[] {
-    return [
-      'package.json',
-      'yarn.lock'
-    ]
-  }
+  constructor (private readonly terminal: Terminal) {}
 
   /**
    * @see https://classic.yarnpkg.com/en/docs/cli/install
