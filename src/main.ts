@@ -12,9 +12,11 @@ import {
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'
-import { OutdatedPackagesProcessor } from './outdated-packages-processor'
 import { createPackageManager } from './package-manager'
-import { OutdatedPackageProcessor } from './processors'
+import {
+  OutdatedPackageProcessor,
+  OutdatedPackagesProcessor
+} from './processors'
 import { Terminal } from './terminal'
 
 // TODO: add test
