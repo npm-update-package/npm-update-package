@@ -1,9 +1,9 @@
+import fs from 'fs'
 import type { Package } from './Package'
 import { parsePackageJson } from './parsePackageJson'
-import { readFile } from './readFile'
 
 // TODO: add test
 export const readPackageJson = async (filePath: string): Promise<Package> => {
-  const json = await readFile(filePath)
+  const json = await fs.promises.readFile(filePath, 'utf8')
   return parsePackageJson(json)
 }
