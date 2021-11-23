@@ -4,6 +4,7 @@
   "description": "CLI tool for creating pull request to update npm packages",
   "private": true,
   "scripts": {
+    "build": "tsc --project tsconfig.build.json",
     "lint": "eslint '**/*.{js,ts}'",
     "prepare": "husky install",
     "start": "ts-node src/start.ts",
