@@ -2,14 +2,14 @@ import {
   Option,
   program
 } from 'commander'
-import pkg from '../../package.json'
+import { app } from '../app'
 import { isOptions } from './Options'
 import type { Options } from './Options'
 
 // TODO: add test
 export const initOptions = (): Options => {
   program
-    .version(pkg.version)
+    .version(app.version)
     .option('--git-user-email <value>', 'User email of commit')
     .option('--git-user-name <value>', 'User name of commit')
     .requiredOption('--github-token <value>', 'GitHub token')
