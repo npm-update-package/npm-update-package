@@ -13,4 +13,7 @@ main({
   logger
 })
   .then(() => logger.info('End npm-update-package'))
-  .catch((e: unknown) => logger.fatal('Unexpected error has occurred.', e))
+  .catch((e: unknown) => {
+    // TODO: improve error handling
+    logger.fatal('Unexpected error has occurred.', e)
+  })
