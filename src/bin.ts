@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { createLogger } from './logger'
 import { main } from './main'
 import { initOptions } from './options'
