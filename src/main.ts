@@ -1,4 +1,5 @@
 import { BranchNameCreator } from './branch-name-creator'
+import { CommitMessageCreator } from './commit-message-creator'
 import {
   Committer,
   Git
@@ -77,6 +78,7 @@ export const main = async ({
     logger
   })
   const branchNameCreator = new BranchNameCreator(options.branchName)
+  const commitMessageCreator = new CommitMessageCreator(options.commitMessage)
   const outdatedPackageProcessor = new OutdatedPackageProcessor({
     committer,
     git,
@@ -85,7 +87,8 @@ export const main = async ({
     pullRequestCreator,
     remoteBranchExistenceChecker,
     logger,
-    branchNameCreator
+    branchNameCreator,
+    commitMessageCreator
   })
   const outdatedPackagesProcessor = new OutdatedPackagesProcessor({
     outdatedPackageProcessor,

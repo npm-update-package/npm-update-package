@@ -15,6 +15,7 @@ export const initOptions = (): Options => {
   program
     .version(app.version)
     .option('--branch-name <value>', 'Branch name template', 'npm-update-package/{{{packageName}}}/v{{newVersion}}')
+    .option('--commit-message <value>', 'Commit message template', 'chore(deps): {{updateType}} update {{{packageName}}} to v{{newVersion}}')
     .option('--git-user-email <value>', 'User email of commit')
     .option('--git-user-name <value>', 'User name of commit')
     .requiredOption('--github-token <value>', 'GitHub token')
