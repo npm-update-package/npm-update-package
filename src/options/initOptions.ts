@@ -14,6 +14,7 @@ import type { Options } from './Options'
 export const initOptions = (): Options => {
   program
     .version(app.version)
+    .option('--branch-name <value>', 'Branch name template', 'npm-update-package/{{{packageName}}}/v{{newVersion}}')
     .option('--git-user-email <value>', 'User email of commit')
     .option('--git-user-name <value>', 'User name of commit')
     .requiredOption('--github-token <value>', 'GitHub token')

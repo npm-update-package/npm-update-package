@@ -10,7 +10,10 @@ import {
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'
-import { OutdatedPackageProcessor } from './outdated-package-processor'
+import {
+  BranchNameCreator,
+  OutdatedPackageProcessor
+} from './outdated-package-processor'
 import { OutdatedPackagesProcessor } from './outdated-packages-processor'
 import { createPackageManager } from './package-manager'
 import { Terminal } from './terminal'
@@ -75,6 +78,7 @@ export const main = async ({
     githubRepo,
     logger
   })
+  const branchNameCreator = new BranchNameCreator(options.branchName)
   const outdatedPackageProcessor = new OutdatedPackageProcessor({
     committer,
     git,
@@ -82,7 +86,8 @@ export const main = async ({
     packageManager,
     pullRequestCreator,
     remoteBranchExistenceChecker,
-    logger
+    logger,
+    branchNameCreator
   })
   const outdatedPackagesProcessor = new OutdatedPackagesProcessor({
     outdatedPackageProcessor,
