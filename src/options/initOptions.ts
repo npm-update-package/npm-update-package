@@ -13,9 +13,10 @@ export const initOptions = (): Options => {
     .option('--git-user-email <value>', 'User email of commit')
     .option('--git-user-name <value>', 'User name of commit')
     .requiredOption('--github-token <value>', 'GitHub token')
-    .addOption(new Option('--log-level <value>', 'Log level to show')
-      .choices(['info', 'debug'])
-      .default('info')
+    .addOption(
+      new Option('--log-level <value>', 'Log level to show')
+        .choices(['info', 'debug'])
+        .default('info')
     )
     .addOption(
       new Option('--package-manager <value>', 'Package manager your project is using')
