@@ -4,6 +4,7 @@ import { Npm } from './Npm'
 import type { PackageManager } from './PackageManager'
 import { Yarn } from './Yarn'
 
+// TODO: add test
 export class PackageManagerCreator {
   constructor (private readonly terminal: Terminal) {}
 
