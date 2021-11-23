@@ -1,5 +1,5 @@
-import { BranchNameCreator } from './branch-name-creator'
 import {
+  BranchNameCreator,
   CommitMessageCreator,
   Committer,
   Git
