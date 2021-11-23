@@ -3,6 +3,10 @@ import {
   program
 } from 'commander'
 import { app } from '../app'
+import {
+  LogLevel,
+  PackageManagerName
+} from '../enums'
 import { isOptions } from './Options'
 import type { Options } from './Options'
 
@@ -15,13 +19,19 @@ export const initOptions = (): Options => {
     .requiredOption('--github-token <value>', 'GitHub token')
     .addOption(
       new Option('--log-level <value>', 'Log level to show')
-        .choices(['info', 'debug'])
-        .default('info')
+        .choices([
+          LogLevel.Info,
+          LogLevel.Debug
+        ])
+        .default(LogLevel.Info)
     )
     .addOption(
       new Option('--package-manager <value>', 'Package manager of your project')
-        .choices(['npm', 'yarn'])
-        .default('npm')
+        .choices([
+          PackageManagerName.Npm,
+          PackageManagerName.Yarn
+        ])
+        .default(PackageManagerName.Npm)
     )
   program.parse(process.argv)
   const options = program.opts()
