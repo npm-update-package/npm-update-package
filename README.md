@@ -1,3 +1,4 @@
+[![npm version](https://badge.fury.io/js/%40munierujp%2Fnpm-update-package.svg)](https://badge.fury.io/js/%40munierujp%2Fnpm-update-package)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 # npm-update-package
