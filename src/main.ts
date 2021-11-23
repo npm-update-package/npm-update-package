@@ -1,3 +1,4 @@
+import { BranchNameCreator } from './branch-name-creator'
 import {
   Committer,
   Git
@@ -10,10 +11,7 @@ import {
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'
-import {
-  BranchNameCreator,
-  OutdatedPackageProcessor
-} from './outdated-package-processor'
+import { OutdatedPackageProcessor } from './outdated-package-processor'
 import { OutdatedPackagesProcessor } from './outdated-packages-processor'
 import { createPackageManager } from './package-manager'
 import { Terminal } from './terminal'

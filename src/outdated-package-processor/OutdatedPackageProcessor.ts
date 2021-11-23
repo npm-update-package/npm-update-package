@@ -1,3 +1,4 @@
+import type { BranchNameCreator } from '../branch-name-creator'
 import type {
   Committer,
   Git
@@ -13,7 +14,6 @@ import type {
   OutdatedPackage,
   Result
 } from '../types'
-import type { BranchNameCreator } from './BranchNameCreator'
 import { createCommitMessage } from './createCommitMessage'
 
 // TODO: add test
