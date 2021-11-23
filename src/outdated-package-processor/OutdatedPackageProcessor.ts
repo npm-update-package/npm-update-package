@@ -1,3 +1,4 @@
+import type { BranchNameCreator } from '../branch-name-creator'
 import type {
   Committer,
   Git
@@ -13,7 +14,6 @@ import type {
   OutdatedPackage,
   Result
 } from '../types'
-import { createBranchName } from './createBranchName'
 import { createCommitMessage } from './createCommitMessage'
 
 // TODO: add test
@@ -25,6 +25,7 @@ export class OutdatedPackageProcessor {
   private readonly pullRequestCreator: PullRequestCreator
   private readonly remoteBranchExistenceChecker: RemoteBranchExistenceChecker
   private readonly logger: Logger
+  private readonly branchNameCreator: BranchNameCreator
 
   constructor ({
     committer,
@@ -33,7 +34,8 @@ export class OutdatedPackageProcessor {
     packageManager,
     pullRequestCreator,
     remoteBranchExistenceChecker,
-    logger
+    logger,
+    branchNameCreator
   }: {
     committer: Committer
     git: Git
@@ -42,6 +44,7 @@ export class OutdatedPackageProcessor {
     pullRequestCreator: PullRequestCreator
     remoteBranchExistenceChecker: RemoteBranchExistenceChecker
     logger: Logger
+    branchNameCreator: BranchNameCreator
   }) {
     this.committer = committer
     this.git = git
@@ -50,13 +53,14 @@ export class OutdatedPackageProcessor {
     this.pullRequestCreator = pullRequestCreator
     this.remoteBranchExistenceChecker = remoteBranchExistenceChecker
     this.logger = logger
+    this.branchNameCreator = branchNameCreator
   }
 
   /**
    * Don't run in parallel because it includes file operations.
    */
   async process (outdatedPackage: OutdatedPackage): Promise<Result> {
-    const branchName = createBranchName(outdatedPackage)
+    const branchName = this.branchNameCreator.create(outdatedPackage)
     this.logger.debug(`branchName=${branchName}`)
 
     if (this.remoteBranchExistenceChecker.check(branchName)) {

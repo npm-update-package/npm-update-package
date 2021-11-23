@@ -1,3 +1,4 @@
+import { BranchNameCreator } from './branch-name-creator'
 import {
   Committer,
   Git
@@ -75,6 +76,7 @@ export const main = async ({
     githubRepo,
     logger
   })
+  const branchNameCreator = new BranchNameCreator(options.branchName)
   const outdatedPackageProcessor = new OutdatedPackageProcessor({
     committer,
     git,
@@ -82,7 +84,8 @@ export const main = async ({
     packageManager,
     pullRequestCreator,
     remoteBranchExistenceChecker,
-    logger
+    logger,
+    branchNameCreator
   })
   const outdatedPackagesProcessor = new OutdatedPackagesProcessor({
     outdatedPackageProcessor,

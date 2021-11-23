@@ -3,6 +3,10 @@ import {
   program
 } from 'commander'
 import { app } from '../app'
+import {
+  LogLevel,
+  PackageManagerName
+} from '../enums'
 import { isOptions } from './Options'
 import type { Options } from './Options'
 
@@ -10,18 +14,25 @@ import type { Options } from './Options'
 export const initOptions = (): Options => {
   program
     .version(app.version)
+    .option('--branch-name <value>', 'Branch name template', 'npm-update-package/{{{packageName}}}/v{{newVersion}}')
     .option('--git-user-email <value>', 'User email of commit')
     .option('--git-user-name <value>', 'User name of commit')
     .requiredOption('--github-token <value>', 'GitHub token')
     .addOption(
       new Option('--log-level <value>', 'Log level to show')
-        .choices(['info', 'debug'])
-        .default('info')
+        .choices([
+          LogLevel.Info,
+          LogLevel.Debug
+        ])
+        .default(LogLevel.Info)
     )
     .addOption(
       new Option('--package-manager <value>', 'Package manager of your project')
-        .choices(['npm', 'yarn'])
-        .default('npm')
+        .choices([
+          PackageManagerName.Npm,
+          PackageManagerName.Yarn
+        ])
+        .default(PackageManagerName.Npm)
     )
   program.parse(process.argv)
   const options = program.opts()
