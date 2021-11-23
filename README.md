@@ -38,6 +38,7 @@ You can customize behavior via command-line options.
 |Option|Description|Required|Value|Default|
 |---|---|---|---|---|
 |`--branch-name`|Branch name template|-|string|`npm-update-package/{{{packageName}}}/v{{newVersion}}`|
+|`--commit-message`|Commit message template|-|string|`chore(deps): {{updateType}} update {{{packageName}}} to v{{newVersion}}`|
 |`--git-user-email`|User email of commit|-|string|-|
 |`--git-user-name`|User name of commit|-|string|-|
 |`--github-token`|GitHub token|✓|string|-|
@@ -50,6 +51,11 @@ npm-update-package is using [mustache](https://www.npmjs.com/package/mustache) f
 These variables are available:
 
 - `--branch-name`
+  - `packageName`
+  - `currentVersion`
+  - `newVersion`
+  - `updateType`
+- `--commit-message`
   - `packageName`
   - `currentVersion`
   - `newVersion`
