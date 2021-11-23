@@ -40,4 +40,4 @@ You can customize behavior via command-line options.
 |`--git-user-name`|User name of commit|-|string|-|
 |`--github-token`|GitHub token|✓|string|-|
 |`--log-level`|Log level to show|-|`info`, `debug`|`info`|
-|`--package-manager`|Package manager your project is using|-|`npm`, `yarn`|`npm`|
+|`--package-manager`|Package manager of your project|-|`npm`, `yarn`|`npm`|

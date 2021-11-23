@@ -19,7 +19,7 @@ export const initOptions = (): Options => {
         .default('info')
     )
     .addOption(
-      new Option('--package-manager <value>', 'Package manager your project is using')
+      new Option('--package-manager <value>', 'Package manager of your project')
         .choices(['npm', 'yarn'])
         .default('npm')
     )
