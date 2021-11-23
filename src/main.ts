@@ -14,7 +14,7 @@ import type { Options } from './options'
 import { OutdatedPackageProcessor } from './outdated-package-processor'
 import { OutdatedPackageUpdater } from './outdated-package-updater'
 import { OutdatedPackagesProcessor } from './outdated-packages-processor'
-import { PackageManagerCreator } from './package-manager'
+import { createPackageManager } from './package-manager'
 import { Terminal } from './terminal'
 
 // TODO: add test
@@ -31,8 +31,10 @@ export const main = async (options: Options): Promise<void> => {
   logger.info(`There are ${outdatedPackages.length} outdated packages.`)
 
   const terminal = new Terminal()
-  const packageManagerCreator = new PackageManagerCreator(terminal)
-  const packageManager = packageManagerCreator.create(options.packageManager)
+  const packageManager = createPackageManager({
+    terminal,
+    packageManager: options.packageManager
+  })
   const git = new Git(terminal)
   const gitRepo = await git.getRepository()
   logger.debug(`gitRepo=${JSON.stringify(gitRepo)}`)
