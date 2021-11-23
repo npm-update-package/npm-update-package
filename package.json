@@ -19,6 +19,7 @@
     "fp-ts": "2.11.5",
     "io-ts": "2.2.16",
     "log4js": "6.3.0",
+    "mustache": "4.1.0",
     "npm-check-updates": "12.0.2",
     "parse-github-url": "1.0.2",
     "semver": "7.3.5"
@@ -27,6 +28,7 @@
     "@jest/types": "27.0.6",
     "@tsconfig/node12": "1.0.9",
     "@types/jest": "27.0.3",
+    "@types/mustache": "4.1.2",
     "@types/node": "12.20.15",
     "@types/parse-github-url": "1.0.0",
     "@types/semver": "7.3.9",

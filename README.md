@@ -37,8 +37,20 @@ You can customize behavior via command-line options.
 
 |Option|Description|Required|Value|Default|
 |---|---|---|---|---|
+|`--branch-name`|Branch name template|-|string|`npm-update-package/{{{packageName}}}/v{{newVersion}}`|
 |`--git-user-email`|User email of commit|-|string|-|
 |`--git-user-name`|User name of commit|-|string|-|
 |`--github-token`|GitHub token|✓|string|-|
 |`--log-level`|Log level to show|-|`info`, `debug`|`info`|
 |`--package-manager`|Package manager of your project|-|`npm`, `yarn`|`npm`|
+
+### Templates
+
+npm-update-package is using [mustache](https://www.npmjs.com/package/mustache) for generating string from templates.
+These variables are available:
+
+- `--branch-name`
+  - `packageName`
+  - `currentVersion`
+  - `newVersion`
+  - `updateType`
