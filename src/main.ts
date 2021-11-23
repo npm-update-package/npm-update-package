@@ -49,7 +49,13 @@ export const main = async (options: Options): Promise<void> => {
   })
   logger.debug(`remoteBranches=${JSON.stringify(remoteBranches)}`)
 
-  const committer = new Committer(git)
+  const committer = new Committer({
+    git,
+    user: {
+      name: options.gitUserName,
+      email: options.gitUserEmail
+    }
+  })
   const outdatedPackageUpdater = new OutdatedPackageUpdater({
     packageManager,
     ncu

@@ -1,21 +1,49 @@
 import type { Git } from './Git'
 
+export interface User {
+  name?: string
+  email?: string
+}
+
 // TODO: add test
 export class Committer {
-  constructor (private readonly git: Git) {}
+  private readonly git: Git
+  private readonly user: User | undefined
+
+  constructor ({
+    git,
+    user
+  }: {
+    git: Git
+    user?: User
+  }) {
+    this.git = git
+    this.user = user
+  }
 
   async commit (message: string): Promise<void> {
-    // TODO replace environments with options
-    if (process.env.GIT_USER_NAME !== undefined && process.env.GIT_USER_EMAIL !== undefined) {
-      const name = await this.git.getConfig('user.name')
-      const email = await this.git.getConfig('user.email')
-      await this.git.setConfig('user.name', process.env.GIT_USER_NAME)
-      await this.git.setConfig('user.email', process.env.GIT_USER_EMAIL)
-      await this.git.commit(message)
+    let name: string | undefined
+
+    if (this.user?.name !== undefined) {
+      name = await this.git.getConfig('user.name')
+      await this.git.setConfig('user.name', this.user.name)
+    }
+
+    let email: string | undefined
+
+    if (this.user?.email !== undefined) {
+      email = await this.git.getConfig('user.email')
+      await this.git.setConfig('user.email', this.user.email)
+    }
+
+    await this.git.commit(message)
+
+    if (name !== undefined) {
       await this.git.setConfig('user.name', name)
+    }
+
+    if (email !== undefined) {
       await this.git.setConfig('user.email', email)
-    } else {
-      await this.git.commit(message)
     }
   }
 }
