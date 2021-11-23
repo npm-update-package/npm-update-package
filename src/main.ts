@@ -1,6 +1,6 @@
 import { BranchNameCreator } from './branch-name-creator'
-import { CommitMessageCreator } from './commit-message-creator'
 import {
+  CommitMessageCreator,
   Committer,
   Git
 } from './git'
