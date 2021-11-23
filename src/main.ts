@@ -23,6 +23,8 @@ export const main = async ({
   options: Options
   logger: Logger
 }): Promise<void> => {
+  logger.debug(`options=${JSON.stringify(options)}`)
+
   const ncu = new Ncu()
   const outdatedPackages = await ncu.check()
   logger.debug(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)

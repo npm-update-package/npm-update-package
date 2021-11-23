@@ -5,7 +5,6 @@ import { initOptions } from './options'
 const options = initOptions()
 const logger = createLogger(options.logLevel)
 logger.info('Start npm-update-package.')
-logger.debug(`options=${JSON.stringify(options)}`)
 
 main({
   options,
