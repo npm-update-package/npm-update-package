@@ -1,2 +1,5 @@
-export { PackageManager } from '../enums/PackageManager'
+export {
+  isPackageManagerName,
+  PackageManagerName
+} from './PackageManagerName'
 export { UpdateType } from '../enums/UpdateType'
