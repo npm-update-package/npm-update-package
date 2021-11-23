@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
+    "clean": "rimraf dist",
     "lint": "eslint '**/*.{js,ts}'",
     "prepare": "husky install",
     "start": "ts-node src/start.ts",
