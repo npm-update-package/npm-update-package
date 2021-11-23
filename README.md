@@ -27,17 +27,17 @@ npx npm-update-package
 ## Usage
 
 ```sh
-npm-update-package
+npm-update-package --github-token $GITHUB_TOKEN
 ```
 
 ## Options
 
-You can specify options via environments.
+You can customize behavior via command-line options.
 
-|environments|required|value|
-|---|---|---|
-|`GIT_USER_EMAIL`||Git's `user.email`|
-|`GIT_USER_NAME`||Git's `user.name`|
-|`GITHUB_TOKEN`|✓|GitHub token|
-|`LOG_LEVEL`||`debug` or `info`|
-|`PACKAGE_MANAGER`|✓|`npm` or `yarn`|
+|Option|Description|Required|Value|Default|
+|---|---|---|---|---|
+|`--git-user-email`|User email of commit|-|string|-|
+|`--git-user-name`|User name of commit|-|string|-|
+|`--github-token`|GitHub token|✓|string|-|
+|`--log-level`|Log level to show|-|`info`, `debug`|`info`|
+|`--package-manager`|Package manager your project is using|-|`npm`, `yarn`|`npm`|
