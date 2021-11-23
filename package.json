@@ -8,6 +8,7 @@
     "clean": "rimraf dist",
     "lint": "eslint '**/*.{js,ts}'",
     "prepare": "husky install",
+    "prepublish": "npm-run-all clean lint test build",
     "start": "ts-node src/start.ts",
     "test": "jest --passWithNoTests"
   },
