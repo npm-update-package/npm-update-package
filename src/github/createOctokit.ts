@@ -5,6 +5,7 @@ import { logger } from '../logger'
 
 // TODO: add test
 export const createOctokit = (repository: GitRepository): Octokit => {
+  // TODO replace environments with options
   if (process.env.GITHUB_TOKEN === undefined) {
     throw new Error('process.env.GITHUB_TOKEN is undefined')
   }

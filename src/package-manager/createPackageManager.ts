@@ -6,6 +6,7 @@ import { Yarn } from './Yarn'
 
 // TODO: add test
 export const createPackageManager = (terminal: Terminal): PackageManager => {
+  // TODO replace environments with options
   if (!isPackageManager(process.env.PACKAGE_MANAGER)) {
     throw new Error(`process.env.PACKAGE_MANAGER is invalid. process.env.PACKAGE_MANAGER=${process.env.PACKAGE_MANAGER ?? 'undefined'}`)
   }
