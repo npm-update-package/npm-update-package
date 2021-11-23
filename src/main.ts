@@ -36,10 +36,6 @@ export const main = async ({
   logger.info(`There are ${outdatedPackages.length} outdated packages.`)
 
   const terminal = new Terminal()
-  const packageManager = createPackageManager({
-    terminal,
-    packageManager: options.packageManager
-  })
   const git = new Git(terminal)
   const gitRepo = await git.getRepository()
   logger.debug(`gitRepo=${JSON.stringify(gitRepo)}`)
@@ -60,12 +56,17 @@ export const main = async ({
   })
   logger.debug(`remoteBranches=${JSON.stringify(remoteBranches)}`)
 
+  const remoteBranchExistenceChecker = RemoteBranchExistenceChecker.of(remoteBranches)
   const committer = new Committer({
     git,
     user: {
       name: options.gitUserName,
       email: options.gitUserEmail
     }
+  })
+  const packageManager = createPackageManager({
+    terminal,
+    packageManager: options.packageManager
   })
   const outdatedPackageUpdater = new OutdatedPackageUpdater({
     packageManager,
@@ -77,7 +78,6 @@ export const main = async ({
     githubRepo,
     logger
   })
-  const remoteBranchExistenceChecker = RemoteBranchExistenceChecker.of(remoteBranches)
   const outdatedPackageProcessor = new OutdatedPackageProcessor({
     committer,
     git,
