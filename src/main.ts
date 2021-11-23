@@ -10,6 +10,7 @@ import {
 } from './github'
 import { logger } from './logger'
 import { Ncu } from './ncu'
+import type { Options } from './options'
 import { OutdatedPackageProcessor } from './outdated-package-processor'
 import { OutdatedPackageUpdater } from './outdated-package-updater'
 import { OutdatedPackagesProcessor } from './outdated-packages-processor'
@@ -17,7 +18,7 @@ import { createPackageManager } from './package-manager'
 import { Terminal } from './terminal'
 
 // TODO: add test
-export const main = async (): Promise<void> => {
+export const main = async (options: Options): Promise<void> => {
   const ncu = new Ncu()
   const outdatedPackages = await ncu.check()
   logger.debug(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
