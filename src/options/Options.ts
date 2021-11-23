@@ -11,6 +11,7 @@ import type { TypeOf } from 'io-ts'
 export const Options = intersection([
   type({
     branchName: string,
+    commitMessage: string,
     githubToken: string,
     logLevel: union([literal('info'), literal('debug')]),
     packageManager: union([literal('npm'), literal('yarn')])

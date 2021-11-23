@@ -1,4 +1,5 @@
 import type { BranchNameCreator } from '../branch-name-creator'
+import type { CommitMessageCreator } from '../commit-message-creator'
 import type {
   Committer,
   Git
@@ -14,7 +15,6 @@ import type {
   OutdatedPackage,
   Result
 } from '../types'
-import { createCommitMessage } from './createCommitMessage'
 
 // TODO: add test
 export class OutdatedPackageProcessor {
@@ -26,6 +26,7 @@ export class OutdatedPackageProcessor {
   private readonly remoteBranchExistenceChecker: RemoteBranchExistenceChecker
   private readonly logger: Logger
   private readonly branchNameCreator: BranchNameCreator
+  private readonly commitMessageCreator: CommitMessageCreator
 
   constructor ({
     committer,
@@ -35,7 +36,8 @@ export class OutdatedPackageProcessor {
     pullRequestCreator,
     remoteBranchExistenceChecker,
     logger,
-    branchNameCreator
+    branchNameCreator,
+    commitMessageCreator
   }: {
     committer: Committer
     git: Git
@@ -45,6 +47,7 @@ export class OutdatedPackageProcessor {
     remoteBranchExistenceChecker: RemoteBranchExistenceChecker
     logger: Logger
     branchNameCreator: BranchNameCreator
+    commitMessageCreator: CommitMessageCreator
   }) {
     this.committer = committer
     this.git = git
@@ -54,6 +57,7 @@ export class OutdatedPackageProcessor {
     this.remoteBranchExistenceChecker = remoteBranchExistenceChecker
     this.logger = logger
     this.branchNameCreator = branchNameCreator
+    this.commitMessageCreator = commitMessageCreator
   }
 
   /**
@@ -84,7 +88,7 @@ export class OutdatedPackageProcessor {
     this.logger.info(`${outdatedPackage.name} has updated from v${outdatedPackage.currentVersion.version} to v${outdatedPackage.newVersion.version}`)
 
     await this.git.add(...this.packageManager.packageFiles)
-    const message = createCommitMessage(outdatedPackage)
+    const message = this.commitMessageCreator.create(outdatedPackage)
     this.logger.debug(`message=${message}`)
 
     await this.committer.commit(message)
