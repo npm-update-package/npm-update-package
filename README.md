@@ -1,23 +1,43 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-# @ts-templates/node12
+# npm-update-package
 
-Template for TypeScript project using Node.js v12
+CLI tool for creating pull request to update npm packages
 
-## Features
+## Installation
 
-- [ESLint](https://eslint.org/) with [JavaScript Standard Style](https://standardjs.com/)
-  - Run on pre-commit hook by [husky](https://typicode.github.io/husky/) and [lint-staged](https://github.com/okonet/lint-staged)
-  - Run on Pull request by GitHub Action
-- Test by [Jest](https://jestjs.io/)
-  - Run on Pull request by GitHub Action
-- Manage Node.js version by [nvm](https://github.com/nvm-sh/nvm)
-- Manage dependency updates by [Renovate](https://renovatebot.com/)
+If you are using npm:
+
+```sh
+npm i -g npm-update-package
+```
+
+If you are using Yarn:
+
+```sh
+yarn global add npm-update-package
+```
+
+Or, you can use [npx](https://docs.npmjs.com/cli/v8/commands/npx).
+
+```sh
+npx npm-update-package
+```
 
 ## Usage
 
-1. [Create repository](https://github.com/ts-templates/node14/generate) using template
-2. Replace provisional string with actual string
-    - `@ts-templates/node12` => your package name
-    - `Template for TypeScript project using Node.js v12` => your package description
-3. Implement `src/main.ts`
+```sh
+npm-update-package --github-token $GITHUB_TOKEN
+```
+
+## Options
+
+You can customize behavior via command-line options.
+
+|Option|Description|Required|Value|Default|
+|---|---|---|---|---|
+|`--git-user-email`|User email of commit|-|string|-|
+|`--git-user-name`|User name of commit|-|string|-|
+|`--github-token`|GitHub token|✓|string|-|
+|`--log-level`|Log level to show|-|`info`, `debug`|`info`|
+|`--package-manager`|Package manager of your project|-|`npm`, `yarn`|`npm`|
