@@ -11,7 +11,6 @@ import type { Logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'
 import { OutdatedPackageProcessor } from './outdated-package-processor'
-import { OutdatedPackageUpdater } from './outdated-package-updater'
 import { OutdatedPackagesProcessor } from './outdated-packages-processor'
 import { createPackageManager } from './package-manager'
 import { Terminal } from './terminal'
@@ -68,10 +67,6 @@ export const main = async ({
     terminal,
     packageManager: options.packageManager
   })
-  const outdatedPackageUpdater = new OutdatedPackageUpdater({
-    packageManager,
-    ncu
-  })
   const pullRequestCreator = new PullRequestCreator({
     github,
     gitRepo,
@@ -81,7 +76,7 @@ export const main = async ({
   const outdatedPackageProcessor = new OutdatedPackageProcessor({
     committer,
     git,
-    outdatedPackageUpdater,
+    ncu,
     packageManager,
     pullRequestCreator,
     remoteBranchExistenceChecker,

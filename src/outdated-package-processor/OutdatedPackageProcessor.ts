@@ -7,7 +7,7 @@ import type {
   RemoteBranchExistenceChecker
 } from '../github'
 import type { Logger } from '../logger'
-import type { OutdatedPackageUpdater } from '../outdated-package-updater'
+import type { Ncu } from '../ncu'
 import type { PackageManager } from '../package-manager'
 import type {
   OutdatedPackage,
@@ -20,7 +20,7 @@ import { createCommitMessage } from './createCommitMessage'
 export class OutdatedPackageProcessor {
   private readonly committer: Committer
   private readonly git: Git
-  private readonly outdatedPackageUpdater: OutdatedPackageUpdater
+  private readonly ncu: Ncu
   private readonly packageManager: PackageManager
   private readonly pullRequestCreator: PullRequestCreator
   private readonly remoteBranchExistenceChecker: RemoteBranchExistenceChecker
@@ -29,7 +29,7 @@ export class OutdatedPackageProcessor {
   constructor ({
     committer,
     git,
-    outdatedPackageUpdater,
+    ncu,
     packageManager,
     pullRequestCreator,
     remoteBranchExistenceChecker,
@@ -37,7 +37,7 @@ export class OutdatedPackageProcessor {
   }: {
     committer: Committer
     git: Git
-    outdatedPackageUpdater: OutdatedPackageUpdater
+    ncu: Ncu
     packageManager: PackageManager
     pullRequestCreator: PullRequestCreator
     remoteBranchExistenceChecker: RemoteBranchExistenceChecker
@@ -45,7 +45,7 @@ export class OutdatedPackageProcessor {
   }) {
     this.committer = committer
     this.git = git
-    this.outdatedPackageUpdater = outdatedPackageUpdater
+    this.ncu = ncu
     this.packageManager = packageManager
     this.pullRequestCreator = pullRequestCreator
     this.remoteBranchExistenceChecker = remoteBranchExistenceChecker
@@ -70,7 +70,13 @@ export class OutdatedPackageProcessor {
     await this.git.createBranch(branchName)
     this.logger.info(`${branchName} branch has created.`)
 
-    await this.outdatedPackageUpdater.update(outdatedPackage)
+    const updatedPackages = await this.ncu.update(outdatedPackage)
+
+    if (updatedPackages.length !== 1) {
+      throw new Error(`Failed to update ${outdatedPackage.name}.`)
+    }
+
+    await this.packageManager.install()
     this.logger.info(`${outdatedPackage.name} has updated from v${outdatedPackage.currentVersion.version} to v${outdatedPackage.newVersion.version}`)
 
     await this.git.add(...this.packageManager.packageFiles)
