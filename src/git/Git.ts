@@ -1,4 +1,3 @@
-import { logger } from '../logger'
 import type { Terminal } from '../terminal'
 import { GitRepository } from './GitRepository'
 
@@ -39,7 +38,6 @@ export class Git {
 
   async getRepository (): Promise<GitRepository> {
     const url = await this.getRemoteUrl()
-    logger.debug(`url=${url}`)
     return GitRepository.of(url)
   }
 

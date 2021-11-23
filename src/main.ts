@@ -8,7 +8,7 @@ import {
   PullRequestCreator,
   RemoteBranchExistenceChecker
 } from './github'
-import { logger } from './logger'
+import type { Logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'
 import { OutdatedPackageProcessor } from './outdated-package-processor'
@@ -18,7 +18,13 @@ import { createPackageManager } from './package-manager'
 import { Terminal } from './terminal'
 
 // TODO: add test
-export const main = async (options: Options): Promise<void> => {
+export const main = async ({
+  options,
+  logger
+}: {
+  options: Options
+  logger: Logger
+}): Promise<void> => {
   const ncu = new Ncu()
   const outdatedPackages = await ncu.check()
   logger.debug(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
@@ -73,7 +79,8 @@ export const main = async (options: Options): Promise<void> => {
   const pullRequestCreator = new PullRequestCreator({
     github,
     gitRepo,
-    githubRepo
+    githubRepo,
+    logger
   })
   const remoteBranchExistenceChecker = RemoteBranchExistenceChecker.of(remoteBranches)
   const outdatedPackageProcessor = new OutdatedPackageProcessor({
@@ -82,9 +89,13 @@ export const main = async (options: Options): Promise<void> => {
     outdatedPackageUpdater,
     packageFilesAdder,
     pullRequestCreator,
-    remoteBranchExistenceChecker
+    remoteBranchExistenceChecker,
+    logger
   })
-  const outdatedPackagesProcessor = new OutdatedPackagesProcessor(outdatedPackageProcessor)
+  const outdatedPackagesProcessor = new OutdatedPackagesProcessor({
+    outdatedPackageProcessor,
+    logger
+  })
   const results = await outdatedPackagesProcessor.process(outdatedPackages)
   logger.debug(`results=${JSON.stringify(results)}`)
 

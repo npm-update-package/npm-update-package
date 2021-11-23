@@ -7,7 +7,7 @@ import type {
   PullRequestCreator,
   RemoteBranchExistenceChecker
 } from '../github'
-import { logger } from '../logger'
+import type { Logger } from '../logger'
 import type { OutdatedPackageUpdater } from '../outdated-package-updater'
 import type {
   OutdatedPackage,
@@ -24,6 +24,7 @@ export class OutdatedPackageProcessor {
   private readonly packageFilesAdder: PackageFilesAdder
   private readonly pullRequestCreator: PullRequestCreator
   private readonly remoteBranchExistenceChecker: RemoteBranchExistenceChecker
+  private readonly logger: Logger
 
   constructor ({
     committer,
@@ -31,7 +32,8 @@ export class OutdatedPackageProcessor {
     outdatedPackageUpdater,
     packageFilesAdder,
     pullRequestCreator,
-    remoteBranchExistenceChecker
+    remoteBranchExistenceChecker,
+    logger
   }: {
     committer: Committer
     git: Git
@@ -39,6 +41,7 @@ export class OutdatedPackageProcessor {
     packageFilesAdder: PackageFilesAdder
     pullRequestCreator: PullRequestCreator
     remoteBranchExistenceChecker: RemoteBranchExistenceChecker
+    logger: Logger
   }) {
     this.committer = committer
     this.git = git
@@ -46,6 +49,7 @@ export class OutdatedPackageProcessor {
     this.packageFilesAdder = packageFilesAdder
     this.pullRequestCreator = pullRequestCreator
     this.remoteBranchExistenceChecker = remoteBranchExistenceChecker
+    this.logger = logger
   }
 
   /**
@@ -53,10 +57,10 @@ export class OutdatedPackageProcessor {
    */
   async process (outdatedPackage: OutdatedPackage): Promise<Result> {
     const branchName = createBranchName(outdatedPackage)
-    logger.debug(`branchName=${branchName}`)
+    this.logger.debug(`branchName=${branchName}`)
 
     if (this.remoteBranchExistenceChecker.check(branchName)) {
-      logger.info(`Skip ${outdatedPackage.name} because ${branchName} branch already exists on remote.`)
+      this.logger.info(`Skip ${outdatedPackage.name} because ${branchName} branch already exists on remote.`)
       return {
         outdatedPackage,
         skipped: true
@@ -64,14 +68,14 @@ export class OutdatedPackageProcessor {
     }
 
     await this.git.createBranch(branchName)
-    logger.info(`${branchName} branch has created.`)
+    this.logger.info(`${branchName} branch has created.`)
 
     await this.outdatedPackageUpdater.update(outdatedPackage)
-    logger.info(`${outdatedPackage.name} has updated from v${outdatedPackage.currentVersion.version} to v${outdatedPackage.newVersion.version}`)
+    this.logger.info(`${outdatedPackage.name} has updated from v${outdatedPackage.currentVersion.version} to v${outdatedPackage.newVersion.version}`)
 
     await this.packageFilesAdder.add()
     const message = createCommitMessage(outdatedPackage)
-    logger.debug(`message=${message}`)
+    this.logger.debug(`message=${message}`)
 
     await this.committer.commit(message)
     await this.git.push(branchName)
@@ -81,7 +85,7 @@ export class OutdatedPackageProcessor {
     })
     await this.git.checkout('-')
     await this.git.removeBranch(branchName)
-    logger.info(`${branchName} branch has removed.`)
+    this.logger.info(`${branchName} branch has removed.`)
 
     return {
       outdatedPackage,

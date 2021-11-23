@@ -1,4 +1,3 @@
-import { logger } from '../logger'
 import type { PackageManager } from '../package-manager'
 import type { Git } from './Git'
 
@@ -20,7 +19,6 @@ export class PackageFilesAdder {
 
   async add (): Promise<void> {
     const packageFiles = this.packageManager.packageFiles
-    logger.debug(`packageFiles=${JSON.stringify(packageFiles)}`)
     await this.git.add(...packageFiles)
   }
 }

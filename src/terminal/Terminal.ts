@@ -1,6 +1,5 @@
 import execa from 'execa'
 import type { ExecaReturnValue } from 'execa'
-import { logger } from '../logger'
 import { isExecaReturnValue } from './isExecaReturnValue'
 
 // TODO: add test
@@ -19,9 +18,7 @@ export class Terminal {
     try {
       return await this.run(command, ...args)
     } catch (e) {
-      logger.debug(`e=${JSON.stringify(e)}`)
       const value: unknown = e instanceof Error ? JSON.parse(JSON.stringify(e)) : e
-      logger.debug(`value=${JSON.stringify(value)}`)
 
       if (isExecaReturnValue(value)) {
         return value

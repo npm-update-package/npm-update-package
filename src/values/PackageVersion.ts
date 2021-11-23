@@ -1,5 +1,4 @@
 import { coerce } from 'semver'
-import { logger } from '../logger'
 
 export class PackageVersion {
   readonly version: string
@@ -26,7 +25,6 @@ export class PackageVersion {
 
   static of (version: string): PackageVersion {
     const semver = coerce(version)
-    logger.debug(`semver=${JSON.stringify(semver)}`)
 
     if (semver === null) {
       throw new Error(`Failed to parse package version. version=${version}`)

@@ -1,4 +1,3 @@
-import { logger } from '../logger'
 import type { Ncu } from '../ncu'
 import type { PackageManager } from '../package-manager'
 import type { OutdatedPackage } from '../types'
@@ -21,7 +20,6 @@ export class OutdatedPackageUpdater {
 
   async update (outdatedPackage: OutdatedPackage): Promise<void> {
     const updatedPackages = await this.ncu.update(outdatedPackage)
-    logger.debug(`updatedPackages=${JSON.stringify(updatedPackages)}`)
 
     if (updatedPackages.length !== 1) {
       throw new Error(`Failed to update ${outdatedPackage.name}.`)

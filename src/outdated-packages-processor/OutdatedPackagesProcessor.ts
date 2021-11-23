@@ -1,4 +1,4 @@
-import { logger } from '../logger'
+import type { Logger } from '../logger'
 import type { OutdatedPackageProcessor } from '../outdated-package-processor'
 import type {
   OutdatedPackage,
@@ -6,13 +6,25 @@ import type {
 } from '../types'
 
 export class OutdatedPackagesProcessor {
-  constructor (private readonly outdatedPackageProcessor: OutdatedPackageProcessor) {}
+  private readonly outdatedPackageProcessor: OutdatedPackageProcessor
+  private readonly logger: Logger
+
+  constructor ({
+    outdatedPackageProcessor,
+    logger
+  }: {
+    outdatedPackageProcessor: OutdatedPackageProcessor
+    logger: Logger
+  }) {
+    this.outdatedPackageProcessor = outdatedPackageProcessor
+    this.logger = logger
+  }
 
   async process (outdatedPackages: OutdatedPackage[]): Promise<Result[]> {
     const results: Result[] = []
 
     for (const outdatedPackage of outdatedPackages) {
-      logger.debug(`outdatedPackage=${JSON.stringify(outdatedPackage)}`)
+      this.logger.debug(`outdatedPackage=${JSON.stringify(outdatedPackage)}`)
       const result = await this.outdatedPackageProcessor.process(outdatedPackage)
       results.push(result)
     }

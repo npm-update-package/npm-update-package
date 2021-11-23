@@ -1,10 +1,10 @@
 import { getLogger } from 'log4js'
-import type { Logger } from 'log4js'
+import type { LogLevel } from '../enums'
+import type { Logger } from './Logger'
 
 // TODO: add test
-export const createLogger = (): Logger => {
+export const createLogger = (logLevel: LogLevel): Logger => {
   const logger = getLogger()
-  // TODO replace environments with options
-  logger.level = process.env.LOG_LEVEL ?? 'info'
+  logger.level = logLevel
   return logger
 }

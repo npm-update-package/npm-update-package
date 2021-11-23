@@ -1,5 +1,4 @@
 import parse from 'parse-github-url'
-import { logger } from '../logger'
 
 export class GitRepository {
   readonly host: string
@@ -22,7 +21,6 @@ export class GitRepository {
 
   static of (url: string): GitRepository {
     const parsed = parse(url)
-    logger.debug(`parsed=${JSON.stringify(parsed)}`)
 
     if (parsed === null) {
       throw new Error(`Failed to parse url. url=${url}`)
