@@ -39,7 +39,10 @@ export const main = async (options: Options): Promise<void> => {
   const gitRepo = await git.getRepository()
   logger.debug(`gitRepo=${JSON.stringify(gitRepo)}`)
 
-  const github = createGitHub(gitRepo)
+  const github = createGitHub({
+    repository: gitRepo,
+    token: options.githubToken
+  })
   const githubRepo = await github.fetchRepository({
     owner: gitRepo.owner,
     repo: gitRepo.name

@@ -4,13 +4,14 @@ import type { GitRepository } from '../git'
 import { logger } from '../logger'
 
 // TODO: add test
-export const createOctokit = (repository: GitRepository): Octokit => {
-  // TODO replace environments with options
-  if (process.env.GITHUB_TOKEN === undefined) {
-    throw new Error('process.env.GITHUB_TOKEN is undefined')
-  }
-
-  const auth = `token ${process.env.GITHUB_TOKEN}`
+export const createOctokit = ({
+  repository,
+  token
+}: {
+  repository: GitRepository
+  token: string
+}): Octokit => {
+  const auth = `token ${token}`
   const userAgent = `${pkg.name}/${pkg.version}`
   logger.debug(`userAgent=${userAgent}`)
 
