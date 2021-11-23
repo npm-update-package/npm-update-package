@@ -1,7 +1,6 @@
 import type {
   Committer,
-  Git,
-  PackageFilesAdder
+  Git
 } from '../git'
 import type {
   PullRequestCreator,
@@ -9,6 +8,7 @@ import type {
 } from '../github'
 import type { Logger } from '../logger'
 import type { OutdatedPackageUpdater } from '../outdated-package-updater'
+import type { PackageManager } from '../package-manager'
 import type {
   OutdatedPackage,
   Result
@@ -21,7 +21,7 @@ export class OutdatedPackageProcessor {
   private readonly committer: Committer
   private readonly git: Git
   private readonly outdatedPackageUpdater: OutdatedPackageUpdater
-  private readonly packageFilesAdder: PackageFilesAdder
+  private readonly packageManager: PackageManager
   private readonly pullRequestCreator: PullRequestCreator
   private readonly remoteBranchExistenceChecker: RemoteBranchExistenceChecker
   private readonly logger: Logger
@@ -30,7 +30,7 @@ export class OutdatedPackageProcessor {
     committer,
     git,
     outdatedPackageUpdater,
-    packageFilesAdder,
+    packageManager,
     pullRequestCreator,
     remoteBranchExistenceChecker,
     logger
@@ -38,7 +38,7 @@ export class OutdatedPackageProcessor {
     committer: Committer
     git: Git
     outdatedPackageUpdater: OutdatedPackageUpdater
-    packageFilesAdder: PackageFilesAdder
+    packageManager: PackageManager
     pullRequestCreator: PullRequestCreator
     remoteBranchExistenceChecker: RemoteBranchExistenceChecker
     logger: Logger
@@ -46,7 +46,7 @@ export class OutdatedPackageProcessor {
     this.committer = committer
     this.git = git
     this.outdatedPackageUpdater = outdatedPackageUpdater
-    this.packageFilesAdder = packageFilesAdder
+    this.packageManager = packageManager
     this.pullRequestCreator = pullRequestCreator
     this.remoteBranchExistenceChecker = remoteBranchExistenceChecker
     this.logger = logger
@@ -73,7 +73,7 @@ export class OutdatedPackageProcessor {
     await this.outdatedPackageUpdater.update(outdatedPackage)
     this.logger.info(`${outdatedPackage.name} has updated from v${outdatedPackage.currentVersion.version} to v${outdatedPackage.newVersion.version}`)
 
-    await this.packageFilesAdder.add()
+    await this.git.add(...this.packageManager.packageFiles)
     const message = createCommitMessage(outdatedPackage)
     this.logger.debug(`message=${message}`)
 

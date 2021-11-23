@@ -1,7 +1,6 @@
 import {
   Committer,
-  Git,
-  PackageFilesAdder
+  Git
 } from './git'
 import {
   createGitHub,
@@ -72,10 +71,6 @@ export const main = async ({
     packageManager,
     ncu
   })
-  const packageFilesAdder = new PackageFilesAdder({
-    git,
-    packageManager
-  })
   const pullRequestCreator = new PullRequestCreator({
     github,
     gitRepo,
@@ -87,7 +82,7 @@ export const main = async ({
     committer,
     git,
     outdatedPackageUpdater,
-    packageFilesAdder,
+    packageManager,
     pullRequestCreator,
     remoteBranchExistenceChecker,
     logger
