@@ -1,4 +1,4 @@
-import { PackageVersion } from '../values'
+import { PackageVersion } from './PackageVersion'
 import { toUpdateType } from './toUpdateType'
 import { UpdateType } from './UpdateType'
 

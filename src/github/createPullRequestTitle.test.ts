@@ -1,5 +1,4 @@
-import { UpdateType } from '../ncu'
-import { PackageVersion } from '../values'
+import { UpdateType, PackageVersion } from '../ncu'
 import { createPullRequestTitle } from './createPullRequestTitle'
 
 describe('createPullRequestTitle', () => {

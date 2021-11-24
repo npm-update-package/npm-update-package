@@ -1,7 +1,7 @@
 import type { PackageDependencies } from '../package-json'
-import { PackageVersion } from '../values'
 import type { NcuOutdatedPackages } from './NcuOutdatedPackages'
 import type { OutdatedPackage } from './OutdatedPackage'
+import { PackageVersion } from './PackageVersion'
 import { toUpdateType } from './toUpdateType'
 
 // TODO: add test

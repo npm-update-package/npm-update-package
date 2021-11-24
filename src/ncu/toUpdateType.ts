@@ -1,4 +1,4 @@
-import type { PackageVersion } from '../values'
+import type { PackageVersion } from './PackageVersion'
 import { UpdateType } from './UpdateType'
 
 export const toUpdateType = (currentVersion: PackageVersion, newVersion: PackageVersion): UpdateType => {

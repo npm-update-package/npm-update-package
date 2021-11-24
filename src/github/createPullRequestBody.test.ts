@@ -1,5 +1,7 @@
-import { UpdateType } from '../ncu'
-import { PackageVersion } from '../values'
+import {
+  PackageVersion,
+  UpdateType
+} from '../ncu'
 import { createPullRequestBody } from './createPullRequestBody'
 
 describe('createPullRequestBody', () => {
