@@ -1,4 +1,6 @@
 export type { OutdatedPackage } from './OutdatedPackage'
+export { isPackage } from './Package'
+export type { Package } from './Package'
 export { isPackageDependencies } from './PackageDependencies'
 export type { PackageDependencies } from './PackageDependencies'
 export type { Result } from './Result'
