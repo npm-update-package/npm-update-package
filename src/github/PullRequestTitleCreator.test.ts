@@ -3,7 +3,7 @@ import { PullRequestTitleCreator } from './PullRequestTitleCreator'
 
 describe('PullRequestTitleCreator', () => {
   describe('create', () => {
-    it('returns commit message', () => {
+    it('returns pull request title', () => {
       const pullRequestTitleCreator = new PullRequestTitleCreator('chore(deps): {{updateType}} update {{{packageName}}} from {{currentVersion}} to v{{newVersion}}')
       const actual = pullRequestTitleCreator.create({
         name: '@typescript-eslint/eslint-plugin',
