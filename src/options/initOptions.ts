@@ -33,6 +33,7 @@ export const initOptions = (): Options => {
         ])
         .default(PackageManagerName.Npm)
     )
+    .option('--pull-request-title <value>', 'Pull request title template', 'chore(deps): {{updateType}} update {{{packageName}}} to v{{newVersion}}')
   program.parse(process.argv)
   const options = program.opts()
 

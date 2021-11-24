@@ -7,14 +7,17 @@ import {
   union
 } from 'io-ts'
 import type { TypeOf } from 'io-ts'
+import { LogLevel } from '../logger'
+import { PackageManagerName } from '../package-manager'
 
 const Options = intersection([
   type({
     branchName: string,
     commitMessage: string,
     githubToken: string,
-    logLevel: union([literal('info'), literal('debug')]),
-    packageManager: union([literal('npm'), literal('yarn')])
+    logLevel: union([literal(LogLevel.Info), literal(LogLevel.Debug)]),
+    packageManager: union([literal(PackageManagerName.Npm), literal(PackageManagerName.Yarn)]),
+    pullRequestTitle: string
   }),
   partial({
     gitUserEmail: string,
