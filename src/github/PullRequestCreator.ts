@@ -2,8 +2,8 @@ import type { GitRepository } from '../git'
 import type { Logger } from '../logger'
 import type { OutdatedPackage } from '../ncu'
 import { createPullRequestBody } from './createPullRequestBody'
-import { createPullRequestTitle } from './createPullRequestTitle'
 import type { GitHub } from './GitHub'
+import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
 import type { Repository as GitHubRepository } from './Repository'
 
 // TODO: add test
@@ -11,22 +11,26 @@ export class PullRequestCreator {
   private readonly github: GitHub
   private readonly gitRepo: GitRepository
   private readonly githubRepo: GitHubRepository
+  private readonly pullRequestTitleCreator: PullRequestTitleCreator
   private readonly logger: Logger
 
   constructor ({
     github,
     gitRepo,
     githubRepo,
+    pullRequestTitleCreator,
     logger
   }: {
     github: GitHub
     gitRepo: GitRepository
     githubRepo: GitHubRepository
+    pullRequestTitleCreator: PullRequestTitleCreator
     logger: Logger
   }) {
     this.github = github
     this.gitRepo = gitRepo
     this.githubRepo = githubRepo
+    this.pullRequestTitleCreator = pullRequestTitleCreator
     this.logger = logger
   }
 
@@ -37,7 +41,7 @@ export class PullRequestCreator {
     outdatedPackage: OutdatedPackage
     branchName: string
   }): Promise<void> {
-    const title = createPullRequestTitle(outdatedPackage)
+    const title = this.pullRequestTitleCreator.create(outdatedPackage)
     this.logger.debug(`title=${title}`)
 
     const body = createPullRequestBody(outdatedPackage)
