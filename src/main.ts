@@ -12,6 +12,7 @@ import {
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'
+import { PackageJsonParser } from './package-json-parser'
 import { PackageJsonReader } from './package-json-reader'
 import { createPackageManager } from './package-manager'
 import {
@@ -30,7 +31,11 @@ export const main = async ({
 }): Promise<void> => {
   logger.debug(`options=${JSON.stringify(options)}`)
 
-  const packageJsonReader = new PackageJsonReader(logger)
+  const packageJsonParser = new PackageJsonParser(logger)
+  const packageJsonReader = new PackageJsonReader({
+    packageJsonParser,
+    logger
+  })
   const ncu = new Ncu(packageJsonReader)
   const outdatedPackages = await ncu.check()
   logger.debug(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
