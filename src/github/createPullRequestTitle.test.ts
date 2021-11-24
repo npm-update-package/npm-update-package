@@ -1,4 +1,4 @@
-import { UpdateType } from '../enums'
+import { UpdateType } from '../ncu'
 import { PackageVersion } from '../values'
 import { createPullRequestTitle } from './createPullRequestTitle'
 

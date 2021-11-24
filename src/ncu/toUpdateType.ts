@@ -1,5 +1,5 @@
-import { UpdateType } from '../enums'
 import type { PackageVersion } from '../values'
+import { UpdateType } from './UpdateType'
 
 export const toUpdateType = (currentVersion: PackageVersion, newVersion: PackageVersion): UpdateType => {
   if (currentVersion.major !== newVersion.major) {

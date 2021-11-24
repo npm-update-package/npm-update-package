@@ -1,6 +1,6 @@
-import { UpdateType } from '../enums'
 import { PackageVersion } from '../values'
 import { toUpdateType } from './toUpdateType'
+import { UpdateType } from './UpdateType'
 
 describe('toUpdateType', () => {
   const currentVersion = PackageVersion.of('1.0.0')

@@ -1,4 +1,4 @@
-import type { UpdateType } from '../enums/UpdateType'
+import type { UpdateType } from '../ncu'
 import type { PackageVersion } from '../values'
 
 export interface OutdatedPackage {
