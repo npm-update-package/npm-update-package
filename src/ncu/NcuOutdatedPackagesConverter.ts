@@ -1,4 +1,4 @@
-import type { PackageDependencies } from '../read-package-json'
+import type { PackageDependencies } from '../package-json-reader'
 import type { OutdatedPackage } from '../types'
 import { PackageVersion } from '../values'
 import type { NcuOutdatedPackages } from './NcuOutdatedPackages'

@@ -12,12 +12,12 @@ import {
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'
+import { PackageJsonReader } from './package-json-reader'
 import { createPackageManager } from './package-manager'
 import {
   OutdatedPackageProcessor,
   OutdatedPackagesProcessor
 } from './processors'
-import { PackageJsonReader } from './read-package-json'
 import { Terminal } from './terminal'
 
 // TODO: add test
