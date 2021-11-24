@@ -60,5 +60,6 @@
   "bugs": {
     "url": "https://github.com/npm-update-package/npm-update-package/issues"
   },
-  "homepage": "https://github.com/npm-update-package/npm-update-package"
+  "homepage": "https://github.com/npm-update-package/npm-update-package",
+  "license": "MIT"
 }
