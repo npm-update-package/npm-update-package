@@ -1,9 +1,7 @@
 import type { Logger } from '../logger'
-import type { OutdatedPackageProcessor } from '../outdated-package-processor'
-import type {
-  OutdatedPackage,
-  Result
-} from '../types'
+import type { OutdatedPackage } from '../ncu'
+import type { OutdatedPackageProcessor } from './OutdatedPackageProcessor'
+import type { Result } from './Result'
 
 export class OutdatedPackagesProcessor {
   private readonly outdatedPackageProcessor: OutdatedPackageProcessor

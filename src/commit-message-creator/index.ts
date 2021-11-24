@@ -1,1 +1,0 @@
-export { CommitMessageCreator } from './CommitMessageCreator'

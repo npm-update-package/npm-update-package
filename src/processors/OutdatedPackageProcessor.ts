@@ -1,6 +1,6 @@
-import type { BranchNameCreator } from '../branch-name-creator'
-import type { CommitMessageCreator } from '../commit-message-creator'
 import type {
+  BranchNameCreator,
+  CommitMessageCreator,
   Committer,
   Git
 } from '../git'
@@ -9,12 +9,12 @@ import type {
   RemoteBranchExistenceChecker
 } from '../github'
 import type { Logger } from '../logger'
-import type { Ncu } from '../ncu'
-import type { PackageManager } from '../package-manager'
 import type {
-  OutdatedPackage,
-  Result
-} from '../types'
+  Ncu,
+  OutdatedPackage
+} from '../ncu'
+import type { PackageManager } from '../package-manager'
+import type { Result } from './Result'
 
 // TODO: add test
 export class OutdatedPackageProcessor {
