@@ -1,5 +1,5 @@
 export const app = {
   name: 'npm-update-package',
-  version: '0.5.1',
+  version: '0.6.0',
   web: 'https://github.com/npm-update-package/npm-update-package'
 } as const
