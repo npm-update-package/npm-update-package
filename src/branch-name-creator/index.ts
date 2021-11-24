@@ -1,1 +1,0 @@
-export { BranchNameCreator } from './BranchNameCreator'

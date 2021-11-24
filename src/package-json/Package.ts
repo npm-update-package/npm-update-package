@@ -7,7 +7,7 @@ import {
 import type { TypeOf } from 'io-ts'
 import { PackageDependencies } from './PackageDependencies'
 
-export const Package = intersection([
+const Package = intersection([
   type({
     name: string,
     version: string

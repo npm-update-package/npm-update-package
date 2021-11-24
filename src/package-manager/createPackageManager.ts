@@ -1,7 +1,7 @@
-import type { PackageManagerName } from '../enums'
 import type { Terminal } from '../terminal'
 import { Npm } from './Npm'
 import type { PackageManager } from './PackageManager'
+import type { PackageManagerName } from './PackageManagerName'
 import { Yarn } from './Yarn'
 
 // TODO: add test

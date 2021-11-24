@@ -1,6 +1,6 @@
-import { BranchNameCreator } from './branch-name-creator'
-import { CommitMessageCreator } from './commit-message-creator'
 import {
+  BranchNameCreator,
+  CommitMessageCreator,
   Committer,
   Git
 } from './git'
@@ -12,9 +12,15 @@ import {
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'
-import { OutdatedPackageProcessor } from './outdated-package-processor'
-import { OutdatedPackagesProcessor } from './outdated-packages-processor'
+import {
+  PackageJsonParser,
+  PackageJsonReader
+} from './package-json'
 import { createPackageManager } from './package-manager'
+import {
+  OutdatedPackageProcessor,
+  OutdatedPackagesProcessor
+} from './processors'
 import { Terminal } from './terminal'
 
 // TODO: add test
@@ -27,7 +33,12 @@ export const main = async ({
 }): Promise<void> => {
   logger.debug(`options=${JSON.stringify(options)}`)
 
-  const ncu = new Ncu()
+  const packageJsonParser = new PackageJsonParser(logger)
+  const packageJsonReader = new PackageJsonReader({
+    packageJsonParser,
+    logger
+  })
+  const ncu = new Ncu(packageJsonReader)
   const outdatedPackages = await ncu.check()
   logger.debug(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
 

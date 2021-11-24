@@ -1,5 +1,5 @@
 import { app } from '../app'
-import type { OutdatedPackage } from '../types'
+import type { OutdatedPackage } from '../ncu'
 
 export const createPullRequestBody = (outdatedPackage: OutdatedPackage): string => {
   const packageName = outdatedPackage.name
