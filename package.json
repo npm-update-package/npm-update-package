@@ -11,6 +11,9 @@
     "start": "ts-node src/bin.ts",
     "test": "jest --passWithNoTests"
   },
+  "files": [
+    "dist"
+  ],
   "bin": "dist/bin.js",
   "dependencies": {
     "@octokit/rest": "18.12.0",
