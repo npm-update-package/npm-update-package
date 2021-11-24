@@ -8,7 +8,7 @@
     "lint": "eslint '**/*.{js,ts}'",
     "prepare": "husky install",
     "prepublish": "npm-run-all clean lint test build",
-    "start": "ts-node src/start.ts",
+    "start": "ts-node src/bin.ts",
     "test": "jest --passWithNoTests"
   },
   "bin": "dist/bin.js",
