@@ -8,7 +8,7 @@ import {
 } from 'io-ts'
 import type { TypeOf } from 'io-ts'
 
-export const Options = intersection([
+const Options = intersection([
   type({
     branchName: string,
     commitMessage: string,
