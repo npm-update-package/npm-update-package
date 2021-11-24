@@ -17,6 +17,7 @@ import {
   OutdatedPackageProcessor,
   OutdatedPackagesProcessor
 } from './processors'
+import { PackageJsonReader } from './read-package-json'
 import { Terminal } from './terminal'
 
 // TODO: add test
@@ -29,7 +30,8 @@ export const main = async ({
 }): Promise<void> => {
   logger.debug(`options=${JSON.stringify(options)}`)
 
-  const ncu = new Ncu()
+  const packageJsonReader = new PackageJsonReader(logger)
+  const ncu = new Ncu(packageJsonReader)
   const outdatedPackages = await ncu.check()
   logger.debug(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
 

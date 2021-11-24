@@ -1,12 +1,14 @@
 import { run } from 'npm-check-updates'
 import type { Options } from 'npm-check-updates/build/src/types'
-import { readPackageJson } from '../read-package-json'
+import type { PackageJsonReader } from '../read-package-json/PackageJsonReader'
 import type { OutdatedPackage } from '../types'
 import { isNcuOutdatedPackages } from './isNcuOutdatedPackages'
 import { NcuOutdatedPackagesConverter } from './NcuOutdatedPackagesConverter'
 
 // TODO: add test
 export class Ncu {
+  constructor (private readonly packageJsonReader: PackageJsonReader) {}
+
   async check (): Promise<OutdatedPackage[]> {
     return await this.run({
       jsonUpgraded: true
@@ -22,7 +24,7 @@ export class Ncu {
   }
 
   private async run (options: Options): Promise<OutdatedPackage[]> {
-    const pkg = await readPackageJson('./package.json')
+    const pkg = await this.packageJsonReader.read('./package.json')
     const currentDependencies = {
       ...pkg.dependencies,
       ...pkg.devDependencies,
