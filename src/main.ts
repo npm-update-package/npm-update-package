@@ -7,6 +7,7 @@ import {
 import {
   createGitHub,
   PullRequestCreator,
+  PullRequestTitleCreator,
   RemoteBranchExistenceChecker
 } from './github'
 import type { Logger } from './logger'
@@ -82,10 +83,12 @@ export const main = async ({
     terminal,
     packageManager: options.packageManager
   })
+  const pullRequestTitleCreator = new PullRequestTitleCreator(options.pullRequestTitle)
   const pullRequestCreator = new PullRequestCreator({
     github,
     gitRepo,
     githubRepo,
+    pullRequestTitleCreator,
     logger
   })
   const branchNameCreator = new BranchNameCreator(options.branchName)

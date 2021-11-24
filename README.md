@@ -44,6 +44,7 @@ You can customize behavior via command-line options.
 |`--github-token`|GitHub token|✓|string|-|
 |`--log-level`|Log level to show|-|`info`, `debug`|`info`|
 |`--package-manager`|Package manager of your project|-|`npm`, `yarn`|`npm`|
+|`--pull-request-title`|Pull request title template|-|string|`chore(deps): {{updateType}} update {{{packageName}}} to v{{newVersion}}`|
 
 ### Templates
 
@@ -56,6 +57,11 @@ These variables are available:
   - `newVersion`
   - `updateType`
 - `--commit-message`
+  - `packageName`
+  - `currentVersion`
+  - `newVersion`
+  - `updateType`
+- `--pull-request-title`
   - `packageName`
   - `currentVersion`
   - `newVersion`
