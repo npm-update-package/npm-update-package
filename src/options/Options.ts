@@ -17,6 +17,7 @@ const Options = intersection([
     githubToken: string,
     logLevel: union([literal(LogLevel.Info), literal(LogLevel.Debug)]),
     packageManager: union([literal(PackageManagerName.Npm), literal(PackageManagerName.Yarn)]),
+    pullRequestBody: string,
     pullRequestTitle: string
   }),
   partial({
