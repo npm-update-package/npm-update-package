@@ -1,4 +1,4 @@
-import type { OutdatedPackage } from './OutdatedPackage'
+import type { OutdatedPackage } from '../types/OutdatedPackage'
 
 export interface Result {
   outdatedPackage: OutdatedPackage

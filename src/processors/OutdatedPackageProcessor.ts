@@ -11,10 +11,8 @@ import type {
 import type { Logger } from '../logger'
 import type { Ncu } from '../ncu'
 import type { PackageManager } from '../package-manager'
-import type {
-  OutdatedPackage,
-  Result
-} from '../types'
+import type { OutdatedPackage } from '../types'
+import type { Result } from './Result'
 
 // TODO: add test
 export class OutdatedPackageProcessor {
