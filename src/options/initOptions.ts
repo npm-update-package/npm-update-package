@@ -3,10 +3,8 @@ import {
   program
 } from 'commander'
 import { app } from '../app'
-import {
-  LogLevel,
-  PackageManagerName
-} from '../enums'
+import { PackageManagerName } from '../enums'
+import { LogLevel } from '../logger'
 import { isOptions } from './Options'
 import type { Options } from './Options'
 
