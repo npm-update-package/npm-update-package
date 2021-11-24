@@ -1,7 +1,7 @@
 import fs from 'fs'
 import type { Logger } from '../logger'
-import type { PackageJsonParser } from '../package-json-parser'
 import type { Package } from '../types'
+import type { PackageJsonParser } from './PackageJsonParser'
 
 // TODO: add test
 export class PackageJsonReader {

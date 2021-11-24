@@ -12,8 +12,10 @@ import {
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'
-import { PackageJsonParser } from './package-json-parser'
-import { PackageJsonReader } from './package-json-reader'
+import {
+  PackageJsonParser,
+  PackageJsonReader
+} from './package-json'
 import { createPackageManager } from './package-manager'
 import {
   OutdatedPackageProcessor,

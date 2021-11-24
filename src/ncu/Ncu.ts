@@ -1,6 +1,6 @@
 import { run } from 'npm-check-updates'
 import type { Options } from 'npm-check-updates/build/src/types'
-import type { PackageJsonReader } from '../package-json-reader'
+import type { PackageJsonReader } from '../package-json'
 import type { OutdatedPackage } from '../types'
 import { isNcuOutdatedPackages } from './isNcuOutdatedPackages'
 import { NcuOutdatedPackagesConverter } from './NcuOutdatedPackagesConverter'
