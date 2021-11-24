@@ -1,5 +1,5 @@
-import type { UpdateType } from '../ncu'
 import type { PackageVersion } from '../values'
+import type { UpdateType } from './UpdateType'
 
 export interface OutdatedPackage {
   name: string

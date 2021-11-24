@@ -1,4 +1,4 @@
-export type { OutdatedPackage } from './OutdatedPackage'
+export type { OutdatedPackage } from '../ncu'
 export { isPackage } from './Package'
 export type { Package } from './Package'
 export { isPackageDependencies } from './PackageDependencies'
