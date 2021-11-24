@@ -1,5 +1,5 @@
 import type { Logger } from '../logger'
-import type { OutdatedPackage } from '../types'
+import type { OutdatedPackage } from '../ncu'
 import type { OutdatedPackageProcessor } from './OutdatedPackageProcessor'
 import type { Result } from './Result'
 

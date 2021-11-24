@@ -1,5 +1,5 @@
 import { render } from 'mustache'
-import type { OutdatedPackage } from '../types'
+import type { OutdatedPackage } from '../ncu'
 
 export class CommitMessageCreator {
   constructor (private readonly template: string) {}

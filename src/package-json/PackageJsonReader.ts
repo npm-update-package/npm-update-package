@@ -1,6 +1,6 @@
 import fs from 'fs'
 import type { Logger } from '../logger'
-import type { Package } from '../types'
+import type { Package } from './Package'
 import type { PackageJsonParser } from './PackageJsonParser'
 
 // TODO: add test

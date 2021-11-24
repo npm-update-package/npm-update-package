@@ -1,5 +1,0 @@
-export type { OutdatedPackage } from '../ncu'
-export { isPackage } from './Package'
-export type { Package } from './Package'
-export { isPackageDependencies } from './PackageDependencies'
-export type { PackageDependencies } from './PackageDependencies'

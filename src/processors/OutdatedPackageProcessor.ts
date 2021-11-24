@@ -9,9 +9,11 @@ import type {
   RemoteBranchExistenceChecker
 } from '../github'
 import type { Logger } from '../logger'
-import type { Ncu } from '../ncu'
+import type {
+  Ncu,
+  OutdatedPackage
+} from '../ncu'
 import type { PackageManager } from '../package-manager'
-import type { OutdatedPackage } from '../types'
 import type { Result } from './Result'
 
 // TODO: add test

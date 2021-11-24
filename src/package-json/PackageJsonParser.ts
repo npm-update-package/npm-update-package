@@ -1,6 +1,6 @@
 import type { Logger } from '../logger'
-import { isPackage } from '../types'
-import type { Package } from '../types'
+import { isPackage } from './Package'
+import type { Package } from './Package'
 
 // TODO: add test
 export class PackageJsonParser {
