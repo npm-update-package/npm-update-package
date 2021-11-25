@@ -1,6 +1,5 @@
 import type { Branch } from './Branch'
 
-// TODO: add test
 export class RemoteBranchExistenceChecker {
   constructor (private readonly remoteBranchNames: string[]) {}
 
