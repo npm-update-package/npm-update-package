@@ -5,6 +5,10 @@
 
 CLI tool for creating pull request to update npm packages
 
+## Caution
+
+This package is currently under development, so the major version is 0 yet.
+
 ## Installation
 
 If you are using npm:
