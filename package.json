@@ -6,8 +6,9 @@
     "build": "tsc --project tsconfig.build.json",
     "clean": "rimraf dist",
     "lint": "eslint '**/*.{js,ts}'",
+    "prebuild": "npm run clean",
     "prepare": "husky install",
-    "prepublish": "npm-run-all clean lint test build",
+    "prepublish": "npm-run-all lint test build",
     "start": "ts-node src/bin.ts",
     "test": "jest --passWithNoTests"
   },
