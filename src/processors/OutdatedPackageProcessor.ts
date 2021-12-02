@@ -1,7 +1,6 @@
 import type {
   BranchNameCreator,
   CommitMessageCreator,
-  Committer,
   Git
 } from '../git'
 import type {
@@ -18,7 +17,6 @@ import type { Result } from './Result'
 
 // TODO: add test
 export class OutdatedPackageProcessor {
-  private readonly committer: Committer
   private readonly git: Git
   private readonly ncu: Ncu
   private readonly packageManager: PackageManager
@@ -29,7 +27,6 @@ export class OutdatedPackageProcessor {
   private readonly commitMessageCreator: CommitMessageCreator
 
   constructor ({
-    committer,
     git,
     ncu,
     packageManager,
@@ -39,7 +36,6 @@ export class OutdatedPackageProcessor {
     branchNameCreator,
     commitMessageCreator
   }: {
-    committer: Committer
     git: Git
     ncu: Ncu
     packageManager: PackageManager
@@ -49,7 +45,6 @@ export class OutdatedPackageProcessor {
     branchNameCreator: BranchNameCreator
     commitMessageCreator: CommitMessageCreator
   }) {
-    this.committer = committer
     this.git = git
     this.ncu = ncu
     this.packageManager = packageManager
@@ -91,7 +86,7 @@ export class OutdatedPackageProcessor {
     const message = this.commitMessageCreator.create(outdatedPackage)
     this.logger.debug(`message=${message}`)
 
-    await this.committer.commit(message)
+    await this.git.commit(message)
     await this.git.push(branchName)
     await this.pullRequestCreator.create({
       outdatedPackage,
