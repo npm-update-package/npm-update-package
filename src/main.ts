@@ -1,7 +1,6 @@
 import {
   BranchNameCreator,
   CommitMessageCreator,
-  Committer,
   Git
 } from './git'
 import {
@@ -73,13 +72,6 @@ export const main = async ({
   logger.debug(`remoteBranches=${JSON.stringify(remoteBranches)}`)
 
   const remoteBranchExistenceChecker = RemoteBranchExistenceChecker.of(remoteBranches)
-  const committer = new Committer({
-    git,
-    user: {
-      name: options.gitUserName,
-      email: options.gitUserEmail
-    }
-  })
   const packageManager = createPackageManager({
     terminal,
     packageManager: options.packageManager
@@ -97,7 +89,6 @@ export const main = async ({
   const branchNameCreator = new BranchNameCreator(options.branchName)
   const commitMessageCreator = new CommitMessageCreator(options.commitMessage)
   const outdatedPackageProcessor = new OutdatedPackageProcessor({
-    committer,
     git,
     ncu,
     packageManager,

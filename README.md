@@ -66,20 +66,6 @@ Commit message template
 - required: false
 - default: `chore(deps): {{updateType}} update {{{packageName}}} to v{{newVersion}}`
 
-### `--git-user-email`
-
-User email of commit
-
-- value: string
-- required: false
-
-### `--git-user-name`
-
-User name of commit
-
-- value: string
-- required: false
-
 ### `--github-token`
 
 GitHub token
