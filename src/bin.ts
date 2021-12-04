@@ -16,7 +16,7 @@ main({
   .then(() => {
     logger.info(`End ${app.name} v${app.version}`)
   })
-  .catch((e: unknown) => {
-    logger.fatal(e)
-    throw e
+  .catch((error: unknown) => {
+    logger.fatal(error)
+    throw error
   })
