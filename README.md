@@ -82,6 +82,7 @@ GitHub token
 Log level to show
 
 - value: string
+  - `error`
   - `info`
   - `debug`
 - required: false
