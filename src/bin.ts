@@ -13,8 +13,10 @@ main({
   options,
   logger
 })
-  .then(() => logger.info(`End ${app.name} v${app.version}`))
-  .catch((e: unknown) => {
-    // TODO: improve error handling
-    logger.fatal('Unexpected error has occurred.', e)
+  .then(() => {
+    logger.info(`End ${app.name} v${app.version}`)
+  })
+  .catch((error: unknown) => {
+    logger.fatal(error)
+    throw error
   })

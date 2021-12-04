@@ -9,16 +9,12 @@ export class Git {
     await this.terminal.run('git', 'add', ...files)
   }
 
-  async checkout (branchName: string): Promise<void> {
-    await this.terminal.run('git', 'checkout', branchName)
-  }
-
   async commit (message: string): Promise<void> {
     await this.terminal.run('git', 'commit', '--message', message)
   }
 
   async createBranch (branchName: string): Promise<void> {
-    await this.terminal.run('git', 'checkout', '-b', branchName)
+    await this.terminal.run('git', 'switch', '-c', branchName)
   }
 
   async getConfig (key: string): Promise<string> {
@@ -49,7 +45,15 @@ export class Git {
     await this.terminal.run('git', 'branch', '-D', branchName)
   }
 
+  async restore (...files: string[]): Promise<void> {
+    await this.terminal.run('git', 'restore', '--worktree', '--staged', ...files)
+  }
+
   async setConfig (key: string, value: string): Promise<void> {
     await this.terminal.run('git', 'config', key, value)
+  }
+
+  async switch (branchName: string): Promise<void> {
+    await this.terminal.run('git', 'switch', branchName)
   }
 }

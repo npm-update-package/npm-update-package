@@ -1,4 +1,8 @@
 import {
+  isLeft,
+  isRight
+} from 'fp-ts/lib/Either'
+import {
   BranchNameCreator,
   CommitMessageCreator,
   Git
@@ -105,15 +109,28 @@ export const main = async ({
   const results = await outdatedPackagesProcessor.process(outdatedPackages)
   logger.debug(`results=${JSON.stringify(results)}`)
 
-  const updatedPackages = results
+  const succeededResults = results.filter(isRight).map(({ right }) => right)
+  logger.debug(`succeededResults=${JSON.stringify(succeededResults)}`)
+
+  const updatedPackages = succeededResults
     .filter(({ updated }) => updated)
     .map(({ outdatedPackage }) => outdatedPackage)
   logger.debug(`updatedPackages=${JSON.stringify(updatedPackages)}`)
 
-  const skippedPackages = results
+  const skippedPackages = succeededResults
     .filter(({ skipped }) => skipped)
     .map(({ outdatedPackage }) => outdatedPackage)
   logger.debug(`skippedPackages=${JSON.stringify(skippedPackages)}`)
 
-  logger.info(`${updatedPackages.length} packages has updated. ${skippedPackages.length} packages has skipped.`)
+  const failedResults = results.filter(isLeft).map(({ left }) => left)
+  logger.debug(`failedResults=${JSON.stringify(failedResults)}`)
+
+  const failedPackages = failedResults.map(({ outdatedPackage }) => outdatedPackage)
+  logger.debug(`failedPackages=${JSON.stringify(failedPackages)}`)
+
+  // TODO: show as table
+  logger.info(`Processed ${succeededResults.length + failedPackages.length} packages:
+- ${updatedPackages.length} packages has updated: ${updatedPackages.map(({ name }) => name).join(',')}
+- ${skippedPackages.length} packages has skipped: ${skippedPackages.map(({ name }) => name).join(',')}
+- ${failedPackages.length} packages has failed: ${failedPackages.map(({ name }) => name).join(',')}`)
 }

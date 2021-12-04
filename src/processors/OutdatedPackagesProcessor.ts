@@ -1,7 +1,9 @@
+import type { Either } from 'fp-ts/lib/Either'
 import type { Logger } from '../logger'
 import type { OutdatedPackage } from '../ncu'
+import type { FailedResult } from './FailedResult'
 import type { OutdatedPackageProcessor } from './OutdatedPackageProcessor'
-import type { Result } from './Result'
+import type { SucceededResult } from './SucceededResult'
 
 export class OutdatedPackagesProcessor {
   private readonly outdatedPackageProcessor: OutdatedPackageProcessor
@@ -18,8 +20,8 @@ export class OutdatedPackagesProcessor {
     this.logger = logger
   }
 
-  async process (outdatedPackages: OutdatedPackage[]): Promise<Result[]> {
-    const results: Result[] = []
+  async process (outdatedPackages: OutdatedPackage[]): Promise<Array<Either<FailedResult, SucceededResult>>> {
+    const results: Array<Either<FailedResult, SucceededResult>> = []
 
     for (const outdatedPackage of outdatedPackages) {
       this.logger.debug(`outdatedPackage=${JSON.stringify(outdatedPackage)}`)
