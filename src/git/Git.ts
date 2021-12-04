@@ -9,6 +9,9 @@ export class Git {
     await this.terminal.run('git', 'add', ...files)
   }
 
+  /**
+   * @deprecated Use {@link restore} or {@link switch}
+   */
   async checkout (branchName: string): Promise<void> {
     await this.terminal.run('git', 'checkout', branchName)
   }
