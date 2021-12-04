@@ -19,6 +19,35 @@ This package is currently under development, so the major version is 0 yet.
 npx npm-update-package --github-token $GITHUB_TOKEN
 ```
 
+## Examples
+
+Example of running npm-update-package on GitHub Actions at 0:00 every day:
+
+```yaml
+name: npm-update-package
+on:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  npm-update-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: |
+          git config user.name $GIT_USER_NAME
+          git config user.email $GIT_USER_EMAIL
+          npx npm-update-package --github-token $GITHUB_TOKEN
+        env:
+          GIT_USER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_USER_NAME: github-actions[bot]
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+Actual working examples can be seen in these repositories.
+
+- [npm-update-package/example-npm](https://github.com/npm-update-package/example-npm)
+
 ## Options
 
 You can customize behavior via command-line options.  
