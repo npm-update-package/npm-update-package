@@ -92,7 +92,7 @@ export class OutdatedPackageProcessor {
       outdatedPackage,
       branchName
     })
-    await this.git.checkout('-')
+    await this.git.switch('-')
     await this.git.removeBranch(branchName)
     this.logger.info(`${branchName} branch has removed.`)
 
