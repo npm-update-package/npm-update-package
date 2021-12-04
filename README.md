@@ -9,6 +9,10 @@ CLI tool for creating pull request to update npm packages
 
 This package is currently under development, so the major version is 0 yet.
 
+## Requirements
+
+- Git v2.23.0 or higher
+
 ## Installation
 
 If you are using npm:
