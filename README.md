@@ -13,31 +13,40 @@ This package is currently under development, so the major version is 0 yet.
 
 - Git v2.23.0 or higher
 
-## Installation
-
-If you are using npm:
-
-```sh
-npm i -g npm-update-package
-```
-
-If you are using Yarn:
-
-```sh
-yarn global add npm-update-package
-```
-
-Or, you can use [npx](https://docs.npmjs.com/cli/v8/commands/npx).
-
-```sh
-npx npm-update-package
-```
-
 ## Usage
 
 ```sh
-npm-update-package --github-token $GITHUB_TOKEN
+npx npm-update-package --github-token $GITHUB_TOKEN
 ```
+
+## Examples
+
+Example of running npm-update-package on GitHub Actions at 0:00 every day:
+
+```yaml
+name: npm-update-package
+on:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  npm-update-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: |
+          git config user.name $GIT_USER_NAME
+          git config user.email $GIT_USER_EMAIL
+          npx npm-update-package --github-token $GITHUB_TOKEN
+        env:
+          GIT_USER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_USER_NAME: github-actions[bot]
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+Actual working examples can be seen in these repositories.
+
+- [npm-update-package/example-npm](https://github.com/npm-update-package/example-npm)
 
 ## Options
 
