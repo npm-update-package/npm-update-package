@@ -1,3 +1,8 @@
+import {
+  left,
+  right
+} from 'fp-ts/lib/Either'
+import type { Either } from 'fp-ts/lib/Either'
 import type {
   BranchNameCreator,
   CommitMessageCreator,
@@ -13,7 +18,8 @@ import type {
   OutdatedPackage
 } from '../ncu'
 import type { PackageManager } from '../package-manager'
-import type { Result } from './Result'
+import type { FailedResult } from './FailedResult'
+import type { SucceededResult } from './SucceededResult'
 
 // TODO: add test
 export class OutdatedPackageProcessor {
@@ -58,47 +64,59 @@ export class OutdatedPackageProcessor {
   /**
    * Don't run in parallel because it includes file operations.
    */
-  async process (outdatedPackage: OutdatedPackage): Promise<Result> {
+  async process (outdatedPackage: OutdatedPackage): Promise<Either<FailedResult, SucceededResult>> {
     const branchName = this.branchNameCreator.create(outdatedPackage)
     this.logger.debug(`branchName=${branchName}`)
 
     if (this.remoteBranchExistenceChecker.check(branchName)) {
       this.logger.info(`Skip ${outdatedPackage.name} because ${branchName} branch already exists on remote.`)
-      return {
+      return right({
         outdatedPackage,
         skipped: true
-      }
+      })
     }
 
     await this.git.createBranch(branchName)
     this.logger.info(`${branchName} branch has created.`)
 
-    const updatedPackages = await this.ncu.update(outdatedPackage)
+    try {
+      try {
+        const updatedPackages = await this.ncu.update(outdatedPackage)
 
-    if (updatedPackages.length !== 1) {
-      throw new Error(`Failed to update ${outdatedPackage.name}.`)
-    }
+        if (updatedPackages.length !== 1) {
+          throw new Error(`Failed to update ${outdatedPackage.name}.`)
+        }
 
-    await this.packageManager.install()
-    this.logger.info(`${outdatedPackage.name} has updated from v${outdatedPackage.currentVersion.version} to v${outdatedPackage.newVersion.version}`)
+        await this.packageManager.install()
+      } catch (error) {
+        this.logger.error(error)
+        return left({
+          outdatedPackage,
+          error
+        })
+      }
 
-    await this.git.add(...this.packageManager.packageFiles)
-    const message = this.commitMessageCreator.create(outdatedPackage)
-    this.logger.debug(`message=${message}`)
+      this.logger.info(`${outdatedPackage.name} has updated from v${outdatedPackage.currentVersion.version} to v${outdatedPackage.newVersion.version}`)
 
-    await this.git.commit(message)
-    await this.git.push(branchName)
-    await this.pullRequestCreator.create({
-      outdatedPackage,
-      branchName
-    })
-    await this.git.switch('-')
-    await this.git.removeBranch(branchName)
-    this.logger.info(`${branchName} branch has removed.`)
+      await this.git.add(...this.packageManager.packageFiles)
+      const message = this.commitMessageCreator.create(outdatedPackage)
+      this.logger.debug(`message=${message}`)
 
-    return {
-      outdatedPackage,
-      updated: true
+      await this.git.commit(message)
+      await this.git.push(branchName)
+      await this.pullRequestCreator.create({
+        outdatedPackage,
+        branchName
+      })
+      return right({
+        outdatedPackage,
+        updated: true
+      })
+    } finally {
+      await this.git.restore(...this.packageManager.packageFiles)
+      await this.git.switch('-')
+      await this.git.removeBranch(branchName)
+      this.logger.info(`${branchName} branch has removed.`)
     }
   }
 }
