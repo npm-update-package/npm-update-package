@@ -13,30 +13,10 @@ This package is currently under development, so the major version is 0 yet.
 
 - Git v2.23.0 or higher
 
-## Installation
-
-If you are using npm:
-
-```sh
-npm i -g npm-update-package
-```
-
-If you are using Yarn:
-
-```sh
-yarn global add npm-update-package
-```
-
-Or, you can use [npx](https://docs.npmjs.com/cli/v8/commands/npx).
-
-```sh
-npx npm-update-package
-```
-
 ## Usage
 
 ```sh
-npm-update-package --github-token $GITHUB_TOKEN
+npx npm-update-package --github-token $GITHUB_TOKEN
 ```
 
 ## Options
