@@ -49,6 +49,10 @@ export class Git {
     await this.terminal.run('git', 'branch', '-D', branchName)
   }
 
+  async restore (file: string): Promise<void> {
+    await this.terminal.run('git', 'checkout', file)
+  }
+
   async setConfig (key: string, value: string): Promise<void> {
     await this.terminal.run('git', 'config', key, value)
   }
