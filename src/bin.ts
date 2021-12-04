@@ -17,6 +17,6 @@ main({
     logger.info(`End ${app.name} v${app.version}`)
   })
   .catch((e: unknown) => {
-    logger.fatal('Unexpected error has occurred.')
+    logger.fatal(e)
     throw e
   })
