@@ -1,6 +1,6 @@
 import type { OutdatedPackage } from '../ncu'
 
-export interface FailedResult<Error = unknown> {
+export interface FailedResult {
   outdatedPackage: OutdatedPackage
-  error: Error
+  error: unknown
 }
