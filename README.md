@@ -21,7 +21,7 @@ npx npm-update-package --github-token $GITHUB_TOKEN
 
 ## Examples
 
-Example of running npm-update-package on GitHub Actions at 0:00 every day:
+Example of running npm-update-package on GitHub Actions at 0:00 (UTC) every day:
 
 ```yaml
 name: npm-update-package
