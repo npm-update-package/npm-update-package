@@ -9,6 +9,7 @@ export class Yarn implements PackageManager {
   ]
 
   readonly packageFile = 'package.json'
+  readonly lockFile = 'yarn.lock'
 
   constructor (private readonly terminal: Terminal) {}
 

@@ -9,6 +9,7 @@ export class Npm implements PackageManager {
   ]
 
   readonly packageFile = 'package.json'
+  readonly lockFile = 'package-lock.json'
 
   constructor (private readonly terminal: Terminal) {}
 
