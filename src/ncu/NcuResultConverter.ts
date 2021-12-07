@@ -1,15 +1,15 @@
 import type { PackageDependencies } from '../package-json'
-import type { NcuOutdatedPackages } from './NcuOutdatedPackages'
+import type { NcuResult } from './NcuResult'
 import type { OutdatedPackage } from './OutdatedPackage'
 import { PackageVersion } from './PackageVersion'
 import { toUpdateType } from './toUpdateType'
 
 // TODO: add test
-export class NcuOutdatedPackagesConverter {
+export class NcuResultConverter {
   constructor (private readonly currentDependencies: PackageDependencies) {}
 
-  toOutdatedPackages (outdatedPackages: NcuOutdatedPackages): OutdatedPackage[] {
-    return Object.entries(outdatedPackages)
+  toOutdatedPackages (result: NcuResult): OutdatedPackage[] {
+    return Object.entries(result)
       .map(([name, newVersion]) => ({
         name,
         currentVersion: PackageVersion.of(this.currentDependencies[name]),

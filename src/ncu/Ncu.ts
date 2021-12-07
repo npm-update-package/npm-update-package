@@ -2,8 +2,8 @@ import { run } from 'npm-check-updates'
 import type { Options } from 'npm-check-updates/build/src/types'
 import type { OutdatedPackage } from '../ncu'
 import type { PackageJsonReader } from '../package-json'
-import { isNcuOutdatedPackages } from './isNcuOutdatedPackages'
-import { NcuOutdatedPackagesConverter } from './NcuOutdatedPackagesConverter'
+import { isNcuResult } from './NcuResult'
+import { NcuResultConverter } from './NcuResultConverter'
 
 // TODO: add test
 export class Ncu {
@@ -33,11 +33,11 @@ export class Ncu {
     }
     const result = await run(options)
 
-    if (!isNcuOutdatedPackages(result)) {
-      throw new Error('result is not NcuOutdatedPackages')
+    if (!isNcuResult(result)) {
+      throw new Error('result is not NcuResult')
     }
 
-    const ncuOutdatedPackagesConverter = new NcuOutdatedPackagesConverter(currentDependencies)
-    return ncuOutdatedPackagesConverter.toOutdatedPackages(result)
+    const ncuResultConverter = new NcuResultConverter(currentDependencies)
+    return ncuResultConverter.toOutdatedPackages(result)
   }
 }
