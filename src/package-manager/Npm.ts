@@ -3,11 +3,6 @@ import type { PackageManager } from './PackageManager'
 
 // TODO: add test
 export class Npm implements PackageManager {
-  readonly packageFiles = [
-    'package.json',
-    'package-lock.json'
-  ]
-
   readonly packageFile = 'package.json'
   readonly lockFile = 'package-lock.json'
 
