@@ -1,6 +1,10 @@
-import type {
-  Index,
-  VersionSpec
-} from 'npm-check-updates/build/src/types'
+import {
+  record,
+  string
+} from 'io-ts'
+import type { TypeOf } from 'io-ts'
 
-export type NcuOutdatedPackages = Index<VersionSpec>
+export const NcuOutdatedPackages = record(string, string)
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export type NcuOutdatedPackages = TypeOf<typeof NcuOutdatedPackages>
+export const isNcuOutdatedPackages = NcuOutdatedPackages.is
