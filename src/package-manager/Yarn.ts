@@ -8,6 +8,8 @@ export class Yarn implements PackageManager {
     'yarn.lock'
   ]
 
+  readonly packageFile = 'package.json'
+
   constructor (private readonly terminal: Terminal) {}
 
   /**
