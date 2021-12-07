@@ -3,10 +3,8 @@ import type { PackageManager } from './PackageManager'
 
 // TODO: add test
 export class Yarn implements PackageManager {
-  readonly packageFiles = [
-    'package.json',
-    'yarn.lock'
-  ]
+  readonly packageFile = 'package.json'
+  readonly lockFile = 'yarn.lock'
 
   constructor (private readonly terminal: Terminal) {}
 
