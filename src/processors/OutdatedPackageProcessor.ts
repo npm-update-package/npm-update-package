@@ -98,7 +98,7 @@ export class OutdatedPackageProcessor {
 
       this.logger.info(`${outdatedPackage.name} has updated from v${outdatedPackage.currentVersion.version} to v${outdatedPackage.newVersion.version}`)
 
-      await this.git.add(...this.packageManager.packageFiles)
+      await this.git.add(this.packageManager.packageFile, this.packageManager.lockFile)
       const message = this.commitMessageCreator.create(outdatedPackage)
       this.logger.debug(`message=${message}`)
 
@@ -113,7 +113,7 @@ export class OutdatedPackageProcessor {
         updated: true
       })
     } finally {
-      await this.git.restore(...this.packageManager.packageFiles)
+      await this.git.restore(this.packageManager.packageFile, this.packageManager.lockFile)
       await this.git.switch('-')
       await this.git.removeBranch(branchName)
       this.logger.info(`${branchName} branch has removed.`)
