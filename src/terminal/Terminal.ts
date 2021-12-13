@@ -1,4 +1,5 @@
-import execa, { type ExecaReturnValue } from 'execa'
+import execa from 'execa'
+import type { ExecaReturnValue } from 'execa'
 
 // TODO: add test
 export class Terminal {
