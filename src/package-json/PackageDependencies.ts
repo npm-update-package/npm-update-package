@@ -1,8 +1,8 @@
 import {
   record,
-  string
+  string,
+  type TypeOf
 } from 'io-ts'
-import type { TypeOf } from 'io-ts'
 
 export const PackageDependencies = record(string, string)
 // eslint-disable-next-line @typescript-eslint/no-redeclare

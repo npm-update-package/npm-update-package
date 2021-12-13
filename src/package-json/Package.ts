@@ -2,9 +2,9 @@ import {
   intersection,
   partial,
   string,
-  type
+  type,
+  type TypeOf
 } from 'io-ts'
-import type { TypeOf } from 'io-ts'
 import { PackageDependencies } from './PackageDependencies'
 
 const Package = intersection([

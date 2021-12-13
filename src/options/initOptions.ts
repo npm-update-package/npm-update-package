@@ -5,8 +5,10 @@ import {
 import { app } from '../app'
 import { LogLevel } from '../logger'
 import { PackageManagerName } from '../package-manager'
-import { isOptions } from './Options'
-import type { Options } from './Options'
+import {
+  isOptions,
+  type Options
+} from './Options'
 
 // TODO: add test
 export const initOptions = (): Options => {

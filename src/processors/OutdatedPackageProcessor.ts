@@ -1,8 +1,8 @@
 import {
   left,
-  right
+  right,
+  type Either
 } from 'fp-ts/lib/Either'
-import type { Either } from 'fp-ts/lib/Either'
 import type {
   BranchNameCreator,
   CommitMessageCreator,
