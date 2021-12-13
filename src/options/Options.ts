@@ -2,9 +2,9 @@ import {
   literal,
   string,
   type,
-  union
+  union,
+  type TypeOf
 } from 'io-ts'
-import type { TypeOf } from 'io-ts'
 import { LogLevel } from '../logger'
 import { PackageManagerName } from '../package-manager'
 
