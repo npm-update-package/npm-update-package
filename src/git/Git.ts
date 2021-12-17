@@ -54,6 +54,6 @@ export class Git {
   }
 
   async switch (branchName: string): Promise<void> {
-    await this.terminal.run('git', 'switch', branchName)
+    await this.terminal.run('git', 'checkout', branchName)
   }
 }
