@@ -14,7 +14,7 @@ export class Git {
   }
 
   async createBranch (branchName: string): Promise<void> {
-    await this.terminal.run('git', 'switch', '-c', branchName)
+    await this.terminal.run('git', 'checkout', '-b', branchName)
   }
 
   async getConfig (key: string): Promise<string> {
