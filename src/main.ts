@@ -36,7 +36,10 @@ export const main = async ({
   options: Options
   logger: Logger
 }): Promise<void> => {
-  logger.debug(`options=${JSON.stringify(options)}`)
+  logger.debug(`options=${JSON.stringify({
+    ...options,
+    githubToken: options.githubToken !== '' ? '***' : ''
+  })}`)
 
   const packageJsonParser = new PackageJsonParser(logger)
   const packageJsonReader = new PackageJsonReader({
