@@ -142,3 +142,9 @@ Pull request title template
   - `updateType`
 - required: false
 - default: `chore(deps): {{updateType}} update {{{packageName}}} to v{{newVersion}}`
+
+## FAQ
+
+### Conflicts has occurred in PR. What should I do?
+
+If conflicts has occurred in PR, close it and run npm-update-package again.
