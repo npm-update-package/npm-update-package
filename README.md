@@ -143,6 +143,6 @@ Pull request title template
 
 ## FAQ
 
-### Conflicts has occurred in PR. What should I do?
+### Conflicts have occurred in PR. What should I do?
 
-If conflicts has occurred in PR, close it and run npm-update-package again.
+If conflicts have occurred in PR, close it and run npm-update-package again.
