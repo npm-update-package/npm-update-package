@@ -3,8 +3,8 @@ import type { CLIOption } from './CLIOption'
 
 // TODO: add test
 export const toCommanderOption = (cliOption: CLIOption): Option => {
-  const option = new Option(`--${cliOption.name} <value>`, cliOption.description)
-  option.makeOptionMandatory(cliOption.required)
+  const value = cliOption.required ? '<value>' : '[value]'
+  const option = new Option(`--${cliOption.name} ${value}`, cliOption.description)
 
   if (cliOption.choices !== undefined) {
     option.choices(cliOption.choices)
