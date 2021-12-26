@@ -1,6 +1,9 @@
+import type { OptionType } from './OptionType'
+
 interface OptionBase {
   name: string
   description: string
+  type: OptionType
   choices?: string[]
 }
 
