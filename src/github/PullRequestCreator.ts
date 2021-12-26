@@ -50,7 +50,7 @@ export class PullRequestCreator {
     const body = this.pullRequestBodyCreator.create(outdatedPackage)
     this.logger.debug(`body=${body}`)
 
-    const createdPullRequest = await this.github.createPullRequest({
+    const pullRequest = await this.github.createPullRequest({
       owner: this.gitRepo.owner,
       repo: this.gitRepo.name,
       base: this.githubRepo.default_branch,
@@ -58,7 +58,7 @@ export class PullRequestCreator {
       title,
       body
     })
-    this.logger.debug(`createdPullRequest=${JSON.stringify(createdPullRequest)}`)
-    this.logger.info(`Pull request for ${outdatedPackage.name} has created. ${createdPullRequest.html_url}`)
+    this.logger.debug(`pullRequest=${JSON.stringify(pullRequest)}`)
+    this.logger.info(`Pull request for ${outdatedPackage.name} has created. ${pullRequest.html_url}`)
   }
 }
