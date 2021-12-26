@@ -6,7 +6,6 @@ import type { PullRequestBodyCreator } from './PullRequestBodyCreator'
 import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
 import type { Repository as GitHubRepository } from './Repository'
 
-// TODO: add test
 export class PullRequestCreator {
   private readonly github: GitHub
   private readonly gitRepo: GitRepository
