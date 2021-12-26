@@ -6,7 +6,6 @@ import type { PullRequestBodyCreator } from './PullRequestBodyCreator'
 import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
 import type { Repository as GitHubRepository } from './Repository'
 
-// TODO: add test
 export class PullRequestCreator {
   private readonly github: GitHub
   private readonly gitRepo: GitRepository
@@ -51,7 +50,7 @@ export class PullRequestCreator {
     const body = this.pullRequestBodyCreator.create(outdatedPackage)
     this.logger.debug(`body=${body}`)
 
-    const createdPullRequest = await this.github.createPullRequest({
+    const pullRequest = await this.github.createPullRequest({
       owner: this.gitRepo.owner,
       repo: this.gitRepo.name,
       base: this.githubRepo.default_branch,
@@ -59,7 +58,7 @@ export class PullRequestCreator {
       title,
       body
     })
-    this.logger.debug(`createdPullRequest=${JSON.stringify(createdPullRequest)}`)
-    this.logger.info(`Pull request for ${outdatedPackage.name} has created. ${createdPullRequest.html_url}`)
+    this.logger.debug(`pullRequest=${JSON.stringify(pullRequest)}`)
+    this.logger.info(`Pull request for ${outdatedPackage.name} has created. ${pullRequest.html_url}`)
   }
 }
