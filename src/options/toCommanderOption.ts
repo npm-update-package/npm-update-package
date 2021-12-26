@@ -10,7 +10,7 @@ export const toCommanderOption = (cliOption: CLIOption): Option => {
     option.choices(cliOption.choices)
   }
 
-  if (!cliOption.required) {
+  if (!cliOption.required && cliOption.default !== undefined) {
     option.default(cliOption.default)
   }
 
