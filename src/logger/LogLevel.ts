@@ -1,7 +1,8 @@
 export const LogLevel = {
   Debug: 'debug',
   Error: 'error',
-  Info: 'info'
+  Info: 'info',
+  Off: 'off'
 } as const
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export type LogLevel = typeof LogLevel[keyof typeof LogLevel]

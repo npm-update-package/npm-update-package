@@ -12,7 +12,7 @@ const Options = type({
   branchName: string,
   commitMessage: string,
   githubToken: string,
-  logLevel: union([literal(LogLevel.Error), literal(LogLevel.Info), literal(LogLevel.Debug)]),
+  logLevel: union([literal(LogLevel.Off), literal(LogLevel.Error), literal(LogLevel.Info), literal(LogLevel.Debug)]),
   packageManager: union([literal(PackageManagerName.Npm), literal(PackageManagerName.Yarn)]),
   pullRequestBody: string,
   pullRequestTitle: string
