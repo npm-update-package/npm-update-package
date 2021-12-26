@@ -20,6 +20,7 @@ export const initOptions = (): Options => {
     .addOption(
       new Option('--log-level <value>', 'Log level to show')
         .choices([
+          LogLevel.Off,
           LogLevel.Error,
           LogLevel.Info,
           LogLevel.Debug

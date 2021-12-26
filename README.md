@@ -84,9 +84,10 @@ Log level to show
 
 - type: string
 - allowed values:
-  - `error`
-  - `info`
-  - `debug`
+  - `off`: Do not output any logs.
+  - `error`: Output error logs.
+  - `info`: Output error/info logs.
+  - `debug`: Output error/info/debug logs.
 - required: false
 - default: `info`
 
