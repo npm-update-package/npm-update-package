@@ -3,12 +3,18 @@ import type {
   RestEndpointMethodTypes
 } from '@octokit/rest'
 import type { Branch } from './Branch'
+import type { Label } from './Label'
 import type { PullRequest } from './PullRequest'
 import type { Repository } from './Repository'
 
 // TODO: add test
 export class GitHub {
   constructor (private readonly octokit: Octokit) {}
+
+  async addLabels (params: RestEndpointMethodTypes['issues']['addLabels']['parameters']): Promise<Label[]> {
+    const { data } = await this.octokit.issues.addLabels(params)
+    return data
+  }
 
   async createPullRequest (params: RestEndpointMethodTypes['pulls']['create']['parameters']): Promise<PullRequest> {
     const { data } = await this.octokit.pulls.create(params)
