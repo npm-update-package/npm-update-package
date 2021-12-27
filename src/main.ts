@@ -91,7 +91,8 @@ export const main = async ({
     githubRepo,
     pullRequestTitleCreator,
     pullRequestBodyCreator,
-    logger
+    logger,
+    labels: options.pullRequestLabels
   })
   const branchNameCreator = new BranchNameCreator(options.branchName)
   const commitMessageCreator = new CommitMessageCreator(options.commitMessage)
