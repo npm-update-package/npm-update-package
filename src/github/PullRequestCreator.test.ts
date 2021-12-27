@@ -12,22 +12,22 @@ import type { Repository as GitHubRepository } from './Repository'
 
 describe('PullRequestCreator', () => {
   describe('create', () => {
-    const githubCreatePullRequestMock = jest.fn()
     const pullRequestTitleCreatorCreateMock = jest.fn()
     const pullRequestBodyCreatorCreateMock = jest.fn()
+    const githubCreatePullRequestMock = jest.fn()
 
     afterEach(() => {
-      githubCreatePullRequestMock.mockReset()
       pullRequestTitleCreatorCreateMock.mockReset()
       pullRequestBodyCreatorCreateMock.mockReset()
+      githubCreatePullRequestMock.mockReset()
     })
 
     it('create pull request', async () => {
-      githubCreatePullRequestMock.mockResolvedValue({})
       const title = 'pull request title'
       pullRequestTitleCreatorCreateMock.mockReturnValue(title)
       const body = 'pull request body'
       pullRequestBodyCreatorCreateMock.mockReturnValue(body)
+      githubCreatePullRequestMock.mockResolvedValue({})
 
       const github = {
         createPullRequest: githubCreatePullRequestMock
