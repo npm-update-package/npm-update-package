@@ -1,6 +1,7 @@
 export type { Branch } from './Branch'
 export { createGitHub } from './createGitHub'
 export { GitHub } from './GitHub'
+export type { Label } from './Label'
 export type { PullRequest } from './PullRequest'
 export { PullRequestBodyCreator } from './PullRequestBodyCreator'
 export { PullRequestCreator } from './PullRequestCreator'
