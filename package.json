@@ -26,7 +26,8 @@
     "mustache": "4.1.0",
     "npm-check-updates": "12.0.5",
     "parse-github-url": "1.0.2",
-    "semver": "7.3.5"
+    "semver": "7.3.5",
+    "type-guards": "0.15.0"
   },
   "devDependencies": {
     "@jest/types": "27.0.6",
