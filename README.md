@@ -189,6 +189,10 @@ end
 
 ## FAQ
 
+### What is the purpose of npm-update-package?
+
+npm-update-package can be used in environments where Renovate cannot be used for some reason.
+
 ### Conflicts have occurred in PR. What should I do?
 
 If conflicts have occurred in PR, close it and run npm-update-package again.
