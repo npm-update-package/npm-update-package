@@ -31,10 +31,10 @@
   },
   "devDependencies": {
     "@jest/types": "27.0.6",
-    "@tsconfig/node12": "1.0.9",
+    "@tsconfig/node14": "1.0.1",
     "@types/jest": "27.0.3",
     "@types/mustache": "4.1.2",
-    "@types/node": "12.20.15",
+    "@types/node": "14.18.3",
     "@types/parse-github-url": "1.0.0",
     "@types/semver": "7.3.9",
     "@typescript-eslint/eslint-plugin": "5.8.1",
