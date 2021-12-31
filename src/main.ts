@@ -44,7 +44,10 @@ export const main = async ({
     packageJsonParser,
     logger
   })
-  const ncu = new Ncu(packageJsonReader)
+  const ncu = new Ncu({
+    packageJsonReader,
+    logger
+  })
   const outdatedPackages = await ncu.check()
   logger.debug(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
 
