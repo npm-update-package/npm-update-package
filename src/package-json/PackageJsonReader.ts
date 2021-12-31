@@ -1,13 +1,27 @@
 import { readFile } from '../file'
+import type { Logger } from '../logger'
 import type { Package } from './Package'
 import type { PackageJsonParser } from './PackageJsonParser'
 
 // TODO: add test
 export class PackageJsonReader {
-  constructor (private readonly packageJsonParser: PackageJsonParser) {}
+  private readonly packageJsonParser: PackageJsonParser
+  private readonly logger: Logger
+
+  constructor ({
+    packageJsonParser,
+    logger
+  }: {
+    packageJsonParser: PackageJsonParser
+    logger: Logger
+  }) {
+    this.packageJsonParser = packageJsonParser
+    this.logger = logger
+  }
 
   async read (): Promise<Package> {
     const json = await readFile('./package.json')
+    this.logger.debug(`json=${json}`)
     return this.packageJsonParser.parse(json)
   }
 }
