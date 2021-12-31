@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@jest/types": "27.0.6",
-    "@tsconfig/node14": "1.0.1",
+    "@tsconfig/node16": "1.0.2",
     "@types/jest": "27.0.3",
     "@types/mustache": "4.1.2",
     "@types/node": "16.11.17",
