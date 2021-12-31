@@ -18,6 +18,7 @@ import type { Logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'
 import { PackageJsonParser } from './package-json'
+import { PackageJsonReader } from './package-json/PackageJsonReader'
 import { createPackageManager } from './package-manager'
 import {
   OutdatedPackageProcessor,
@@ -39,7 +40,8 @@ export const main = async ({
   })}`)
 
   const packageJsonParser = new PackageJsonParser(logger)
-  const ncu = new Ncu(packageJsonParser)
+  const packageJsonReader = new PackageJsonReader(packageJsonParser)
+  const ncu = new Ncu(packageJsonReader)
   const outdatedPackages = await ncu.check()
   logger.debug(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
 
