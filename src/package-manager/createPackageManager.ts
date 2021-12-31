@@ -4,7 +4,6 @@ import type { PackageManager } from './PackageManager'
 import type { PackageManagerName } from './PackageManagerName'
 import { Yarn } from './Yarn'
 
-// TODO: add test
 export const createPackageManager = ({
   terminal,
   packageManager
