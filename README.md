@@ -138,12 +138,11 @@ jobs:
       - run: |
           git config user.name $GIT_USER_NAME
           git config user.email $GIT_USER_EMAIL
-          npx npm-update-package --github-token $GITHUB_TOKEN --pull-request-labels $PULL_REQUEST_LABELS
+          npx npm-update-package --github-token $GITHUB_TOKEN
         env:
           GIT_USER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           GIT_USER_NAME: github-actions[bot]
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PULL_REQUEST_LABELS: npm-update-package
 ```
 
 Actual working examples can be seen in these repositories.
