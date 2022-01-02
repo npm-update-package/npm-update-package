@@ -153,8 +153,6 @@ Actual working examples can be seen in these repositories.
 
 The following shows the process flow of npm-update-package:
 
-[![](http://www.plantuml.com/plantuml/svg/RKyxKiCm5EpVARPqYbmWRi9Gq4666GuWx4tiGPQ4z0JXzaIn70D38wsUzkrddzH4pPELAv1Jz3bWCgEJtGCLFcjlb3s2wTxCYQaL6OzexgozZM0YaSDM_RPmDz213iqNqqO0kbve4z4ulv7BQpnAjNcgueSgT8Y-Oqe-IcIWKG7-9Quye8HvvkILU8t6TGDu7fEcFodM102mkuyqjursdhs4uh6qQdyHGxOMaU-PIUjFCVtuAN6jDjzpxDe2dyDeYUQHPrtKbv2oabTOaEmlHvxiDm00)](http://www.plantuml.com/plantuml/uml/RKyxKiCm5EpVARPqYbmWRi9Gq4666GuWx4tiGPQ4z0JXzaIn70D38wsUzkrddzH4pPELAv1Jz3bWCgEJtGCLFcjlb3s2wTxCYQaL6OzexgozZM0YaSDM_RPmDz213iqNqqO0kbve4z4ulv7BQpnAjNcgueSgT8Y-Oqe-IcIWKG7-9Quye8HvvkILU8t6TGDu7fEcFodM102mkuyqjursdhs4uh6qQdyHGxOMaU-PIUjFCVtuAN6jDjzpxDe2dyDeYUQHPrtKbv2oabTOaEmlHvxiDm00)
-
 <!--
 ```plantuml
 @startuml
@@ -186,6 +184,8 @@ end
 @enduml
 ```
 -->
+
+[![](http://www.plantuml.com/plantuml/svg/RKyxKiCm5EpVARPqYbmWRi9Gq4666GuWx4tiGPQ4z0JXzaIn70D38wsUzkrddzH4pPELAv1Jz3bWCgEJtGCLFcjlb3s2wTxCYQaL6OzexgozZM0YaSDM_RPmDz213iqNqqO0kbve4z4ulv7BQpnAjNcgueSgT8Y-Oqe-IcIWKG7-9Quye8HvvkILU8t6TGDu7fEcFodM102mkuyqjursdhs4uh6qQdyHGxOMaU-PIUjFCVtuAN6jDjzpxDe2dyDeYUQHPrtKbv2oabTOaEmlHvxiDm00)](http://www.plantuml.com/plantuml/uml/RKyxKiCm5EpVARPqYbmWRi9Gq4666GuWx4tiGPQ4z0JXzaIn70D38wsUzkrddzH4pPELAv1Jz3bWCgEJtGCLFcjlb3s2wTxCYQaL6OzexgozZM0YaSDM_RPmDz213iqNqqO0kbve4z4ulv7BQpnAjNcgueSgT8Y-Oqe-IcIWKG7-9Quye8HvvkILU8t6TGDu7fEcFodM102mkuyqjursdhs4uh6qQdyHGxOMaU-PIUjFCVtuAN6jDjzpxDe2dyDeYUQHPrtKbv2oabTOaEmlHvxiDm00)
 
 ## FAQ
 
