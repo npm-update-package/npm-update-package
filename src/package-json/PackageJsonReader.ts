@@ -1,4 +1,4 @@
-import { readFile } from '../file'
+import fs from 'fs'
 import type { Logger } from '../logger'
 import type { Package } from './Package'
 import type { PackageJsonParser } from './PackageJsonParser'
@@ -20,7 +20,7 @@ export class PackageJsonReader {
   }
 
   async read (): Promise<Package> {
-    const json = await readFile('./package.json')
+    const json = await fs.promises.readFile('./package.json', 'utf8')
     this.logger.debug(`json=${json}`)
     return this.packageJsonParser.parse(json)
   }
