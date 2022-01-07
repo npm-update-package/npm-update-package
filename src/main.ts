@@ -85,7 +85,7 @@ export const main = async ({
     packageManager: options.packageManager
   })
   const pullRequestTitleCreator = new PullRequestTitleCreator(options.pullRequestTitle)
-  const pullRequestBodyCreator = new PullRequestBodyCreator(options.pullRequestBody)
+  const pullRequestBodyCreator = new PullRequestBodyCreator()
   const pullRequestCreator = new PullRequestCreator({
     github,
     gitRepo,
