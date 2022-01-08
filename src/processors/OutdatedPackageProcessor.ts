@@ -76,6 +76,8 @@ export class OutdatedPackageProcessor {
       })
     }
 
+    // TODO: Skip if PR for same package exists
+
     await this.git.createBranch(branchName)
     this.logger.info(`${branchName} branch has created.`)
 
