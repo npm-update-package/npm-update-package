@@ -3,8 +3,8 @@ import type {
   RestEndpointMethodTypes
 } from '@octokit/rest'
 import type { Branch } from './Branch'
+import type { CreatedPullRequest } from './CreatedPullRequest'
 import type { Label } from './Label'
-import type { PullRequest } from './PullRequest'
 import type { Repository } from './Repository'
 
 // TODO: add test
@@ -16,7 +16,7 @@ export class GitHub {
     return data
   }
 
-  async createPullRequest (params: RestEndpointMethodTypes['pulls']['create']['parameters']): Promise<PullRequest> {
+  async createPullRequest (params: RestEndpointMethodTypes['pulls']['create']['parameters']): Promise<CreatedPullRequest> {
     const { data } = await this.octokit.pulls.create(params)
     return data
   }

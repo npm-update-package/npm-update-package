@@ -1,4 +1,5 @@
 export type { Branch } from './Branch'
+export type { CreatedPullRequest } from './CreatedPullRequest'
 export { createGitHub } from './createGitHub'
 export { GitHub } from './GitHub'
 export type { Label } from './Label'
