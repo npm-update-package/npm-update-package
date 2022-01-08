@@ -36,4 +36,6 @@ export class GitHub {
     const { data } = await this.octokit.repos.get(params)
     return data
   }
+
+  // TODO: removePullRequest
 }
