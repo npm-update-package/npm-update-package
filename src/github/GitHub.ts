@@ -5,6 +5,7 @@ import type {
 import type { Branch } from './Branch'
 import type { CreatedPullRequest } from './CreatedPullRequest'
 import type { Label } from './Label'
+import type { PullRequest } from './PullRequest'
 import type { Repository } from './Repository'
 
 // TODO: add test
@@ -23,6 +24,11 @@ export class GitHub {
 
   async fetchBranches (params: RestEndpointMethodTypes['repos']['listBranches']['parameters']): Promise<Branch[]> {
     const { data } = await this.octokit.repos.listBranches(params)
+    return data
+  }
+
+  async fetchPullRequests (params: RestEndpointMethodTypes['pulls']['list']['parameters']): Promise<PullRequest[]> {
+    const { data } = await this.octokit.pulls.list(params)
     return data
   }
 
