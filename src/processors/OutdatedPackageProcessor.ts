@@ -9,7 +9,9 @@ import type {
   Git
 } from '../git'
 import type {
+  PullRequestCloser,
   PullRequestCreator,
+  PullRequestFinder,
   RemoteBranchExistenceChecker
 } from '../github'
 import type { Logger } from '../logger'
@@ -31,6 +33,8 @@ export class OutdatedPackageProcessor {
   private readonly logger: Logger
   private readonly branchNameCreator: BranchNameCreator
   private readonly commitMessageCreator: CommitMessageCreator
+  private readonly pullRequestFinder: PullRequestFinder
+  private readonly pullRequestCloser: PullRequestCloser
 
   constructor ({
     git,
@@ -40,7 +44,9 @@ export class OutdatedPackageProcessor {
     remoteBranchExistenceChecker,
     logger,
     branchNameCreator,
-    commitMessageCreator
+    commitMessageCreator,
+    pullRequestFinder,
+    pullRequestCloser
   }: {
     git: Git
     ncu: Ncu
@@ -50,6 +56,8 @@ export class OutdatedPackageProcessor {
     logger: Logger
     branchNameCreator: BranchNameCreator
     commitMessageCreator: CommitMessageCreator
+    pullRequestFinder: PullRequestFinder
+    pullRequestCloser: PullRequestCloser
   }) {
     this.git = git
     this.ncu = ncu
@@ -59,6 +67,8 @@ export class OutdatedPackageProcessor {
     this.logger = logger
     this.branchNameCreator = branchNameCreator
     this.commitMessageCreator = commitMessageCreator
+    this.pullRequestFinder = pullRequestFinder
+    this.pullRequestCloser = pullRequestCloser
   }
 
   /**
@@ -104,9 +114,10 @@ export class OutdatedPackageProcessor {
 
       await this.git.commit(message)
       await this.git.push(branchName)
+      const pullRequests = this.pullRequestFinder.findByPackageName(outdatedPackage.name)
+      this.logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
 
-      // TODO: If PR for same package exists, close it
-
+      await Promise.all(pullRequests.map(async (pullRequest) => await this.pullRequestCloser.close(pullRequest)))
       await this.pullRequestCreator.create({
         outdatedPackage,
         branchName
