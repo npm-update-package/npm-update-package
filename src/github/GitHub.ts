@@ -17,7 +17,18 @@ export class GitHub {
     return data
   }
 
-  // TODO: closePullRequest
+  async closePullRequest (params: {
+    owner: string
+    repo: string
+    pull_number: number
+  }): Promise<void> {
+    await this.octokit.pulls.update({
+      owner: params.owner,
+      repo: params.repo,
+      pull_number: params.pull_number,
+      state: 'closed'
+    })
+  }
 
   async createPullRequest (params: RestEndpointMethodTypes['pulls']['create']['parameters']): Promise<CreatedPullRequest> {
     const { data } = await this.octokit.pulls.create(params)
