@@ -49,13 +49,6 @@ export const cliOptions: CLIOption[] = [
     ],
     default: PackageManagerName.Npm
   },
-  // TODO: remove pull-request-labels option
-  {
-    name: 'pull-request-labels',
-    description: 'Pull request labels',
-    type: OptionType.StringArray,
-    required: false
-  },
   {
     name: 'pull-request-title',
     description: 'Pull request title template',

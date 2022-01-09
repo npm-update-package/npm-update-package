@@ -73,13 +73,6 @@ Package manager of your project
 - required: false
 - default: `npm`
 
-### `--pull-request-labels`
-
-Pull request labels
-
-- type: string array
-- required: false
-
 ### `--pull-request-title`
 
 Pull request title template
