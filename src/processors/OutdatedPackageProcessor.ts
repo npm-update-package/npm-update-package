@@ -117,7 +117,10 @@ export class OutdatedPackageProcessor {
       const pullRequests = this.pullRequestFinder.findByPackageName(outdatedPackage.name)
       this.logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
 
-      await Promise.all(pullRequests.map(async (pullRequest) => await this.pullRequestCloser.close(pullRequest)))
+      await Promise.all(pullRequests.map(async (pullRequest) => {
+        await this.pullRequestCloser.close(pullRequest)
+        this.logger.info(`Pull request for ${outdatedPackage.name} has closed. ${pullRequest.html_url}`)
+      }))
       await this.pullRequestCreator.create({
         outdatedPackage,
         branchName
