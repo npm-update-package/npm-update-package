@@ -8,7 +8,6 @@ import {
 } from './git'
 import {
   createGitHub,
-  PullRequestBodyCreator,
   PullRequestCloser,
   PullRequestCreator,
   PullRequestFinder,
@@ -92,13 +91,11 @@ export const main = async ({
     packageManager: options.packageManager
   })
   const pullRequestTitleCreator = new PullRequestTitleCreator(options.pullRequestTitle)
-  const pullRequestBodyCreator = new PullRequestBodyCreator()
   const pullRequestCreator = new PullRequestCreator({
     github,
     gitRepo,
     githubRepo,
     pullRequestTitleCreator,
-    pullRequestBodyCreator,
     logger
   })
   const commitMessageCreator = new CommitMessageCreator(options.commitMessage)
