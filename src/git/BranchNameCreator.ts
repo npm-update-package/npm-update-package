@@ -2,7 +2,7 @@ import { render } from 'mustache'
 import type { OutdatedPackage } from '../ncu'
 
 export class BranchNameCreator {
-  constructor (private readonly template: string) {}
+  private readonly template: string = 'npm-update-package/{{{packageName}}}/v{{newVersion}}'
 
   create (outdatedPackage: OutdatedPackage): string {
     const packageName = outdatedPackage.name

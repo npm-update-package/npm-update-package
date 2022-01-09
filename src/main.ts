@@ -102,7 +102,7 @@ export const main = async ({
     pullRequestBodyCreator,
     logger
   })
-  const branchNameCreator = new BranchNameCreator(options.branchName)
+  const branchNameCreator = new BranchNameCreator()
   const commitMessageCreator = new CommitMessageCreator(options.commitMessage)
   const pullRequestFinder = new PullRequestFinder(pullRequests)
   const pullRequestCloser = new PullRequestCloser(github)
