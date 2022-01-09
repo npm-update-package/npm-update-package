@@ -3,13 +3,11 @@ import {
   isRight
 } from 'fp-ts/lib/Either'
 import {
-  BranchNameCreator,
   CommitMessageCreator,
   Git
 } from './git'
 import {
   createGitHub,
-  PullRequestBodyCreator,
   PullRequestCloser,
   PullRequestCreator,
   PullRequestFinder,
@@ -93,16 +91,13 @@ export const main = async ({
     packageManager: options.packageManager
   })
   const pullRequestTitleCreator = new PullRequestTitleCreator(options.pullRequestTitle)
-  const pullRequestBodyCreator = new PullRequestBodyCreator()
   const pullRequestCreator = new PullRequestCreator({
     github,
     gitRepo,
     githubRepo,
     pullRequestTitleCreator,
-    pullRequestBodyCreator,
     logger
   })
-  const branchNameCreator = new BranchNameCreator()
   const commitMessageCreator = new CommitMessageCreator(options.commitMessage)
   const pullRequestFinder = new PullRequestFinder(pullRequests)
   const pullRequestCloser = new PullRequestCloser(github)
@@ -113,7 +108,6 @@ export const main = async ({
     pullRequestCreator,
     remoteBranchExistenceChecker,
     logger,
-    branchNameCreator,
     commitMessageCreator,
     pullRequestFinder,
     pullRequestCloser
