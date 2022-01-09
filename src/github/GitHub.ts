@@ -43,7 +43,10 @@ export class GitHub {
   }
 
   async fetchPullRequests (params: RestEndpointMethodTypes['pulls']['list']['parameters']): Promise<PullRequest[]> {
-    const { data } = await this.octokit.pulls.list(params)
+    const { data } = await this.octokit.pulls.list({
+      ...params,
+      per_page: 100
+    })
     return data
   }
 
