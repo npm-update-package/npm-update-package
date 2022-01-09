@@ -17,6 +17,8 @@ export class GitHub {
     return data
   }
 
+  // TODO: closePullRequest
+
   async createPullRequest (params: RestEndpointMethodTypes['pulls']['create']['parameters']): Promise<CreatedPullRequest> {
     const { data } = await this.octokit.pulls.create(params)
     return data
@@ -36,6 +38,4 @@ export class GitHub {
     const { data } = await this.octokit.repos.get(params)
     return data
   }
-
-  // TODO: removePullRequest
 }
