@@ -17,15 +17,9 @@ export class GitHub {
     return data
   }
 
-  async closePullRequest (params: {
-    owner: string
-    repo: string
-    pull_number: number
-  }): Promise<void> {
+  async closePullRequest (params: RestEndpointMethodTypes['pulls']['update']['parameters']): Promise<void> {
     await this.octokit.pulls.update({
-      owner: params.owner,
-      repo: params.repo,
-      pull_number: params.pull_number,
+      ...params,
       state: 'closed'
     })
   }
