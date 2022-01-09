@@ -3,10 +3,10 @@ import {
   right,
   type Either
 } from 'fp-ts/lib/Either'
-import type {
-  BranchNameCreator,
-  CommitMessageCreator,
-  Git
+import {
+  createBranchName,
+  type CommitMessageCreator,
+  type Git
 } from '../git'
 import type {
   PullRequestCloser,
@@ -31,7 +31,6 @@ export class OutdatedPackageProcessor {
   private readonly pullRequestCreator: PullRequestCreator
   private readonly remoteBranchExistenceChecker: RemoteBranchExistenceChecker
   private readonly logger: Logger
-  private readonly branchNameCreator: BranchNameCreator
   private readonly commitMessageCreator: CommitMessageCreator
   private readonly pullRequestFinder: PullRequestFinder
   private readonly pullRequestCloser: PullRequestCloser
@@ -43,7 +42,6 @@ export class OutdatedPackageProcessor {
     pullRequestCreator,
     remoteBranchExistenceChecker,
     logger,
-    branchNameCreator,
     commitMessageCreator,
     pullRequestFinder,
     pullRequestCloser
@@ -54,7 +52,6 @@ export class OutdatedPackageProcessor {
     pullRequestCreator: PullRequestCreator
     remoteBranchExistenceChecker: RemoteBranchExistenceChecker
     logger: Logger
-    branchNameCreator: BranchNameCreator
     commitMessageCreator: CommitMessageCreator
     pullRequestFinder: PullRequestFinder
     pullRequestCloser: PullRequestCloser
@@ -65,7 +62,6 @@ export class OutdatedPackageProcessor {
     this.pullRequestCreator = pullRequestCreator
     this.remoteBranchExistenceChecker = remoteBranchExistenceChecker
     this.logger = logger
-    this.branchNameCreator = branchNameCreator
     this.commitMessageCreator = commitMessageCreator
     this.pullRequestFinder = pullRequestFinder
     this.pullRequestCloser = pullRequestCloser
@@ -75,7 +71,7 @@ export class OutdatedPackageProcessor {
    * Don't run in parallel because it includes file operations.
    */
   async process (outdatedPackage: OutdatedPackage): Promise<Either<FailedResult, SucceededResult>> {
-    const branchName = this.branchNameCreator.create(outdatedPackage)
+    const branchName = createBranchName(outdatedPackage)
     this.logger.debug(`branchName=${branchName}`)
 
     if (this.remoteBranchExistenceChecker.check(branchName)) {
