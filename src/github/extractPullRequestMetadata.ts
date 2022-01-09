@@ -1,17 +1,17 @@
 import { isPullRequestMetadata, PullRequestMetadata } from './PullRequestMetadata'
 
-export const extractPullRequestMetadata = (pullRequestBody: string): PullRequestMetadata => {
+export const extractPullRequestMetadata = (pullRequestBody: string): PullRequestMetadata | undefined => {
   const matched = pullRequestBody.match(/<div id="npm-update-package-metadata">\s*```json\s*([\s\S]+?)\s*```\s*<\/div>/)
   const json = matched?.[1]
 
   if (json === undefined) {
-    throw new Error(`Failed to parse pull request body. pullRequestBody=${pullRequestBody}`)
+    return undefined
   }
 
   const metadata: unknown = JSON.parse(json)
 
   if (!isPullRequestMetadata(metadata)) {
-    throw new Error(`Failed to parse pull request body. pullRequestBody=${pullRequestBody}`)
+    return undefined
   }
 
   return metadata

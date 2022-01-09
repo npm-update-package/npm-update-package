@@ -11,8 +11,13 @@ export class PullRequestFinder {
         return false
       }
 
-      const { packages } = extractPullRequestMetadata(body)
-      return packages.some(({ name }) => name === packageName)
+      const metadata = extractPullRequestMetadata(body)
+
+      if (metadata === undefined) {
+        return false
+      }
+
+      return metadata.packages.some(({ name }) => name === packageName)
     })
   }
 }

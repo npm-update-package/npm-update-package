@@ -1,7 +1,7 @@
 import { extractPullRequestMetadata } from './extractPullRequestMetadata'
 
 describe('extractPullRequestMetadata', () => {
-  it('returns parsed metadata if body contains metadata', () => {
+  it('returns PullRequestMetadata if body contains metadata', () => {
     const body = `<div id="npm-update-package-metadata">
 
 \`\`\`json
@@ -33,12 +33,13 @@ describe('extractPullRequestMetadata', () => {
     })
   })
 
-  it('throws error if body does not contain metadata', () => {
+  it('returns undefined if body does not contain metadata', () => {
     const body = ''
-    expect(() => extractPullRequestMetadata(body)).toThrow(Error)
+    const metadata = extractPullRequestMetadata(body)
+    expect(metadata).toBeUndefined()
   })
 
-  it('throws error if metadata is invalid', () => {
+  it('returns undefined if metadata is invalid', () => {
     const body = `<div id="npm-update-package-metadata">
 
 \`\`\`json
@@ -46,6 +47,7 @@ describe('extractPullRequestMetadata', () => {
 \`\`\`
 
 </div>`
-    expect(() => extractPullRequestMetadata(body)).toThrow(Error)
+    const metadata = extractPullRequestMetadata(body)
+    expect(metadata).toBeUndefined()
   })
 })
