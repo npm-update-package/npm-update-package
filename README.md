@@ -100,7 +100,10 @@ jobs:
 
 Actual working examples can be seen in these repositories.
 
-- [npm-update-package/example-npm](https://github.com/npm-update-package/example-npm)
+|Repository|Package manager|GitHub token|
+|---|---|---|
+|[example-npm](https://github.com/npm-update-package/example-npm)|npm|GitHub Actions|
+|[example-github-app](https://github.com/npm-update-package/example-github-app)|npm|GitHub App|
 
 ## Flow
 
