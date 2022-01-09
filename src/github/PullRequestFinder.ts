@@ -1,4 +1,5 @@
 import { extractPullRequestMetadata } from './extractPullRequestMetadata'
+import { isPullRequestByNpmUpdatePackage } from './isPullRequestByNpmUpdatePackage'
 import type { PullRequest } from './PullRequest'
 
 // TODO: Add test
@@ -7,7 +8,7 @@ export class PullRequestFinder {
 
   findByPackageName (packageName: string): PullRequest[] {
     return this.pullRequests
-      // TODO: check whether labels contains npm-update-package
+      .filter(isPullRequestByNpmUpdatePackage)
       .filter(({ body }) => {
         if (body === null) {
           return false
