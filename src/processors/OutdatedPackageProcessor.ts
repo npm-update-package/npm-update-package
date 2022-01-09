@@ -114,18 +114,19 @@ export class OutdatedPackageProcessor {
 
       await this.git.commit(message)
       await this.git.push(branchName)
-      const pullRequests = this.pullRequestFinder.findByPackageName(outdatedPackage.name)
-      this.logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
 
-      await Promise.all(pullRequests.map(async (pullRequest) => {
-        await this.pullRequestCloser.close(pullRequest)
-        this.logger.info(`Pull request for ${outdatedPackage.name} has closed. ${pullRequest.html_url}`)
-      }))
       const pullRequest = await this.pullRequestCreator.create({
         outdatedPackage,
         branchName
       })
       this.logger.info(`Pull request for ${outdatedPackage.name} has created. ${pullRequest.html_url}`)
+
+      const pullRequests = this.pullRequestFinder.findByPackageName(outdatedPackage.name)
+      this.logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
+      await Promise.all(pullRequests.map(async (pullRequest) => {
+        await this.pullRequestCloser.close(pullRequest)
+        this.logger.info(`Pull request for ${outdatedPackage.name} has closed. ${pullRequest.html_url}`)
+      }))
       return right({
         outdatedPackage,
         updated: true
