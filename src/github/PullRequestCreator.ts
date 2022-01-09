@@ -1,6 +1,7 @@
 import type { GitRepository } from '../git'
 import type { Logger } from '../logger'
 import type { OutdatedPackage } from '../ncu'
+import type { CreatedPullRequest } from './CreatedPullRequest'
 import type { GitHub } from './GitHub'
 import type { PullRequestBodyCreator } from './PullRequestBodyCreator'
 import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
@@ -47,7 +48,7 @@ export class PullRequestCreator {
   }: {
     outdatedPackage: OutdatedPackage
     branchName: string
-  }): Promise<void> {
+  }): Promise<CreatedPullRequest> {
     const title = this.pullRequestTitleCreator.create(outdatedPackage)
     this.logger.debug(`title=${title}`)
 
@@ -74,6 +75,6 @@ export class PullRequestCreator {
       this.logger.debug(`labels=${JSON.stringify(labels)}`)
     }
 
-    this.logger.info(`Pull request for ${outdatedPackage.name} has created. ${pullRequest.html_url}`)
+    return pullRequest
   }
 }
