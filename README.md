@@ -14,20 +14,7 @@ npx npm-update-package --github-token $GITHUB_TOKEN
 ## Options
 
 You can customize behavior via command-line options.  
-Template strings such as `--branch-name` can embed variables like `{{packageName}}`(HTML-escaped) or `{{{packageName}}}`(not HTML-escaped).
-
-### `--branch-name`
-
-Branch name template
-
-- type: string
-- variables:
-  - `currentVersion`
-  - `newVersion`
-  - `packageName`
-  - `updateType`
-- required: false
-- default: `npm-update-package/{{{packageName}}}/v{{newVersion}}`
+Template strings such as `--commit-message` can embed variables like `{{packageName}}`(HTML-escaped) or `{{{packageName}}}`(not HTML-escaped).
 
 ### `--commit-message`
 

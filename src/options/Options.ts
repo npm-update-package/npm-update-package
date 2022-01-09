@@ -9,7 +9,6 @@ import { LogLevel } from '../logger'
 import { PackageManagerName } from '../package-manager'
 
 const Options = type({
-  branchName: string,
   commitMessage: string,
   githubToken: string,
   logLevel: union([literal(LogLevel.Off), literal(LogLevel.Error), literal(LogLevel.Info), literal(LogLevel.Debug)]),

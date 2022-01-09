@@ -4,14 +4,6 @@ import type { CLIOption } from './CLIOption'
 import { OptionType } from './OptionType'
 
 export const cliOptions: CLIOption[] = [
-  // TODO: remove branch-name option
-  {
-    name: 'branch-name',
-    description: 'Branch name template',
-    type: OptionType.String,
-    required: false,
-    default: 'npm-update-package/{{{packageName}}}/v{{newVersion}}'
-  },
   {
     name: 'commit-message',
     description: 'Commit message template',
