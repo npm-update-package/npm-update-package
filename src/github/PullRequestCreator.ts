@@ -65,6 +65,7 @@ export class PullRequestCreator {
     })
     this.logger.debug(`pullRequest=${JSON.stringify(pullRequest)}`)
 
+    // TODO: add only npm-update-package label
     if (this.labels !== undefined) {
       const labels = await this.github.addLabels({
         owner: this.gitRepo.owner,

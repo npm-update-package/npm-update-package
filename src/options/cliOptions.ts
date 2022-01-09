@@ -4,6 +4,7 @@ import type { CLIOption } from './CLIOption'
 import { OptionType } from './OptionType'
 
 export const cliOptions: CLIOption[] = [
+  // TODO: remove branch-name option
   {
     name: 'branch-name',
     description: 'Branch name template',
@@ -48,6 +49,7 @@ export const cliOptions: CLIOption[] = [
     ],
     default: PackageManagerName.Npm
   },
+  // TODO: remove pull-request-labels option
   {
     name: 'pull-request-labels',
     description: 'Pull request labels',

@@ -6,18 +6,20 @@ export class PullRequestFinder {
   constructor (private readonly pullRequests: PullRequest[]) {}
 
   findByPackageName (packageName: string): PullRequest[] {
-    return this.pullRequests.filter(({ body }) => {
-      if (body === null) {
-        return false
-      }
+    return this.pullRequests
+      // TODO: check whether labels contains npm-update-package
+      .filter(({ body }) => {
+        if (body === null) {
+          return false
+        }
 
-      const metadata = extractPullRequestMetadata(body)
+        const metadata = extractPullRequestMetadata(body)
 
-      if (metadata === undefined) {
-        return false
-      }
+        if (metadata === undefined) {
+          return false
+        }
 
-      return metadata.packages.some(({ name }) => name === packageName)
-    })
+        return metadata.packages.some(({ name }) => name === packageName)
+      })
   }
 }
