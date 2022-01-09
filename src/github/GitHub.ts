@@ -37,6 +37,7 @@ export class GitHub {
     return data
   }
 
+  // TODO: fetch all branches with page option
   async fetchBranches (params: RestEndpointMethodTypes['repos']['listBranches']['parameters']): Promise<Branch[]> {
     const { data } = await this.octokit.repos.listBranches({
       ...params,
@@ -45,6 +46,7 @@ export class GitHub {
     return data
   }
 
+  // TODO: fetch all pull requests with page option
   async fetchPullRequests (params: RestEndpointMethodTypes['pulls']['list']['parameters']): Promise<PullRequest[]> {
     const { data } = await this.octokit.pulls.list({
       ...params,
