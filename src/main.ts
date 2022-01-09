@@ -10,7 +10,9 @@ import {
 import {
   createGitHub,
   PullRequestBodyCreator,
+  PullRequestCloser,
   PullRequestCreator,
+  PullRequestFinder,
   PullRequestTitleCreator,
   RemoteBranchExistenceChecker
 } from './github'
@@ -79,6 +81,12 @@ export const main = async ({
   })
   logger.debug(`remoteBranches=${JSON.stringify(remoteBranches)}`)
 
+  const pullRequests = await github.fetchPullRequests({
+    owner: gitRepo.owner,
+    repo: gitRepo.name
+  })
+  logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
+
   const remoteBranchExistenceChecker = RemoteBranchExistenceChecker.of(remoteBranches)
   const packageManager = createPackageManager({
     terminal,
@@ -92,11 +100,12 @@ export const main = async ({
     githubRepo,
     pullRequestTitleCreator,
     pullRequestBodyCreator,
-    logger,
-    labels: options.pullRequestLabels
+    logger
   })
-  const branchNameCreator = new BranchNameCreator(options.branchName)
+  const branchNameCreator = new BranchNameCreator()
   const commitMessageCreator = new CommitMessageCreator(options.commitMessage)
+  const pullRequestFinder = new PullRequestFinder(pullRequests)
+  const pullRequestCloser = new PullRequestCloser(github)
   const outdatedPackageProcessor = new OutdatedPackageProcessor({
     git,
     ncu,
@@ -105,7 +114,9 @@ export const main = async ({
     remoteBranchExistenceChecker,
     logger,
     branchNameCreator,
-    commitMessageCreator
+    commitMessageCreator,
+    pullRequestFinder,
+    pullRequestCloser
   })
   const outdatedPackagesProcessor = new OutdatedPackagesProcessor({
     outdatedPackageProcessor,

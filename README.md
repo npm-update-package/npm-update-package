@@ -14,20 +14,7 @@ npx npm-update-package --github-token $GITHUB_TOKEN
 ## Options
 
 You can customize behavior via command-line options.  
-Template strings such as `--branch-name` can embed variables like `{{packageName}}`(HTML-escaped) or `{{{packageName}}}`(not HTML-escaped).
-
-### `--branch-name`
-
-Branch name template
-
-- type: string
-- variables:
-  - `currentVersion`
-  - `newVersion`
-  - `packageName`
-  - `updateType`
-- required: false
-- default: `npm-update-package/{{{packageName}}}/v{{newVersion}}`
+Template strings such as `--commit-message` can embed variables like `{{packageName}}`(HTML-escaped) or `{{{packageName}}}`(not HTML-escaped).
 
 ### `--commit-message`
 
@@ -72,13 +59,6 @@ Package manager of your project
   - `yarn`
 - required: false
 - default: `npm`
-
-### `--pull-request-labels`
-
-Pull request labels
-
-- type: string array
-- required: false
 
 ### `--pull-request-title`
 
@@ -138,6 +118,9 @@ if (All packages are up-to-date) then (yes)
 else (no)
 endif
 
+:Get remote branches;
+:Get pull requests;
+
 group OutdatedPackagesProcessor
 repeat
   group OutdatedPackageProcessor
@@ -146,6 +129,7 @@ repeat
     :Create branch;
     :Update package;
     :Create pull request;
+    :Close old pull requests;
     :Remove branch;
   endif
   end group
@@ -158,7 +142,7 @@ end
 ```
 -->
 
-[![](http://www.plantuml.com/plantuml/svg/RKyxKiCm5EpVARPqYbmWRi9Gq4666GuWx4tiGPQ4z0JXzaIn70D38wsUzkrddzH4pPELAv1Jz3bWCgEJtGCLFcjlb3s2wTxCYQaL6OzexgozZM0YaSDM_RPmDz213iqNqqO0kbve4z4ulv7BQpnAjNcgueSgT8Y-Oqe-IcIWKG7-9Quye8HvvkILU8t6TGDu7fEcFodM102mkuyqjursdhs4uh6qQdyHGxOMaU-PIUjFCVtuAN6jDjzpxDe2dyDeYUQHPrtKbv2oabTOaEmlHvxiDm00)](http://www.plantuml.com/plantuml/uml/RKyxKiCm5EpVARPqYbmWRi9Gq4666GuWx4tiGPQ4z0JXzaIn70D38wsUzkrddzH4pPELAv1Jz3bWCgEJtGCLFcjlb3s2wTxCYQaL6OzexgozZM0YaSDM_RPmDz213iqNqqO0kbve4z4ulv7BQpnAjNcgueSgT8Y-Oqe-IcIWKG7-9Quye8HvvkILU8t6TGDu7fEcFodM102mkuyqjursdhs4uh6qQdyHGxOMaU-PIUjFCVtuAN6jDjzpxDe2dyDeYUQHPrtKbv2oabTOaEmlHvxiDm00)
+[![](http://www.plantuml.com/plantuml/svg/RL0nKiCm4Epl5LlQHJuGDs4ew23330yGzYRs85j2Ea7uFNPanoP38vtsLhUxTuXgWgRUohMGSt39epVT8FidAbpInYWRU5D_c3DZ9TATK3nOUuDW0f7yJjrkufRGbWEA7yPI00wDq4QY65mfuwixIPuTs3ibteCPwdQSd56Vh4NWPsBK4PiTlSm-ZhFcCRYQCReWWPv61VYNkFA0oVVhLXEyTAF8dU7LB03i7mFDxKULiJS_QImBgBR4F_wNZdMHSBQv2vUxawMlhS1rH_dEeUQC-6uxInJFlEYYlKIGbRoMKoM7yKYz_GK0)](http://www.plantuml.com/plantuml/uml/RL0nKiCm4Epl5LlQHJuGDs4ew23330yGzYRs85j2Ea7uFNPanoP38vtsLhUxTuXgWgRUohMGSt39epVT8FidAbpInYWRU5D_c3DZ9TATK3nOUuDW0f7yJjrkufRGbWEA7yPI00wDq4QY65mfuwixIPuTs3ibteCPwdQSd56Vh4NWPsBK4PiTlSm-ZhFcCRYQCReWWPv61VYNkFA0oVVhLXEyTAF8dU7LB03i7mFDxKULiJS_QImBgBR4F_wNZdMHSBQv2vUxawMlhS1rH_dEeUQC-6uxInJFlEYYlKIGbRoMKoM7yKYz_GK0)
 
 ## FAQ
 

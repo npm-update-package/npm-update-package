@@ -5,13 +5,6 @@ import { OptionType } from './OptionType'
 
 export const cliOptions: CLIOption[] = [
   {
-    name: 'branch-name',
-    description: 'Branch name template',
-    type: OptionType.String,
-    required: false,
-    default: 'npm-update-package/{{{packageName}}}/v{{newVersion}}'
-  },
-  {
     name: 'commit-message',
     description: 'Commit message template',
     type: OptionType.String,
@@ -47,12 +40,6 @@ export const cliOptions: CLIOption[] = [
       PackageManagerName.Yarn
     ],
     default: PackageManagerName.Npm
-  },
-  {
-    name: 'pull-request-labels',
-    description: 'Pull request labels',
-    type: OptionType.StringArray,
-    required: false
   },
   {
     name: 'pull-request-title',
