@@ -56,76 +56,35 @@ describe('PullRequestCreator', () => {
       githubAddLabelsMock.mockReset()
     })
 
-    describe('if labels is undefined', () => {
-      const labels = undefined
-
-      it('create pull request', async () => {
-        const pullRequestCreator = new PullRequestCreator({
-          github,
-          gitRepo,
-          githubRepo,
-          pullRequestTitleCreator,
-          pullRequestBodyCreator,
-          logger,
-          labels
-        })
-        await pullRequestCreator.create({
-          outdatedPackage,
-          branchName
-        })
-
-        expect(pullRequestTitleCreatorCreateMock).toBeCalledWith(outdatedPackage)
-        expect(pullRequestBodyCreatorCreateMock).toBeCalledWith(outdatedPackage)
-        expect(githubCreatePullRequestMock).toBeCalledWith({
-          owner: gitRepo.owner,
-          repo: gitRepo.name,
-          base: githubRepo.default_branch,
-          head: branchName,
-          title,
-          body
-        })
-        expect(githubAddLabelsMock).not.toBeCalled()
+    it('creates pull request', async () => {
+      const pullRequestCreator = new PullRequestCreator({
+        github,
+        gitRepo,
+        githubRepo,
+        pullRequestTitleCreator,
+        pullRequestBodyCreator,
+        logger
       })
-    })
-
-    describe('if labels is not undefined', () => {
-      const labels = ['label 1', 'label 2']
-
-      beforeEach(() => {
-        githubAddLabelsMock.mockResolvedValue({})
+      await pullRequestCreator.create({
+        outdatedPackage,
+        branchName
       })
 
-      it('create pull request and add labels to it', async () => {
-        const pullRequestCreator = new PullRequestCreator({
-          github,
-          gitRepo,
-          githubRepo,
-          pullRequestTitleCreator,
-          pullRequestBodyCreator,
-          logger,
-          labels
-        })
-        await pullRequestCreator.create({
-          outdatedPackage,
-          branchName
-        })
-
-        expect(pullRequestTitleCreatorCreateMock).toBeCalledWith(outdatedPackage)
-        expect(pullRequestBodyCreatorCreateMock).toBeCalledWith(outdatedPackage)
-        expect(githubCreatePullRequestMock).toBeCalledWith({
-          owner: gitRepo.owner,
-          repo: gitRepo.name,
-          base: githubRepo.default_branch,
-          head: branchName,
-          title,
-          body
-        })
-        expect(githubAddLabelsMock).toBeCalledWith({
-          owner: gitRepo.owner,
-          repo: gitRepo.name,
-          issue_number: pullRequest.number,
-          labels
-        })
+      expect(pullRequestTitleCreatorCreateMock).toBeCalledWith(outdatedPackage)
+      expect(pullRequestBodyCreatorCreateMock).toBeCalledWith(outdatedPackage)
+      expect(githubCreatePullRequestMock).toBeCalledWith({
+        owner: gitRepo.owner,
+        repo: gitRepo.name,
+        base: githubRepo.default_branch,
+        head: branchName,
+        title,
+        body
+      })
+      expect(githubAddLabelsMock).toBeCalledWith({
+        owner: gitRepo.owner,
+        repo: gitRepo.name,
+        issue_number: pullRequest.number,
+        labels: ['npm-update-package']
       })
     })
   })

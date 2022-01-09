@@ -14,7 +14,6 @@ export class PullRequestCreator {
   private readonly pullRequestTitleCreator: PullRequestTitleCreator
   private readonly pullRequestBodyCreator: PullRequestBodyCreator
   private readonly logger: Logger
-  private readonly labels: string[] | undefined
 
   constructor ({
     github,
@@ -22,8 +21,7 @@ export class PullRequestCreator {
     githubRepo,
     pullRequestTitleCreator,
     pullRequestBodyCreator,
-    logger,
-    labels
+    logger
   }: {
     github: GitHub
     gitRepo: GitRepository
@@ -31,7 +29,6 @@ export class PullRequestCreator {
     pullRequestTitleCreator: PullRequestTitleCreator
     pullRequestBodyCreator: PullRequestBodyCreator
     logger: Logger
-    labels?: string[]
   }) {
     this.github = github
     this.gitRepo = gitRepo
@@ -39,7 +36,6 @@ export class PullRequestCreator {
     this.pullRequestTitleCreator = pullRequestTitleCreator
     this.pullRequestBodyCreator = pullRequestBodyCreator
     this.logger = logger
-    this.labels = labels
   }
 
   async create ({
@@ -65,17 +61,12 @@ export class PullRequestCreator {
     })
     this.logger.debug(`pullRequest=${JSON.stringify(pullRequest)}`)
 
-    // TODO: add only npm-update-package label
-    if (this.labels !== undefined) {
-      const labels = await this.github.addLabels({
-        owner: this.gitRepo.owner,
-        repo: this.gitRepo.name,
-        issue_number: pullRequest.number,
-        labels: this.labels
-      })
-      this.logger.debug(`labels=${JSON.stringify(labels)}`)
-    }
-
+    await this.github.addLabels({
+      owner: this.gitRepo.owner,
+      repo: this.gitRepo.name,
+      issue_number: pullRequest.number,
+      labels: ['npm-update-package']
+    })
     return pullRequest
   }
 }
