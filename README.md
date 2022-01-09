@@ -122,7 +122,7 @@ endif
 :Get pull requests;
 
 group OutdatedPackagesProcessor
-repeat
+while (Package exists) is (yes)
   group OutdatedPackageProcessor
   if (Remote branch exists) then (yes)
   else (no)
@@ -133,7 +133,8 @@ repeat
     :Remove branch;
   endif
   end group
-repeat while (Next package exists)
+endwhile (no)
+
 end group
 
 end group
@@ -142,7 +143,7 @@ end
 ```
 -->
 
-[![](http://www.plantuml.com/plantuml/svg/RL0nKiCm4Epl5LlQHJuGDs4ew23330yGzYRs85j2Ea7uFNPanoP38vtsLhUxTuXgWgRUohMGSt39epVT8FidAbpInYWRU5D_c3DZ9TATK3nOUuDW0f7yJjrkufRGbWEA7yPI00wDq4QY65mfuwixIPuTs3ibteCPwdQSd56Vh4NWPsBK4PiTlSm-ZhFcCRYQCReWWPv61VYNkFA0oVVhLXEyTAF8dU7LB03i7mFDxKULiJS_QImBgBR4F_wNZdMHSBQv2vUxawMlhS1rH_dEeUQC-6uxInJFlEYYlKIGbRoMKoM7yKYz_GK0)](http://www.plantuml.com/plantuml/uml/RL0nKiCm4Epl5LlQHJuGDs4ew23330yGzYRs85j2Ea7uFNPanoP38vtsLhUxTuXgWgRUohMGSt39epVT8FidAbpInYWRU5D_c3DZ9TATK3nOUuDW0f7yJjrkufRGbWEA7yPI00wDq4QY65mfuwixIPuTs3ibteCPwdQSd56Vh4NWPsBK4PiTlSm-ZhFcCRYQCReWWPv61VYNkFA0oVVhLXEyTAF8dU7LB03i7mFDxKULiJS_QImBgBR4F_wNZdMHSBQv2vUxawMlhS1rH_dEeUQC-6uxInJFlEYYlKIGbRoMKoM7yKYz_GK0)
+[![](http://www.plantuml.com/plantuml/svg/RL0vSiCm3EpnYYsbmX-m6cTIf8mdCta08y4M9n39yCZn-uYYJ4kPD3omm1uuXQXyJ9FGyg2hjybXKjhGyOaZR8g3YZp0gVvTNJbqHFg2va6abg0y8xb3j8VSsoAERD3yS6W9O3CGIs0qnhOq__I52hVdoKR6crUc7sVcKdL919u_4eUOrOgZvzN7UTKyUzjp2DRJrwY5qQm0-5lFSorqg0x-PRWJ03dGozPCPTadgIa0uFZeMTM9hjHUNTQuRQRRDkw2tH2nWM5b-9EweDdIvrPWMLwvIwYypf9_iKLtW7OzT9gFDCal)](http://www.plantuml.com/plantuml/uml/RL0vSiCm3EpnYYsbmX-m6cTIf8mdCta08y4M9n39yCZn-uYYJ4kPD3omm1uuXQXyJ9FGyg2hjybXKjhGyOaZR8g3YZp0gVvTNJbqHFg2va6abg0y8xb3j8VSsoAERD3yS6W9O3CGIs0qnhOq__I52hVdoKR6crUc7sVcKdL919u_4eUOrOgZvzN7UTKyUzjp2DRJrwY5qQm0-5lFSorqg0x-PRWJ03dGozPCPTadgIa0uFZeMTM9hjHUNTQuRQRRDkw2tH2nWM5b-9EweDdIvrPWMLwvIwYypf9_iKLtW7OzT9gFDCal)
 
 ## FAQ
 
