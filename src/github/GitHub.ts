@@ -38,7 +38,10 @@ export class GitHub {
   }
 
   async fetchBranches (params: RestEndpointMethodTypes['repos']['listBranches']['parameters']): Promise<Branch[]> {
-    const { data } = await this.octokit.repos.listBranches(params)
+    const { data } = await this.octokit.repos.listBranches({
+      ...params,
+      per_page: 100
+    })
     return data
   }
 
