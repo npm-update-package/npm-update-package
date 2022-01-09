@@ -105,7 +105,7 @@ export class OutdatedPackageProcessor {
       await this.git.commit(message)
       await this.git.push(branchName)
 
-      // TODO: If PR for same package exists, remove it
+      // TODO: If PR for same package exists, close it
 
       await this.pullRequestCreator.create({
         outdatedPackage,
