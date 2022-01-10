@@ -75,7 +75,7 @@ Pull request title template
 
 ## Examples
 
-Example of running npm-update-package on GitHub Actions at 0:00 (UTC) every day:
+- Use token of GitHub Actions
 
 ```yaml
 name: npm-update-package
@@ -96,6 +96,38 @@ jobs:
           GIT_USER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           GIT_USER_NAME: github-actions[bot]
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+
+- Use token of GitHub App
+
+```yaml
+name: npm-update-package
+on:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  npm-update-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+      - run: |
+          git config user.name $GIT_USER_NAME
+          git config user.email $GIT_USER_EMAIL
+          npx npm-update-package --github-token $GITHUB_TOKEN
+        env:
+          # TODO: Replace with your GitHub App's email
+          GIT_USER_EMAIL: 97396142+npm-update-package-bot[bot]@users.noreply.github.com
+          # TODO: Replace with your GitHub App's user name
+          GIT_USER_NAME: npm-update-package-bot[bot]
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 ```
 
 Actual working examples can be seen in these repositories.
