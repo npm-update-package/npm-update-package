@@ -31,7 +31,8 @@ Commit message template
 
 ### `--github-token`
 
-GitHub token
+GitHub token.  
+See more in [GitHub token](#github-token) section.
 
 - type: string
 - required: true
@@ -72,6 +73,31 @@ Pull request title template
   - `updateType`
 - required: false
 - default: `chore(deps): {{updateType}} update {{{packageName}}} to v{{newVersion}}`
+
+## GitHub token
+
+To run npm-update-package, GitHub token is required.  
+For example, the following tokens can be used.
+
+|GitHub token|Pull request author|Trigger other action|
+|---|---|---|
+|[GitHub Actions](https://docs.github.com/en/actions/security-guides/automatic-token-authentication)|`github-actions`||
+|[GitHub App](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps)|GitHub App which issued the token|✓|
+|[Personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)|user who issued the token|✓|
+
+### Token of GitHub App
+
+These permissions are required.
+
+- Contents: Read-only
+- Metadata: Read-only
+- Pull requests: Read & write
+
+### Personal access token
+
+These permissions are required.
+
+- repo
 
 ## Examples
 
