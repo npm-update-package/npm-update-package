@@ -6,7 +6,7 @@ import {
   union,
   type TypeOf
 } from 'io-ts'
-import { UpdateType } from '../../../ncu'
+import { SemVerLevel } from '../../../semver'
 
 const PullRequestMetadata = type({
   version: string,
@@ -14,7 +14,7 @@ const PullRequestMetadata = type({
     name: string,
     currentVersion: string,
     newVersion: string,
-    type: union([literal(UpdateType.Major), literal(UpdateType.Minor), literal(UpdateType.Patch)])
+    type: union([literal(SemVerLevel.Major), literal(SemVerLevel.Minor), literal(SemVerLevel.Patch)])
   }))
 })
 // eslint-disable-next-line @typescript-eslint/no-redeclare
