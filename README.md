@@ -21,12 +21,12 @@ Template strings such as `--commit-message` can embed variables like `{{packageN
 Commit message template
 
 - type: string
+- required: false
 - variables:
   - `currentVersion`
   - `newVersion`
   - `packageName`
   - `updateType`
-- required: false
 - default: `chore(deps): {{updateType}} update {{{packageName}}} to v{{newVersion}}`
 
 ### `--github-token`
@@ -42,12 +42,12 @@ See more in [GitHub token](#github-token) section.
 Log level to show
 
 - type: string
+- required: false
 - allowed values:
   - `off`: Do not output any logs.
   - `error`: Output error logs.
   - `info`: Output error/info logs.
   - `debug`: Output error/info/debug logs.
-- required: false
 - default: `info`
 
 ### `--package-manager`
@@ -55,10 +55,10 @@ Log level to show
 Package manager of your project
 
 - type: string
+- required: false
 - allowed values:
   - `npm`
   - `yarn`
-- required: false
 - default: `npm`
 
 ### `--pull-request-title`
@@ -66,12 +66,12 @@ Package manager of your project
 Pull request title template
 
 - type: string
+- required: false
 - variables:
   - `currentVersion`
   - `newVersion`
   - `packageName`
   - `updateType`
-- required: false
 - default: `chore(deps): {{updateType}} update {{{packageName}}} to v{{newVersion}}`
 
 ## GitHub token
@@ -212,6 +212,6 @@ end
 
 npm-update-package can be used in environments where Renovate cannot be used for some reason.
 
-### Conflicts have occurred in PR. What should I do?
+### Conflicts have occurred in pull request. What should I do?
 
-If conflicts have occurred in PR, close it and run npm-update-package again.
+If conflicts have occurred in pull request, close it and run npm-update-package again.
