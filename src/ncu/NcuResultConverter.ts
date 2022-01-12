@@ -1,8 +1,8 @@
 import { isNotUndefined } from 'type-guards'
 import type { PackageDependencies } from '../package-json'
+import { PackageVersion } from '../semver'
 import type { NcuResult } from './NcuResult'
 import type { OutdatedPackage } from './OutdatedPackage'
-import { PackageVersion } from './PackageVersion'
 import { toUpdateType } from './toUpdateType'
 
 // TODO: add test

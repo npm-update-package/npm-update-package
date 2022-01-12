@@ -1,4 +1,4 @@
-import { PackageVersion } from './PackageVersion'
+import { PackageVersion } from '../semver'
 import { toUpdateType } from './toUpdateType'
 import { UpdateType } from './UpdateType'
 

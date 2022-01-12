@@ -1,4 +1,4 @@
-import { PackageVersion } from '../../../ncu'
+import { PackageVersion } from '../../../semver'
 import { PullRequestTitleCreator } from './PullRequestTitleCreator'
 
 describe('PullRequestTitleCreator', () => {

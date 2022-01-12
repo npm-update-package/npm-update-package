@@ -1,4 +1,4 @@
-import type { PackageVersion } from './PackageVersion'
+import type { PackageVersion } from '../semver'
 import { UpdateType } from './UpdateType'
 
 export const toUpdateType = (currentVersion: PackageVersion, newVersion: PackageVersion): UpdateType => {

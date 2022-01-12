@@ -1,4 +1,4 @@
-import { PackageVersion } from '../ncu'
+import { PackageVersion } from '../semver'
 import { createBranchName } from './createBranchName'
 
 describe('createBranchName', () => {

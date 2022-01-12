@@ -1,4 +1,4 @@
-import type { PackageVersion } from './PackageVersion'
+import type { PackageVersion } from '../semver'
 import type { UpdateType } from './UpdateType'
 
 export interface OutdatedPackage {
