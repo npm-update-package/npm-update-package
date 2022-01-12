@@ -6,7 +6,12 @@ import type { PullRequestMetadata } from '../metadata'
 export const createPullRequestMetadata = (outdatedPackages: OutdatedPackage[]): PullRequestMetadata => {
   return {
     version: app.version,
-    packages: outdatedPackages.map(({ name, currentVersion, newVersion, type }) => ({
+    packages: outdatedPackages.map(({
+      name,
+      currentVersion,
+      newVersion,
+      type
+    }) => ({
       name,
       currentVersion: currentVersion.version,
       newVersion: newVersion.version,
