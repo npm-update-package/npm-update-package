@@ -6,7 +6,7 @@ import {
   union,
   type TypeOf
 } from 'io-ts'
-import { UpdateType } from '../../ncu'
+import { UpdateType } from '../../../ncu'
 
 const PullRequestMetadata = type({
   version: string,

@@ -1,6 +1,6 @@
 import { app } from '../../../app'
 import type { OutdatedPackage } from '../../../ncu'
-import type { PullRequestMetadata } from '../PullRequestMetadata'
+import type { PullRequestMetadata } from '../metadata'
 
 // TODO: Add test
 export const createPullRequestMetadata = (outdatedPackages: OutdatedPackage[]): PullRequestMetadata => {
