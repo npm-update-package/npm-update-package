@@ -1,13 +1,13 @@
 import { app } from '../../../app'
-import { PackageVersion } from '../../../semver'
+import { SemVer } from '../../../semver'
 import { createPullRequestBody } from './createPullRequestBody'
 
 describe('createPullRequestBody', () => {
   it('returns pull request body', () => {
     const actual = createPullRequestBody({
       name: '@typescript-eslint/eslint-plugin',
-      currentVersion: PackageVersion.of('1.0.0'),
-      newVersion: PackageVersion.of('2.0.0'),
+      currentVersion: SemVer.of('1.0.0'),
+      newVersion: SemVer.of('2.0.0'),
       type: 'major'
     })
     expect(actual).toBe(`This PR updates these packages:

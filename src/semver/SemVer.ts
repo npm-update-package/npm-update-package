@@ -1,6 +1,6 @@
 import { coerce } from 'semver'
 
-export class PackageVersion {
+export class SemVer {
   readonly version: string
   readonly major: number
   readonly minor: number
@@ -23,14 +23,14 @@ export class PackageVersion {
     this.patch = patch
   }
 
-  static of (version: string): PackageVersion {
+  static of (version: string): SemVer {
     const semver = coerce(version)
 
     if (semver === null) {
-      throw new Error(`Failed to parse package version. version=${version}`)
+      throw new Error(`Failed to parse version. version=${version}`)
     }
 
-    return new PackageVersion({
+    return new SemVer({
       version: semver.version,
       major: semver.major,
       minor: semver.minor,

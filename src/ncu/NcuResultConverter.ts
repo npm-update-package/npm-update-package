@@ -1,6 +1,6 @@
 import { isNotUndefined } from 'type-guards'
 import type { PackageDependencies } from '../package-json'
-import { PackageVersion } from '../semver'
+import { SemVer } from '../semver'
 import type { NcuResult } from './NcuResult'
 import type { OutdatedPackage } from './OutdatedPackage'
 import { toUpdateType } from './toUpdateType'
@@ -19,8 +19,8 @@ export class NcuResultConverter {
           return undefined
         }
 
-        const currentVersion = PackageVersion.of(currentVersionString)
-        const newVersion = PackageVersion.of(newVersionString)
+        const currentVersion = SemVer.of(currentVersionString)
+        const newVersion = SemVer.of(newVersionString)
         const type = toUpdateType(currentVersion, newVersion)
         return {
           name,

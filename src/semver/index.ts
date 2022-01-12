@@ -1,1 +1,1 @@
-export * from './PackageVersion'
+export * from './SemVer'
