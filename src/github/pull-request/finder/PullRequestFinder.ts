@@ -1,4 +1,4 @@
-import type { PullRequest } from '../PullRequest'
+import type { PullRequest } from '../../PullRequest'
 import { extractPullRequestMetadata } from './extractPullRequestMetadata'
 import { isPullRequestByNpmUpdatePackage } from './isPullRequestByNpmUpdatePackage'
 

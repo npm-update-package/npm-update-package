@@ -12,10 +12,10 @@ import {
 } from './github'
 import {
   PullRequestCloser,
-  PullRequestFinder,
   PullRequestCreator,
   PullRequestTitleCreator
 } from './github/pull-request'
+import { PullRequestFinder } from './github/pull-request/finder'
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'

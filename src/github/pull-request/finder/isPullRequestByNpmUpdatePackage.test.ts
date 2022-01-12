@@ -1,4 +1,4 @@
-import type { PullRequest } from '../PullRequest'
+import type { PullRequest } from '../../PullRequest'
 import { isPullRequestByNpmUpdatePackage } from './isPullRequestByNpmUpdatePackage'
 
 describe('isPullRequestByNpmUpdatePackage', () => {

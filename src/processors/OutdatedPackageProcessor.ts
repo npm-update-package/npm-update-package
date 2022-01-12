@@ -11,9 +11,9 @@ import {
 import type { RemoteBranchExistenceChecker } from '../github'
 import type {
   PullRequestCloser,
-  PullRequestCreator,
-  PullRequestFinder
+  PullRequestCreator
 } from '../github/pull-request'
+import type { PullRequestFinder } from '../github/pull-request/finder'
 import type { Logger } from '../logger'
 import type {
   Ncu,
