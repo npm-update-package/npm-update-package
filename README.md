@@ -160,7 +160,7 @@ Actual working examples can be seen in these repositories.
 
 |Repository|Package manager|GitHub token|
 |---|---|---|
-|[example-npm](https://github.com/npm-update-package/example-npm)|npm|GitHub Actions|
+|[example-github-actions](https://github.com/npm-update-package/example-github-actions)|npm|GitHub Actions|
 |[example-github-app](https://github.com/npm-update-package/example-github-app)|npm|GitHub App|
 
 ## Flow
