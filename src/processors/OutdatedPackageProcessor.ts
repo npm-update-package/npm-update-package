@@ -8,12 +8,12 @@ import {
   type CommitMessageCreator,
   type Git
 } from '../git'
-import type { RemoteBranchExistenceChecker } from '../github'
 import type {
   PullRequestCloser,
-  PullRequestCreator
-} from '../github/pull-request'
-import type { PullRequestFinder } from '../github/pull-request/finder'
+  PullRequestCreator,
+  PullRequestFinder,
+  RemoteBranchExistenceChecker
+} from '../github'
 import type { Logger } from '../logger'
 import type {
   Ncu,

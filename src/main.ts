@@ -8,14 +8,12 @@ import {
 } from './git'
 import {
   createGitHub,
-  RemoteBranchExistenceChecker
-} from './github'
-import {
   PullRequestCloser,
   PullRequestCreator,
-  PullRequestTitleCreator
-} from './github/pull-request'
-import { PullRequestFinder } from './github/pull-request/finder'
+  PullRequestFinder,
+  PullRequestTitleCreator,
+  RemoteBranchExistenceChecker
+} from './github'
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'
