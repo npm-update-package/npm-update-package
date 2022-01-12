@@ -1,7 +1,7 @@
 {
   "name": "npm-update-package",
-  "version": "0.22.1",
-  "description": "CLI tool for creating pull request to update npm packages",
+  "version": "0.22.2",
+  "description": "CLI tool for creating pull requests to update npm packages",
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "clean": "rimraf dist",
@@ -20,7 +20,7 @@
     "@octokit/rest": "18.12.0",
     "commander": "8.3.0",
     "execa": "5.1.1",
-    "fp-ts": "2.11.6",
+    "fp-ts": "2.11.7",
     "io-ts": "2.2.16",
     "log4js": "6.3.0",
     "mustache": "4.1.0",
@@ -37,7 +37,7 @@
     "@types/node": "12.20.40",
     "@types/parse-github-url": "1.0.0",
     "@types/semver": "7.3.9",
-    "@typescript-eslint/eslint-plugin": "5.9.0",
+    "@typescript-eslint/eslint-plugin": "5.9.1",
     "eslint": "8.6.0",
     "eslint-config-standard-with-typescript": "21.0.1",
     "eslint-plugin-import": "2.25.4",

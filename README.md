@@ -3,7 +3,7 @@
 
 # npm-update-package
 
-CLI tool for creating pull request to update npm packages
+CLI tool for creating pull requests to update npm packages
 
 ## Usage
 
@@ -21,17 +21,18 @@ Template strings such as `--commit-message` can embed variables like `{{packageN
 Commit message template
 
 - type: string
+- required: false
 - variables:
   - `currentVersion`
   - `newVersion`
   - `packageName`
   - `updateType`
-- required: false
 - default: `chore(deps): {{updateType}} update {{{packageName}}} to v{{newVersion}}`
 
 ### `--github-token`
 
-GitHub token
+GitHub token.  
+See more in [GitHub token](#github-token) section.
 
 - type: string
 - required: true
@@ -41,12 +42,12 @@ GitHub token
 Log level to show
 
 - type: string
+- required: false
 - allowed values:
   - `off`: Do not output any logs.
   - `error`: Output error logs.
   - `info`: Output error/info logs.
   - `debug`: Output error/info/debug logs.
-- required: false
 - default: `info`
 
 ### `--package-manager`
@@ -54,10 +55,10 @@ Log level to show
 Package manager of your project
 
 - type: string
-- allowed values:
-  - `npm`
-  - `yarn`
 - required: false
+- allowed values:
+  - `npm`: npm
+  - `yarn`: Yarn
 - default: `npm`
 
 ### `--pull-request-title`
@@ -65,17 +66,49 @@ Package manager of your project
 Pull request title template
 
 - type: string
+- required: false
 - variables:
   - `currentVersion`
   - `newVersion`
   - `packageName`
   - `updateType`
-- required: false
 - default: `chore(deps): {{updateType}} update {{{packageName}}} to v{{newVersion}}`
+
+## GitHub token
+
+GitHub token is required to run npm-update-package.  
+For example, the following tokens can be used.
+
+|GitHub token|Author of pull requests|Trigger other actions|
+|---|---|---|
+|[GitHub Actions](https://docs.github.com/en/actions/security-guides/automatic-token-authentication)|`github-actions`||
+|[GitHub App](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps)|GitHub App which issued the token|✓|
+|[Personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)|user who issued the token|✓|
+
+We recommend using GitHub App for the following reasons.
+
+- When you use the token of GitHub Actions, the job will not trigger other actions.
+- When you use the Personal access token, the author of pull requests will be the user who issued the token.
+
+Creating a GitHub App may be tedious, but you only have to do it once the first time.
+
+### Token of GitHub App
+
+These permissions are required.
+
+- Contents: Read-only
+- Metadata: Read-only
+- Pull requests: Read & write
+
+### Personal access token
+
+These permissions are required.
+
+- repo
 
 ## Examples
 
-Example of running npm-update-package on GitHub Actions at 0:00 (UTC) every day:
+- Use token of GitHub Actions
 
 ```yaml
 name: npm-update-package
@@ -98,16 +131,48 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+
+- Use token of GitHub App
+
+```yaml
+name: npm-update-package
+on:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  npm-update-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+      - run: |
+          git config user.name $GIT_USER_NAME
+          git config user.email $GIT_USER_EMAIL
+          npx npm-update-package --github-token $GITHUB_TOKEN
+        env:
+          # TODO: Replace with your GitHub App's email
+          GIT_USER_EMAIL: 97396142+npm-update-package-bot[bot]@users.noreply.github.com
+          # TODO: Replace with your GitHub App's user name
+          GIT_USER_NAME: npm-update-package-bot[bot]
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+```
+
 Actual working examples can be seen in these repositories.
 
 |Repository|Package manager|GitHub token|
 |---|---|---|
-|[example-npm](https://github.com/npm-update-package/example-npm)|npm|GitHub Actions|
+|[example-github-actions](https://github.com/npm-update-package/example-github-actions)|npm|GitHub Actions|
 |[example-github-app](https://github.com/npm-update-package/example-github-app)|npm|GitHub App|
 
 ## Flow
 
-The following shows the process flow of npm-update-package:
+The following shows the process flow of npm-update-package.
 
 <!--
 ```plantuml
@@ -154,6 +219,6 @@ end
 
 npm-update-package can be used in environments where Renovate cannot be used for some reason.
 
-### Conflicts have occurred in PR. What should I do?
+### Conflicts have occurred in the pull request. What should I do?
 
-If conflicts have occurred in PR, close it and run npm-update-package again.
+If conflicts have occurred in the pull request, close it and run npm-update-package again.
