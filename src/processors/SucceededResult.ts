@@ -2,6 +2,6 @@ import type { OutdatedPackage } from '../ncu'
 
 export interface SucceededResult {
   outdatedPackage: OutdatedPackage
-  updated?: boolean
+  created?: boolean
   skipped?: boolean
 }

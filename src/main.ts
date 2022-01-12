@@ -122,10 +122,10 @@ export const main = async ({
   const succeededResults = results.filter(isRight).map(({ right }) => right)
   logger.debug(`succeededResults=${JSON.stringify(succeededResults)}`)
 
-  const updatedPackages = succeededResults
-    .filter(({ updated }) => updated)
+  const createdPackages = succeededResults
+    .filter(({ created }) => created)
     .map(({ outdatedPackage }) => outdatedPackage)
-  logger.debug(`updatedPackages=${JSON.stringify(updatedPackages)}`)
+  logger.debug(`createdPackages=${JSON.stringify(createdPackages)}`)
 
   const skippedPackages = succeededResults
     .filter(({ skipped }) => skipped)
@@ -140,7 +140,7 @@ export const main = async ({
 
   // TODO: show as table
   logger.info(`Processed ${succeededResults.length + failedPackages.length} packages:
-- ${updatedPackages.length} packages has updated: ${updatedPackages.map(({ name }) => name).join(',')}
-- ${skippedPackages.length} packages has skipped: ${skippedPackages.map(({ name }) => name).join(',')}
-- ${failedPackages.length} packages has failed: ${failedPackages.map(({ name }) => name).join(',')}`)
+- ${createdPackages.length} packages: created (${createdPackages.map(({ name }) => name).join(',')})
+- ${skippedPackages.length} packages: skipped: (${skippedPackages.map(({ name }) => name).join(',')})
+- ${failedPackages.length} packages: failed: (${failedPackages.map(({ name }) => name).join(',')})`)
 }
