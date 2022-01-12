@@ -29,9 +29,9 @@ describe('createPullRequestBody', () => {
   "packages": [
     {
       "name": "@typescript-eslint/eslint-plugin",
-      "type": "major",
       "currentVersion": "1.0.0",
-      "newVersion": "2.0.0"
+      "newVersion": "2.0.0",
+      "type": "major"
     }
   ]
 }

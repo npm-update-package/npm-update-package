@@ -1,6 +1,7 @@
 import { render } from 'mustache'
 import { app } from '../app'
 import type { OutdatedPackage } from '../ncu'
+import { createPullRequestMetadata } from './createPullRequestMetadata'
 
 const TEMPLATE = `This PR updates these packages:
 
@@ -16,17 +17,7 @@ const TEMPLATE = `This PR updates these packages:
 <div id="npm-update-package-metadata">
 
 \`\`\`json
-{
-  "version": "{{appVersion}}",
-  "packages": [
-    {
-      "name": "{{{packageName}}}",
-      "type": "{{updateType}}",
-      "currentVersion": "{{currentVersion}}",
-      "newVersion": "{{newVersion}}"
-    }
-  ]
-}
+{{{metadata}}}
 \`\`\`
 
 </div>
@@ -43,6 +34,7 @@ export const createPullRequestBody = (outdatedPackage: OutdatedPackage): string 
   const newVersion = outdatedPackage.newVersion.version
   const packageName = outdatedPackage.name
   const updateType = outdatedPackage.type
+  const metadata = JSON.stringify(createPullRequestMetadata([outdatedPackage]), null, 2)
   return render(TEMPLATE, {
     appName,
     appVersion,
@@ -50,6 +42,7 @@ export const createPullRequestBody = (outdatedPackage: OutdatedPackage): string 
     currentVersion,
     newVersion,
     packageName,
-    updateType
+    updateType,
+    metadata
   })
 }
