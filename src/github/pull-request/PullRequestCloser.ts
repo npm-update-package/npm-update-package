@@ -1,5 +1,5 @@
-import type { GitHub } from './GitHub'
-import type { PullRequest } from './PullRequest'
+import type { GitHub } from '../GitHub'
+import type { PullRequest } from '../PullRequest'
 
 // TODO: Add test
 export class PullRequestCloser {

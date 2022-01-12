@@ -1,14 +1,14 @@
-import type { GitRepository } from '../git'
+import type { GitRepository } from '../../git'
 import {
   createLogger,
   LogLevel
-} from '../logger'
-import type { OutdatedPackage } from '../ncu'
+} from '../../logger'
+import type { OutdatedPackage } from '../../ncu'
+import type { GitHub } from '../GitHub'
+import type { Repository as GitHubRepository } from '../Repository'
 import * as createPullRequestBodyModule from './createPullRequestBody'
-import type { GitHub } from './GitHub'
 import { PullRequestCreator } from './PullRequestCreator'
 import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
-import type { Repository as GitHubRepository } from './Repository'
 
 describe('PullRequestCreator', () => {
   describe('create', () => {

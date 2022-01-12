@@ -1,6 +1,6 @@
 import { render } from 'mustache'
-import { app } from '../app'
-import type { OutdatedPackage } from '../ncu'
+import { app } from '../../app'
+import type { OutdatedPackage } from '../../ncu'
 import { createPullRequestMetadata } from './createPullRequestMetadata'
 
 const TEMPLATE = `This PR updates these packages:

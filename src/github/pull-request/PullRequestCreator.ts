@@ -1,11 +1,11 @@
-import type { GitRepository } from '../git'
-import type { Logger } from '../logger'
-import type { OutdatedPackage } from '../ncu'
-import type { CreatedPullRequest } from './CreatedPullRequest'
+import type { GitRepository } from '../../git'
+import type { Logger } from '../../logger'
+import type { OutdatedPackage } from '../../ncu'
+import type { CreatedPullRequest } from '../CreatedPullRequest'
+import type { GitHub } from '../GitHub'
+import type { Repository as GitHubRepository } from '../Repository'
 import { createPullRequestBody } from './createPullRequestBody'
-import type { GitHub } from './GitHub'
 import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
-import type { Repository as GitHubRepository } from './Repository'
 
 export class PullRequestCreator {
   private readonly github: GitHub

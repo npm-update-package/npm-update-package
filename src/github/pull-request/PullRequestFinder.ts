@@ -1,6 +1,6 @@
+import type { PullRequest } from '../PullRequest'
 import { extractPullRequestMetadata } from './extractPullRequestMetadata'
 import { isPullRequestByNpmUpdatePackage } from './isPullRequestByNpmUpdatePackage'
-import type { PullRequest } from './PullRequest'
 
 // TODO: Add test
 export class PullRequestFinder {

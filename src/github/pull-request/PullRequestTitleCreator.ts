@@ -1,5 +1,5 @@
 import { render } from 'mustache'
-import type { OutdatedPackage } from '../ncu'
+import type { OutdatedPackage } from '../../ncu'
 
 export class PullRequestTitleCreator {
   constructor (private readonly template: string) {}

@@ -1,5 +1,5 @@
-import { app } from '../app'
-import { PackageVersion } from '../ncu'
+import { app } from '../../app'
+import { PackageVersion } from '../../ncu'
 import { createPullRequestBody } from './createPullRequestBody'
 
 describe('createPullRequestBody', () => {

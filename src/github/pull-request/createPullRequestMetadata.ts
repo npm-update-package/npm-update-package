@@ -1,5 +1,5 @@
-import { app } from '../app'
-import type { OutdatedPackage } from '../ncu'
+import { app } from '../../app'
+import type { OutdatedPackage } from '../../ncu'
 import type { PullRequestMetadata } from './PullRequestMetadata'
 
 // TODO: Add test

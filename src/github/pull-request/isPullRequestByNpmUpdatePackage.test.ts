@@ -1,5 +1,5 @@
+import type { PullRequest } from '../PullRequest'
 import { isPullRequestByNpmUpdatePackage } from './isPullRequestByNpmUpdatePackage'
-import type { PullRequest } from './PullRequest'
 
 describe('isPullRequestByNpmUpdatePackage', () => {
   it('returns true if pull request has label `npm-update-package`', () => {
