@@ -126,7 +126,7 @@ export class OutdatedPackageProcessor {
       }))
       return right({
         outdatedPackage,
-        updated: true
+        created: true
       })
     } finally {
       await this.git.restore(this.packageManager.packageFile, this.packageManager.lockFile)
