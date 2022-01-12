@@ -1,3 +1,3 @@
-export { PackageJsonParser } from './PackageJsonParser'
-export { PackageJsonReader } from './PackageJsonReader'
-export type { PackageDependencies } from './PackageDependencies'
+export * from './PackageJsonParser'
+export * from './PackageJsonReader'
+export * from './PackageDependencies'

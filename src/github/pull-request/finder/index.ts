@@ -1,1 +1,1 @@
-export { PullRequestFinder } from './PullRequestFinder'
+export * from './PullRequestFinder'

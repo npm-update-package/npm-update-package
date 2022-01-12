@@ -1,4 +1,4 @@
-export { createBranchName } from './createBranchName'
-export { CommitMessageCreator } from './CommitMessageCreator'
-export { Git } from './Git'
-export { GitRepository } from './GitRepository'
+export * from './createBranchName'
+export * from './CommitMessageCreator'
+export * from './Git'
+export * from './GitRepository'

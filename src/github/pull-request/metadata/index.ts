@@ -1,4 +1,1 @@
-export {
-  isPullRequestMetadata,
-  type PullRequestMetadata
-} from './PullRequestMetadata'
+export * from './PullRequestMetadata'

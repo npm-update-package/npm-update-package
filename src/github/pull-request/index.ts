@@ -1,6 +1,3 @@
-export { PullRequestCloser } from './closer'
-export {
-  PullRequestCreator,
-  PullRequestTitleCreator
-} from './creator'
-export { PullRequestFinder } from './finder'
+export * from './closer'
+export * from './creator'
+export * from './finder'

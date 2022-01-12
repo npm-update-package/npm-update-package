@@ -1,6 +1,3 @@
-export { createLogger } from './createLogger'
-export type { Logger } from './Logger'
-export {
-  isLogLevel,
-  LogLevel
-} from './LogLevel'
+export * from './createLogger'
+export * from './Logger'
+export * from './LogLevel'

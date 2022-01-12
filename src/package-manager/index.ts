@@ -1,8 +1,5 @@
-export { createPackageManager } from './createPackageManager'
-export { Npm } from './Npm'
-export type { PackageManager } from './PackageManager'
-export {
-  isPackageManagerName,
-  PackageManagerName
-} from './PackageManagerName'
-export { Yarn } from './Yarn'
+export * from './createPackageManager'
+export * from './Npm'
+export * from './PackageManager'
+export * from './PackageManagerName'
+export * from './Yarn'

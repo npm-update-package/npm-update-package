@@ -1,1 +1,1 @@
-export { PullRequestCloser } from './PullRequestCloser'
+export * from './PullRequestCloser'

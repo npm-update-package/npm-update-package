@@ -1,2 +1,2 @@
-export { OutdatedPackageProcessor } from './OutdatedPackageProcessor'
-export { OutdatedPackagesProcessor } from './OutdatedPackagesProcessor'
+export * from './OutdatedPackageProcessor'
+export * from './OutdatedPackagesProcessor'
