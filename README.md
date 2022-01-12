@@ -3,7 +3,7 @@
 
 # npm-update-package
 
-CLI tool for creating pull request to update npm packages
+CLI tool for creating pull requests to update npm packages
 
 ## Usage
 

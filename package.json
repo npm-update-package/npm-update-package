@@ -1,7 +1,7 @@
 {
   "name": "npm-update-package",
   "version": "0.22.1",
-  "description": "CLI tool for creating pull request to update npm packages",
+  "description": "CLI tool for creating pull requests to update npm packages",
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "clean": "rimraf dist",
