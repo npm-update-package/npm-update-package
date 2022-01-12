@@ -85,6 +85,13 @@ For example, the following tokens can be used.
 |[GitHub App](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps)|GitHub App which issued the token|✓|
 |[Personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)|user who issued the token|✓|
 
+We recommend using GitHub App for the following reasons.
+
+- When you use the token of GitHub Actions, the job will not trigger other actions.
+- When you use the Personal access token, the author of pull requests will be the user who issued the token.
+
+Creating a GitHub App may be tedious, but you only have to do it once the first time.
+
 ### Token of GitHub App
 
 These permissions are required.
@@ -165,7 +172,7 @@ Actual working examples can be seen in these repositories.
 
 ## Flow
 
-The following shows the process flow of npm-update-package:
+The following shows the process flow of npm-update-package.
 
 <!--
 ```plantuml
@@ -212,6 +219,6 @@ end
 
 npm-update-package can be used in environments where Renovate cannot be used for some reason.
 
-### Conflicts have occurred in pull request. What should I do?
+### Conflicts have occurred in the pull request. What should I do?
 
-If conflicts have occurred in pull request, close it and run npm-update-package again.
+If conflicts have occurred in the pull request, close it and run npm-update-package again.
