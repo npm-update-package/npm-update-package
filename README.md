@@ -79,7 +79,7 @@ Pull request title template
 GitHub token is required to run npm-update-package.  
 For example, the following tokens can be used.
 
-|GitHub token|Pull request author|Trigger other action|
+|GitHub token|Author of pull requests|Trigger other actions|
 |---|---|---|
 |[GitHub Actions](https://docs.github.com/en/actions/security-guides/automatic-token-authentication)|`github-actions`||
 |[GitHub App](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps)|GitHub App which issued the token|✓|
