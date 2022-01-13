@@ -16,9 +16,11 @@ import type {
 } from '../github'
 import type { Logger } from '../logger'
 import type { Ncu } from '../ncu'
-import type { OutdatedPackage } from '../nup'
+import type {
+  FailedResult,
+  OutdatedPackage
+} from '../nup'
 import type { PackageManager } from '../package-manager'
-import type { FailedResult } from './FailedResult'
 import type { SucceededResult } from './SucceededResult'
 
 // TODO: add test
