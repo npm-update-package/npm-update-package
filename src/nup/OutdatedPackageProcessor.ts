@@ -16,12 +16,10 @@ import type {
 } from '../github'
 import type { Logger } from '../logger'
 import type { Ncu } from '../ncu'
-import type {
-  FailedResult,
-  OutdatedPackage,
-  SucceededResult
-} from '../nup'
 import type { PackageManager } from '../package-manager'
+import type { FailedResult } from './FailedResult'
+import type { OutdatedPackage } from './OutdatedPackage'
+import type { SucceededResult } from './SucceededResult'
 
 // TODO: add test
 export class OutdatedPackageProcessor {

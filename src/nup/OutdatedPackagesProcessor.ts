@@ -1,8 +1,8 @@
 import type { Either } from 'fp-ts/lib/Either'
 import type { Logger } from '../logger'
-import type { OutdatedPackageProcessor } from '../processors'
 import type { FailedResult } from './FailedResult'
 import type { OutdatedPackage } from './OutdatedPackage'
+import type { OutdatedPackageProcessor } from './OutdatedPackageProcessor'
 import type { SucceededResult } from './SucceededResult'
 
 export class OutdatedPackagesProcessor {
