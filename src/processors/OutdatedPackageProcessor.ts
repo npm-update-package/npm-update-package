@@ -18,10 +18,10 @@ import type { Logger } from '../logger'
 import type { Ncu } from '../ncu'
 import type {
   FailedResult,
-  OutdatedPackage
+  OutdatedPackage,
+  SucceededResult
 } from '../nup'
 import type { PackageManager } from '../package-manager'
-import type { SucceededResult } from './SucceededResult'
 
 // TODO: add test
 export class OutdatedPackageProcessor {
