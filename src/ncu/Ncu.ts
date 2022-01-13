@@ -1,11 +1,10 @@
 import { run } from 'npm-check-updates'
+import type { RunOptions } from 'npm-check-updates/build/src/types'
 import type { Logger } from '../logger'
 import type { OutdatedPackage } from '../nup'
 import type { PackageJsonReader } from '../package-json'
 import { isNcuResult } from './NcuResult'
 import { NcuResultConverter } from './NcuResultConverter'
-
-type Options = NonNullable<Parameters<typeof run>[0]>
 
 // TODO: add test
 export class Ncu {
@@ -37,7 +36,7 @@ export class Ncu {
     })
   }
 
-  private async run (options: Options): Promise<OutdatedPackage[]> {
+  private async run (options: RunOptions): Promise<OutdatedPackage[]> {
     const pkg = await this.packageJsonReader.read()
     this.logger.debug(`pkg=${JSON.stringify(pkg)}`)
     const result = await run(options)
