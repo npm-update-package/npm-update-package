@@ -4,11 +4,11 @@ import type {
 } from '@octokit/rest'
 import type { ValuesType } from 'utility-types'
 import type { CreatedPullRequest } from './CreatedPullRequest'
-import type { PullRequest } from './PullRequest'
 import type { Repository } from './Repository'
 
 export type Branch = ValuesType<RestEndpointMethodTypes['repos']['listBranches']['response']['data']>
 export type Label = ValuesType<RestEndpointMethodTypes['issues']['addLabels']['response']['data']>
+export type PullRequest = ValuesType<RestEndpointMethodTypes['pulls']['list']['response']['data']>
 
 // TODO: add test
 export class GitHub {
