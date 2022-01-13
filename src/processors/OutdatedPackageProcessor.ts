@@ -15,10 +15,8 @@ import type {
   PullRequestFinder
 } from '../github'
 import type { Logger } from '../logger'
-import type {
-  Ncu,
-  OutdatedPackage
-} from '../ncu'
+import type { Ncu } from '../ncu'
+import type { OutdatedPackage } from '../nup'
 import type { PackageManager } from '../package-manager'
 import type { FailedResult } from './FailedResult'
 import type { SucceededResult } from './SucceededResult'

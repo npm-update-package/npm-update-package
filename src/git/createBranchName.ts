@@ -1,5 +1,5 @@
 import { render } from 'mustache'
-import type { OutdatedPackage } from '../ncu'
+import type { OutdatedPackage } from '../nup'
 
 const TEMPLATE = 'npm-update-package/{{{packageName}}}/v{{newVersion}}'
 

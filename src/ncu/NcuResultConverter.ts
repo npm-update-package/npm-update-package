@@ -1,11 +1,11 @@
 import { isNotUndefined } from 'type-guards'
+import type { OutdatedPackage } from '../nup'
 import type { PackageDependencies } from '../package-json'
 import {
   compareSemVers,
   SemVer
 } from '../semver'
 import type { NcuResult } from './NcuResult'
-import type { OutdatedPackage } from './OutdatedPackage'
 
 // TODO: add test
 export class NcuResultConverter {

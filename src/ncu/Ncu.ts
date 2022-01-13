@@ -1,6 +1,6 @@
 import { run } from 'npm-check-updates'
 import type { Logger } from '../logger'
-import type { OutdatedPackage } from '../ncu'
+import type { OutdatedPackage } from '../nup'
 import type { PackageJsonReader } from '../package-json'
 import { isNcuResult } from './NcuResult'
 import { NcuResultConverter } from './NcuResultConverter'

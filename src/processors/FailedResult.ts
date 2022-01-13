@@ -1,4 +1,4 @@
-import type { OutdatedPackage } from '../ncu'
+import type { OutdatedPackage } from '../nup'
 
 export interface FailedResult {
   outdatedPackage: OutdatedPackage
