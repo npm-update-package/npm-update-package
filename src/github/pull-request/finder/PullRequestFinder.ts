@@ -1,5 +1,5 @@
 import type { PullRequest } from '../../PullRequest'
-import { extractPullRequestMetadata } from './extractPullRequestMetadata'
+import { extractPullRequestMetadata } from '../metadata'
 import { isPullRequestByNpmUpdatePackage } from './isPullRequestByNpmUpdatePackage'
 
 // TODO: Add test
