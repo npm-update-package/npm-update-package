@@ -7,7 +7,7 @@ import {
   Git
 } from './git'
 import {
-  BranchExistenceChecker,
+  BranchFinder,
   createGitHub,
   PullRequestCloser,
   PullRequestCreator,
@@ -85,7 +85,7 @@ export const main = async ({
   })
   logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
 
-  const branchExistenceChecker = BranchExistenceChecker.of(branches)
+  const branchFinder = new BranchFinder(branches)
   const packageManager = createPackageManager({
     terminal,
     packageManager: options.packageManager
@@ -106,7 +106,7 @@ export const main = async ({
     ncu,
     packageManager,
     pullRequestCreator,
-    branchExistenceChecker,
+    branchFinder,
     logger,
     commitMessageCreator,
     pullRequestFinder,

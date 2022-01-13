@@ -9,7 +9,7 @@ import {
   type Git
 } from '../git'
 import type {
-  BranchExistenceChecker,
+  BranchFinder,
   PullRequestCloser,
   PullRequestCreator,
   PullRequestFinder
@@ -29,7 +29,7 @@ export class OutdatedPackageProcessor {
   private readonly ncu: Ncu
   private readonly packageManager: PackageManager
   private readonly pullRequestCreator: PullRequestCreator
-  private readonly branchExistenceChecker: BranchExistenceChecker
+  private readonly branchFinder: BranchFinder
   private readonly logger: Logger
   private readonly commitMessageCreator: CommitMessageCreator
   private readonly pullRequestFinder: PullRequestFinder
@@ -40,7 +40,7 @@ export class OutdatedPackageProcessor {
     ncu,
     packageManager,
     pullRequestCreator,
-    branchExistenceChecker,
+    branchFinder,
     logger,
     commitMessageCreator,
     pullRequestFinder,
@@ -50,7 +50,7 @@ export class OutdatedPackageProcessor {
     ncu: Ncu
     packageManager: PackageManager
     pullRequestCreator: PullRequestCreator
-    branchExistenceChecker: BranchExistenceChecker
+    branchFinder: BranchFinder
     logger: Logger
     commitMessageCreator: CommitMessageCreator
     pullRequestFinder: PullRequestFinder
@@ -60,7 +60,7 @@ export class OutdatedPackageProcessor {
     this.ncu = ncu
     this.packageManager = packageManager
     this.pullRequestCreator = pullRequestCreator
-    this.branchExistenceChecker = branchExistenceChecker
+    this.branchFinder = branchFinder
     this.logger = logger
     this.commitMessageCreator = commitMessageCreator
     this.pullRequestFinder = pullRequestFinder
@@ -74,7 +74,7 @@ export class OutdatedPackageProcessor {
     const branchName = createBranchName(outdatedPackage)
     this.logger.debug(`branchName=${branchName}`)
 
-    if (this.branchExistenceChecker.check(branchName)) {
+    if (this.branchFinder.findByName(branchName) !== undefined) {
       this.logger.info(`Skip ${outdatedPackage.name} because ${branchName} branch already exists on remote.`)
       return right({
         outdatedPackage,
