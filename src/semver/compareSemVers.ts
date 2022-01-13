@@ -1,4 +1,4 @@
-import { SemVer } from './SemVer'
+import type { SemVer } from './SemVer'
 import { SemVerLevel } from './SemVerLevel'
 
 export const compareSemVers = (version1: SemVer, version2: SemVer): SemVerLevel | undefined => {
