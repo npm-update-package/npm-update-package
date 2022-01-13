@@ -20,7 +20,8 @@ export class PullRequestFinder {
           return false
         }
 
-        return metadata.packages.some(({ name }) => name === packageName)
+        const { packages } = metadata
+        return packages.some(({ name }) => name === packageName)
       })
   }
 }
