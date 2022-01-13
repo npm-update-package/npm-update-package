@@ -1,11 +1,11 @@
 import {
   intersection,
   partial,
+  record,
   string,
   type,
   type TypeOf
 } from 'io-ts'
-import { PackageDependencies } from './PackageDependencies'
 
 const Package = intersection([
   type({
@@ -13,10 +13,10 @@ const Package = intersection([
     version: string
   }),
   partial({
-    dependencies: PackageDependencies,
-    devDependencies: PackageDependencies,
-    peerDependencies: PackageDependencies,
-    optionalDependencies: PackageDependencies
+    dependencies: record(string, string),
+    devDependencies: record(string, string),
+    peerDependencies: record(string, string),
+    optionalDependencies: record(string, string)
   })
 ])
 // eslint-disable-next-line @typescript-eslint/no-redeclare
