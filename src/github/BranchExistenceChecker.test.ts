@@ -1,5 +1,5 @@
-import type { Branch } from './Branch'
 import { BranchExistenceChecker } from './BranchExistenceChecker'
+import type { Branch } from './GitHub'
 
 describe('BranchExistenceChecker', () => {
   describe('of', () => {

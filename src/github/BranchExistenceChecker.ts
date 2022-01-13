@@ -1,4 +1,4 @@
-import type { Branch } from './Branch'
+import type { Branch } from './GitHub'
 
 export class BranchExistenceChecker {
   constructor (private readonly branchNames: string[]) {}
