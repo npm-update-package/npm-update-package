@@ -1,8 +1,6 @@
-import {
-  SemVer,
-  SemVerLevel
-} from '../semver'
 import { compareSemVers } from './compareSemVers'
+import { SemVer } from './SemVer'
+import { SemVerLevel } from './SemVerLevel'
 
 describe('compareSemVers', () => {
   describe('if both versions are different', () => {

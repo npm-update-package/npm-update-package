@@ -1,7 +1,9 @@
 import { isNotUndefined } from 'type-guards'
 import type { PackageDependencies } from '../package-json'
-import { SemVer } from '../semver'
-import { compareSemVers } from './compareSemVers'
+import {
+  compareSemVers,
+  SemVer
+} from '../semver'
 import type { NcuResult } from './NcuResult'
 import type { OutdatedPackage } from './OutdatedPackage'
 

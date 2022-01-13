@@ -1,7 +1,5 @@
-import {
-  SemVerLevel,
-  type SemVer
-} from '../semver'
+import { SemVer } from './SemVer'
+import { SemVerLevel } from './SemVerLevel'
 
 export const compareSemVers = (currentVersion: SemVer, newVersion: SemVer): SemVerLevel => {
   if (currentVersion.major !== newVersion.major) {
