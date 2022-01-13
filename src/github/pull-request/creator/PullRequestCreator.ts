@@ -1,8 +1,8 @@
 import type { GitRepository } from '../../../git'
 import type { Logger } from '../../../logger'
 import type { OutdatedPackage } from '../../../ncu'
-import type { CreatedPullRequest } from '../../CreatedPullRequest'
 import type {
+  CreatedPullRequest,
   GitHub,
   Repository as GitHubRepository
 } from '../../GitHub'
