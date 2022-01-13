@@ -1,7 +1,7 @@
 import { SemVer } from './SemVer'
 import { SemVerLevel } from './SemVerLevel'
 
-export const compareSemVers = (version1: SemVer, version2: SemVer): SemVerLevel => {
+export const compareSemVers = (version1: SemVer, version2: SemVer): SemVerLevel | undefined => {
   if (version1.major !== version2.major) {
     return SemVerLevel.Major
   }
@@ -13,6 +13,4 @@ export const compareSemVers = (version1: SemVer, version2: SemVer): SemVerLevel 
   if (version1.patch !== version2.patch) {
     return SemVerLevel.Patch
   }
-
-  throw new Error('Both versions are same.')
 }

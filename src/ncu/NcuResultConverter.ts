@@ -24,6 +24,11 @@ export class NcuResultConverter {
         const currentVersion = SemVer.of(currentVersionString)
         const newVersion = SemVer.of(newVersionString)
         const type = compareSemVers(currentVersion, newVersion)
+
+        if (type === undefined) {
+          return undefined
+        }
+
         return {
           name,
           currentVersion,

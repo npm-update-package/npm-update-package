@@ -12,8 +12,8 @@ describe('compareSemVers', () => {
   })
 
   describe('if both versions are same', () => {
-    it('throws error', () => {
-      expect(() => compareSemVers(SemVer.of('1.0.0'), SemVer.of('1.0.0'))).toThrow(Error)
+    it('returns undefined', () => {
+      expect(compareSemVers(SemVer.of('1.0.0'), SemVer.of('1.0.0'))).toBeUndefined()
     })
   })
 })
