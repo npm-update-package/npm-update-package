@@ -7,12 +7,12 @@ import {
   Git
 } from './git'
 import {
+  BranchExistenceChecker,
   createGitHub,
   PullRequestCloser,
   PullRequestCreator,
   PullRequestFinder,
-  PullRequestTitleCreator,
-  RemoteBranchExistenceChecker
+  PullRequestTitleCreator
 } from './github'
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
@@ -73,11 +73,11 @@ export const main = async ({
   })
   logger.debug(`githubRepo=${JSON.stringify(githubRepo)}`)
 
-  const remoteBranches = await github.fetchBranches({
+  const branches = await github.fetchBranches({
     owner: gitRepo.owner,
     repo: gitRepo.name
   })
-  logger.debug(`remoteBranches=${JSON.stringify(remoteBranches)}`)
+  logger.debug(`branches=${JSON.stringify(branches)}`)
 
   const pullRequests = await github.fetchPullRequests({
     owner: gitRepo.owner,
@@ -85,7 +85,7 @@ export const main = async ({
   })
   logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
 
-  const remoteBranchExistenceChecker = RemoteBranchExistenceChecker.of(remoteBranches)
+  const branchExistenceChecker = BranchExistenceChecker.of(branches)
   const packageManager = createPackageManager({
     terminal,
     packageManager: options.packageManager
@@ -106,7 +106,7 @@ export const main = async ({
     ncu,
     packageManager,
     pullRequestCreator,
-    remoteBranchExistenceChecker,
+    branchExistenceChecker,
     logger,
     commitMessageCreator,
     pullRequestFinder,

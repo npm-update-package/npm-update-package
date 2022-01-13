@@ -9,10 +9,10 @@ import {
   type Git
 } from '../git'
 import type {
+  BranchExistenceChecker,
   PullRequestCloser,
   PullRequestCreator,
-  PullRequestFinder,
-  RemoteBranchExistenceChecker
+  PullRequestFinder
 } from '../github'
 import type { Logger } from '../logger'
 import type {
@@ -29,7 +29,7 @@ export class OutdatedPackageProcessor {
   private readonly ncu: Ncu
   private readonly packageManager: PackageManager
   private readonly pullRequestCreator: PullRequestCreator
-  private readonly remoteBranchExistenceChecker: RemoteBranchExistenceChecker
+  private readonly branchExistenceChecker: BranchExistenceChecker
   private readonly logger: Logger
   private readonly commitMessageCreator: CommitMessageCreator
   private readonly pullRequestFinder: PullRequestFinder
@@ -40,7 +40,7 @@ export class OutdatedPackageProcessor {
     ncu,
     packageManager,
     pullRequestCreator,
-    remoteBranchExistenceChecker,
+    branchExistenceChecker,
     logger,
     commitMessageCreator,
     pullRequestFinder,
@@ -50,7 +50,7 @@ export class OutdatedPackageProcessor {
     ncu: Ncu
     packageManager: PackageManager
     pullRequestCreator: PullRequestCreator
-    remoteBranchExistenceChecker: RemoteBranchExistenceChecker
+    branchExistenceChecker: BranchExistenceChecker
     logger: Logger
     commitMessageCreator: CommitMessageCreator
     pullRequestFinder: PullRequestFinder
@@ -60,7 +60,7 @@ export class OutdatedPackageProcessor {
     this.ncu = ncu
     this.packageManager = packageManager
     this.pullRequestCreator = pullRequestCreator
-    this.remoteBranchExistenceChecker = remoteBranchExistenceChecker
+    this.branchExistenceChecker = branchExistenceChecker
     this.logger = logger
     this.commitMessageCreator = commitMessageCreator
     this.pullRequestFinder = pullRequestFinder
@@ -74,7 +74,7 @@ export class OutdatedPackageProcessor {
     const branchName = createBranchName(outdatedPackage)
     this.logger.debug(`branchName=${branchName}`)
 
-    if (this.remoteBranchExistenceChecker.check(branchName)) {
+    if (this.branchExistenceChecker.check(branchName)) {
       this.logger.info(`Skip ${outdatedPackage.name} because ${branchName} branch already exists on remote.`)
       return right({
         outdatedPackage,
