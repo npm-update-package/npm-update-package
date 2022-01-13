@@ -16,16 +16,14 @@ import {
 } from './github'
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
+import { OutdatedPackagesProcessor } from './nup'
 import type { Options } from './options'
 import {
   PackageJsonParser,
   PackageJsonReader
 } from './package-json'
 import { createPackageManager } from './package-manager'
-import {
-  OutdatedPackageProcessor,
-  OutdatedPackagesProcessor
-} from './processors'
+import { OutdatedPackageProcessor } from './processors'
 import { Terminal } from './terminal'
 
 // TODO: add test
