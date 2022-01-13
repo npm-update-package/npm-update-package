@@ -4,8 +4,10 @@ import {
   LogLevel
 } from '../../../logger'
 import type { OutdatedPackage } from '../../../ncu'
-import type { GitHub } from '../../GitHub'
-import type { Repository as GitHubRepository } from '../../Repository'
+import type {
+  GitHub,
+  Repository as GitHubRepository
+} from '../../GitHub'
 import * as createPullRequestBodyModule from './createPullRequestBody'
 import { PullRequestCreator } from './PullRequestCreator'
 import type { PullRequestTitleCreator } from './PullRequestTitleCreator'

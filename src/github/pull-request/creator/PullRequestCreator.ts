@@ -2,8 +2,10 @@ import type { GitRepository } from '../../../git'
 import type { Logger } from '../../../logger'
 import type { OutdatedPackage } from '../../../ncu'
 import type { CreatedPullRequest } from '../../CreatedPullRequest'
-import type { GitHub } from '../../GitHub'
-import type { Repository as GitHubRepository } from '../../Repository'
+import type {
+  GitHub,
+  Repository as GitHubRepository
+} from '../../GitHub'
 import { createPullRequestBody } from './createPullRequestBody'
 import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
 
