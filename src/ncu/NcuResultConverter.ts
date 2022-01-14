@@ -1,6 +1,6 @@
 import { isNotUndefined } from 'type-guards'
 import type { OutdatedPackage } from '../core'
-import type { PackageDependencies } from '../package-json'
+import type { PackageMetadataDependencies } from '../package-json'
 import {
   compareSemVers,
   SemVer
@@ -9,7 +9,7 @@ import type { NcuResult } from './NcuResult'
 
 // TODO: add test
 export class NcuResultConverter {
-  constructor (private readonly currentDependencies: PackageDependencies) {}
+  constructor (private readonly currentDependencies: PackageMetadataDependencies) {}
 
   toOutdatedPackages (result: NcuResult): OutdatedPackage[] {
     const resultEntries = Object.entries(result)

@@ -5,7 +5,7 @@ import {
   type,
   type TypeOf
 } from 'io-ts'
-import { PackageDependencies } from './PackageDependencies'
+import { PackageMetadataDependencies } from './PackageMetadataDependencies'
 
 const PackageMetadata = intersection([
   type({
@@ -13,10 +13,10 @@ const PackageMetadata = intersection([
     version: string
   }),
   partial({
-    dependencies: PackageDependencies,
-    devDependencies: PackageDependencies,
-    peerDependencies: PackageDependencies,
-    optionalDependencies: PackageDependencies
+    dependencies: PackageMetadataDependencies,
+    devDependencies: PackageMetadataDependencies,
+    peerDependencies: PackageMetadataDependencies,
+    optionalDependencies: PackageMetadataDependencies
   })
 ])
 // eslint-disable-next-line @typescript-eslint/no-redeclare
