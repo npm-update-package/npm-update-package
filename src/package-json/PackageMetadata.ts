@@ -7,7 +7,7 @@ import {
 } from 'io-ts'
 import { PackageDependencies } from './PackageDependencies'
 
-const Package = intersection([
+const PackageMetadata = intersection([
   type({
     name: string,
     version: string
@@ -20,5 +20,5 @@ const Package = intersection([
   })
 ])
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export type Package = TypeOf<typeof Package>
-export const isPackage = Package.is
+export type PackageMetadata = TypeOf<typeof PackageMetadata>
+export const isPackageMetadata = PackageMetadata.is
