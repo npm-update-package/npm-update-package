@@ -79,15 +79,16 @@ Pull request title template
 GitHub token is required to run npm-update-package.  
 For example, the following tokens can be used.
 
-|GitHub token|Author of pull requests|Trigger other actions|
-|---|---|---|
-|[GitHub Actions](https://docs.github.com/en/actions/security-guides/automatic-token-authentication)|`github-actions`||
-|[GitHub App](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps)|GitHub App which issued the token|✓|
-|[Personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)|user who issued the token|✓|
+|GitHub token|Author of pull requests|Owner|Trigger other actions|
+|---|---|---|---|
+|[GitHub Actions](https://docs.github.com/en/actions/security-guides/automatic-token-authentication)|`github-actions`|GitHub||
+|[GitHub App](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps)|GitHub App which issued the token|organization or personal account|✓|
+|[Personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)|user who issued the token|personal account|✓|
 
 We recommend using GitHub App for the following reasons.
 
 - When you use the token of GitHub Actions, the job will not trigger other actions.
+- Personal access token relies on personal account.
 - When you use the Personal access token, the author of pull requests will be the user who issued the token.
 
 Creating a GitHub App may be tedious, but you only have to do it once the first time.
