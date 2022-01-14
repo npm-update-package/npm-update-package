@@ -1,5 +1,5 @@
 import { isNotUndefined } from 'type-guards'
-import type { OutdatedPackage } from '../nup'
+import type { OutdatedPackage } from '../core'
 import type { PackageDependencies } from '../package-json'
 import {
   compareSemVers,

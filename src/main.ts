@@ -3,6 +3,10 @@ import {
   isRight
 } from 'fp-ts/lib/Either'
 import {
+  OutdatedPackageProcessor,
+  OutdatedPackagesProcessor
+} from './core'
+import {
   CommitMessageCreator,
   Git
 } from './git'
@@ -16,10 +20,6 @@ import {
 } from './github'
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
-import {
-  OutdatedPackageProcessor,
-  OutdatedPackagesProcessor
-} from './nup'
 import type { Options } from './options'
 import {
   PackageJsonParser,
