@@ -21,7 +21,6 @@ import {
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'
-import { PackageJsonParser } from './package-json'
 import { createPackageManager } from './package-manager'
 
 import { Terminal } from './terminal'
@@ -39,11 +38,7 @@ export const main = async ({
     githubToken: options.githubToken !== '' ? '***' : ''
   })}`)
 
-  const packageJsonParser = new PackageJsonParser(logger)
-  const ncu = new Ncu({
-    packageJsonParser,
-    logger
-  })
+  const ncu = new Ncu(logger)
   const outdatedPackages = await ncu.check()
   logger.debug(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
 

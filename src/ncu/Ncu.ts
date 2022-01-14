@@ -3,25 +3,13 @@ import type { RunOptions } from 'npm-check-updates/build/src/types'
 import type { OutdatedPackage } from '../core'
 import { readFile } from '../file'
 import type { Logger } from '../logger'
-import type { PackageJsonParser } from '../package-json'
+import { parsePackageJson } from '../package-json'
 import { isNcuResult } from './NcuResult'
 import { NcuResultConverter } from './NcuResultConverter'
 
 // TODO: add test
 export class Ncu {
-  private readonly packageJsonParser: PackageJsonParser
-  private readonly logger: Logger
-
-  constructor ({
-    packageJsonParser,
-    logger
-  }: {
-    packageJsonParser: PackageJsonParser
-    logger: Logger
-  }) {
-    this.packageJsonParser = packageJsonParser
-    this.logger = logger
-  }
+  constructor (private readonly logger: Logger) {}
 
   async check (): Promise<OutdatedPackage[]> {
     return await this.run({
@@ -39,7 +27,7 @@ export class Ncu {
 
   private async run (options: RunOptions): Promise<OutdatedPackage[]> {
     const json = await readFile('./package.json')
-    const pkg = this.packageJsonParser.parse(json)
+    const pkg = parsePackageJson(json)
     this.logger.debug(`pkg=${JSON.stringify(pkg)}`)
     const result = await run(options)
     this.logger.debug(`result=${JSON.stringify(result)}`)
