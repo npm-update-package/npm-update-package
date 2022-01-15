@@ -8,13 +8,12 @@ export class CommitMessageCreator {
     const packageName = outdatedPackage.name
     const currentVersion = outdatedPackage.currentVersion.version
     const newVersion = outdatedPackage.newVersion.version
-    // TODO: rename to level
-    const updateType = outdatedPackage.level
+    const level = outdatedPackage.level
     return render(this.template, {
       packageName,
       currentVersion,
       newVersion,
-      updateType
+      level
     })
   }
 }

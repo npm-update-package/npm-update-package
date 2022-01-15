@@ -14,8 +14,7 @@ const PullRequestMetadata = type({
     name: string,
     currentVersion: string,
     newVersion: string,
-    // TODO: rename to level
-    type: union([literal(SemVerLevel.Major), literal(SemVerLevel.Minor), literal(SemVerLevel.Patch)])
+    level: union([literal(SemVerLevel.Major), literal(SemVerLevel.Minor), literal(SemVerLevel.Patch)])
   }))
 })
 // eslint-disable-next-line @typescript-eslint/no-redeclare

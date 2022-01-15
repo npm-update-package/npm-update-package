@@ -12,7 +12,7 @@ describe('createPullRequestBody', () => {
     })
     expect(actual).toBe(`This PR updates these packages:
 
-|package|type|current version|new version|
+|Package|Level|Current version|New version|
 |---|---|---|---|
 |[@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin)|major|\`1.0.0\`|\`2.0.0\`|
 
@@ -31,7 +31,7 @@ describe('createPullRequestBody', () => {
       "name": "@typescript-eslint/eslint-plugin",
       "currentVersion": "1.0.0",
       "newVersion": "2.0.0",
-      "type": "major"
+      "level": "major"
     }
   ]
 }

@@ -23,11 +23,11 @@ Commit message template
 - type: string
 - required: false
 - variables:
-  - `currentVersion`
-  - `newVersion`
-  - `packageName`
-  - `updateType`
-- default: `chore(deps): {{updateType}} update {{{packageName}}} to v{{newVersion}}`
+  - `currentVersion`: current package version
+  - `newVersion`: new package version
+  - `packageName`: package name
+  - `level`: semver level (major/minor/patch)
+- default: `chore(deps): {{level}} update {{{packageName}}} to v{{newVersion}}`
 
 ### `--github-token`
 
@@ -68,11 +68,11 @@ Pull request title template
 - type: string
 - required: false
 - variables:
-  - `currentVersion`
-  - `newVersion`
-  - `packageName`
-  - `updateType`
-- default: `chore(deps): {{updateType}} update {{{packageName}}} to v{{newVersion}}`
+  - `currentVersion`: current package version
+  - `newVersion`: new package version
+  - `packageName`: package name
+  - `level`: semver level (major/minor/patch)
+- default: `chore(deps): {{level}} update {{{packageName}}} to v{{newVersion}}`
 
 ## GitHub token
 
