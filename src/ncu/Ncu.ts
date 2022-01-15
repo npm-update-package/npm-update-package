@@ -4,15 +4,12 @@ import { isNotUndefined } from 'type-guards'
 import type { OutdatedPackage } from '../core'
 import { readFile } from '../file'
 import type { Logger } from '../logger'
-import { PackageMetadata, parsePackageJson } from '../package-json'
+import { parsePackageJson } from '../package-json'
 import {
   compareSemVers,
   SemVer
 } from '../semver'
-import {
-  isNcuResult,
-  type NcuResult
-} from './NcuResult'
+import { isNcuResult } from './NcuResult'
 
 // TODO: add test
 export class Ncu {
@@ -33,40 +30,23 @@ export class Ncu {
   }
 
   private async run (options: RunOptions): Promise<OutdatedPackage[]> {
+    // Read package.json before running ncu
     const json = await readFile('./package.json')
-    const packageMetadata = parsePackageJson(json)
-    this.logger.debug(`packageMetadata=${JSON.stringify(packageMetadata)}`)
+    const pkg = parsePackageJson(json)
+    this.logger.debug(`pkg=${JSON.stringify(pkg)}`)
+
     const result = await run(options)
     this.logger.debug(`result=${JSON.stringify(result)}`)
 
     if (!isNcuResult(result)) {
-      throw new Error('result is not NcuResult')
+      throw new Error('Failed to running ncu.')
     }
 
-    return this.createOutdatedPackages({
-      result,
-      packageMetadata
-    })
-  }
-
-  private createOutdatedPackages ({
-    result,
-    packageMetadata
-  }: {
-    result: NcuResult
-    packageMetadata: PackageMetadata
-  }): OutdatedPackage[] {
-    const {
-      dependencies,
-      devDependencies,
-      peerDependencies,
-      optionalDependencies
-    } = packageMetadata
     const currentDependencies = {
-      ...dependencies,
-      ...devDependencies,
-      ...peerDependencies,
-      ...optionalDependencies
+      ...pkg.dependencies,
+      ...pkg.devDependencies,
+      ...pkg.peerDependencies,
+      ...pkg.optionalDependencies
     }
     const resultEntries = Object.entries(result)
     const outdatedPackages: OutdatedPackage[] = resultEntries
@@ -96,7 +76,7 @@ export class Ncu {
       .filter(isNotUndefined)
 
     if (resultEntries.length !== outdatedPackages.length) {
-      throw new Error('Failed to create outdatedPackages.')
+      throw new Error('Failed to running ncu.')
     }
 
     return outdatedPackages
