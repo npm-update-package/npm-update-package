@@ -36,12 +36,7 @@ export class Ncu {
       throw new Error('result is not NcuResult')
     }
 
-    const ncuResultConverter = new NcuResultConverter({
-      ...pkg.dependencies,
-      ...pkg.devDependencies,
-      ...pkg.peerDependencies,
-      ...pkg.optionalDependencies
-    })
+    const ncuResultConverter = new NcuResultConverter(pkg)
     return ncuResultConverter.toOutdatedPackages(result)
   }
 }
