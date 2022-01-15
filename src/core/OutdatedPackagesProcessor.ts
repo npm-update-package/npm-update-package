@@ -5,6 +5,7 @@ import type { OutdatedPackage } from './OutdatedPackage'
 import type { OutdatedPackageProcessor } from './OutdatedPackageProcessor'
 import type { SucceededResult } from './SucceededResult'
 
+// TODO: add test
 export class OutdatedPackagesProcessor {
   private readonly outdatedPackageProcessor: OutdatedPackageProcessor
   private readonly logger: Logger
