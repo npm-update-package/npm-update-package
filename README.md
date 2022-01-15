@@ -87,7 +87,7 @@ Available tokens and permissions required for each token are as follows.
 - [Personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
   - repo
 
-The features of each token are as follows.
+Features of each token are as follows.
 
 ||GitHub Actions|GitHub App|Personal access token|
 |---|---|---|---|
