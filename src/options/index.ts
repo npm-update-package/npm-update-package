@@ -1,2 +1,2 @@
-export { initOptions } from './initOptions'
-export type { Options } from './Options'
+export * from './initOptions'
+export * from './Options'

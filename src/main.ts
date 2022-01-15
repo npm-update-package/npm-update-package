@@ -3,27 +3,25 @@ import {
   isRight
 } from 'fp-ts/lib/Either'
 import {
+  OutdatedPackageProcessor,
+  OutdatedPackagesProcessor
+} from './core'
+import {
   CommitMessageCreator,
   Git
 } from './git'
 import {
+  BranchFinder,
   createGitHub,
   PullRequestCloser,
   PullRequestCreator,
   PullRequestFinder,
-  PullRequestTitleCreator,
-  RemoteBranchExistenceChecker
+  PullRequestTitleCreator
 } from './github'
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'
-import { PackageJsonParser } from './package-json'
-import { PackageJsonReader } from './package-json/PackageJsonReader'
 import { createPackageManager } from './package-manager'
-import {
-  OutdatedPackageProcessor,
-  OutdatedPackagesProcessor
-} from './processors'
 import { Terminal } from './terminal'
 
 // TODO: add test
@@ -39,15 +37,7 @@ export const main = async ({
     githubToken: options.githubToken !== '' ? '***' : ''
   })}`)
 
-  const packageJsonParser = new PackageJsonParser(logger)
-  const packageJsonReader = new PackageJsonReader({
-    packageJsonParser,
-    logger
-  })
-  const ncu = new Ncu({
-    packageJsonReader,
-    logger
-  })
+  const ncu = new Ncu(logger)
   const outdatedPackages = await ncu.check()
   logger.debug(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
 
@@ -73,11 +63,11 @@ export const main = async ({
   })
   logger.debug(`githubRepo=${JSON.stringify(githubRepo)}`)
 
-  const remoteBranches = await github.fetchBranches({
+  const branches = await github.fetchBranches({
     owner: gitRepo.owner,
     repo: gitRepo.name
   })
-  logger.debug(`remoteBranches=${JSON.stringify(remoteBranches)}`)
+  logger.debug(`branches=${JSON.stringify(branches)}`)
 
   const pullRequests = await github.fetchPullRequests({
     owner: gitRepo.owner,
@@ -85,7 +75,7 @@ export const main = async ({
   })
   logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
 
-  const remoteBranchExistenceChecker = RemoteBranchExistenceChecker.of(remoteBranches)
+  const branchFinder = new BranchFinder(branches)
   const packageManager = createPackageManager({
     terminal,
     packageManager: options.packageManager
@@ -106,7 +96,7 @@ export const main = async ({
     ncu,
     packageManager,
     pullRequestCreator,
-    remoteBranchExistenceChecker,
+    branchFinder,
     logger,
     commitMessageCreator,
     pullRequestFinder,

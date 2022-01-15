@@ -1,17 +1,7 @@
-import { render } from 'mustache'
-import type { OutdatedPackage } from '../ncu'
-
-const TEMPLATE = 'npm-update-package/{{{packageName}}}/v{{newVersion}}'
+import type { OutdatedPackage } from '../core'
 
 export const createBranchName = (outdatedPackage: OutdatedPackage): string => {
   const packageName = outdatedPackage.name
-  const currentVersion = outdatedPackage.currentVersion.version
   const newVersion = outdatedPackage.newVersion.version
-  const updateType = outdatedPackage.type
-  return render(TEMPLATE, {
-    packageName,
-    currentVersion,
-    newVersion,
-    updateType
-  })
+  return `npm-update-package/${packageName}/v${newVersion}`
 }

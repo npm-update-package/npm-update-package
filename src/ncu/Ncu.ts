@@ -1,27 +1,19 @@
 import { run } from 'npm-check-updates'
+import type { RunOptions } from 'npm-check-updates/build/src/types'
+import { isNotUndefined } from 'type-guards'
+import type { OutdatedPackage } from '../core'
+import { readFile } from '../file'
 import type { Logger } from '../logger'
-import type { OutdatedPackage } from '../ncu'
-import type { PackageJsonReader } from '../package-json'
+import { parsePackageJson } from '../package-json'
+import {
+  compareSemVers,
+  SemVer
+} from '../semver'
 import { isNcuResult } from './NcuResult'
-import { NcuResultConverter } from './NcuResultConverter'
-
-type Options = NonNullable<Parameters<typeof run>[0]>
 
 // TODO: add test
 export class Ncu {
-  private readonly packageJsonReader: PackageJsonReader
-  private readonly logger: Logger
-
-  constructor ({
-    packageJsonReader,
-    logger
-  }: {
-    packageJsonReader: PackageJsonReader
-    logger: Logger
-  }) {
-    this.packageJsonReader = packageJsonReader
-    this.logger = logger
-  }
+  constructor (private readonly logger: Logger) {}
 
   async check (): Promise<OutdatedPackage[]> {
     return await this.run({
@@ -37,22 +29,56 @@ export class Ncu {
     })
   }
 
-  private async run (options: Options): Promise<OutdatedPackage[]> {
-    const pkg = await this.packageJsonReader.read()
+  private async run (options: RunOptions): Promise<OutdatedPackage[]> {
+    // Read package.json before running ncu
+    const json = await readFile('./package.json')
+    const pkg = parsePackageJson(json)
     this.logger.debug(`pkg=${JSON.stringify(pkg)}`)
+
     const result = await run(options)
     this.logger.debug(`result=${JSON.stringify(result)}`)
 
     if (!isNcuResult(result)) {
-      throw new Error('result is not NcuResult')
+      throw new Error('Failed to running ncu.')
     }
 
-    const ncuResultConverter = new NcuResultConverter({
+    const currentDependencies = {
       ...pkg.dependencies,
       ...pkg.devDependencies,
       ...pkg.peerDependencies,
       ...pkg.optionalDependencies
-    })
-    return ncuResultConverter.toOutdatedPackages(result)
+    }
+    const resultEntries = Object.entries(result)
+    const outdatedPackages: OutdatedPackage[] = resultEntries
+      .map(([name, newVersionString]) => {
+        const currentVersionString = currentDependencies[name]
+
+        if (currentVersionString === undefined) {
+          return undefined
+        }
+
+        const currentVersion = SemVer.of(currentVersionString)
+        const newVersion = SemVer.of(newVersionString)
+        const level = compareSemVers(currentVersion, newVersion)
+
+        if (level === undefined) {
+          return undefined
+        }
+
+        const outdatedPackage: OutdatedPackage = {
+          name,
+          currentVersion,
+          newVersion,
+          level
+        }
+        return outdatedPackage
+      })
+      .filter(isNotUndefined)
+
+    if (resultEntries.length !== outdatedPackages.length) {
+      throw new Error('Failed to running ncu.')
+    }
+
+    return outdatedPackages
   }
 }

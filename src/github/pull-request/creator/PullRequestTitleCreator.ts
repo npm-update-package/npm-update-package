@@ -1,7 +1,7 @@
 import { render } from 'mustache'
-import type { OutdatedPackage } from '../core'
+import type { OutdatedPackage } from '../../../core'
 
-export class CommitMessageCreator {
+export class PullRequestTitleCreator {
   constructor (private readonly template: string) {}
 
   create (outdatedPackage: OutdatedPackage): string {
