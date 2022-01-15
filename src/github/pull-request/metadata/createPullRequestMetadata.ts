@@ -10,12 +10,12 @@ export const createPullRequestMetadata = (outdatedPackages: OutdatedPackage[]): 
       name,
       currentVersion,
       newVersion,
-      type
+      level
     }) => ({
       name,
       currentVersion: currentVersion.version,
       newVersion: newVersion.version,
-      type
+      type: level
     }))
   }
 }

@@ -7,7 +7,7 @@ describe('createBranchName', () => {
       name: '@typescript-eslint/eslint-plugin',
       currentVersion: SemVer.of('1.0.0'),
       newVersion: SemVer.of('1.2.3'),
-      type: 'major'
+      level: 'major'
     })
     expect(actual).toBe('npm-update-package/@typescript-eslint/eslint-plugin/v1.2.3')
   })

@@ -8,7 +8,7 @@ describe('createPullRequestBody', () => {
       name: '@typescript-eslint/eslint-plugin',
       currentVersion: SemVer.of('1.0.0'),
       newVersion: SemVer.of('2.0.0'),
-      type: 'major'
+      level: 'major'
     })
     expect(actual).toBe(`This PR updates these packages:
 

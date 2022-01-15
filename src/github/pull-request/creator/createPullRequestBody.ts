@@ -3,6 +3,7 @@ import { app } from '../../../app'
 import type { OutdatedPackage } from '../../../core'
 import { createPullRequestMetadata } from '../metadata'
 
+// TODO: rename type/updateType to level
 const TEMPLATE = `This PR updates these packages:
 
 |package|type|current version|new version|
@@ -33,7 +34,7 @@ export const createPullRequestBody = (outdatedPackage: OutdatedPackage): string 
   const currentVersion = outdatedPackage.currentVersion.version
   const newVersion = outdatedPackage.newVersion.version
   const packageName = outdatedPackage.name
-  const updateType = outdatedPackage.type
+  const updateType = outdatedPackage.level
   const metadata = JSON.stringify(createPullRequestMetadata([outdatedPackage]), null, 2)
   return render(TEMPLATE, {
     appName,

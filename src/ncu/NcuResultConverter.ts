@@ -13,7 +13,7 @@ export class NcuResultConverter {
 
   toOutdatedPackages (result: NcuResult): OutdatedPackage[] {
     const resultEntries = Object.entries(result)
-    const outdatedPackages = resultEntries
+    const outdatedPackages: OutdatedPackage[] = resultEntries
       .map(([name, newVersionString]) => {
         const currentVersionString = this.currentDependencies[name]
 
@@ -23,18 +23,19 @@ export class NcuResultConverter {
 
         const currentVersion = SemVer.of(currentVersionString)
         const newVersion = SemVer.of(newVersionString)
-        const type = compareSemVers(currentVersion, newVersion)
+        const level = compareSemVers(currentVersion, newVersion)
 
-        if (type === undefined) {
+        if (level === undefined) {
           return undefined
         }
 
-        return {
+        const outdatedPackage: OutdatedPackage = {
           name,
           currentVersion,
           newVersion,
-          type
+          level
         }
+        return outdatedPackage
       })
       .filter(isNotUndefined)
 
