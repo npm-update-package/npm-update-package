@@ -22,7 +22,7 @@ Commit message template
 
 - type: string
 - required: false
-- variables:
+- variables
   - `currentVersion`: current package version
   - `newVersion`: new package version
   - `packageName`: package name
@@ -43,7 +43,7 @@ Log level to show
 
 - type: string
 - required: false
-- allowed values:
+- allowed values
   - `off`: Do not output any logs.
   - `error`: Output error logs.
   - `info`: Output error/info logs.
@@ -56,7 +56,7 @@ Package manager of your project
 
 - type: string
 - required: false
-- allowed values:
+- allowed values
   - `npm`: npm
   - `yarn`: Yarn
 - default: `npm`
@@ -67,7 +67,7 @@ Pull request title template
 
 - type: string
 - required: false
-- variables:
+- variables
   - `currentVersion`: current package version
   - `newVersion`: new package version
   - `packageName`: package name
