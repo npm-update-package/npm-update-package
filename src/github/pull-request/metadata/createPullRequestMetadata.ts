@@ -15,7 +15,7 @@ export const createPullRequestMetadata = (outdatedPackages: OutdatedPackage[]): 
       name,
       currentVersion: currentVersion.version,
       newVersion: newVersion.version,
-      type: level
+      level
     }))
   }
 }

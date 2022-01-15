@@ -12,10 +12,9 @@ export const createPullRequestBody = (outdatedPackage: OutdatedPackage): string 
   const packageName = outdatedPackage.name
   const level = outdatedPackage.level
   const metadata = toJSON(createPullRequestMetadata([outdatedPackage]), { pretty: true })
-  // TODO: rename type to level
   return `This PR updates these packages:
 
-|package|type|current version|new version|
+|Package|Level|Current version|New version|
 |---|---|---|---|
 |[${packageName}](https://www.npmjs.com/package/${packageName})|${level}|\`${currentVersion}\`|\`${newVersion}\`|
 

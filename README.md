@@ -22,12 +22,12 @@ Commit message template
 
 - type: string
 - required: false
-- variables:
-  - `currentVersion`
-  - `newVersion`
-  - `packageName`
-  - `updateType`
-- default: `chore(deps): {{updateType}} update {{{packageName}}} to v{{newVersion}}`
+- variables
+  - `currentVersion`: current package version
+  - `newVersion`: new package version
+  - `packageName`: package name
+  - `level`: semver level (major/minor/patch)
+- default: `chore(deps): {{level}} update {{{packageName}}} to v{{newVersion}}`
 
 ### `--github-token`
 
@@ -43,7 +43,7 @@ Log level to show
 
 - type: string
 - required: false
-- allowed values:
+- allowed values
   - `off`: Do not output any logs.
   - `error`: Output error logs.
   - `info`: Output error/info logs.
@@ -56,7 +56,7 @@ Package manager of your project
 
 - type: string
 - required: false
-- allowed values:
+- allowed values
   - `npm`: npm
   - `yarn`: Yarn
 - default: `npm`
@@ -67,12 +67,12 @@ Pull request title template
 
 - type: string
 - required: false
-- variables:
-  - `currentVersion`
-  - `newVersion`
-  - `packageName`
-  - `updateType`
-- default: `chore(deps): {{updateType}} update {{{packageName}}} to v{{newVersion}}`
+- variables
+  - `currentVersion`: current package version
+  - `newVersion`: new package version
+  - `packageName`: package name
+  - `level`: semver level (major/minor/patch)
+- default: `chore(deps): {{level}} update {{{packageName}}} to v{{newVersion}}`
 
 ## GitHub token
 

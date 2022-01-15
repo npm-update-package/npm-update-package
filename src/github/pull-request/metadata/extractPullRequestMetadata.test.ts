@@ -10,7 +10,7 @@ describe('extractPullRequestMetadata', () => {
   "packages": [
     {
       "name": "@typescript-eslint/eslint-plugin",
-      "type": "major",
+      "level": "major",
       "currentVersion": "1.0.0",
       "newVersion": "2.0.0"
     }
@@ -25,7 +25,7 @@ describe('extractPullRequestMetadata', () => {
       packages: [
         {
           name: '@typescript-eslint/eslint-plugin',
-          type: 'major',
+          level: 'major',
           currentVersion: '1.0.0',
           newVersion: '2.0.0'
         }
