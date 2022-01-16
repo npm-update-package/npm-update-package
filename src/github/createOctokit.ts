@@ -2,7 +2,6 @@ import { Octokit } from '@octokit/rest'
 import { app } from '../app'
 import type { GitRepository } from '../git'
 
-// TODO: add test
 export const createOctokit = ({
   repository,
   token
