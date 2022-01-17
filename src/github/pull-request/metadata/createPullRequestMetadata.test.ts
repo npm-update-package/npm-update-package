@@ -7,7 +7,7 @@ describe('createPullRequestMetadata', () => {
   it('returns PullRequestMetadata', () => {
     const outdatedPackages: OutdatedPackage[] = [
       {
-        name: '@typescript-eslint/eslint-plugin',
+        name: '@npm-update-package/example',
         currentVersion: SemVer.of('1.0.0'),
         newVersion: SemVer.of('2.0.0'),
         level: 'major'
@@ -19,7 +19,7 @@ describe('createPullRequestMetadata', () => {
       version: app.version,
       packages: [
         {
-          name: '@typescript-eslint/eslint-plugin',
+          name: '@npm-update-package/example',
           currentVersion: '1.0.0',
           newVersion: '2.0.0',
           level: 'major'
