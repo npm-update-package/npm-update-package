@@ -31,8 +31,7 @@ Commit message template
 
 ### `--github-token`
 
-GitHub token.  
-See more in [GitHub token](#github-token) section.
+[GitHub token](#github-token).
 
 - type: string
 - required: true
