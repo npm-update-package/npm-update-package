@@ -5,7 +5,7 @@ import { createPullRequestBody } from './createPullRequestBody'
 describe('createPullRequestBody', () => {
   it('returns pull request body', () => {
     const actual = createPullRequestBody({
-      name: '@typescript-eslint/eslint-plugin',
+      name: '@npm-update-package/example',
       currentVersion: SemVer.of('1.0.0'),
       newVersion: SemVer.of('2.0.0'),
       level: 'major'
@@ -14,7 +14,7 @@ describe('createPullRequestBody', () => {
 
 |Package|Level|Current version|New version|
 |---|---|---|---|
-|[@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin)|major|\`1.0.0\`|\`2.0.0\`|
+|[@npm-update-package/example](https://www.npmjs.com/package/@npm-update-package/example)|major|\`1.0.0\`|\`2.0.0\`|
 
 <details>
 <summary>Metadata</summary>
@@ -28,7 +28,7 @@ describe('createPullRequestBody', () => {
   "version": "${app.version}",
   "packages": [
     {
-      "name": "@typescript-eslint/eslint-plugin",
+      "name": "@npm-update-package/example",
       "currentVersion": "1.0.0",
       "newVersion": "2.0.0",
       "level": "major"
