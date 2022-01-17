@@ -56,7 +56,7 @@ describe('GitRepository', () => {
         ]
       ]
 
-      it.each<TestCase>(cases)('url="$url"', (url, expected) => {
+      it.each<TestCase>(cases)('url=%p', (url, expected) => {
         const actual = GitRepository.of(url)
         expect(actual).toBeInstanceOf(GitRepository)
         expect(actual.host).toBe(expected.host)
@@ -74,7 +74,7 @@ describe('GitRepository', () => {
         'https://example.com/'
       ]
 
-      it.each<TestCase>(cases)('url="$url"', (url) => {
+      it.each<TestCase>(cases)('url=%p', (url) => {
         expect(() => GitRepository.of(url)).toThrow(Error)
       })
     })
