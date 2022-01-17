@@ -3,7 +3,6 @@ import type {
   PullRequest
 } from '../../GitHub'
 
-// TODO: Add test
 export class PullRequestCloser {
   constructor (private readonly github: GitHub) {}
 
