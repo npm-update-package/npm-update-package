@@ -23,7 +23,7 @@ describe('toJSON', () => {
       ]
     ]
 
-    it.each<TestCase>(cases)('%j', (value, expected) => {
+    it.each<TestCase>(cases)('value=%j', (value, expected) => {
       const json = toJSON(value)
       expect(json).toBe(expected)
     })
@@ -57,7 +57,7 @@ describe('toJSON', () => {
       ]
     ]
 
-    it.each<TestCase>(cases)('%j', (value, expected) => {
+    it.each<TestCase>(cases)('value=%j', (value, expected) => {
       const json = toJSON(value, { pretty: true })
       expect(json).toBe(expected)
     })
