@@ -31,6 +31,22 @@ export class GitHub {
     return data
   }
 
+  async deleteBranch ({
+    owner,
+    repo,
+    branch
+  }: {
+    owner: string
+    repo: string
+    branch: string
+  }): Promise<void> {
+    await this.octokit.git.deleteRef({
+      owner,
+      repo,
+      ref: `heads/${branch}`
+    })
+  }
+
   // TODO: fetch all branches with page option
   async fetchBranches (params: RestEndpointMethodTypes['repos']['listBranches']['parameters']): Promise<Branch[]> {
     const { data } = await this.octokit.repos.listBranches({
