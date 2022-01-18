@@ -83,7 +83,7 @@ Available tokens and permissions required for each token are as follows.
   - Contents: Read & write
   - Metadata: Read-only
   - Pull requests: Read & write
-- [Personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) (**It has not been tested yet.**)
+- [Personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
   - repo
 
 Features of each token are as follows.
@@ -127,7 +127,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-
 - Use token of GitHub App
 
 ```yaml
@@ -159,12 +158,38 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 ```
 
+- Use Personal access token
+
+```yaml
+name: npm-update-package
+on:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  npm-update-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: |
+          git config user.name $GIT_USER_NAME
+          git config user.email $GIT_USER_EMAIL
+          npx npm-update-package --github-token $GITHUB_TOKEN
+        env:
+          # TODO: Replace with your email
+          GIT_USER_EMAIL: 97961304+npm-update-package-bot@users.noreply.github.com
+          # TODO: Replace with your name
+          GIT_USER_NAME: npm-update-package-bot
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+```
+
 Actual working examples can be seen in these repositories.
 
 |Repository|Package manager|GitHub token|
 |---|---|---|
 |[example-github-actions](https://github.com/npm-update-package/example-github-actions)|npm|GitHub Actions|
 |[example-github-app](https://github.com/npm-update-package/example-github-app)|npm|GitHub App|
+|[example-pat](https://github.com/npm-update-package/example-pat)|npm|Personal access token|
 
 ## Flow
 
