@@ -83,7 +83,7 @@ Available tokens and permissions required for each token are as follows.
   - Contents: Read & write
   - Metadata: Read-only
   - Pull requests: Read & write
-- [Personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+- [Personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) (**It has not been tested yet.**)
   - repo
 
 Features of each token are as follows.
