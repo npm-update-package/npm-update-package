@@ -57,7 +57,7 @@ Package manager of your project
 - required: false
 - allowed values
   - `npm`: npm
-  - `yarn`: Yarn
+  - `yarn`: Yarn (**It has not been tested yet.**)
 - default: `npm`
 
 ### `--pull-request-title`
