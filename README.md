@@ -104,7 +104,7 @@ Creating a GitHub App may be tedious, but you only have to do it once the first 
 
 ## Examples
 
-- Use token of GitHub Actions
+- [Use token of GitHub Actions](https://github.com/npm-update-package/example-github-actions)
 
 ```yaml
 name: npm-update-package
@@ -127,7 +127,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-- Use token of GitHub App
+- [Use token of GitHub App](https://github.com/npm-update-package/example-github-app)
 
 ```yaml
 name: npm-update-package
@@ -158,7 +158,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 ```
 
-- Use Personal access token
+- [Use Personal access token](https://github.com/npm-update-package/example-pat)
 
 ```yaml
 name: npm-update-package
@@ -182,14 +182,6 @@ jobs:
           GIT_USER_NAME: npm-update-package-bot
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 ```
-
-Actual working examples can be seen in these repositories.
-
-|Repository|Package manager|GitHub token|
-|---|---|---|
-|[example-github-actions](https://github.com/npm-update-package/example-github-actions)|npm|GitHub Actions|
-|[example-github-app](https://github.com/npm-update-package/example-github-app)|npm|GitHub App|
-|[example-pat](https://github.com/npm-update-package/example-pat)|npm|Personal access token|
 
 ## Flow
 
