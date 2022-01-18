@@ -14,7 +14,7 @@ npx npm-update-package --github-token $GITHUB_TOKEN
 ## Options
 
 You can customize behavior via command-line options.  
-Template strings such as `--commit-message` can embed variables like `{{packageName}}`(HTML-escaped) or `{{{packageName}}}`(not HTML-escaped).
+Some options can embed variables like `{{packageName}}`(HTML-escaped) or `{{{packageName}}}`(not HTML-escaped).
 
 ### `--commit-message`
 
