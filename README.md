@@ -60,13 +60,6 @@ Package manager of your project
   - `yarn`: Yarn
 - default: `npm`
 
-### `--pull-request-reviewers`
-
-Reviewers of pull request
-
-- type: string[]
-- required: false
-
 ### `--pull-request-title`
 
 Pull request title template
@@ -79,6 +72,13 @@ Pull request title template
   - `packageName`: package name
   - `level`: semver level (major/minor/patch)
 - default: `chore(deps): {{level}} update {{{packageName}}} to v{{newVersion}}`
+
+### `--reviewers`
+
+User names to request reviews
+
+- type: string[]
+- required: false
 
 ## GitHub token
 

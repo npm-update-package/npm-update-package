@@ -42,16 +42,16 @@ export const cliOptions: CLIOption[] = [
     default: PackageManagerName.Npm
   },
   {
-    name: 'pull-request-reviewers',
-    description: 'Reviewers of pull request',
-    type: OptionType.StringArray,
-    required: false
-  },
-  {
     name: 'pull-request-title',
     description: 'Pull request title template',
     type: OptionType.String,
     required: false,
     default: 'chore(deps): {{level}} update {{{packageName}}} to v{{newVersion}}'
+  },
+  {
+    name: 'reviewers',
+    description: 'User names to request reviews',
+    type: OptionType.StringArray,
+    required: false
   }
 ]
