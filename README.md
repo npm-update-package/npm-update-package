@@ -57,7 +57,7 @@ Package manager of your project
 - required: false
 - allowed values
   - `npm`: npm
-  - `yarn`: Yarn (**It has not been tested yet.**)
+  - `yarn`: Yarn
 - default: `npm`
 
 ### `--pull-request-title`
@@ -181,6 +181,37 @@ jobs:
           # TODO: Replace with your name
           GIT_USER_NAME: npm-update-package-bot
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+```
+
+- [Use Yarn](https://github.com/npm-update-package/example-yarn)
+
+```yaml
+name: npm-update-package
+on:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  npm-update-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+      - run: |
+          git config user.name $GIT_USER_NAME
+          git config user.email $GIT_USER_EMAIL
+          npx npm-update-package --github-token $GITHUB_TOKEN --package-manager yarn
+        env:
+          # TODO: Replace with your GitHub App's email
+          GIT_USER_EMAIL: 97396142+npm-update-package-bot[bot]@users.noreply.github.com
+          # TODO: Replace with your GitHub App's user name
+          GIT_USER_NAME: npm-update-package-bot[bot]
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 ```
 
 ## Flow
