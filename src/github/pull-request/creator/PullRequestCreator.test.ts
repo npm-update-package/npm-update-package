@@ -76,15 +76,15 @@ describe('PullRequestCreator', () => {
       expect(githubCreatePullRequestMock).toBeCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
-        base: githubRepo.default_branch,
-        head: branchName,
+        baseBranch: githubRepo.default_branch,
+        headBranch: branchName,
         title,
         body
       })
       expect(githubAddLabelsMock).toBeCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
-        issue_number: pullRequest.number,
+        issueNumber: pullRequest.number,
         labels: ['npm-update-package']
       })
       expect(githubRequestReviewersMock).toBeCalledWith({
