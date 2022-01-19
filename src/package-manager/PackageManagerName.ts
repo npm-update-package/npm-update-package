@@ -1,6 +1,6 @@
 export const PackageManagerName = {
   Npm: 'npm',
-  Yarn: 'Yarn'
+  Yarn: 'yarn'
 } as const
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export type PackageManagerName = typeof PackageManagerName[keyof typeof PackageManagerName]
