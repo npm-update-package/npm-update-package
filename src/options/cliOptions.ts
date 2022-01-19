@@ -42,6 +42,12 @@ export const cliOptions: CLIOption[] = [
     default: PackageManagerName.Npm
   },
   {
+    name: 'pull-request-reviewers',
+    description: 'Reviewers of pull request',
+    type: OptionType.StringArray,
+    required: false
+  },
+  {
     name: 'pull-request-title',
     description: 'Pull request title template',
     type: OptionType.String,

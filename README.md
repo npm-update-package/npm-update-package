@@ -60,6 +60,13 @@ Package manager of your project
   - `yarn`: Yarn
 - default: `npm`
 
+### `--pull-request-reviewers`
+
+Reviewers of pull request
+
+- type: string[]
+- required: false
+
 ### `--pull-request-title`
 
 Pull request title template

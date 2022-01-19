@@ -69,4 +69,23 @@ export class GitHub {
     const { data } = await this.octokit.repos.get(params)
     return data
   }
+
+  async requestReviewers ({
+    owner,
+    repo,
+    pullNumber,
+    reviewers
+  }: {
+    owner: string
+    repo: string
+    pullNumber: number
+    reviewers: string[]
+  }): Promise<void> {
+    await this.octokit.pulls.requestReviewers({
+      owner,
+      repo,
+      pull_number: pullNumber,
+      reviewers
+    })
+  }
 }

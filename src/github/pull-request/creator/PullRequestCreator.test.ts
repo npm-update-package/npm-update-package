@@ -17,11 +17,13 @@ describe('PullRequestCreator', () => {
     const pullRequestTitleCreatorCreateMock = jest.fn()
     const githubCreatePullRequestMock = jest.fn()
     const githubAddLabelsMock = jest.fn()
+    const githubRequestReviewersMock = jest.fn()
     const createPullRequestBodySpy = jest.spyOn(createPullRequestBodyModule, 'createPullRequestBody')
 
     const github = {
       createPullRequest: githubCreatePullRequestMock,
-      addLabels: githubAddLabelsMock
+      addLabels: githubAddLabelsMock,
+      requestReviewers: githubRequestReviewersMock
     } as unknown as GitHub
     const gitRepo = {
       owner: 'repository owner',
@@ -34,34 +36,35 @@ describe('PullRequestCreator', () => {
       create: pullRequestTitleCreatorCreateMock
     } as unknown as PullRequestTitleCreator
     const logger = createLogger(LogLevel.Off)
-    const title = 'pull request title'
-    const body = 'pull request body'
-    const pullRequest = {
-      number: 1
-    }
     const outdatedPackage = {} as unknown as OutdatedPackage
     const branchName = 'branch name'
-
-    beforeEach(() => {
-      pullRequestTitleCreatorCreateMock.mockReturnValue(title)
-      githubCreatePullRequestMock.mockResolvedValue(pullRequest)
-      createPullRequestBodySpy.mockReturnValue(body)
-    })
 
     afterEach(() => {
       pullRequestTitleCreatorCreateMock.mockReset()
       githubCreatePullRequestMock.mockReset()
       githubAddLabelsMock.mockReset()
+      githubRequestReviewersMock.mockReset()
       createPullRequestBodySpy.mockReset()
     })
 
     it('creates pull request', async () => {
+      const title = 'pull request title'
+      pullRequestTitleCreatorCreateMock.mockReturnValue(title)
+      const body = 'pull request body'
+      createPullRequestBodySpy.mockReturnValue(body)
+      const pullRequest = {
+        number: 1
+      }
+      githubCreatePullRequestMock.mockResolvedValue(pullRequest)
+
+      const reviewers = ['npm-update-package']
       const pullRequestCreator = new PullRequestCreator({
         github,
         gitRepo,
         githubRepo,
         pullRequestTitleCreator,
-        logger
+        logger,
+        reviewers
       })
       await pullRequestCreator.create({
         outdatedPackage,
@@ -83,6 +86,12 @@ describe('PullRequestCreator', () => {
         repo: gitRepo.name,
         issue_number: pullRequest.number,
         labels: ['npm-update-package']
+      })
+      expect(githubRequestReviewersMock).toBeCalledWith({
+        owner: gitRepo.owner,
+        repo: gitRepo.name,
+        pullNumber: pullRequest.number,
+        reviewers
       })
     })
   })
