@@ -159,9 +159,9 @@ jobs:
           npx npm-update-package --github-token $GITHUB_TOKEN
         env:
           # TODO: Replace with your GitHub App's email
-          GIT_USER_EMAIL: 97396142+npm-update-package-bot[bot]@users.noreply.github.com
+          GIT_USER_EMAIL: 97396142+npm-update-package[bot]@users.noreply.github.com
           # TODO: Replace with your GitHub App's user name
-          GIT_USER_NAME: npm-update-package-bot[bot]
+          GIT_USER_NAME: npm-update-package[bot]
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 ```
 
@@ -215,9 +215,9 @@ jobs:
           npx npm-update-package --github-token $GITHUB_TOKEN --package-manager yarn
         env:
           # TODO: Replace with your GitHub App's email
-          GIT_USER_EMAIL: 97396142+npm-update-package-bot[bot]@users.noreply.github.com
+          GIT_USER_EMAIL: 97396142+npm-update-package[bot]@users.noreply.github.com
           # TODO: Replace with your GitHub App's user name
-          GIT_USER_NAME: npm-update-package-bot[bot]
+          GIT_USER_NAME: npm-update-package[bot]
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 ```
 
