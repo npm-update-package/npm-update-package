@@ -14,8 +14,23 @@ export type Repository = RestEndpointMethodTypes['repos']['get']['response']['da
 export class GitHub {
   constructor (private readonly octokit: Octokit) {}
 
-  async addLabels (params: RestEndpointMethodTypes['issues']['addLabels']['parameters']): Promise<Label[]> {
-    const { data } = await this.octokit.issues.addLabels(params)
+  async addLabels ({
+    owner,
+    repo,
+    issueNumber,
+    labels
+  }: {
+    owner: string
+    repo: string
+    issueNumber: number
+    labels: string[]
+  }): Promise<Label[]> {
+    const { data } = await this.octokit.issues.addLabels({
+      owner,
+      repo,
+      issue_number: issueNumber,
+      labels
+    })
     return data
   }
 

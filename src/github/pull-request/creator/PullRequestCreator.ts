@@ -66,7 +66,7 @@ export class PullRequestCreator {
     await this.github.addLabels({
       owner: this.gitRepo.owner,
       repo: this.gitRepo.name,
-      issue_number: pullRequest.number,
+      issueNumber: pullRequest.number,
       labels: ['npm-update-package']
     })
 
