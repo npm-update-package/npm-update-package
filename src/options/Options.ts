@@ -20,7 +20,7 @@ const Options = intersection([
     pullRequestTitle: string
   }),
   partial({
-    pullRequestReviewers: array(string)
+    reviewers: array(string)
   })
 ])
 
