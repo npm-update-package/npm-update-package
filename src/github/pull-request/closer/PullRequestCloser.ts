@@ -10,7 +10,7 @@ export class PullRequestCloser {
     await this.github.closePullRequest({
       owner: pullRequest.base.repo.owner.login,
       repo: pullRequest.base.repo.name,
-      pull_number: pullRequest.number
+      pullNumber: pullRequest.number
     })
     await this.github.deleteBranch({
       owner: pullRequest.base.repo.owner.login,
