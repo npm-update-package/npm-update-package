@@ -51,8 +51,29 @@ export class GitHub {
     })
   }
 
-  async createPullRequest (params: RestEndpointMethodTypes['pulls']['create']['parameters']): Promise<CreatedPullRequest> {
-    const { data } = await this.octokit.pulls.create(params)
+  async createPullRequest ({
+    owner,
+    repo,
+    base,
+    head,
+    title,
+    body
+  }: {
+    owner: string
+    repo: string
+    base: string
+    head: string
+    title: string
+    body: string
+  }): Promise<CreatedPullRequest> {
+    const { data } = await this.octokit.pulls.create({
+      owner,
+      repo,
+      base,
+      head,
+      title,
+      body
+    })
     return data
   }
 
