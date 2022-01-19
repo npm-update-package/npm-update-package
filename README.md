@@ -3,6 +3,8 @@
 
 # npm-update-package
 
+test
+
 CLI tool for creating pull requests to update npm packages
 
 ## Usage
