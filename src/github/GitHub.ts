@@ -54,23 +54,23 @@ export class GitHub {
   async createPullRequest ({
     owner,
     repo,
-    base,
-    head,
+    baseBranch,
+    headBranch,
     title,
     body
   }: {
     owner: string
     repo: string
-    base: string
-    head: string
+    baseBranch: string
+    headBranch: string
     title: string
     body: string
   }): Promise<CreatedPullRequest> {
     const { data } = await this.octokit.pulls.create({
       owner,
       repo,
-      base,
-      head,
+      base: baseBranch,
+      head: headBranch,
       title,
       body
     })
