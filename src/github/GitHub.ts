@@ -94,9 +94,16 @@ export class GitHub {
   }
 
   // TODO: fetch all branches with page option
-  async fetchBranches (params: RestEndpointMethodTypes['repos']['listBranches']['parameters']): Promise<Branch[]> {
+  async fetchBranches ({
+    owner,
+    repo
+  }: {
+    owner: string
+    repo: string
+  }): Promise<Branch[]> {
     const { data } = await this.octokit.repos.listBranches({
-      ...params,
+      owner,
+      repo,
       per_page: 100
     })
     return data
