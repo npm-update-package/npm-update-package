@@ -125,8 +125,17 @@ export class GitHub {
     return data
   }
 
-  async fetchRepository (params: RestEndpointMethodTypes['repos']['get']['parameters']): Promise<Repository> {
-    const { data } = await this.octokit.repos.get(params)
+  async fetchRepository ({
+    owner,
+    repo
+  }: {
+    owner: string
+    repo: string
+  }): Promise<Repository> {
+    const { data } = await this.octokit.repos.get({
+      owner,
+      repo
+    })
     return data
   }
 
