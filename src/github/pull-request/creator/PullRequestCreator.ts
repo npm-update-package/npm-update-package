@@ -56,8 +56,8 @@ export class PullRequestCreator {
     const pullRequest = await this.github.createPullRequest({
       owner: this.gitRepo.owner,
       repo: this.gitRepo.name,
-      base: this.githubRepo.default_branch,
-      head: branchName,
+      baseBranch: this.githubRepo.default_branch,
+      headBranch: branchName,
       title,
       body
     })
@@ -66,7 +66,7 @@ export class PullRequestCreator {
     await this.github.addLabels({
       owner: this.gitRepo.owner,
       repo: this.gitRepo.name,
-      issue_number: pullRequest.number,
+      issueNumber: pullRequest.number,
       labels: ['npm-update-package']
     })
 

@@ -14,20 +14,66 @@ export type Repository = RestEndpointMethodTypes['repos']['get']['response']['da
 export class GitHub {
   constructor (private readonly octokit: Octokit) {}
 
-  async addLabels (params: RestEndpointMethodTypes['issues']['addLabels']['parameters']): Promise<Label[]> {
-    const { data } = await this.octokit.issues.addLabels(params)
+  async addLabels ({
+    owner,
+    repo,
+    issueNumber,
+    labels
+  }: {
+    owner: string
+    repo: string
+    issueNumber: number
+    labels: string[]
+  }): Promise<Label[]> {
+    const { data } = await this.octokit.issues.addLabels({
+      owner,
+      repo,
+      issue_number: issueNumber,
+      labels
+    })
     return data
   }
 
-  async closePullRequest (params: RestEndpointMethodTypes['pulls']['update']['parameters']): Promise<void> {
+  async closePullRequest ({
+    owner,
+    repo,
+    pullNumber
+  }: {
+    owner: string
+    repo: string
+    pullNumber: number
+  }): Promise<void> {
     await this.octokit.pulls.update({
-      ...params,
+      owner,
+      repo,
+      pull_number: pullNumber,
       state: 'closed'
     })
   }
 
-  async createPullRequest (params: RestEndpointMethodTypes['pulls']['create']['parameters']): Promise<CreatedPullRequest> {
-    const { data } = await this.octokit.pulls.create(params)
+  async createPullRequest ({
+    owner,
+    repo,
+    baseBranch,
+    headBranch,
+    title,
+    body
+  }: {
+    owner: string
+    repo: string
+    baseBranch: string
+    headBranch: string
+    title: string
+    body: string
+  }): Promise<CreatedPullRequest> {
+    const { data } = await this.octokit.pulls.create({
+      owner,
+      repo,
+      base: baseBranch,
+      head: headBranch,
+      title,
+      body
+    })
     return data
   }
 
@@ -48,25 +94,48 @@ export class GitHub {
   }
 
   // TODO: fetch all branches with page option
-  async fetchBranches (params: RestEndpointMethodTypes['repos']['listBranches']['parameters']): Promise<Branch[]> {
+  async fetchBranches ({
+    owner,
+    repo
+  }: {
+    owner: string
+    repo: string
+  }): Promise<Branch[]> {
     const { data } = await this.octokit.repos.listBranches({
-      ...params,
+      owner,
+      repo,
       per_page: 100
     })
     return data
   }
 
   // TODO: fetch all pull requests with page option
-  async fetchPullRequests (params: RestEndpointMethodTypes['pulls']['list']['parameters']): Promise<PullRequest[]> {
+  async fetchPullRequests ({
+    owner,
+    repo
+  }: {
+    owner: string
+    repo: string
+  }): Promise<PullRequest[]> {
     const { data } = await this.octokit.pulls.list({
-      ...params,
+      owner,
+      repo,
       per_page: 100
     })
     return data
   }
 
-  async fetchRepository (params: RestEndpointMethodTypes['repos']['get']['parameters']): Promise<Repository> {
-    const { data } = await this.octokit.repos.get(params)
+  async fetchRepository ({
+    owner,
+    repo
+  }: {
+    owner: string
+    repo: string
+  }): Promise<Repository> {
+    const { data } = await this.octokit.repos.get({
+      owner,
+      repo
+    })
     return data
   }
 

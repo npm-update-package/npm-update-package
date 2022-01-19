@@ -41,7 +41,7 @@ describe('PullRequestCloser', () => {
       expect(githubClosePullRequestMock).toBeCalledWith({
         owner: pullRequest.base.repo.owner.login,
         repo: pullRequest.base.repo.name,
-        pull_number: pullRequest.number
+        pullNumber: pullRequest.number
       })
       expect(githubDeleteBranchMock).toBeCalledWith({
         owner: pullRequest.base.repo.owner.login,
