@@ -110,9 +110,16 @@ export class GitHub {
   }
 
   // TODO: fetch all pull requests with page option
-  async fetchPullRequests (params: RestEndpointMethodTypes['pulls']['list']['parameters']): Promise<PullRequest[]> {
+  async fetchPullRequests ({
+    owner,
+    repo
+  }: {
+    owner: string
+    repo: string
+  }): Promise<PullRequest[]> {
     const { data } = await this.octokit.pulls.list({
-      ...params,
+      owner,
+      repo,
       per_page: 100
     })
     return data
