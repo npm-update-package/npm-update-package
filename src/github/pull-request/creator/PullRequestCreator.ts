@@ -15,25 +15,29 @@ export class PullRequestCreator {
   private readonly githubRepo: GitHubRepository
   private readonly pullRequestTitleCreator: PullRequestTitleCreator
   private readonly logger: Logger
+  private readonly reviewers: string[] | undefined
 
   constructor ({
     github,
     gitRepo,
     githubRepo,
     pullRequestTitleCreator,
-    logger
+    logger,
+    reviewers
   }: {
     github: GitHub
     gitRepo: GitRepository
     githubRepo: GitHubRepository
     pullRequestTitleCreator: PullRequestTitleCreator
     logger: Logger
+    reviewers?: string[]
   }) {
     this.github = github
     this.gitRepo = gitRepo
     this.githubRepo = githubRepo
     this.pullRequestTitleCreator = pullRequestTitleCreator
     this.logger = logger
+    this.reviewers = reviewers
   }
 
   async create ({
@@ -65,6 +69,16 @@ export class PullRequestCreator {
       issue_number: pullRequest.number,
       labels: ['npm-update-package']
     })
+
+    if (this.reviewers !== undefined) {
+      await this.github.requestReviewers({
+        owner: this.gitRepo.owner,
+        repo: this.gitRepo.name,
+        pullNumber: pullRequest.number,
+        reviewers: this.reviewers
+      })
+    }
+
     return pullRequest
   }
 }

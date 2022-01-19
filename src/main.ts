@@ -86,7 +86,8 @@ export const main = async ({
     gitRepo,
     githubRepo,
     pullRequestTitleCreator,
-    logger
+    logger,
+    reviewers: options.pullRequestReviewers
   })
   const commitMessageCreator = new CommitMessageCreator(options.commitMessage)
   const pullRequestFinder = new PullRequestFinder(pullRequests)
