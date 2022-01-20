@@ -24,14 +24,13 @@ export class GitHub {
     repo: string
     issueNumber: number
     labels: string[]
-  }): Promise<Label[]> {
-    const { data } = await this.octokit.issues.addLabels({
+  }): Promise<void> {
+    await this.octokit.issues.addLabels({
       owner,
       repo,
       issue_number: issueNumber,
       labels
     })
-    return data
   }
 
   async closePullRequest ({
