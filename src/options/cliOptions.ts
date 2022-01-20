@@ -24,6 +24,7 @@ export const cliOptions: CLIOption[] = [
     required: false,
     choices: [
       LogLevel.Off,
+      LogLevel.Fatal,
       LogLevel.Error,
       LogLevel.Info,
       LogLevel.Debug

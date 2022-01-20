@@ -1,6 +1,7 @@
 export const LogLevel = {
   Debug: 'debug',
   Error: 'error',
+  Fatal: 'fatal',
   Info: 'info',
   Off: 'off'
 } as const
