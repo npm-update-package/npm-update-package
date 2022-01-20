@@ -44,9 +44,10 @@ Log level to show
 - required: false
 - allowed values
   - `off`: Do not output any logs.
-  - `error`: Output error logs.
-  - `info`: Output error/info logs.
-  - `debug`: Output error/info/debug logs.
+  - `fatal`: Output fatal logs.
+  - `error`: Output fatal/error logs.
+  - `info`: Output fatal/error/info logs.
+  - `debug`: Output fatal/error/info/debug logs.
 - default: `info`
 
 ### `--package-manager`
