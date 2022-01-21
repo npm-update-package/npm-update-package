@@ -6,7 +6,7 @@ import type { ValuesType } from 'utility-types'
 
 export type Branch = ValuesType<RestEndpointMethodTypes['repos']['listBranches']['response']['data']>
 export type CreatedPullRequest = RestEndpointMethodTypes['pulls']['create']['response']['data']
-export type Label = ValuesType<RestEndpointMethodTypes['issues']['addLabels']['response']['data']>
+export type Label = RestEndpointMethodTypes['issues']['getLabel']['response']['data']
 export type PullRequest = ValuesType<RestEndpointMethodTypes['pulls']['list']['response']['data']>
 export type Repository = RestEndpointMethodTypes['repos']['get']['response']['data']
 
@@ -24,14 +24,13 @@ export class GitHub {
     repo: string
     issueNumber: number
     labels: string[]
-  }): Promise<Label[]> {
-    const { data } = await this.octokit.issues.addLabels({
+  }): Promise<void> {
+    await this.octokit.issues.addLabels({
       owner,
       repo,
       issue_number: issueNumber,
       labels
     })
-    return data
   }
 
   async closePullRequest ({
@@ -48,6 +47,28 @@ export class GitHub {
       repo,
       pull_number: pullNumber,
       state: 'closed'
+    })
+  }
+
+  async createLabel ({
+    owner,
+    repo,
+    name,
+    description,
+    color
+  }: {
+    owner: string
+    repo: string
+    name: string
+    description?: string
+    color?: string
+  }): Promise<void> {
+    await this.octokit.issues.createLabel({
+      owner,
+      repo,
+      name,
+      description,
+      color
     })
   }
 
@@ -105,6 +126,23 @@ export class GitHub {
       owner,
       repo,
       per_page: 100
+    })
+    return data
+  }
+
+  async fetchLabel ({
+    owner,
+    repo,
+    name
+  }: {
+    owner: string
+    repo: string
+    name: string
+  }): Promise<Label> {
+    const { data } = await this.octokit.issues.getLabel({
+      owner,
+      repo,
+      name
     })
     return data
   }
