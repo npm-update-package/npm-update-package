@@ -38,7 +38,7 @@ export class LabelCreator {
       await this.github.fetchLabel({
         owner: this.gitRepo.owner,
         repo: this.gitRepo.name,
-        label: name
+        name
       })
     } catch (e) {
       if (isNotFoundError(e)) {

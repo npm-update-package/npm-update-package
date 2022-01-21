@@ -133,16 +133,16 @@ export class GitHub {
   async fetchLabel ({
     owner,
     repo,
-    label
+    name
   }: {
     owner: string
     repo: string
-    label: string
+    name: string
   }): Promise<Label> {
     const { data } = await this.octokit.issues.getLabel({
       owner,
       repo,
-      name: label
+      name
     })
     return data
   }
