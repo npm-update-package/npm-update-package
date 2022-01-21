@@ -50,6 +50,29 @@ export class GitHub {
     })
   }
 
+  async createLabel ({
+    owner,
+    repo,
+    name,
+    description,
+    color
+  }: {
+    owner: string
+    repo: string
+    name: string
+    description?: string
+    color?: string
+  }): Promise<Label> {
+    const { data } = await this.octokit.issues.createLabel({
+      owner,
+      repo,
+      name,
+      description,
+      color
+    })
+    return data
+  }
+
   async createPullRequest ({
     owner,
     repo,
