@@ -238,8 +238,9 @@ if (All packages are up-to-date) then (yes)
 else (no)
 endif
 
-:Get remote branches;
-:Get pull requests;
+:Fetch remote branches;
+:Fetch pull requests;
+:Create label;
 
 group OutdatedPackagesProcessor
 while (Package exists) is (yes)
@@ -263,7 +264,7 @@ end
 ```
 -->
 
-[![](http://www.plantuml.com/plantuml/svg/RL0vSiCm3EpnYYsbmX-m6cTIf8mdCta08y4M9n39yCZn-uYYJ4kPD3omm1uuXQXyJ9FGyg2hjybXKjhGyOaZR8g3YZp0gVvTNJbqHFg2va6abg0y8xb3j8VSsoAERD3yS6W9O3CGIs0qnhOq__I52hVdoKR6crUc7sVcKdL919u_4eUOrOgZvzN7UTKyUzjp2DRJrwY5qQm0-5lFSorqg0x-PRWJ03dGozPCPTadgIa0uFZeMTM9hjHUNTQuRQRRDkw2tH2nWM5b-9EweDdIvrPWMLwvIwYypf9_iKLtW7OzT9gFDCal)](http://www.plantuml.com/plantuml/uml/RL0vSiCm3EpnYYsbmX-m6cTIf8mdCta08y4M9n39yCZn-uYYJ4kPD3omm1uuXQXyJ9FGyg2hjybXKjhGyOaZR8g3YZp0gVvTNJbqHFg2va6abg0y8xb3j8VSsoAERD3yS6W9O3CGIs0qnhOq__I52hVdoKR6crUc7sVcKdL919u_4eUOrOgZvzN7UTKyUzjp2DRJrwY5qQm0-5lFSorqg0x-PRWJ03dGozPCPTadgIa0uFZeMTM9hjHUNTQuRQRRDkw2tH2nWM5b-9EweDdIvrPWMLwvIwYypf9_iKLtW7OzT9gFDCal)
+[![](http://www.plantuml.com/plantuml/svg/RP3DReCm48Jl-nHpX4DU85nILMgFZIhr0HpO1AiBTkrrVzw-E3W4f5pusLcFlvb3L1Cq3KBN3xe4bpm6OqVQlxB29UsCSWTlsazpuTWGsJEg9v5b11COoU_KxV9k3UrvHFN7iIQ0nuvO8gCQNKtJdpqJxLzOsnw11wUCKp1ZssVlClT9P1A_4aVDq-V0HXbYJYmD5SYtWdOi6CVWMexH1VhfhJ2g8e1_xMHJmyO5wg73tG386T_NT8lBDjmI300APpdHpBCFd--ubTLi5jSvRuguo73IRKieQaRwNbymztbzpw5omoL_ngAxG9iTEaoFDCW_)](http://www.plantuml.com/plantuml/uml/RP3DReCm48Jl-nHpX4DU85nILMgFZIhr0HpO1AiBTkrrVzw-E3W4f5pusLcFlvb3L1Cq3KBN3xe4bpm6OqVQlxB29UsCSWTlsazpuTWGsJEg9v5b11COoU_KxV9k3UrvHFN7iIQ0nuvO8gCQNKtJdpqJxLzOsnw11wUCKp1ZssVlClT9P1A_4aVDq-V0HXbYJYmD5SYtWdOi6CVWMexH1VhfhJ2g8e1_xMHJmyO5wg73tG386T_NT8lBDjmI300APpdHpBCFd--ubTLi5jSvRuguo73IRKieQaRwNbymztbzpw5omoL_ngAxG9iTEaoFDCW_)
 
 ## FAQ
 
