@@ -13,6 +13,7 @@ import {
 import {
   BranchFinder,
   createGitHub,
+  LabelCreator,
   PullRequestCloser,
   PullRequestCreator,
   PullRequestFinder,
@@ -74,6 +75,17 @@ export const main = async ({
     repo: gitRepo.name
   })
   logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
+
+  const labelCreator = new LabelCreator({
+    github,
+    gitRepo,
+    logger
+  })
+  await labelCreator.create({
+    name: 'npm-update-package',
+    description: 'Created by npm-update-package',
+    color: 'A00F21'
+  })
 
   const branchFinder = new BranchFinder(branches)
   const packageManager = createPackageManager({
