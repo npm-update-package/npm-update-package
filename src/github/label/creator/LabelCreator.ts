@@ -29,7 +29,7 @@ export class LabelCreator {
     this.logger = logger
   }
 
-  async createIfNotExists ({
+  async create ({
     name,
     description,
     color
