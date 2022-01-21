@@ -108,6 +108,23 @@ export class GitHub {
     return data
   }
 
+  async fetchLabel ({
+    owner,
+    repo,
+    label
+  }: {
+    owner: string
+    repo: string
+    label: string
+  }): Promise<Label> {
+    const { data } = await this.octokit.issues.getLabel({
+      owner,
+      repo,
+      name: label
+    })
+    return data
+  }
+
   // TODO: fetch all pull requests with page option
   async fetchPullRequests ({
     owner,
