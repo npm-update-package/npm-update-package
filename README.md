@@ -46,8 +46,9 @@ Log level to show
   - `off`: Do not output any logs.
   - `fatal`: Output fatal logs.
   - `error`: Output fatal/error logs.
-  - `info`: Output fatal/error/info logs.
-  - `debug`: Output fatal/error/info/debug logs.
+  - `warn`: Output fatal/error/warn logs.
+  - `info`: Output fatal/error/warn/info logs.
+  - `debug`: Output fatal/error/warn/info/debug logs.
 - default: `info`
 
 ### `--package-manager`
