@@ -54,12 +54,11 @@ export class LabelCreator {
 
   private async fetchLabel (name: string): Promise<Label | undefined> {
     try {
-      const label = await this.github.fetchLabel({
+      return await this.github.fetchLabel({
         owner: this.gitRepo.owner,
         repo: this.gitRepo.name,
         name
       })
-      return label
     } catch (e) {
       if (isNotFoundError(e)) {
         this.logger.warn(e)
