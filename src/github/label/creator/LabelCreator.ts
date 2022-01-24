@@ -1,13 +1,10 @@
 import type { GitRepository } from '../../../git'
 import type { Logger } from '../../../logger'
 import { isNotFoundError } from '../../errors'
-import type { GitHub } from '../../GitHub'
-
-export interface Label {
-  name: string
-  description?: string
-  color?: string
-}
+import type {
+  GitHub,
+  Label
+} from '../../GitHub'
 
 // TODO: Add test
 export class LabelCreator {
@@ -33,23 +30,40 @@ export class LabelCreator {
     name,
     description,
     color
-  }: Label): Promise<void> {
+  }: {
+    name: string
+    description?: string
+    color?: string
+  }): Promise<void> {
+    const label = await this.fetchLabel(name)
+
+    if (label !== undefined) {
+      this.logger.info(`Skip creating ${name} label because it already exists.`)
+      return
+    }
+
+    await this.github.createLabel({
+      owner: this.gitRepo.owner,
+      repo: this.gitRepo.name,
+      name,
+      description,
+      color
+    })
+    this.logger.info(`${name} label has created.`)
+  }
+
+  private async fetchLabel (name: string): Promise<Label | undefined> {
     try {
-      await this.github.fetchLabel({
+      const label = await this.github.fetchLabel({
         owner: this.gitRepo.owner,
         repo: this.gitRepo.name,
         name
       })
+      return label
     } catch (e) {
       if (isNotFoundError(e)) {
-        await this.github.createLabel({
-          owner: this.gitRepo.owner,
-          repo: this.gitRepo.name,
-          name,
-          description,
-          color
-        })
-        this.logger.info(`${name} label has created.`)
+        this.logger.warn(e)
+        return undefined
       } else {
         throw e
       }
