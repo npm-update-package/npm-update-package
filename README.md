@@ -240,18 +240,22 @@ endif
 
 :Fetch remote branches;
 :Fetch pull requests;
-:Create label;
+
+if (Label does not exist) then (yes)
+  :Create label;
+else (no)
+endif
 
 group OutdatedPackagesProcessor
 while (Package exists) is (yes)
   group OutdatedPackageProcessor
-  if (Remote branch exists) then (yes)
-  else (no)
+  if (Remote branch does not exist) then (yes)
     :Create branch;
     :Update package;
     :Create pull request;
     :Close old pull requests;
     :Remove branch;
+  else (no)
   endif
   end group
 endwhile (no)
@@ -264,7 +268,7 @@ end
 ```
 -->
 
-[![](http://www.plantuml.com/plantuml/svg/RP3DReCm48Jl-nHpX4DU85nILMgFZIhr0HpO1AiBTkrrVzw-E3W4f5pusLcFlvb3L1Cq3KBN3xe4bpm6OqVQlxB29UsCSWTlsazpuTWGsJEg9v5b11COoU_KxV9k3UrvHFN7iIQ0nuvO8gCQNKtJdpqJxLzOsnw11wUCKp1ZssVlClT9P1A_4aVDq-V0HXbYJYmD5SYtWdOi6CVWMexH1VhfhJ2g8e1_xMHJmyO5wg73tG386T_NT8lBDjmI300APpdHpBCFd--ubTLi5jSvRuguo73IRKieQaRwNbymztbzpw5omoL_ngAxG9iTEaoFDCW_)](http://www.plantuml.com/plantuml/uml/RP3DReCm48Jl-nHpX4DU85nILMgFZIhr0HpO1AiBTkrrVzw-E3W4f5pusLcFlvb3L1Cq3KBN3xe4bpm6OqVQlxB29UsCSWTlsazpuTWGsJEg9v5b11COoU_KxV9k3UrvHFN7iIQ0nuvO8gCQNKtJdpqJxLzOsnw11wUCKp1ZssVlClT9P1A_4aVDq-V0HXbYJYmD5SYtWdOi6CVWMexH1VhfhJ2g8e1_xMHJmyO5wg73tG386T_NT8lBDjmI300APpdHpBCFd--ubTLi5jSvRuguo73IRKieQaRwNbymztbzpw5omoL_ngAxG9iTEaoFDCW_)
+[![](http://www.plantuml.com/plantuml/svg/VL1BJiCm4DtFATuoMVG2pQO82JP8L4WSm4scJSGa3fundzjJrqsJ5iJ6dtbFypuRDHSizaAd1ns2ZoDwrmsqVcI3ZzOuumQZgz_SWRKYwlOexaGk8xZ0YEFA_2fnIrZB0uflrf807XfYKKOn-9AElsvFj7vWgri4xhqnTi4DTSjQJVCnYY3mUsIrIV79xLZGU5OCti1VdTgDrFe-i3E696hrMpM7Upv7sfxjRuElMTK7-cmxOHHd84jeYKul2dzkc1S0oUdBCjN_ZcVFcLtbsUkOzay5LrV4PJSJ8buPNfgRuZAQx7mi1UPUW5Cp-SxXKbUd7ZA3Pe2kEBGv7h6N7m00)](http://www.plantuml.com/plantuml/uml/VL1BJiCm4DtFATuoMVG2pQO82JP8L4WSm4scJSGa3fundzjJrqsJ5iJ6dtbFypuRDHSizaAd1ns2ZoDwrmsqVcI3ZzOuumQZgz_SWRKYwlOexaGk8xZ0YEFA_2fnIrZB0uflrf807XfYKKOn-9AElsvFj7vWgri4xhqnTi4DTSjQJVCnYY3mUsIrIV79xLZGU5OCti1VdTgDrFe-i3E696hrMpM7Upv7sfxjRuElMTK7-cmxOHHd84jeYKul2dzkc1S0oUdBCjN_ZcVFcLtbsUkOzay5LrV4PJSJ8buPNfgRuZAQx7mi1UPUW5Cp-SxXKbUd7ZA3Pe2kEBGv7h6N7m00)
 
 ## FAQ
 
