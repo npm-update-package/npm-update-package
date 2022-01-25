@@ -21,7 +21,8 @@ const Options = intersection([
       literal(LogLevel.Error),
       literal(LogLevel.Warn),
       literal(LogLevel.Info),
-      literal(LogLevel.Debug)
+      literal(LogLevel.Debug),
+      literal(LogLevel.Trace)
     ]),
     packageManager: union([
       literal(PackageManagerName.Npm),
