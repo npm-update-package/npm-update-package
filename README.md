@@ -49,6 +49,7 @@ Log level to show
   - `warn`: Output fatal/error/warn logs.
   - `info`: Output fatal/error/warn/info logs.
   - `debug`: Output fatal/error/warn/info/debug logs.
+  - `trace`: Output fatal/error/warn/info/debug/trace logs.
 - default: `info`
 
 ### `--package-manager`

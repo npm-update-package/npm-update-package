@@ -4,6 +4,7 @@ export const LogLevel = {
   Fatal: 'fatal',
   Info: 'info',
   Off: 'off',
+  Trace: 'trace',
   Warn: 'warn'
 } as const
 // eslint-disable-next-line @typescript-eslint/no-redeclare

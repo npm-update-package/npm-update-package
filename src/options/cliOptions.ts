@@ -28,7 +28,8 @@ export const cliOptions: CLIOption[] = [
       LogLevel.Error,
       LogLevel.Warn,
       LogLevel.Info,
-      LogLevel.Debug
+      LogLevel.Debug,
+      LogLevel.Trace
     ],
     default: LogLevel.Info
   },
