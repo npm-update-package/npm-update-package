@@ -1,5 +1,5 @@
 import { program } from 'commander'
-import { app } from '../app'
+import pkg from '../../package.json'
 import { cliOptions } from './cliOptions'
 import {
   isOptions,
@@ -9,7 +9,7 @@ import { toCommanderOption } from './toCommanderOption'
 
 // TODO: add test
 export const initOptions = (): Options => {
-  program.version(app.version)
+  program.version(pkg.version)
   cliOptions
     .map(toCommanderOption)
     .forEach(option => program.addOption(option))
