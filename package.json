@@ -13,7 +13,7 @@
     "test": "jest --passWithNoTests"
   },
   "files": [
-    "dist"
+    "/dist"
   ],
   "bin": "dist/src/bin.js",
   "dependencies": {
