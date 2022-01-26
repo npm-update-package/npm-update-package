@@ -15,7 +15,7 @@
   "files": [
     "dist"
   ],
-  "bin": "dist/bin.js",
+  "bin": "dist/src/bin.js",
   "dependencies": {
     "@octokit/rest": "18.12.0",
     "commander": "8.3.0",

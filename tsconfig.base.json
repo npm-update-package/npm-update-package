@@ -2,5 +2,6 @@
   "extends": "@tsconfig/node12/tsconfig.json",
   "compilerOptions": {
     "noUncheckedIndexedAccess": true,
+    "resolveJsonModule": true
   }
 }

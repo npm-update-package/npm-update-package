@@ -1,4 +1,5 @@
-import { app } from '../../../app'
+
+import pkg from '../../../../package.json'
 import type { OutdatedPackage } from '../../../core'
 import { SemVer } from '../../../semver'
 import { createPullRequestMetadata } from './createPullRequestMetadata'
@@ -16,7 +17,7 @@ describe('createPullRequestMetadata', () => {
     const metadata = createPullRequestMetadata(outdatedPackages)
 
     expect(metadata).toEqual({
-      version: app.version,
+      version: pkg.version,
       packages: [
         {
           name: '@npm-update-package/example',

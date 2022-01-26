@@ -1,5 +1,5 @@
 import { Octokit } from '@octokit/rest'
-import { app } from '../app'
+import pkg from '../../package.json'
 import type { GitRepository } from '../git'
 
 export const createOctokit = ({
@@ -10,7 +10,7 @@ export const createOctokit = ({
   token: string
 }): Octokit => {
   const auth = `token ${token}`
-  const userAgent = `${app.name}/${app.version}`
+  const userAgent = `${pkg.name}/${pkg.version}`
 
   if (repository.isGitHubDotCom) {
     return new Octokit({
