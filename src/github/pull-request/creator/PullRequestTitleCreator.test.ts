@@ -4,7 +4,7 @@ import { PullRequestTitleCreator } from './PullRequestTitleCreator'
 describe('PullRequestTitleCreator', () => {
   describe('create', () => {
     it('returns pull request title', () => {
-      const pullRequestTitleCreator = new PullRequestTitleCreator('chore(deps): {{level}} update {{{packageName}}} from {{currentVersion}} to v{{newVersion}}')
+      const pullRequestTitleCreator = new PullRequestTitleCreator('chore(deps): {{{level}}} update {{{packageName}}} from {{{currentVersion}}} to v{{{newVersion}}}')
       const actual = pullRequestTitleCreator.create({
         name: '@npm-update-package/example',
         currentVersion: SemVer.of('1.0.0'),
