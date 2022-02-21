@@ -9,7 +9,7 @@ export const cliOptions: CLIOption[] = [
     description: 'Commit message template',
     type: OptionType.String,
     required: false,
-    default: 'chore(deps): {{level}} update {{{packageName}}} to v{{newVersion}}'
+    default: 'chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}'
   },
   {
     name: 'github-token',
