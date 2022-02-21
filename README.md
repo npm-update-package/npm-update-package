@@ -27,7 +27,7 @@ Commit message template
   - `newVersion`: new package version
   - `packageName`: package name
   - `level`: semver level (major/minor/patch)
-- default: `chore(deps): {{level}} update {{{packageName}}} to v{{newVersion}}`
+- default: `chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`
 
 ### `--github-token`
 
