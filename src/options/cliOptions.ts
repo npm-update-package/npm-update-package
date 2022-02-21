@@ -49,7 +49,7 @@ export const cliOptions: CLIOption[] = [
     description: 'Pull request title template',
     type: OptionType.String,
     required: false,
-    default: 'chore(deps): {{level}} update {{{packageName}}} to v{{newVersion}}'
+    default: 'chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}'
   },
   {
     name: 'reviewers',
