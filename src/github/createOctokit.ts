@@ -21,7 +21,7 @@ export const createOctokit = ({
     return new Octokit({
       auth,
       userAgent,
-      baseUrl: repository.apiEndPoint
+      baseUrl: repository.isGitHubDotCom ? 'https://api.github.com' : `https://${repository.url.host}/api/v3`
     })
   }
 }

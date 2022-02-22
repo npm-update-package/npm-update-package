@@ -45,14 +45,6 @@ export class GitRepository {
     })
   }
 
-  get apiEndPoint (): string {
-    if (this.isGitHubDotCom) {
-      return 'https://api.github.com'
-    } else {
-      return `https://${this.url.host}/api/v3`
-    }
-  }
-
   get isGitHubDotCom (): boolean {
     return this.url.host === 'github.com'
   }

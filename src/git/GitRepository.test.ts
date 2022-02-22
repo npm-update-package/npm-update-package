@@ -10,7 +10,6 @@ describe('GitRepository', () => {
           url: URL
           owner: string
           name: string
-          apiEndPoint: string
           isGitHubDotCom: boolean
         }
       ]
@@ -21,7 +20,6 @@ describe('GitRepository', () => {
             url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
             name: 'example',
-            apiEndPoint: 'https://api.github.com',
             isGitHubDotCom: true
           }
         ],
@@ -31,7 +29,6 @@ describe('GitRepository', () => {
             url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
             name: 'example',
-            apiEndPoint: 'https://api.github.com',
             isGitHubDotCom: true
           }
         ],
@@ -41,7 +38,6 @@ describe('GitRepository', () => {
             url: new URL('https://git.example.com/npm-update-package/example'),
             owner: 'npm-update-package',
             name: 'example',
-            apiEndPoint: 'https://git.example.com/api/v3',
             isGitHubDotCom: false
           }
         ],
@@ -51,7 +47,6 @@ describe('GitRepository', () => {
             url: new URL('https://git.example.com/npm-update-package/example'),
             owner: 'npm-update-package',
             name: 'example',
-            apiEndPoint: 'https://git.example.com/api/v3',
             isGitHubDotCom: false
           }
         ]
@@ -63,7 +58,6 @@ describe('GitRepository', () => {
         expect(actual.url).toEqual(expected.url)
         expect(actual.owner).toBe(expected.owner)
         expect(actual.name).toBe(expected.name)
-        expect(actual.apiEndPoint).toBe(expected.apiEndPoint)
         expect(actual.isGitHubDotCom).toBe(expected.isGitHubDotCom)
       })
     })
