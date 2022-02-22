@@ -1,3 +1,4 @@
+import { URL } from 'url'
 import { GitRepository } from './GitRepository'
 
 describe('GitRepository', () => {
@@ -6,64 +7,60 @@ describe('GitRepository', () => {
       type TestCase = [
         string,
         {
-          host: string
+          url: URL
           owner: string
           name: string
-          apiEndPoint: string
-          isGitHubDotCom: boolean
         }
       ]
       const cases: TestCase[] = [
         [
-          'https://github.com/npm-update-package/npm-update-package.git',
+          'npm-update-package/example',
           {
-            host: 'github.com',
+            url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'npm-update-package',
-            apiEndPoint: 'https://api.github.com',
-            isGitHubDotCom: true
+            name: 'example'
           }
         ],
         [
-          'git@github.com:npm-update-package/npm-update-package.git',
+          'https://github.com/npm-update-package/example',
           {
-            host: 'github.com',
+            url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'npm-update-package',
-            apiEndPoint: 'https://api.github.com',
-            isGitHubDotCom: true
+            name: 'example'
           }
         ],
         [
-          'https://git.example.com/npm-update-package/npm-update-package.git',
+          'https://github.com/npm-update-package/example.git',
           {
-            host: 'git.example.com',
+            url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'npm-update-package',
-            apiEndPoint: 'https://git.example.com/api/v3',
-            isGitHubDotCom: false
+            name: 'example'
           }
         ],
         [
-          'git@git.example.com:npm-update-package/npm-update-package.git',
+          'https://git.example.com/npm-update-package/example',
           {
-            host: 'git.example.com',
+            url: new URL('https://git.example.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'npm-update-package',
-            apiEndPoint: 'https://git.example.com/api/v3',
-            isGitHubDotCom: false
+            name: 'example'
+          }
+        ],
+        [
+          'git@github.com:npm-update-package/example.git',
+          {
+            url: new URL('https://github.com/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
           }
         ]
       ]
 
-      it.each<TestCase>(cases)('url=%p', (url, expected) => {
-        const actual = GitRepository.of(url)
+      it.each<TestCase>(cases)('repository=%p', (repository, expected) => {
+        const actual = GitRepository.of(repository)
         expect(actual).toBeInstanceOf(GitRepository)
-        expect(actual.host).toBe(expected.host)
+        expect(actual.url).toEqual(expected.url)
         expect(actual.owner).toBe(expected.owner)
         expect(actual.name).toBe(expected.name)
-        expect(actual.apiEndPoint).toBe(expected.apiEndPoint)
-        expect(actual.isGitHubDotCom).toBe(expected.isGitHubDotCom)
       })
     })
 
@@ -74,8 +71,8 @@ describe('GitRepository', () => {
         'https://example.com/'
       ]
 
-      it.each<TestCase>(cases)('url=%p', (url) => {
-        expect(() => GitRepository.of(url)).toThrow(Error)
+      it.each<TestCase>(cases)('repository=%p', (repository) => {
+        expect(() => GitRepository.of(repository)).toThrow(Error)
       })
     })
   })

@@ -9,10 +9,11 @@ export const createOctokit = ({
   repository: GitRepository
   token: string
 }): Octokit => {
+  const { host } = repository.url
   const auth = `token ${token}`
   const userAgent = `${pkg.name}/${pkg.version}`
 
-  if (repository.isGitHubDotCom) {
+  if (host === 'github.com') {
     return new Octokit({
       auth,
       userAgent
@@ -21,7 +22,7 @@ export const createOctokit = ({
     return new Octokit({
       auth,
       userAgent,
-      baseUrl: repository.apiEndPoint
+      baseUrl: `https://${host}/api/v3`
     })
   }
 }
