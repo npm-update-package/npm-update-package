@@ -28,7 +28,6 @@ export class GitRepository {
     }
 
     const {
-      protocol,
       host,
       owner,
       name
@@ -38,8 +37,9 @@ export class GitRepository {
       throw new Error(`Failed to parse repository. repository=${repository}`)
     }
 
+    const protocol = parsed.protocol ?? 'https:'
     return new GitRepository({
-      url: new URL(`${protocol ?? 'https:'}//${host}/${owner}/${name}`),
+      url: new URL(`${protocol}//${host}/${owner}/${name}`),
       owner,
       name
     })
