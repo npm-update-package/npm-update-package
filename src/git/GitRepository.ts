@@ -49,15 +49,11 @@ export class GitRepository {
     if (this.isGitHubDotCom) {
       return 'https://api.github.com'
     } else {
-      return `https://${this.host}/api/v3`
+      return `https://${this.url.host}/api/v3`
     }
   }
 
-  get host (): string {
-    return this.url.host
-  }
-
   get isGitHubDotCom (): boolean {
-    return this.host === 'github.com'
+    return this.url.host === 'github.com'
   }
 }

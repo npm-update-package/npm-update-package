@@ -8,7 +8,6 @@ describe('GitRepository', () => {
         string,
         {
           url: URL
-          host: string
           owner: string
           name: string
           apiEndPoint: string
@@ -20,7 +19,6 @@ describe('GitRepository', () => {
           'https://github.com/npm-update-package/example.git',
           {
             url: new URL('https://github.com/npm-update-package/example'),
-            host: 'github.com',
             owner: 'npm-update-package',
             name: 'example',
             apiEndPoint: 'https://api.github.com',
@@ -31,7 +29,6 @@ describe('GitRepository', () => {
           'git@github.com:npm-update-package/example.git',
           {
             url: new URL('https://github.com/npm-update-package/example'),
-            host: 'github.com',
             owner: 'npm-update-package',
             name: 'example',
             apiEndPoint: 'https://api.github.com',
@@ -42,7 +39,6 @@ describe('GitRepository', () => {
           'https://git.example.com/npm-update-package/example.git',
           {
             url: new URL('https://git.example.com/npm-update-package/example'),
-            host: 'git.example.com',
             owner: 'npm-update-package',
             name: 'example',
             apiEndPoint: 'https://git.example.com/api/v3',
@@ -53,7 +49,6 @@ describe('GitRepository', () => {
           'git@git.example.com:npm-update-package/example.git',
           {
             url: new URL('https://git.example.com/npm-update-package/example'),
-            host: 'git.example.com',
             owner: 'npm-update-package',
             name: 'example',
             apiEndPoint: 'https://git.example.com/api/v3',
@@ -66,7 +61,6 @@ describe('GitRepository', () => {
         const actual = GitRepository.of(url)
         expect(actual).toBeInstanceOf(GitRepository)
         expect(actual.url).toEqual(expected.url)
-        expect(actual.host).toBe(expected.host)
         expect(actual.owner).toBe(expected.owner)
         expect(actual.name).toBe(expected.name)
         expect(actual.apiEndPoint).toBe(expected.apiEndPoint)
