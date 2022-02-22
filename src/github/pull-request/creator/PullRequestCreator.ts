@@ -50,7 +50,7 @@ export class PullRequestCreator {
     const title = this.pullRequestTitleCreator.create(outdatedPackage)
     this.logger.debug(`title=${title}`)
 
-    const body = createPullRequestBody(outdatedPackage)
+    const body = await createPullRequestBody(outdatedPackage)
     this.logger.debug(`body=${body}`)
 
     const pullRequest = await this.github.createPullRequest({

@@ -51,7 +51,7 @@ describe('PullRequestCreator', () => {
       const title = 'pull request title'
       pullRequestTitleCreatorCreateMock.mockReturnValue(title)
       const body = 'pull request body'
-      createPullRequestBodySpy.mockReturnValue(body)
+      createPullRequestBodySpy.mockResolvedValue(body)
       const pullRequest = {
         number: 1
       }
