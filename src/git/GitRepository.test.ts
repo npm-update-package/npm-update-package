@@ -10,7 +10,6 @@ describe('GitRepository', () => {
           url: URL
           owner: string
           name: string
-          isGitHubDotCom: boolean
         }
       ]
       const cases: TestCase[] = [
@@ -19,8 +18,7 @@ describe('GitRepository', () => {
           {
             url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example',
-            isGitHubDotCom: true
+            name: 'example'
           }
         ],
         [
@@ -28,8 +26,7 @@ describe('GitRepository', () => {
           {
             url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example',
-            isGitHubDotCom: true
+            name: 'example'
           }
         ],
         [
@@ -37,8 +34,7 @@ describe('GitRepository', () => {
           {
             url: new URL('https://git.example.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example',
-            isGitHubDotCom: false
+            name: 'example'
           }
         ],
         [
@@ -46,8 +42,7 @@ describe('GitRepository', () => {
           {
             url: new URL('https://git.example.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example',
-            isGitHubDotCom: false
+            name: 'example'
           }
         ]
       ]
@@ -58,7 +53,6 @@ describe('GitRepository', () => {
         expect(actual.url).toEqual(expected.url)
         expect(actual.owner).toBe(expected.owner)
         expect(actual.name).toBe(expected.name)
-        expect(actual.isGitHubDotCom).toBe(expected.isGitHubDotCom)
       })
     })
 
