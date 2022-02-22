@@ -6,7 +6,7 @@ import { parseRepositoryString } from './parseRepositoryString'
 
 jest.mock('./parseRepositoryString')
 
-describe('parseRepositoryString', () => {
+describe('extractRepository', () => {
   describe('if repository is string', () => {
     const parseRepositoryStringMock = jest.mocked(parseRepositoryString)
 
