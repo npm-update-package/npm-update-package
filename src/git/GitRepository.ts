@@ -1,43 +1,45 @@
+import { URL } from 'url'
 import parse from 'parse-github-url'
 
 export class GitRepository {
-  readonly host: string
+  readonly url: URL
   readonly owner: string
   readonly name: string
 
   private constructor ({
-    host,
+    url,
     owner,
     name
   }: {
-    host: string
+    url: URL
     owner: string
     name: string
   }) {
-    this.host = host
+    this.url = url
     this.owner = owner
     this.name = name
   }
 
-  static of (url: string): GitRepository {
-    const parsed = parse(url)
+  static of (repository: string): GitRepository {
+    const parsed = parse(repository)
 
     if (parsed === null) {
-      throw new Error(`Failed to parse url. url=${url}`)
+      throw new Error(`Failed to parse repository. repository=${repository}`)
     }
 
     const {
+      protocol,
       host,
       owner,
       name
     } = parsed
 
     if (host === null || owner === null || name === null) {
-      throw new Error(`Failed to parse url. url=${url}`)
+      throw new Error(`Failed to parse repository. repository=${repository}`)
     }
 
     return new GitRepository({
-      host,
+      url: new URL(`${protocol ?? 'https:'}//${host}/${owner}/${name}`),
       owner,
       name
     })
@@ -49,6 +51,10 @@ export class GitRepository {
     } else {
       return `https://${this.host}/api/v3`
     }
+  }
+
+  get host (): string {
+    return this.url.host
   }
 
   get isGitHubDotCom (): boolean {
