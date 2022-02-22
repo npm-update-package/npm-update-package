@@ -22,7 +22,8 @@ export const extractRepository = ({
     }
 
     return GitRepository.of(`${owner}/${repo}`)
-  } else {
-    return GitRepository.of(repository.url)
   }
+
+  const { url } = repository
+  return GitRepository.of(url.replace(/^git\+/, ''))
 }
