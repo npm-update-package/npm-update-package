@@ -1,0 +1,28 @@
+import { GitRepository } from '../git'
+import type { PackageMetadata } from './PackageMetadata'
+import { parseRepositoryString } from './parseRepositoryString'
+
+// TODO: Add test
+export const extractRepository = ({
+  repository
+}: PackageMetadata): GitRepository | undefined => {
+  if (repository === undefined) {
+    return undefined
+  }
+
+  if (typeof repository === 'string') {
+    const {
+      owner,
+      repo,
+      isGitHub
+    } = parseRepositoryString(repository)
+
+    if (!isGitHub) {
+      return undefined
+    }
+
+    return GitRepository.of(`${owner}/${repo}`)
+  } else {
+    return GitRepository.of(repository.url)
+  }
+}
