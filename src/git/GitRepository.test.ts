@@ -14,9 +14,33 @@ describe('GitRepository', () => {
       ]
       const cases: TestCase[] = [
         [
+          'npm-update-package/example',
+          {
+            url: new URL('https://github.com/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        ],
+        [
+          'https://github.com/npm-update-package/example',
+          {
+            url: new URL('https://github.com/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        ],
+        [
           'https://github.com/npm-update-package/example.git',
           {
             url: new URL('https://github.com/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        ],
+        [
+          'https://git.example.com/npm-update-package/example',
+          {
+            url: new URL('https://git.example.com/npm-update-package/example'),
             owner: 'npm-update-package',
             name: 'example'
           }
@@ -28,27 +52,11 @@ describe('GitRepository', () => {
             owner: 'npm-update-package',
             name: 'example'
           }
-        ],
-        [
-          'https://git.example.com/npm-update-package/example.git',
-          {
-            url: new URL('https://git.example.com/npm-update-package/example'),
-            owner: 'npm-update-package',
-            name: 'example'
-          }
-        ],
-        [
-          'git@git.example.com:npm-update-package/example.git',
-          {
-            url: new URL('https://git.example.com/npm-update-package/example'),
-            owner: 'npm-update-package',
-            name: 'example'
-          }
         ]
       ]
 
-      it.each<TestCase>(cases)('url=%p', (url, expected) => {
-        const actual = GitRepository.of(url)
+      it.each<TestCase>(cases)('repository=%p', (repository, expected) => {
+        const actual = GitRepository.of(repository)
         expect(actual).toBeInstanceOf(GitRepository)
         expect(actual.url).toEqual(expected.url)
         expect(actual.owner).toBe(expected.owner)
@@ -63,8 +71,8 @@ describe('GitRepository', () => {
         'https://example.com/'
       ]
 
-      it.each<TestCase>(cases)('url=%p', (url) => {
-        expect(() => GitRepository.of(url)).toThrow(Error)
+      it.each<TestCase>(cases)('repository=%p', (repository) => {
+        expect(() => GitRepository.of(repository)).toThrow(Error)
       })
     })
   })
