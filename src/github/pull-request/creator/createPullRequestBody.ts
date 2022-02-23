@@ -1,8 +1,7 @@
-// TODO: Refactor
-
 import app from '../../../../package.json'
 import type { OutdatedPackage } from '../../../core'
 import { readFile } from '../../../file'
+import type { GitRepository } from '../../../git'
 import { toJSON } from '../../../json'
 import {
   extractRepository,
@@ -33,30 +32,39 @@ ${rows.join('\n')}`
 }
 
 const createOutdatedPackageRow = async (outdatedPackage: OutdatedPackage): Promise<string> => {
-  const packageJson = await readFile(`node_modules/${outdatedPackage.name}/package.json`)
+  const packageName = outdatedPackage.name
+  const packageJson = await readFile(`node_modules/${packageName}/package.json`)
   const pkg = parsePackageJson(packageJson)
   const gitRepo = extractRepository(pkg)
+  const packageLink = `[${packageName}](https://www.npmjs.com/package/${packageName})`
+  const repositoryString = gitRepo !== undefined ? `[${gitRepo.owner}/${gitRepo.name}](${gitRepo.url.toString()})` : '-'
+  const level = outdatedPackage.level
+  const versionString = createVersionString({
+    outdatedPackage,
+    gitRepo
+  })
+  return `|${packageLink}|${repositoryString}|${level}|${versionString}|`
+}
 
-  // Create Package value
-  const packageName = outdatedPackage.name
-  const packageValue = `[${packageName}](https://www.npmjs.com/package/${packageName})`
-
-  // Create Repository value
-  const repositoryValue = gitRepo !== undefined ? `[${gitRepo.owner}/${gitRepo.name}](${gitRepo.url.toString()})` : '-'
-
-  // Create Level value
-  const levelValue = outdatedPackage.level
-
-  // Create Version value
-  const githubUrl = gitRepo !== undefined ? `https://github.com/${gitRepo.owner}/${gitRepo.name}` : undefined
+const createVersionString = ({
+  outdatedPackage,
+  gitRepo
+}: {
+  outdatedPackage: OutdatedPackage
+  gitRepo?: GitRepository
+}): string => {
   const currentVersion = outdatedPackage.currentVersion.version
-  const currentVersionText = githubUrl !== undefined ? `[\`${currentVersion}\`](${githubUrl}/releases/v${currentVersion})` : `\`${currentVersion}\``
   const newVersion = outdatedPackage.newVersion.version
-  const newVersionText = githubUrl !== undefined ? `[\`${newVersion}\`](${githubUrl}/releases/v${newVersion})` : `\`${newVersion}\``
-  const compareLink = githubUrl !== undefined ? `[compare](${githubUrl}/compare/v${currentVersion}...v${newVersion})` : undefined
-  const versionValue = compareLink !== undefined ? `${currentVersionText} -> ${newVersionText} (${compareLink})` : `${currentVersionText} -> ${newVersionText}`
 
-  return `|${packageValue}|${repositoryValue}|${levelValue}|${versionValue}|`
+  if (gitRepo === undefined) {
+    return `\`${currentVersion}\` -> \`${newVersion}\``
+  }
+
+  const githubUrl = `https://github.com/${gitRepo.owner}/${gitRepo.name}`
+  const currentVersionLink = `[\`${currentVersion}\`](${githubUrl}/releases/v${currentVersion})`
+  const newVersionLink = `[\`${newVersion}\`](${githubUrl}/releases/v${newVersion})`
+  const compareLink = `[compare](${githubUrl}/compare/v${currentVersion}...v${newVersion})`
+  return `${currentVersionLink} -> ${newVersionLink} (${compareLink})`
 }
 
 const createMetadataSection = (outdatedPackages: OutdatedPackage[]): string => {
