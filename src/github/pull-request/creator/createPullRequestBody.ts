@@ -9,7 +9,6 @@ import {
 } from '../../../package-json'
 import { createPullRequestMetadata } from '../metadata'
 
-// TODO: Replace `outdatedPackage: OutdatedPackage` with `outdatedPackages: OutdatedPackage[]`
 export const createPullRequestBody = async (outdatedPackage: OutdatedPackage): Promise<string> => {
   const outdatedPackages: OutdatedPackage[] = [outdatedPackage]
   const outdatedPackagesTable = await createOutdatedPackagesTable(outdatedPackages)
