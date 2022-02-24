@@ -37,23 +37,17 @@ const createOutdatedPackagesTable = async ({
 }): Promise<string> => {
   const packageName = outdatedPackage.name
   const packageLink = `[${packageName}](https://www.npmjs.com/package/${packageName})`
-  const repositoryString = repository !== undefined ? `[${repository.owner}/${repository.name}](${repository.url.toString()})` : '-'
+  const repositoryLink = repository !== undefined ? `[${repository.owner}/${repository.name}](${repository.url.toString()})` : '-'
   const level = outdatedPackage.level
-  const versionString = createVersionString(outdatedPackage)
+  const currentVersion = outdatedPackage.currentVersion.version
+  const currentVersionLink = `[\`${currentVersion}\`](https://www.npmjs.com/package/${packageName}/v/${currentVersion})`
+  const newVersion = outdatedPackage.newVersion.version
+  const newVersionLink = `[\`${newVersion}\`](https://www.npmjs.com/package/${packageName}/v/${newVersion})`
+  const diffLink = `[diff](https://diff.intrinsic.com/${packageName}/${currentVersion}/${newVersion})`
+  const version = `${currentVersionLink} -> ${newVersionLink} (${diffLink})`
   return `|Package|Repository|Level|Version|
 |---|---|---|---|
-|${packageLink}|${repositoryString}|${level}|${versionString}|`
-}
-
-const createVersionString = (outdatedPackage: OutdatedPackage): string => {
-  const packageName = outdatedPackage.name
-  const packageUrl = `https://www.npmjs.com/package/${packageName}`
-  const currentVersion = outdatedPackage.currentVersion.version
-  const newVersion = outdatedPackage.newVersion.version
-  const currentVersionLink = `[\`${currentVersion}\`](${packageUrl}/v/${currentVersion})`
-  const newVersionLink = `[\`${newVersion}\`](${packageUrl}/v/${newVersion})`
-  const diffLink = `[diff](https://diff.intrinsic.com/${packageName}/${currentVersion}/${newVersion})`
-  return `${currentVersionLink} -> ${newVersionLink} (${diffLink})`
+|${packageLink}|${repositoryLink}|${level}|${version}|`
 }
 
 const createMetadataSection = (outdatedPackage: OutdatedPackage): string => {
