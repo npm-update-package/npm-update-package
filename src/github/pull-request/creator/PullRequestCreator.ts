@@ -6,7 +6,7 @@ import type {
   GitHub,
   Repository as GitHubRepository
 } from '../../GitHub'
-import { createPullRequestBody } from './createPullRequestBody'
+import type { PullRequestBodyCreator } from './PullRequestBodyCreator'
 import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
 
 export class PullRequestCreator {
@@ -14,6 +14,7 @@ export class PullRequestCreator {
   private readonly gitRepo: GitRepository
   private readonly githubRepo: GitHubRepository
   private readonly pullRequestTitleCreator: PullRequestTitleCreator
+  private readonly pullRequestBodyCreator: PullRequestBodyCreator
   private readonly logger: Logger
   private readonly reviewers: string[] | undefined
 
@@ -22,6 +23,7 @@ export class PullRequestCreator {
     gitRepo,
     githubRepo,
     pullRequestTitleCreator,
+    pullRequestBodyCreator,
     logger,
     reviewers
   }: {
@@ -29,6 +31,7 @@ export class PullRequestCreator {
     gitRepo: GitRepository
     githubRepo: GitHubRepository
     pullRequestTitleCreator: PullRequestTitleCreator
+    pullRequestBodyCreator: PullRequestBodyCreator
     logger: Logger
     reviewers?: string[]
   }) {
@@ -36,6 +39,7 @@ export class PullRequestCreator {
     this.gitRepo = gitRepo
     this.githubRepo = githubRepo
     this.pullRequestTitleCreator = pullRequestTitleCreator
+    this.pullRequestBodyCreator = pullRequestBodyCreator
     this.logger = logger
     this.reviewers = reviewers
   }
@@ -50,7 +54,7 @@ export class PullRequestCreator {
     const title = this.pullRequestTitleCreator.create(outdatedPackage)
     this.logger.debug(`title=${title}`)
 
-    const body = await createPullRequestBody(outdatedPackage)
+    const body = await this.pullRequestBodyCreator.create(outdatedPackage)
     this.logger.debug(`body=${body}`)
 
     const pullRequest = await this.github.createPullRequest({
