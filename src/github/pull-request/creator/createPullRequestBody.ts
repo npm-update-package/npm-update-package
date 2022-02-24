@@ -43,7 +43,7 @@ const createOutdatedPackagesTable = async ({
   const currentVersionLink = `[\`${currentVersion}\`](https://www.npmjs.com/package/${packageName}/v/${currentVersion})`
   const newVersion = outdatedPackage.newVersion.version
   const newVersionLink = `[\`${newVersion}\`](https://www.npmjs.com/package/${packageName}/v/${newVersion})`
-  const diffLink = `[diff](https://diff.intrinsic.com/${packageName}/${currentVersion}/${newVersion})`
+  const diffLink = `[diff](https://app.renovatebot.com/package-diff?name=${packageName}&from=${currentVersion}&to=${newVersion})`
   const version = `${currentVersionLink} -> ${newVersionLink} (${diffLink})`
   return `|Package|Repository|Level|Version|
 |---|---|---|---|
