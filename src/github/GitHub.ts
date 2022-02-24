@@ -164,7 +164,6 @@ export class GitHub {
     return data
   }
 
-  // TODO: fetch all releases with page option
   async fetchReleases ({
     owner,
     repo
@@ -172,12 +171,24 @@ export class GitHub {
     owner: string
     repo: string
   }): Promise<Release[]> {
-    const { data } = await this.octokit.repos.listReleases({
-      owner,
-      repo,
-      per_page: 100
-    })
-    return data
+    const releases: Release[] = []
+
+    for (let page = 1; ;page++) {
+      const { data } = await this.octokit.repos.listReleases({
+        owner,
+        repo,
+        per_page: 100,
+        page
+      })
+
+      if (data.length === 0) {
+        break
+      }
+
+      releases.push(...data)
+    }
+
+    return releases
   }
 
   async fetchRepository ({
