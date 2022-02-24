@@ -106,11 +106,12 @@ ${items.join('\n')}`
   private createMetadataSection (outdatedPackage: OutdatedPackage): string {
     const metadata = createPullRequestMetadata([outdatedPackage])
     const json = toJSON(metadata, { pretty: true })
-    return `<details>
-<summary>Metadata</summary>
+    return `## Metadata
 
 **Don't remove or edit this section because it will be used by npm-update-package.**
 
+<details>
+<summary>metadata.json</summary>
 <div id="npm-update-package-metadata">
 
 \`\`\`json
