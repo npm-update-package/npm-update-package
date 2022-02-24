@@ -75,13 +75,10 @@ ${footer}`
       from: outdatedPackage.currentVersion,
       to: outdatedPackage.newVersion
     })
-    const releaseNoteSections = releases.map(release => {
-      return `### [${release.tag_name}](${release.html_url})
-
-${release.body ?? ''}`
-    })
+    const items = releases.map(release => `- [${release.tag_name}](${release.html_url})`)
     return `## Release notes
-${releaseNoteSections.join('\n\n')}`
+
+${items.join('\n')}`
   }
 
   private createOutdatedPackagesTable ({
