@@ -2,6 +2,7 @@ import { GitRepository } from '../git'
 import type { PackageMetadata } from './PackageMetadata'
 import { parseRepositoryString } from './parseRepositoryString'
 
+// TODO: Rename to extractGitHubRepository
 export const extractRepository = ({
   repository
 }: PackageMetadata): GitRepository | undefined => {
