@@ -36,17 +36,13 @@ const createOutdatedPackagesTable = async ({
   repository?: GitRepository
 }): Promise<string> => {
   const packageName = outdatedPackage.name
-  const packageLink = createPackageLink(packageName)
+  const packageLink = `[${packageName}](https://www.npmjs.com/package/${packageName})`
   const repositoryString = repository !== undefined ? `[${repository.owner}/${repository.name}](${repository.url.toString()})` : '-'
   const level = outdatedPackage.level
   const versionString = createVersionString(outdatedPackage)
   return `|Package|Repository|Level|Version|
 |---|---|---|---|
 |${packageLink}|${repositoryString}|${level}|${versionString}|`
-}
-
-const createPackageLink = (packageName: string): string => {
-  return `[${packageName}](https://www.npmjs.com/package/${packageName})`
 }
 
 const createVersionString = (outdatedPackage: OutdatedPackage): string => {
