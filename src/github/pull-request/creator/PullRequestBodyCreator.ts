@@ -22,14 +22,29 @@ export class PullRequestBodyCreator {
   }
 
   async create (outdatedPackage: OutdatedPackage): Promise<string> {
-    const repository = await this.extractRepository(outdatedPackage)
-    const releaseNotesSection = await this.createReleaseNotesSection(outdatedPackage)
+    const gitRepo = await this.extractRepository(outdatedPackage)
     const outdatedPackagesTable = this.createOutdatedPackagesTable({
       outdatedPackage,
-      repository
+      gitRepo
     })
     const metadataSection = this.createMetadataSection(outdatedPackage)
     const footer = this.createFooter()
+
+    if (gitRepo === undefined) {
+      return `This PR updates these packages:
+
+${outdatedPackagesTable}
+
+${metadataSection}
+
+---
+${footer}`
+    }
+
+    const releaseNotesSection = await this.createReleaseNotesSection({
+      outdatedPackage,
+      gitRepo
+    })
     return `This PR updates these packages:
 
 ${outdatedPackagesTable}
@@ -48,8 +63,15 @@ ${footer}`
     return extractRepository(pkg)
   }
 
-  private async createReleaseNotesSection (outdatedPackage: OutdatedPackage): Promise<string> {
+  private async createReleaseNotesSection ({
+    outdatedPackage,
+    gitRepo
+  }: {
+    outdatedPackage: OutdatedPackage
+    gitRepo: GitRepository
+  }): Promise<string> {
     const releases = await this.releasesFetcher.fetch({
+      gitRepo,
       from: outdatedPackage.currentVersion,
       to: outdatedPackage.newVersion
     })
@@ -64,14 +86,14 @@ ${releaseNoteSections.join('\n\n')}`
 
   private createOutdatedPackagesTable ({
     outdatedPackage,
-    repository
+    gitRepo
   }: {
     outdatedPackage: OutdatedPackage
-    repository?: GitRepository
+    gitRepo?: GitRepository
   }): string {
     const packageName = outdatedPackage.name
     const packageLink = `[${packageName}](https://www.npmjs.com/package/${packageName})`
-    const repositoryLink = repository !== undefined ? `[${repository.owner}/${repository.name}](${repository.url.toString()})` : '-'
+    const repositoryLink = gitRepo !== undefined ? `[${gitRepo.owner}/${gitRepo.name}](${gitRepo.url.toString()})` : '-'
     const level = outdatedPackage.level
     const currentVersion = outdatedPackage.currentVersion.version
     const currentVersionLink = `[\`${currentVersion}\`](https://www.npmjs.com/package/${packageName}/v/${currentVersion})`
