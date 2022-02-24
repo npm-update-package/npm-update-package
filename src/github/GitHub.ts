@@ -163,6 +163,8 @@ export class GitHub {
     return data
   }
 
+  // TODO: fetchReleaseByTagName
+
   async fetchRepository ({
     owner,
     repo
