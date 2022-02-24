@@ -18,7 +18,8 @@ import {
   PullRequestCloser,
   PullRequestCreator,
   PullRequestFinder,
-  PullRequestTitleCreator
+  PullRequestTitleCreator,
+  ReleasesFetcher
 } from './github'
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
@@ -94,7 +95,13 @@ export const main = async ({
     packageManager: options.packageManager
   })
   const pullRequestTitleCreator = new PullRequestTitleCreator(options.pullRequestTitle)
-  const pullRequestBodyCreator = new PullRequestBodyCreator()
+  const releasesFetcher = new ReleasesFetcher({
+    github,
+    gitRepo
+  })
+  const pullRequestBodyCreator = new PullRequestBodyCreator({
+    releasesFetcher
+  })
   const pullRequestCreator = new PullRequestCreator({
     github,
     gitRepo,
