@@ -35,6 +35,7 @@ export class PullRequestBodyCreator {
 
 ${outdatedPackagesTable}
 
+---
 ${metadataSection}
 
 ---
@@ -51,6 +52,7 @@ ${outdatedPackagesTable}
 
 ${releaseNotesSection}
 
+---
 ${metadataSection}
 
 ---
