@@ -27,6 +27,7 @@ Commit message template
   - `newVersion`: new package version
   - `packageName`: package name
   - `level`: semver level (major/minor/patch)
+  - `dependencyType`: dependency type (dependencies/devDependencies/peerDependencies/optionalDependencies)
 - default: `chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`
 
 ### `--github-token`
@@ -74,6 +75,7 @@ Pull request title template
   - `newVersion`: new package version
   - `packageName`: package name
   - `level`: semver level (major/minor/patch)
+  - `dependencyType`: dependency type (dependencies/devDependencies/peerDependencies/optionalDependencies)
 - default: `chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`
 
 ### `--reviewers`

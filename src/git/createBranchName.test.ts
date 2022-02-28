@@ -1,4 +1,8 @@
-import { SemVer } from '../semver'
+import { DependencyType } from '../package-json'
+import {
+  SemVer,
+  SemVerLevel
+} from '../semver'
 import { createBranchName } from './createBranchName'
 
 describe('createBranchName', () => {
@@ -7,7 +11,8 @@ describe('createBranchName', () => {
       name: '@npm-update-package/example',
       currentVersion: SemVer.of('1.0.0'),
       newVersion: SemVer.of('1.2.3'),
-      level: 'major'
+      level: SemVerLevel.Major,
+      dependencyType: DependencyType.Dependencies
     })
     expect(actual).toBe('npm-update-package/@npm-update-package/example/v1.2.3')
   })
