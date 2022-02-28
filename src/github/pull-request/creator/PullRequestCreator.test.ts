@@ -8,17 +8,17 @@ import type {
   GitHub,
   Repository as GitHubRepository
 } from '../../GitHub'
-import type { PullRequestBodyCreator } from './PullRequestBodyCreator'
+import * as createPullRequestBodyModule from './createPullRequestBody'
 import { PullRequestCreator } from './PullRequestCreator'
 import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
 
 describe('PullRequestCreator', () => {
   describe('create', () => {
-    const pullRequestBodyCreatorCreateMock = jest.fn()
     const pullRequestTitleCreatorCreateMock = jest.fn()
     const githubCreatePullRequestMock = jest.fn()
     const githubAddLabelsMock = jest.fn()
     const githubRequestReviewersMock = jest.fn()
+    const createPullRequestBodySpy = jest.spyOn(createPullRequestBodyModule, 'createPullRequestBody')
 
     const github = {
       createPullRequest: githubCreatePullRequestMock,
@@ -32,9 +32,6 @@ describe('PullRequestCreator', () => {
     const githubRepo = {
       default_branch: 'master'
     } as unknown as GitHubRepository
-    const pullRequestBodyCreator = {
-      create: pullRequestBodyCreatorCreateMock
-    } as unknown as PullRequestBodyCreator
     const pullRequestTitleCreator = {
       create: pullRequestTitleCreatorCreateMock
     } as unknown as PullRequestTitleCreator
@@ -43,18 +40,18 @@ describe('PullRequestCreator', () => {
     const branchName = 'branch name'
 
     afterEach(() => {
-      pullRequestBodyCreatorCreateMock.mockReset()
       pullRequestTitleCreatorCreateMock.mockReset()
       githubCreatePullRequestMock.mockReset()
       githubAddLabelsMock.mockReset()
       githubRequestReviewersMock.mockReset()
+      createPullRequestBodySpy.mockReset()
     })
 
     it('creates pull request', async () => {
       const title = 'pull request title'
       pullRequestTitleCreatorCreateMock.mockReturnValue(title)
       const body = 'pull request body'
-      pullRequestBodyCreatorCreateMock.mockResolvedValue(body)
+      createPullRequestBodySpy.mockResolvedValue(body)
       const pullRequest = {
         number: 1
       }
@@ -66,7 +63,6 @@ describe('PullRequestCreator', () => {
         gitRepo,
         githubRepo,
         pullRequestTitleCreator,
-        pullRequestBodyCreator,
         logger,
         reviewers
       })
@@ -76,7 +72,7 @@ describe('PullRequestCreator', () => {
       })
 
       expect(pullRequestTitleCreatorCreateMock).toBeCalledWith(outdatedPackage)
-      expect(pullRequestBodyCreatorCreateMock).toBeCalledWith(outdatedPackage)
+      expect(createPullRequestBodySpy).toBeCalledWith(outdatedPackage)
       expect(githubCreatePullRequestMock).toBeCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
