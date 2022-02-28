@@ -1,6 +1,7 @@
 import {
   gte,
-  lte
+  lte,
+  valid
 } from 'semver'
 import type { GitRepository } from '../../../git'
 import type { SemVer } from '../../../semver'
@@ -25,6 +26,9 @@ export class ReleasesFetcher {
       owner: gitRepo.owner,
       repo: gitRepo.name
     })
-    return releases.filter(({ tag_name: version }) => gte(version, from.version) && lte(version, to.version))
+    return releases.filter(({ tag_name: version }) => {
+      // TODO: Move these to SemVer
+      return valid(version) !== null && gte(version, from.version) && lte(version, to.version)
+    })
   }
 }
