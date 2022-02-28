@@ -9,7 +9,6 @@ import type {
   Release
 } from '../../GitHub'
 
-// TODO: Add test
 export class ReleasesFetcher {
   constructor (private readonly github: GitHub) {}
 
