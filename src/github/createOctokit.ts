@@ -2,6 +2,7 @@ import { Octokit } from '@octokit/rest'
 import pkg from '../../package.json'
 import type { GitRepository } from '../git'
 
+// TODO: Replace repository with host
 export const createOctokit = ({
   repository,
   token
