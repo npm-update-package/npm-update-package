@@ -5,11 +5,15 @@ import { readFile } from '../../../file'
 import { GitRepository } from '../../../git'
 import type { ReleasesFetcher } from '../../../github'
 import {
+  DependencyType,
   extractRepository,
   parsePackageJson,
   type PackageMetadata
 } from '../../../package-json'
-import { SemVer } from '../../../semver'
+import {
+  SemVer,
+  SemVerLevel
+} from '../../../semver'
 import { PullRequestBodyCreator } from './PullRequestBodyCreator'
 
 jest.mock('../../../file')
@@ -21,7 +25,8 @@ describe('PullRequestBodyCreator', () => {
       name: '@npm-update-package/example',
       currentVersion: SemVer.of('1.0.0'),
       newVersion: SemVer.of('2.0.0'),
-      level: 'major'
+      level: SemVerLevel.Major,
+      dependencyType: DependencyType.Dependencies
     }
     const readFileMock = jest.mocked(readFile)
     const parsePackageJsonMock = jest.mocked(parsePackageJson)

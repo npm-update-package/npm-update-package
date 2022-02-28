@@ -1,7 +1,11 @@
 
 import pkg from '../../../../package.json'
 import type { OutdatedPackage } from '../../../core'
-import { SemVer } from '../../../semver'
+import { DependencyType } from '../../../package-json'
+import {
+  SemVer,
+  SemVerLevel
+} from '../../../semver'
 import { createPullRequestMetadata } from './createPullRequestMetadata'
 
 describe('createPullRequestMetadata', () => {
@@ -11,7 +15,8 @@ describe('createPullRequestMetadata', () => {
         name: '@npm-update-package/example',
         currentVersion: SemVer.of('1.0.0'),
         newVersion: SemVer.of('2.0.0'),
-        level: 'major'
+        level: SemVerLevel.Major,
+        dependencyType: DependencyType.Dependencies
       }
     ]
     const metadata = createPullRequestMetadata(outdatedPackages)

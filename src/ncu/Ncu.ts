@@ -4,7 +4,10 @@ import { isNotUndefined } from 'type-guards'
 import type { OutdatedPackage } from '../core'
 import { readFile } from '../file'
 import type { Logger } from '../logger'
-import { parsePackageJson } from '../package-json'
+import {
+  DependencyType,
+  parsePackageJson
+} from '../package-json'
 import {
   compareSemVers,
   SemVer
@@ -42,18 +45,46 @@ export class Ncu {
       throw new Error('Failed to running ncu.')
     }
 
-    const currentDependencies = {
-      ...pkg.dependencies,
-      ...pkg.devDependencies,
-      ...pkg.peerDependencies,
-      ...pkg.optionalDependencies
+    const {
+      dependencies,
+      devDependencies,
+      peerDependencies,
+      optionalDependencies
+    } = pkg
+    const toCurrentVersionString = (packageName: string): string | undefined => {
+      if (dependencies?.[packageName] !== undefined) {
+        return dependencies[packageName]
+      } else if (devDependencies?.[packageName] !== undefined) {
+        return devDependencies[packageName]
+      } else if (peerDependencies?.[packageName] !== undefined) {
+        return peerDependencies[packageName]
+      } else if (optionalDependencies?.[packageName] !== undefined) {
+        return optionalDependencies[packageName]
+      }
+    }
+    const toDependencyType = (packageName: string): DependencyType | undefined => {
+      if (dependencies?.[packageName] !== undefined) {
+        return DependencyType.Dependencies
+      } else if (devDependencies?.[packageName] !== undefined) {
+        return DependencyType.DevDependencies
+      } else if (peerDependencies?.[packageName] !== undefined) {
+        return DependencyType.PeerDependencies
+      } else if (optionalDependencies?.[packageName] !== undefined) {
+        return DependencyType.OptionalDependencies
+      }
     }
     const resultEntries = Object.entries(result)
     const outdatedPackages: OutdatedPackage[] = resultEntries
       .map(([name, newVersionString]) => {
-        const currentVersionString = currentDependencies[name]
+        const currentVersionString = toCurrentVersionString(name)
 
         if (currentVersionString === undefined) {
+          return undefined
+        }
+
+        const dependencyType = toDependencyType(name)
+
+        if (dependencyType === undefined) {
           return undefined
         }
 
@@ -69,7 +100,8 @@ export class Ncu {
           name,
           currentVersion,
           newVersion,
-          level
+          level,
+          dependencyType
         }
         return outdatedPackage
       })

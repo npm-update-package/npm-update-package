@@ -1,3 +1,4 @@
+import type { DependencyType } from '../package-json'
 import type {
   SemVer,
   SemVerLevel
@@ -8,4 +9,5 @@ export interface OutdatedPackage {
   currentVersion: SemVer
   newVersion: SemVer
   level: SemVerLevel
+  dependencyType: DependencyType
 }
