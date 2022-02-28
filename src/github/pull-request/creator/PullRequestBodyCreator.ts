@@ -23,10 +23,7 @@ export class PullRequestBodyCreator {
 
   async create (outdatedPackage: OutdatedPackage): Promise<string> {
     const gitRepo = await this.extractRepository(outdatedPackage)
-    const outdatedPackagesTable = this.createOutdatedPackagesTable({
-      outdatedPackage,
-      gitRepo
-    })
+    const outdatedPackagesTable = this.createOutdatedPackagesTable(outdatedPackage)
     const metadataSection = this.createMetadataSection(outdatedPackage)
     const footer = this.createFooter()
     const body = `This PR updates these packages:
@@ -94,16 +91,9 @@ ${footer}`
 ${items.join('\n')}`
   }
 
-  private createOutdatedPackagesTable ({
-    outdatedPackage,
-    gitRepo
-  }: {
-    outdatedPackage: OutdatedPackage
-    gitRepo?: GitRepository
-  }): string {
+  private createOutdatedPackagesTable (outdatedPackage: OutdatedPackage): string {
     const packageName = outdatedPackage.name
     const packageLink = `[${packageName}](https://www.npmjs.com/package/${packageName})`
-    const repositoryLink = gitRepo !== undefined ? `[${gitRepo.owner}/${gitRepo.name}](${gitRepo.url.toString()})` : '-'
     const dependencyType = outdatedPackage.dependencyType
     const level = outdatedPackage.level
     const currentVersion = outdatedPackage.currentVersion.version
@@ -112,9 +102,9 @@ ${items.join('\n')}`
     const newVersionLink = `[\`${newVersion}\`](https://www.npmjs.com/package/${packageName}/v/${newVersion})`
     const diffLink = `[diff](https://renovatebot.com/diffs/npm/${packageName}/${currentVersion}/${newVersion})`
     const version = `${currentVersionLink} -> ${newVersionLink} (${diffLink})`
-    return `|Package|Repository|Dependency type|Level|Version|
-|---|---|---|---|---|
-|${packageLink}|${repositoryLink}|${dependencyType}|${level}|${version}|`
+    return `|Package|Dependency type|Level|Version|
+|---|---|---|---|
+|${packageLink}|${dependencyType}|${level}|${version}|`
   }
 
   private createMetadataSection (outdatedPackage: OutdatedPackage): string {
