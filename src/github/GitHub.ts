@@ -115,7 +115,6 @@ export class GitHub {
     })
   }
 
-  // TODO: fetch all branches with page option
   async fetchBranches ({
     owner,
     repo
@@ -123,12 +122,24 @@ export class GitHub {
     owner: string
     repo: string
   }): Promise<Branch[]> {
-    const { data } = await this.octokit.repos.listBranches({
-      owner,
-      repo,
-      per_page: 100
-    })
-    return data
+    const branches: Branch[] = []
+
+    for (let page = 1; ;page++) {
+      const { data } = await this.octokit.repos.listBranches({
+        owner,
+        repo,
+        per_page: 100,
+        page
+      })
+
+      if (data.length === 0) {
+        break
+      }
+
+      branches.push(...data)
+    }
+
+    return branches
   }
 
   async fetchLabel ({
