@@ -95,6 +95,7 @@ export const main = async ({
     packageManager: options.packageManager
   })
   const pullRequestTitleCreator = new PullRequestTitleCreator(options.pullRequestTitle)
+  // TODO: Use other github instance (not have auth)
   const releasesFetcher = new ReleasesFetcher(github)
   const pullRequestBodyCreator = new PullRequestBodyCreator({
     releasesFetcher
