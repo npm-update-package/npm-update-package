@@ -57,7 +57,7 @@ export const main = async ({
   logger.debug(`gitRepo=${JSON.stringify(gitRepo)}`)
 
   const github = createGitHub({
-    repository: gitRepo,
+    host: gitRepo.url.host,
     token: options.githubToken
   })
   const githubRepo = await github.fetchRepository({
