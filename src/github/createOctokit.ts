@@ -6,21 +6,28 @@ export const createOctokit = ({
   token
 }: {
   host: string
-  token: string
+  token?: string
 }): Octokit => {
-  const auth = `token ${token}`
   const userAgent = `${pkg.name}/${pkg.version}`
+
+  if (token === undefined) {
+    return new Octokit({
+      userAgent
+    })
+  }
+
+  const auth = `token ${token}`
 
   if (host === 'github.com') {
     return new Octokit({
       auth,
       userAgent
     })
-  } else {
-    return new Octokit({
-      auth,
-      userAgent,
-      baseUrl: `https://${host}/api/v3`
-    })
   }
+
+  return new Octokit({
+    auth,
+    userAgent,
+    baseUrl: `https://${host}/api/v3`
+  })
 }

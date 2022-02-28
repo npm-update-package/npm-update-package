@@ -1,26 +1,37 @@
 import { Octokit } from '@octokit/rest'
 import { createOctokit } from './createOctokit'
 
+interface TestCase {
+  host: string
+  token?: string
+}
+
 describe('createOctokit', () => {
-  const token = 'token'
+  describe('returns new Octokit instance', () => {
+    const cases: TestCase[] = [
+      // for GitHub.com without token
+      {
+        host: 'github.com',
+        token: undefined
+      },
+      // for GitHub.com with token
+      {
+        host: 'github.com',
+        token: 'test token'
+      },
+      // for GitHub Enterprise with token
+      {
+        host: 'git.example.com',
+        token: 'test token'
+      }
+    ]
 
-  it('returns new Octokit instance for GitHub.com if repository is GitHub.com', () => {
-    const host = 'github.com'
-    const octokit = createOctokit({
-      host,
-      token
+    it.each<TestCase>(cases)('host=$host, token=$token', ({ host, token }) => {
+      const octokit = createOctokit({
+        host,
+        token
+      })
+      expect(octokit).toBeInstanceOf(Octokit)
     })
-
-    expect(octokit).toBeInstanceOf(Octokit)
-  })
-
-  it('returns new Octokit instance for GitHub Enterprise if repository is not GitHub.com', () => {
-    const host = 'github.com'
-    const octokit = createOctokit({
-      host,
-      token
-    })
-
-    expect(octokit).toBeInstanceOf(Octokit)
   })
 })
