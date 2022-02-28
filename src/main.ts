@@ -95,8 +95,10 @@ export const main = async ({
     packageManager: options.packageManager
   })
   const pullRequestTitleCreator = new PullRequestTitleCreator(options.pullRequestTitle)
-  // TODO: Use other github instance (not have auth)
-  const releasesFetcher = new ReleasesFetcher(github)
+  const githubWithoutToken = createGitHub({
+    host: 'github.com'
+  })
+  const releasesFetcher = new ReleasesFetcher(githubWithoutToken)
   const pullRequestBodyCreator = new PullRequestBodyCreator({
     releasesFetcher
   })
