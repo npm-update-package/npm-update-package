@@ -14,10 +14,12 @@ import {
   BranchFinder,
   createGitHub,
   LabelCreator,
+  PullRequestBodyCreator,
   PullRequestCloser,
   PullRequestCreator,
   PullRequestFinder,
-  PullRequestTitleCreator
+  PullRequestTitleCreator,
+  ReleasesFetcher
 } from './github'
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
@@ -55,7 +57,7 @@ export const main = async ({
   logger.debug(`gitRepo=${JSON.stringify(gitRepo)}`)
 
   const github = createGitHub({
-    repository: gitRepo,
+    host: gitRepo.url.host,
     token: options.githubToken
   })
   const githubRepo = await github.fetchRepository({
@@ -93,11 +95,19 @@ export const main = async ({
     packageManager: options.packageManager
   })
   const pullRequestTitleCreator = new PullRequestTitleCreator(options.pullRequestTitle)
+  const githubWithoutToken = createGitHub({
+    host: 'github.com'
+  })
+  const releasesFetcher = new ReleasesFetcher(githubWithoutToken)
+  const pullRequestBodyCreator = new PullRequestBodyCreator({
+    releasesFetcher
+  })
   const pullRequestCreator = new PullRequestCreator({
     github,
     gitRepo,
     githubRepo,
     pullRequestTitleCreator,
+    pullRequestBodyCreator,
     logger,
     reviewers: options.reviewers
   })

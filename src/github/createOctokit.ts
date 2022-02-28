@@ -1,28 +1,33 @@
 import { Octokit } from '@octokit/rest'
 import pkg from '../../package.json'
-import type { GitRepository } from '../git'
 
 export const createOctokit = ({
-  repository,
+  host,
   token
 }: {
-  repository: GitRepository
-  token: string
+  host: string
+  token?: string
 }): Octokit => {
-  const { host } = repository.url
-  const auth = `token ${token}`
   const userAgent = `${pkg.name}/${pkg.version}`
+
+  if (token === undefined) {
+    return new Octokit({
+      userAgent
+    })
+  }
+
+  const auth = `token ${token}`
 
   if (host === 'github.com') {
     return new Octokit({
       auth,
       userAgent
     })
-  } else {
-    return new Octokit({
-      auth,
-      userAgent,
-      baseUrl: `https://${host}/api/v3`
-    })
   }
+
+  return new Octokit({
+    auth,
+    userAgent,
+    baseUrl: `https://${host}/api/v3`
+  })
 }

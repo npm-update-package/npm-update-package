@@ -1,16 +1,15 @@
-import type { GitRepository } from '../git'
 import { createOctokit } from './createOctokit'
 import { GitHub } from './GitHub'
 
 export const createGitHub = ({
-  repository,
+  host,
   token
 }: {
-  repository: GitRepository
-  token: string
+  host: string
+  token?: string
 }): GitHub => {
   const octokit = createOctokit({
-    repository,
+    host,
     token
   })
   return new GitHub(octokit)
