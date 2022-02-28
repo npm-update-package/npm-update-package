@@ -9,11 +9,13 @@ export class CommitMessageCreator {
     const currentVersion = outdatedPackage.currentVersion.version
     const newVersion = outdatedPackage.newVersion.version
     const level = outdatedPackage.level
+    const dependencyType = outdatedPackage.dependencyType
     return render(this.template, {
       packageName,
       currentVersion,
       newVersion,
-      level
+      level,
+      dependencyType
     })
   }
 }
