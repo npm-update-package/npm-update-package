@@ -1,4 +1,8 @@
-import { SemVer } from '../semver'
+import { DependencyType } from '../package-json'
+import {
+  SemVer,
+  SemVerLevel
+} from '../semver'
 import { CommitMessageCreator } from './CommitMessageCreator'
 
 describe('CommitMessageCreator', () => {
@@ -9,7 +13,8 @@ describe('CommitMessageCreator', () => {
         name: '@npm-update-package/example',
         currentVersion: SemVer.of('1.0.0'),
         newVersion: SemVer.of('2.0.0'),
-        level: 'major'
+        level: SemVerLevel.Major,
+        dependencyType: DependencyType.Dependencies
       })
       expect(actual).toBe('chore(deps): major update @npm-update-package/example from 1.0.0 to v2.0.0')
     })
