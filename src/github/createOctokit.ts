@@ -1,16 +1,13 @@
 import { Octokit } from '@octokit/rest'
 import pkg from '../../package.json'
-import type { GitRepository } from '../git'
 
-// TODO: Replace repository with host
 export const createOctokit = ({
-  repository,
+  host,
   token
 }: {
-  repository: GitRepository
+  host: string
   token: string
 }): Octokit => {
-  const { host } = repository.url
   const auth = `token ${token}`
   const userAgent = `${pkg.name}/${pkg.version}`
 

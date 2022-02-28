@@ -10,8 +10,9 @@ export const createGitHub = ({
   repository: GitRepository
   token: string
 }): GitHub => {
+  const { host } = repository.url
   const octokit = createOctokit({
-    repository,
+    host,
     token
   })
   return new GitHub(octokit)
