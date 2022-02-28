@@ -104,7 +104,7 @@ ${items.join('\n')}`
     const packageName = outdatedPackage.name
     const packageLink = `[${packageName}](https://www.npmjs.com/package/${packageName})`
     const repositoryLink = gitRepo !== undefined ? `[${gitRepo.owner}/${gitRepo.name}](${gitRepo.url.toString()})` : '-'
-    const type = outdatedPackage.dependencyType
+    const dependencyType = outdatedPackage.dependencyType
     const level = outdatedPackage.level
     const currentVersion = outdatedPackage.currentVersion.version
     const currentVersionLink = `[\`${currentVersion}\`](https://www.npmjs.com/package/${packageName}/v/${currentVersion})`
@@ -114,7 +114,7 @@ ${items.join('\n')}`
     const version = `${currentVersionLink} -> ${newVersionLink} (${diffLink})`
     return `|Package|Repository|Dependency type|Level|Version|
 |---|---|---|---|---|
-|${packageLink}|${repositoryLink}|${type}|${level}|${version}|`
+|${packageLink}|${repositoryLink}|${dependencyType}|${level}|${version}|`
   }
 
   private createMetadataSection (outdatedPackage: OutdatedPackage): string {
