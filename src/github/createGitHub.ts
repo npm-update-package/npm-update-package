@@ -6,7 +6,7 @@ export const createGitHub = ({
   token
 }: {
   host: string
-  token: string
+  token?: string
 }): GitHub => {
   const octokit = createOctokit({
     host,
