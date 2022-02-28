@@ -29,9 +29,7 @@ export class PullRequestBodyCreator {
     })
     const metadataSection = this.createMetadataSection(outdatedPackage)
     const footer = this.createFooter()
-
-    if (gitRepo === undefined) {
-      return `This PR updates these packages:
+    const body = `This PR updates these packages:
 
 ${outdatedPackagesTable}
 
@@ -40,12 +38,20 @@ ${metadataSection}
 
 ---
 ${footer}`
+
+    if (gitRepo === undefined) {
+      return body
     }
 
     const releaseNotesSection = await this.createReleaseNotesSection({
       outdatedPackage,
       gitRepo
     })
+
+    if (releaseNotesSection === undefined) {
+      return body
+    }
+
     return `This PR updates these packages:
 
 ${outdatedPackagesTable}
@@ -71,12 +77,17 @@ ${footer}`
   }: {
     outdatedPackage: OutdatedPackage
     gitRepo: GitRepository
-  }): Promise<string> {
+  }): Promise<string | undefined> {
     const releases = await this.releasesFetcher.fetch({
       gitRepo,
       from: outdatedPackage.currentVersion,
       to: outdatedPackage.newVersion
     })
+
+    if (releases.length === 0) {
+      return undefined
+    }
+
     const items = releases.map(release => `- [${release.tag_name}](${release.html_url})`)
     return `## Release notes
 
