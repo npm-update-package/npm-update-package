@@ -8,6 +8,7 @@ export type Branch = ValuesType<RestEndpointMethodTypes['repos']['listBranches']
 export type CreatedPullRequest = RestEndpointMethodTypes['pulls']['create']['response']['data']
 export type Label = RestEndpointMethodTypes['issues']['getLabel']['response']['data']
 export type PullRequest = ValuesType<RestEndpointMethodTypes['pulls']['list']['response']['data']>
+export type Release = ValuesType<RestEndpointMethodTypes['repos']['listReleases']['response']['data']>
 export type Repository = RestEndpointMethodTypes['repos']['get']['response']['data']
 
 // TODO: add test
@@ -161,6 +162,33 @@ export class GitHub {
       per_page: 100
     })
     return data
+  }
+
+  async fetchReleases ({
+    owner,
+    repo
+  }: {
+    owner: string
+    repo: string
+  }): Promise<Release[]> {
+    const releases: Release[] = []
+
+    for (let page = 1; ;page++) {
+      const { data } = await this.octokit.repos.listReleases({
+        owner,
+        repo,
+        per_page: 100,
+        page
+      })
+
+      if (data.length === 0) {
+        break
+      }
+
+      releases.push(...data)
+    }
+
+    return releases
   }
 
   async fetchRepository ({

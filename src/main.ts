@@ -14,10 +14,12 @@ import {
   BranchFinder,
   createGitHub,
   LabelCreator,
+  PullRequestBodyCreator,
   PullRequestCloser,
   PullRequestCreator,
   PullRequestFinder,
-  PullRequestTitleCreator
+  PullRequestTitleCreator,
+  ReleasesFetcher
 } from './github'
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
@@ -93,11 +95,16 @@ export const main = async ({
     packageManager: options.packageManager
   })
   const pullRequestTitleCreator = new PullRequestTitleCreator(options.pullRequestTitle)
+  const releasesFetcher = new ReleasesFetcher(github)
+  const pullRequestBodyCreator = new PullRequestBodyCreator({
+    releasesFetcher
+  })
   const pullRequestCreator = new PullRequestCreator({
     github,
     gitRepo,
     githubRepo,
     pullRequestTitleCreator,
+    pullRequestBodyCreator,
     logger,
     reviewers: options.reviewers
   })
