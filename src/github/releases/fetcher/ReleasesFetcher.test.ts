@@ -17,6 +17,9 @@ describe('ReleasesFetcher', () => {
     it('returns releases', async () => {
       fetchReleasesMock.mockResolvedValue([
         {
+          tag_name: 'test'
+        },
+        {
           tag_name: 'v1.0.0'
         },
         {
