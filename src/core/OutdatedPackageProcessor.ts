@@ -117,7 +117,6 @@ export class OutdatedPackageProcessor {
 
       await this.git.commit(message)
       await this.git.push(branchName)
-
       const pullRequest = await this.pullRequestCreator.create({
         outdatedPackage,
         branchName
