@@ -100,13 +100,7 @@ export class OutdatedPackageProcessor {
 
     try {
       try {
-        const updatedPackages = await this.ncu.update(outdatedPackage)
-
-        if (updatedPackages.length !== 1) {
-          throw new Error(`Failed to update ${outdatedPackage.name}.`)
-        }
-
-        await this.packageManager.install()
+        await this.updatePackage(outdatedPackage)
       } catch (error) {
         this.logger.error(error)
         return left({
@@ -147,5 +141,15 @@ export class OutdatedPackageProcessor {
       await this.git.removeBranch(branchName)
       this.logger.info(`${branchName} branch has removed.`)
     }
+  }
+
+  private async updatePackage (outdatedPackage: OutdatedPackage): Promise<void> {
+    const updatedPackages = await this.ncu.update(outdatedPackage)
+
+    if (updatedPackages.length !== 1) {
+      throw new Error(`Failed to update ${outdatedPackage.name}.`)
+    }
+
+    await this.packageManager.install()
   }
 }
