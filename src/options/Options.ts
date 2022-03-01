@@ -31,6 +31,7 @@ const Options = intersection([
     pullRequestTitle: string
   }),
   partial({
+    ignorePackages: array(string),
     reviewers: array(string)
   })
 ])

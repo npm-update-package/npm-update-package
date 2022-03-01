@@ -37,6 +37,13 @@ Commit message template
 - type: string
 - required: true
 
+### `--ignore-packages`
+
+Package names to ignore
+
+- type: string[]
+- required: false
+
 ### `--log-level`
 
 Log level to show

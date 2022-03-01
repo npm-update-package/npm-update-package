@@ -18,6 +18,12 @@ export const cliOptions: CLIOption[] = [
     required: true
   },
   {
+    name: 'ignore-packages',
+    description: 'Package names to ignore',
+    type: OptionType.StringArray,
+    required: false
+  },
+  {
     name: 'log-level',
     description: 'Log level to show',
     type: OptionType.String,

@@ -16,6 +16,7 @@ import type {
 } from '../github'
 import type { Logger } from '../logger'
 import type { Ncu } from '../ncu'
+import type { Options } from '../options'
 import type { PackageManager } from '../package-manager'
 import type { FailedResult } from './FailedResult'
 import type { OutdatedPackage } from './OutdatedPackage'
@@ -32,6 +33,7 @@ export class OutdatedPackageProcessor {
   private readonly commitMessageCreator: CommitMessageCreator
   private readonly pullRequestFinder: PullRequestFinder
   private readonly pullRequestCloser: PullRequestCloser
+  private readonly options: Options
 
   constructor ({
     git,
@@ -42,7 +44,8 @@ export class OutdatedPackageProcessor {
     logger,
     commitMessageCreator,
     pullRequestFinder,
-    pullRequestCloser
+    pullRequestCloser,
+    options
   }: {
     git: Git
     ncu: Ncu
@@ -53,6 +56,7 @@ export class OutdatedPackageProcessor {
     commitMessageCreator: CommitMessageCreator
     pullRequestFinder: PullRequestFinder
     pullRequestCloser: PullRequestCloser
+    options: Options
   }) {
     this.git = git
     this.ncu = ncu
@@ -63,12 +67,23 @@ export class OutdatedPackageProcessor {
     this.commitMessageCreator = commitMessageCreator
     this.pullRequestFinder = pullRequestFinder
     this.pullRequestCloser = pullRequestCloser
+    this.options = options
   }
 
   /**
    * Don't run in parallel because it includes file operations.
    */
   async process (outdatedPackage: OutdatedPackage): Promise<Either<FailedResult, SucceededResult>> {
+    const ignoredPackages = this.options.ignorePackages ?? []
+
+    if (ignoredPackages.includes(outdatedPackage.name)) {
+      this.logger.info(`Skip ${outdatedPackage.name} because ignorePackages contains it.`)
+      return right({
+        outdatedPackage,
+        skipped: true
+      })
+    }
+
     const branchName = createBranchName(outdatedPackage)
     this.logger.debug(`branchName=${branchName}`)
 
@@ -85,13 +100,7 @@ export class OutdatedPackageProcessor {
 
     try {
       try {
-        const updatedPackages = await this.ncu.update(outdatedPackage)
-
-        if (updatedPackages.length !== 1) {
-          throw new Error(`Failed to update ${outdatedPackage.name}.`)
-        }
-
-        await this.packageManager.install()
+        await this.updatePackage(outdatedPackage)
       } catch (error) {
         this.logger.error(error)
         return left({
@@ -108,20 +117,13 @@ export class OutdatedPackageProcessor {
 
       await this.git.commit(message)
       await this.git.push(branchName)
-
       const pullRequest = await this.pullRequestCreator.create({
         outdatedPackage,
         branchName
       })
       this.logger.info(`Pull request for ${outdatedPackage.name} has created. ${pullRequest.html_url}`)
 
-      const pullRequests = this.pullRequestFinder.findByPackageName(outdatedPackage.name)
-      this.logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
-
-      await Promise.all(pullRequests.map(async (pullRequest) => {
-        await this.pullRequestCloser.close(pullRequest)
-        this.logger.info(`Pull request for ${outdatedPackage.name} has closed. ${pullRequest.html_url}`)
-      }))
+      await this.closeOldPullRequests(outdatedPackage)
       return right({
         outdatedPackage,
         created: true
@@ -132,5 +134,25 @@ export class OutdatedPackageProcessor {
       await this.git.removeBranch(branchName)
       this.logger.info(`${branchName} branch has removed.`)
     }
+  }
+
+  private async updatePackage (outdatedPackage: OutdatedPackage): Promise<void> {
+    const updatedPackages = await this.ncu.update(outdatedPackage)
+
+    if (updatedPackages.length !== 1) {
+      throw new Error(`Failed to update ${outdatedPackage.name}.`)
+    }
+
+    await this.packageManager.install()
+  }
+
+  private async closeOldPullRequests (outdatedPackage: OutdatedPackage): Promise<void> {
+    const pullRequests = this.pullRequestFinder.findByPackageName(outdatedPackage.name)
+    this.logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
+
+    await Promise.all(pullRequests.map(async (pullRequest) => {
+      await this.pullRequestCloser.close(pullRequest)
+      this.logger.info(`Pull request for ${outdatedPackage.name} has closed. ${pullRequest.html_url}`)
+    }))
   }
 }
