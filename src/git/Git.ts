@@ -17,11 +17,6 @@ export class Git {
     await this.terminal.run('git', 'checkout', '-b', branchName)
   }
 
-  async getConfig (key: string): Promise<string> {
-    const { stdout } = await this.terminal.run('git', 'config', key)
-    return stdout.trim()
-  }
-
   async getCurrentBranch (): Promise<string> {
     const { stdout } = await this.terminal.run('git', 'rev-parse', '--abbrev-ref', 'HEAD')
     return stdout.trim()
