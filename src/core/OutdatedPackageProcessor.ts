@@ -16,6 +16,7 @@ import type {
 } from '../github'
 import type { Logger } from '../logger'
 import type { Ncu } from '../ncu'
+import type { Options } from '../options'
 import type { PackageManager } from '../package-manager'
 import type { FailedResult } from './FailedResult'
 import type { OutdatedPackage } from './OutdatedPackage'
@@ -32,6 +33,7 @@ export class OutdatedPackageProcessor {
   private readonly commitMessageCreator: CommitMessageCreator
   private readonly pullRequestFinder: PullRequestFinder
   private readonly pullRequestCloser: PullRequestCloser
+  private readonly options: Options
 
   constructor ({
     git,
@@ -42,7 +44,8 @@ export class OutdatedPackageProcessor {
     logger,
     commitMessageCreator,
     pullRequestFinder,
-    pullRequestCloser
+    pullRequestCloser,
+    options
   }: {
     git: Git
     ncu: Ncu
@@ -53,6 +56,7 @@ export class OutdatedPackageProcessor {
     commitMessageCreator: CommitMessageCreator
     pullRequestFinder: PullRequestFinder
     pullRequestCloser: PullRequestCloser
+    options: Options
   }) {
     this.git = git
     this.ncu = ncu
@@ -63,12 +67,23 @@ export class OutdatedPackageProcessor {
     this.commitMessageCreator = commitMessageCreator
     this.pullRequestFinder = pullRequestFinder
     this.pullRequestCloser = pullRequestCloser
+    this.options = options
   }
 
   /**
    * Don't run in parallel because it includes file operations.
    */
   async process (outdatedPackage: OutdatedPackage): Promise<Either<FailedResult, SucceededResult>> {
+    const ignoredPackages = this.options.ignorePackages ?? []
+
+    if (ignoredPackages.includes(outdatedPackage.name)) {
+      this.logger.info(`Skip ${outdatedPackage.name} because ignorePackages contains it.`)
+      return right({
+        outdatedPackage,
+        skipped: true
+      })
+    }
+
     const branchName = createBranchName(outdatedPackage)
     this.logger.debug(`branchName=${branchName}`)
 
