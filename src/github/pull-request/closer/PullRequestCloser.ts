@@ -7,14 +7,16 @@ export class PullRequestCloser {
   constructor (private readonly github: GitHub) {}
 
   async close (pullRequest: PullRequest): Promise<void> {
+    const owner = pullRequest.base.repo.owner.login
+    const repo = pullRequest.base.repo.name
     await this.github.closePullRequest({
-      owner: pullRequest.base.repo.owner.login,
-      repo: pullRequest.base.repo.name,
+      owner,
+      repo,
       pullNumber: pullRequest.number
     })
     await this.github.deleteBranch({
-      owner: pullRequest.base.repo.owner.login,
-      repo: pullRequest.base.repo.name,
+      owner,
+      repo,
       branch: pullRequest.head.ref
     })
   }
