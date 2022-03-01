@@ -123,13 +123,7 @@ export class OutdatedPackageProcessor {
       })
       this.logger.info(`Pull request for ${outdatedPackage.name} has created. ${pullRequest.html_url}`)
 
-      const pullRequests = this.pullRequestFinder.findByPackageName(outdatedPackage.name)
-      this.logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
-
-      await Promise.all(pullRequests.map(async (pullRequest) => {
-        await this.pullRequestCloser.close(pullRequest)
-        this.logger.info(`Pull request for ${outdatedPackage.name} has closed. ${pullRequest.html_url}`)
-      }))
+      await this.closeOldPullRequests(outdatedPackage)
       return right({
         outdatedPackage,
         created: true
@@ -150,5 +144,15 @@ export class OutdatedPackageProcessor {
     }
 
     await this.packageManager.install()
+  }
+
+  private async closeOldPullRequests (outdatedPackage: OutdatedPackage): Promise<void> {
+    const pullRequests = this.pullRequestFinder.findByPackageName(outdatedPackage.name)
+    this.logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
+
+    await Promise.all(pullRequests.map(async (pullRequest) => {
+      await this.pullRequestCloser.close(pullRequest)
+      this.logger.info(`Pull request for ${outdatedPackage.name} has closed. ${pullRequest.html_url}`)
+    }))
   }
 }
