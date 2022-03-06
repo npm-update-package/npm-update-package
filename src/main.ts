@@ -159,4 +159,8 @@ export const main = async ({
 - ${createdPackages.length} packages: created (${createdPackages.map(({ name }) => name).join(',')})
 - ${skippedPackages.length} packages: skipped: (${skippedPackages.map(({ name }) => name).join(',')})
 - ${failedPackages.length} packages: failed: (${failedPackages.map(({ name }) => name).join(',')})`)
+
+  if (options.ignorePackages !== undefined) {
+    logger.info(`Ignored ${options.ignorePackages.length} packages: ${options.ignorePackages.join(',')}`)
+  }
 }
