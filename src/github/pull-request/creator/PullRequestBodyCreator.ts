@@ -22,44 +22,30 @@ export class PullRequestBodyCreator {
   }
 
   async create (outdatedPackage: OutdatedPackage): Promise<string> {
-    const gitRepo = await this.extractRepository(outdatedPackage)
+    const sections: string[] = []
     const outdatedPackagesTable = this.createOutdatedPackagesTable(outdatedPackage)
+    sections.push(`This PR updates these packages:\n\n${outdatedPackagesTable}`)
+
+    const gitRepo = await this.extractRepository(outdatedPackage)
+
+    if (gitRepo !== undefined) {
+      const releaseNotesSection = await this.createReleaseNotesSection({
+        outdatedPackage,
+        gitRepo
+      })
+
+      if (releaseNotesSection !== undefined) {
+        sections.push(releaseNotesSection)
+      }
+    }
+
     const metadataSection = this.createMetadataSection(outdatedPackage)
+    sections.push(`---\n${metadataSection}`)
+
     const footer = this.createFooter()
-    const body = `This PR updates these packages:
+    sections.push(`---\n${footer}`)
 
-${outdatedPackagesTable}
-
----
-${metadataSection}
-
----
-${footer}`
-
-    if (gitRepo === undefined) {
-      return body
-    }
-
-    const releaseNotesSection = await this.createReleaseNotesSection({
-      outdatedPackage,
-      gitRepo
-    })
-
-    if (releaseNotesSection === undefined) {
-      return body
-    }
-
-    return `This PR updates these packages:
-
-${outdatedPackagesTable}
-
-${releaseNotesSection}
-
----
-${metadataSection}
-
----
-${footer}`
+    return sections.join('\n\n')
   }
 
   private async extractRepository (outdatedPackage: OutdatedPackage): Promise<GitRepository | undefined> {
