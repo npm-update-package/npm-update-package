@@ -71,6 +71,13 @@ Package manager of your project
   - `yarn`: Yarn
 - default: `npm`
 
+### `--pr-body-notes`
+
+Additional notes for Pull request body
+
+- type: string
+- required: false
+
 ### `--pr-title`
 
 Pull request title template
