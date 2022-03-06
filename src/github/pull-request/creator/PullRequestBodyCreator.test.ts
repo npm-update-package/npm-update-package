@@ -4,6 +4,7 @@ import type { OutdatedPackage } from '../../../core'
 import { readFile } from '../../../file'
 import { GitRepository } from '../../../git'
 import type { ReleasesFetcher } from '../../../github'
+import type { Options } from '../../../options'
 import {
   DependencyType,
   extractRepository,
@@ -43,7 +44,9 @@ describe('PullRequestBodyCreator', () => {
     const releasesFetcher = {
       fetch: releasesFetcherFetchMock
     } as unknown as ReleasesFetcher
+    const options = {} as unknown as Options
     const pullRequestBodyCreator = new PullRequestBodyCreator({
+      options,
       releasesFetcher
     })
 

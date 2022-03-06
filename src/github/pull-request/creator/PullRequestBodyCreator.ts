@@ -3,6 +3,7 @@ import type { OutdatedPackage } from '../../../core'
 import { readFile } from '../../../file'
 import type { GitRepository } from '../../../git'
 import { toJSON } from '../../../json'
+import type { Options } from '../../../options'
 import {
   extractRepository,
   parsePackageJson
@@ -11,13 +12,17 @@ import type { ReleasesFetcher } from '../../releases'
 import { createPullRequestMetadata } from '../metadata'
 
 export class PullRequestBodyCreator {
+  private readonly options: Options
   private readonly releasesFetcher: ReleasesFetcher
 
   constructor ({
+    options,
     releasesFetcher
   }: {
+    options: Options
     releasesFetcher: ReleasesFetcher
   }) {
+    this.options = options
     this.releasesFetcher = releasesFetcher
   }
 

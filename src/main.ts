@@ -103,6 +103,7 @@ export const main = async ({
   })
   const releasesFetcher = new ReleasesFetcher(githubWithoutToken)
   const pullRequestBodyCreator = new PullRequestBodyCreator({
+    options,
     releasesFetcher
   })
   const pullRequestCreator = new PullRequestCreator({
