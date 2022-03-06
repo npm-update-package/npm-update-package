@@ -28,7 +28,7 @@ const Options = intersection([
       literal(PackageManagerName.Npm),
       literal(PackageManagerName.Yarn)
     ]),
-    pullRequestTitle: string
+    prTitle: string
   }),
   partial({
     ignorePackages: array(string),

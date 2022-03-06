@@ -51,7 +51,7 @@ export const cliOptions: CLIOption[] = [
     default: PackageManagerName.Npm
   },
   {
-    name: 'pull-request-title',
+    name: 'pr-title',
     description: 'Pull request title template',
     type: OptionType.String,
     required: false,
