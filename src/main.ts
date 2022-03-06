@@ -126,8 +126,7 @@ export const main = async ({
     logger,
     commitMessageCreator,
     pullRequestFinder,
-    pullRequestCloser,
-    options
+    pullRequestCloser
   })
   const outdatedPackagesProcessor = new OutdatedPackagesProcessor({
     outdatedPackageProcessor,
