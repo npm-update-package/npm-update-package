@@ -40,7 +40,10 @@ export const main = async ({
     githubToken: options.githubToken !== '' ? '***' : ''
   })}`)
 
-  const ncu = new Ncu(logger)
+  const ncu = new Ncu({
+    options,
+    logger
+  })
   const outdatedPackages = await ncu.check()
   logger.debug(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
 

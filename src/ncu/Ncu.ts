@@ -4,6 +4,7 @@ import { isNotUndefined } from 'type-guards'
 import type { OutdatedPackage } from '../core'
 import { readFile } from '../file'
 import type { Logger } from '../logger'
+import type { Options } from '../options'
 import {
   DependencyType,
   parsePackageJson
@@ -16,11 +17,24 @@ import { isNcuResult } from './NcuResult'
 
 // TODO: add test
 export class Ncu {
-  constructor (private readonly logger: Logger) {}
+  private readonly options: Options
+  private readonly logger: Logger
+
+  constructor ({
+    options,
+    logger
+  }: {
+    options: Options
+    logger: Logger
+  }) {
+    this.options = options
+    this.logger = logger
+  }
 
   async check (): Promise<OutdatedPackage[]> {
     return await this.run({
-      jsonUpgraded: true
+      jsonUpgraded: true,
+      reject: this.options.ignorePackages
     })
   }
 
