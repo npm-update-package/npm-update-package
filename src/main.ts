@@ -97,7 +97,7 @@ export const main = async ({
     terminal,
     packageManager: options.packageManager
   })
-  const pullRequestTitleCreator = new PullRequestTitleCreator(options.pullRequestTitle)
+  const pullRequestTitleCreator = new PullRequestTitleCreator(options.prTitle)
   const githubWithoutToken = createGitHub({
     host: 'github.com'
   })

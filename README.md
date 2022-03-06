@@ -71,7 +71,7 @@ Package manager of your project
   - `yarn`: Yarn
 - default: `npm`
 
-### `--pull-request-title`
+### `--pr-title`
 
 Pull request title template
 
