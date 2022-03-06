@@ -40,7 +40,10 @@ export const main = async ({
     githubToken: options.githubToken !== '' ? '***' : ''
   })}`)
 
-  const ncu = new Ncu(logger)
+  const ncu = new Ncu({
+    options,
+    logger
+  })
   const outdatedPackages = await ncu.check()
   logger.debug(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
 
@@ -123,8 +126,7 @@ export const main = async ({
     logger,
     commitMessageCreator,
     pullRequestFinder,
-    pullRequestCloser,
-    options
+    pullRequestCloser
   })
   const outdatedPackagesProcessor = new OutdatedPackagesProcessor({
     outdatedPackageProcessor,
@@ -157,4 +159,8 @@ export const main = async ({
 - ${createdPackages.length} packages: created (${createdPackages.map(({ name }) => name).join(',')})
 - ${skippedPackages.length} packages: skipped: (${skippedPackages.map(({ name }) => name).join(',')})
 - ${failedPackages.length} packages: failed: (${failedPackages.map(({ name }) => name).join(',')})`)
+
+  if (options.ignorePackages !== undefined) {
+    logger.info(`Ignored ${options.ignorePackages.length} packages: ${options.ignorePackages.join(',')}`)
+  }
 }
