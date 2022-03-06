@@ -51,6 +51,12 @@ export const cliOptions: CLIOption[] = [
     default: PackageManagerName.Npm
   },
   {
+    name: 'pr-body-notes',
+    description: 'Additional notes for Pull request body',
+    type: OptionType.String,
+    required: false
+  },
+  {
     name: 'pr-title',
     description: 'Pull request title template',
     type: OptionType.String,
