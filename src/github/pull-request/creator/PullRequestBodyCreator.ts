@@ -30,7 +30,6 @@ export class PullRequestBodyCreator {
     const sections: string[] = []
     const outdatedPackagesTable = this.createOutdatedPackagesTable(outdatedPackage)
     sections.push(`This PR updates these packages:\n\n${outdatedPackagesTable}`)
-
     const gitRepo = await this.extractRepository(outdatedPackage)
 
     if (gitRepo !== undefined) {
@@ -52,10 +51,8 @@ export class PullRequestBodyCreator {
 
     const metadataSection = this.createMetadataSection(outdatedPackage)
     sections.push(`---\n${metadataSection}`)
-
     const footer = this.createFooter()
     sections.push(`---\n${footer}`)
-
     return sections.join('\n\n')
   }
 
