@@ -114,7 +114,6 @@ export class GitHub {
     })
   }
 
-  // TODO: add test
   async fetchBranches ({
     owner,
     repo

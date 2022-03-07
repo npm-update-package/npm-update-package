@@ -1,6 +1,7 @@
 import type { Octokit } from '@octokit/rest'
 import {
   GitHub,
+  type Branch,
   type CreatedPullRequest,
   type Label,
   type Repository
@@ -15,6 +16,7 @@ describe('GitHub', () => {
   const pullsRequestReviewersMock = jest.fn()
   const pullsUpdateMock = jest.fn()
   const reposGetMock = jest.fn()
+  const reposListBranchesMock = jest.fn()
   const octokit = {
     git: {
       deleteRef: gitDeleteRefMock
@@ -30,7 +32,8 @@ describe('GitHub', () => {
       update: pullsUpdateMock
     },
     repos: {
-      get: reposGetMock
+      get: reposGetMock,
+      listBranches: reposListBranchesMock
     }
   } as unknown as Octokit
   const github = new GitHub(octokit)
@@ -44,6 +47,7 @@ describe('GitHub', () => {
     pullsRequestReviewersMock.mockReset()
     pullsUpdateMock.mockReset()
     reposGetMock.mockReset()
+    reposListBranchesMock.mockReset()
   })
 
   describe('addLabels', () => {
@@ -164,7 +168,62 @@ describe('GitHub', () => {
     })
   })
 
-  // TODO: fetchBranches
+  describe('fetchBranches', () => {
+    it('calls octokit.repos.listBranches()', async () => {
+      const expected1 = [
+        {
+          name: 'branch 1'
+        }
+      ] as unknown as Branch[]
+      const expected2 = [
+        {
+          name: 'branch 2'
+        }
+      ] as unknown as Branch[]
+      const expected = [
+        ...expected1,
+        ...expected2
+      ]
+      reposListBranchesMock.mockImplementation(async ({ page }: { page: number }) => {
+        switch (page) {
+          case 1:
+            return await Promise.resolve({ data: expected1 })
+          case 2:
+            return await Promise.resolve({ data: expected2 })
+          default:
+            return await Promise.resolve({ data: [] })
+        }
+      })
+
+      const owner = 'npm-update-package'
+      const repo = 'example'
+      const actual = await github.fetchBranches({
+        owner,
+        repo
+      })
+
+      expect(actual).toEqual(expected)
+      expect(reposListBranchesMock).toBeCalledTimes(3)
+      expect(reposListBranchesMock).toBeCalledWith({
+        owner,
+        repo,
+        per_page: 100,
+        page: 1
+      })
+      expect(reposListBranchesMock).toBeCalledWith({
+        owner,
+        repo,
+        per_page: 100,
+        page: 2
+      })
+      expect(reposListBranchesMock).toBeCalledWith({
+        owner,
+        repo,
+        per_page: 100,
+        page: 3
+      })
+    })
+  })
 
   describe('fetchLabel', () => {
     it('calls octokit.issues.getLabel()', async () => {
