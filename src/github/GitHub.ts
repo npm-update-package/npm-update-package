@@ -185,7 +185,6 @@ export class GitHub {
     return pullRequests
   }
 
-  // TODO: add test
   async fetchReleases ({
     owner,
     repo

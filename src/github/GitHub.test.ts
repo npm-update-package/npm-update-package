@@ -5,6 +5,7 @@ import {
   type CreatedPullRequest,
   type Label,
   type PullRequest,
+  type Release,
   type Repository
 } from './GitHub'
 
@@ -19,6 +20,7 @@ describe('GitHub', () => {
   const pullsUpdateMock = jest.fn()
   const reposGetMock = jest.fn()
   const reposListBranchesMock = jest.fn()
+  const reposListReleasesMock = jest.fn()
   const octokit = {
     git: {
       deleteRef: gitDeleteRefMock
@@ -36,7 +38,8 @@ describe('GitHub', () => {
     },
     repos: {
       get: reposGetMock,
-      listBranches: reposListBranchesMock
+      listBranches: reposListBranchesMock,
+      listReleases: reposListReleasesMock
     }
   } as unknown as Octokit
   const github = new GitHub(octokit)
@@ -52,6 +55,7 @@ describe('GitHub', () => {
     pullsUpdateMock.mockReset()
     reposGetMock.mockReset()
     reposListBranchesMock.mockReset()
+    reposListReleasesMock.mockReset()
   })
 
   describe('addLabels', () => {
@@ -314,7 +318,62 @@ describe('GitHub', () => {
     })
   })
 
-  // TODO: fetchReleases
+  describe('fetchReleases', () => {
+    it('calls octokit.repos.listReleases()', async () => {
+      const expected1 = [
+        {
+          id: 1
+        }
+      ] as unknown as Release[]
+      const expected2 = [
+        {
+          id: 2
+        }
+      ] as unknown as Release[]
+      const expected = [
+        ...expected1,
+        ...expected2
+      ]
+      reposListReleasesMock.mockImplementation(async ({ page }: { page: number }) => {
+        switch (page) {
+          case 1:
+            return await Promise.resolve({ data: expected1 })
+          case 2:
+            return await Promise.resolve({ data: expected2 })
+          default:
+            return await Promise.resolve({ data: [] })
+        }
+      })
+
+      const owner = 'npm-update-package'
+      const repo = 'example'
+      const actual = await github.fetchReleases({
+        owner,
+        repo
+      })
+
+      expect(actual).toEqual(expected)
+      expect(reposListReleasesMock).toBeCalledTimes(3)
+      expect(reposListReleasesMock).toBeCalledWith({
+        owner,
+        repo,
+        per_page: 100,
+        page: 1
+      })
+      expect(reposListReleasesMock).toBeCalledWith({
+        owner,
+        repo,
+        per_page: 100,
+        page: 2
+      })
+      expect(reposListReleasesMock).toBeCalledWith({
+        owner,
+        repo,
+        per_page: 100,
+        page: 3
+      })
+    })
+  })
 
   describe('fetchRepository', () => {
     it('calls octokit.repos.get()', async () => {
