@@ -53,8 +53,6 @@ describe('Git', () => {
     })
   })
 
-  // TODO: getRepository
-
   describe('push', () => {
     it('calls `git push origin <branchName>`', async () => {
       const branchName = 'test-branch-name'

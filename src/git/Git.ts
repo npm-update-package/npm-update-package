@@ -1,5 +1,4 @@
 import type { Terminal } from '../terminal'
-import { GitRepository } from './GitRepository'
 
 export class Git {
   constructor (private readonly terminal: Terminal) {}
@@ -19,12 +18,6 @@ export class Git {
   async getRemoteUrl (): Promise<string> {
     const { stdout } = await this.terminal.run('git', 'remote', 'get-url', '--push', 'origin')
     return stdout.trim()
-  }
-
-  // TODO: add test
-  async getRepository (): Promise<GitRepository> {
-    const url = await this.getRemoteUrl()
-    return GitRepository.of(url)
   }
 
   async push (branchName: string): Promise<void> {
