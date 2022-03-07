@@ -4,6 +4,7 @@ import {
   type Branch,
   type CreatedPullRequest,
   type Label,
+  type PullRequest,
   type Repository
 } from './GitHub'
 
@@ -13,6 +14,7 @@ describe('GitHub', () => {
   const issuesCreateLabelMock = jest.fn()
   const issuesGetLabelMock = jest.fn()
   const pullsCreateMock = jest.fn()
+  const pullsListMock = jest.fn()
   const pullsRequestReviewersMock = jest.fn()
   const pullsUpdateMock = jest.fn()
   const reposGetMock = jest.fn()
@@ -28,6 +30,7 @@ describe('GitHub', () => {
     },
     pulls: {
       create: pullsCreateMock,
+      list: pullsListMock,
       requestReviewers: pullsRequestReviewersMock,
       update: pullsUpdateMock
     },
@@ -44,6 +47,7 @@ describe('GitHub', () => {
     issuesCreateLabelMock.mockReset()
     issuesGetLabelMock.mockReset()
     pullsCreateMock.mockReset()
+    pullsListMock.mockReset()
     pullsRequestReviewersMock.mockReset()
     pullsUpdateMock.mockReset()
     reposGetMock.mockReset()
@@ -253,6 +257,62 @@ describe('GitHub', () => {
   })
 
   // TODO: fetchPullRequests
+  describe('fetchPullRequests', () => {
+    it('calls octokit.pulls.list()', async () => {
+      const expected1 = [
+        {
+          id: 1
+        }
+      ] as unknown as PullRequest[]
+      const expected2 = [
+        {
+          id: 2
+        }
+      ] as unknown as PullRequest[]
+      const expected = [
+        ...expected1,
+        ...expected2
+      ]
+      pullsListMock.mockImplementation(async ({ page }: { page: number }) => {
+        switch (page) {
+          case 1:
+            return await Promise.resolve({ data: expected1 })
+          case 2:
+            return await Promise.resolve({ data: expected2 })
+          default:
+            return await Promise.resolve({ data: [] })
+        }
+      })
+
+      const owner = 'npm-update-package'
+      const repo = 'example'
+      const actual = await github.fetchPullRequests({
+        owner,
+        repo
+      })
+
+      expect(actual).toEqual(expected)
+      expect(pullsListMock).toBeCalledTimes(3)
+      expect(pullsListMock).toBeCalledWith({
+        owner,
+        repo,
+        per_page: 100,
+        page: 1
+      })
+      expect(pullsListMock).toBeCalledWith({
+        owner,
+        repo,
+        per_page: 100,
+        page: 2
+      })
+      expect(pullsListMock).toBeCalledWith({
+        owner,
+        repo,
+        per_page: 100,
+        page: 3
+      })
+    })
+  })
 
   // TODO: fetchReleases
 

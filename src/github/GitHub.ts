@@ -158,7 +158,6 @@ export class GitHub {
     return data
   }
 
-  // TODO: add test
   async fetchPullRequests ({
     owner,
     repo
