@@ -1,19 +1,19 @@
-import { Terminal } from '../terminal'
+import type { Terminal } from '../terminal'
 import { Npm } from './Npm'
 
 describe('Npm', () => {
+  const terminalRunMock = jest.fn()
+  const terminal = {
+    run: terminalRunMock
+  } as unknown as Terminal
+  const npm = new Npm(terminal)
+
+  afterEach(() => {
+    terminalRunMock.mockReset()
+  })
+
   describe('install', () => {
-    const terminalRunMock = jest.fn()
-    const terminal = {
-      run: terminalRunMock
-    } as unknown as Terminal
-
-    afterEach(() => {
-      terminalRunMock.mockReset()
-    })
-
-    it('calls terminal.run()', async () => {
-      const npm = new Npm(terminal)
+    it('calls `npm install', async () => {
       await npm.install()
 
       expect(terminalRunMock).toBeCalledWith('npm', 'install')
