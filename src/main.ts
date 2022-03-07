@@ -8,7 +8,8 @@ import {
 } from './core'
 import {
   CommitMessageCreator,
-  Git
+  Git,
+  GitRepository
 } from './git'
 import {
   BranchFinder,
@@ -56,7 +57,8 @@ export const main = async ({
 
   const terminal = new Terminal()
   const git = new Git(terminal)
-  const gitRepo = await git.getRepository()
+  const remoteUrl = await git.getRemoteUrl()
+  const gitRepo = GitRepository.of(remoteUrl)
   logger.debug(`gitRepo=${JSON.stringify(gitRepo)}`)
 
   const github = createGitHub({
