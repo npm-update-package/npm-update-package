@@ -1,7 +1,6 @@
 import type { Terminal } from '../terminal'
 import type { PackageManager } from './PackageManager'
 
-// TODO: add test
 export class Npm implements PackageManager {
   readonly packageFile = 'package.json'
   readonly lockFile = 'package-lock.json'
