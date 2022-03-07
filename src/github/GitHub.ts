@@ -11,7 +11,6 @@ export type PullRequest = ValuesType<RestEndpointMethodTypes['pulls']['list']['r
 export type Release = ValuesType<RestEndpointMethodTypes['repos']['listReleases']['response']['data']>
 export type Repository = RestEndpointMethodTypes['repos']['get']['response']['data']
 
-// TODO: add test
 export class GitHub {
   constructor (private readonly octokit: Octokit) {}
 
@@ -115,6 +114,7 @@ export class GitHub {
     })
   }
 
+  // TODO: add test
   async fetchBranches ({
     owner,
     repo
@@ -159,6 +159,7 @@ export class GitHub {
     return data
   }
 
+  // TODO: add test
   async fetchPullRequests ({
     owner,
     repo
@@ -186,6 +187,7 @@ export class GitHub {
     return pullRequests
   }
 
+  // TODO: add test
   async fetchReleases ({
     owner,
     repo
