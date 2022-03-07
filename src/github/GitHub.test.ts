@@ -119,7 +119,9 @@ describe('GitHub', () => {
 
   describe('createPullRequest', () => {
     it('calls octokit.pulls.create()', async () => {
-      const expected = {} as unknown as CreatedPullRequest
+      const expected = {
+        id: 1
+      } as unknown as CreatedPullRequest
       pullsCreateMock.mockResolvedValue({ data: expected })
 
       const owner = 'npm-update-package'
@@ -227,7 +229,9 @@ describe('GitHub', () => {
 
   describe('fetchLabel', () => {
     it('calls octokit.issues.getLabel()', async () => {
-      const expected = {} as unknown as Label
+      const expected = {
+        id: 1
+      } as unknown as Label
       issuesGetLabelMock.mockResolvedValue({ data: expected })
 
       const owner = 'npm-update-package'
@@ -254,7 +258,9 @@ describe('GitHub', () => {
 
   describe('fetchRepository', () => {
     it('calls octokit.repos.get()', async () => {
-      const expected = {} as unknown as Repository
+      const expected = {
+        id: 1
+      } as unknown as Repository
       reposGetMock.mockResolvedValue({ data: expected })
 
       const owner = 'npm-update-package'
