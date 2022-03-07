@@ -11,7 +11,6 @@ export type PullRequest = ValuesType<RestEndpointMethodTypes['pulls']['list']['r
 export type Release = ValuesType<RestEndpointMethodTypes['repos']['listReleases']['response']['data']>
 export type Repository = RestEndpointMethodTypes['repos']['get']['response']['data']
 
-// TODO: add test
 export class GitHub {
   constructor (private readonly octokit: Octokit) {}
 
