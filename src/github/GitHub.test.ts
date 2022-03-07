@@ -260,7 +260,6 @@ describe('GitHub', () => {
     })
   })
 
-  // TODO: fetchPullRequests
   describe('fetchPullRequests', () => {
     it('calls octokit.pulls.list()', async () => {
       const expected1 = [
