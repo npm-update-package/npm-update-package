@@ -46,6 +46,7 @@ describe('Git', () => {
     it('calls `git remote get-url --push origin`', async () => {
       const expected = 'https://github.com/npm-update-package/example.git'
       terminalRunMock.mockResolvedValue({ stdout: expected })
+
       const actual = await git.getRemoteUrl()
 
       expect(actual).toBe(expected)
