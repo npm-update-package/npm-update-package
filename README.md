@@ -294,6 +294,6 @@ end
 
 npm-update-package can be used in environments where Renovate cannot be used for some reason.
 
-### Conflicts have occurred in the pull request. What should I do?
+### What should I do if conflicts occurred in the pull request?
 
-If conflicts have occurred in the pull request, close it and run npm-update-package again.
+If you have difficulty resolving it manually, close the pull request and run npm-update-package again.
