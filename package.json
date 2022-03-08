@@ -1,6 +1,6 @@
 {
   "name": "npm-update-package",
-  "version": "0.45.3",
+  "version": "0.45.4",
   "description": "CLI tool for creating pull requests to update npm packages",
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
