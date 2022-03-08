@@ -3,13 +3,15 @@ import { parsePackageJson } from './parsePackageJson'
 
 describe('parsePackageJson', () => {
   it('returns parsed object if json is valid', () => {
-    const pkg: PackageMetadata = {
+    const expected: PackageMetadata = {
       name: '@npm-update-package/example',
       version: '1.0.0'
     }
-    const json = JSON.stringify(pkg)
+    const json = JSON.stringify(expected)
 
-    expect(parsePackageJson(json)).toEqual(pkg)
+    const actual = parsePackageJson(json)
+
+    expect(actual).toEqual(expected)
   })
 
   it('throws error if json is invalid', () => {
