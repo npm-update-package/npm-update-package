@@ -2,7 +2,6 @@ import { Option } from 'commander'
 import type { CLIOption } from './CLIOption'
 import { OptionType } from './OptionType'
 
-// TODO: add test
 export const toCommanderOption = (cliOption: CLIOption): Option => {
   const argument = createArgumentString(cliOption)
   const option = new Option(`--${cliOption.name} ${argument}`, cliOption.description)
