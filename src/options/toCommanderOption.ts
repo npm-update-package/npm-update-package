@@ -19,10 +19,8 @@ export const toCommanderOption = (cliOption: CLIOption): Option => {
 }
 
 const createArgumentString = (cliOption: CLIOption): string => {
-  const prefix = cliOption.required ? '<' : '['
-  const suffix = cliOption.required ? '>' : ']'
   const name = createArgumentNameString(cliOption.type)
-  return `${prefix}${name}${suffix}`
+  return cliOption.required ? `<${name}>` : `[${name}]`
 }
 
 const createArgumentNameString = (optionType: OptionType): string => {
