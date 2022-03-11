@@ -302,7 +302,7 @@ describe('GitHub', () => {
     })
   })
 
-  // TODO: fetchReleaseByTagName
+  // TODO: fetchReleaseByTag
 
   describe('fetchReleases', () => {
     it('calls octokit.repos.listReleases()', async () => {
