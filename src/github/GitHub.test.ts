@@ -1,4 +1,5 @@
 import type { Octokit } from '@octokit/rest'
+import { range } from 'lodash'
 import {
   GitHub,
   type Branch,
@@ -180,28 +181,30 @@ describe('GitHub', () => {
 
   describe('fetchBranches', () => {
     it('calls octokit.repos.listBranches()', async () => {
-      const expected1 = [
-        {
-          name: 'branch 1'
-        }
-      ] as unknown as Branch[]
-      const expected2 = [
-        {
-          name: 'branch 2'
-        }
-      ] as unknown as Branch[]
-      const expected = [
-        ...expected1,
-        ...expected2
-      ]
+      const createBranches = (start: number, end: number): Branch[] => {
+        return range(start, end).map(num => ({
+          name: `branch ${num}`
+        } as unknown as Branch))
+      }
+      const branchesByPage = new Map([
+        [1, createBranches(1, 101)],
+        [2, createBranches(101, 201)],
+        [3, createBranches(201, 301)],
+        [4, createBranches(301, 401)],
+        [5, createBranches(401, 501)],
+        [6, createBranches(501, 601)],
+        [7, createBranches(601, 701)],
+        [8, createBranches(701, 801)],
+        [9, createBranches(801, 901)],
+        [10, []]
+      ])
       reposListBranchesMock.mockImplementation(async ({ page }: { page: number }) => {
-        switch (page) {
-          case 1:
-            return await Promise.resolve({ data: expected1 })
-          case 2:
-            return await Promise.resolve({ data: expected2 })
-          default:
-            return await Promise.resolve({ data: [] })
+        const branches = branchesByPage.get(page)
+
+        if (branches !== undefined) {
+          return await Promise.resolve({ data: branches })
+        } else {
+          return await Promise.reject(new Error())
         }
       })
 
@@ -212,25 +215,16 @@ describe('GitHub', () => {
         repo
       })
 
-      expect(actual).toEqual(expected)
-      expect(reposListBranchesMock).toBeCalledTimes(3)
-      expect(reposListBranchesMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 1
-      })
-      expect(reposListBranchesMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 2
-      })
-      expect(reposListBranchesMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 3
+      expect.assertions(2 + 10)
+      expect(actual).toEqual(Array.from(branchesByPage.values()).flat())
+      expect(reposListBranchesMock).toBeCalledTimes(10)
+      Array.from(branchesByPage.keys()).forEach(page => {
+        expect(reposListBranchesMock).toBeCalledWith({
+          owner,
+          repo,
+          per_page: 100,
+          page
+        })
       })
     })
   })

@@ -2,6 +2,7 @@ import type {
   Octokit,
   RestEndpointMethodTypes
 } from '@octokit/rest'
+import { range } from 'lodash'
 import type { ValuesType } from 'utility-types'
 
 export type Branch = ValuesType<RestEndpointMethodTypes['repos']['listBranches']['response']['data']>
@@ -123,7 +124,7 @@ export class GitHub {
   }): Promise<Branch[]> {
     const branches: Branch[] = []
 
-    for (let page = 1; ;page++) {
+    for (const page of range(1, 11)) {
       const { data } = await this.octokit.repos.listBranches({
         owner,
         repo,
