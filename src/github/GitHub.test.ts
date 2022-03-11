@@ -1,4 +1,5 @@
 import type { Octokit } from '@octokit/rest'
+import { range } from 'lodash'
 import {
   GitHub,
   type Branch,
@@ -180,28 +181,30 @@ describe('GitHub', () => {
 
   describe('fetchBranches', () => {
     it('calls octokit.repos.listBranches()', async () => {
-      const expected1 = [
-        {
-          name: 'branch 1'
-        }
-      ] as unknown as Branch[]
-      const expected2 = [
-        {
-          name: 'branch 2'
-        }
-      ] as unknown as Branch[]
-      const expected = [
-        ...expected1,
-        ...expected2
-      ]
+      const createBranches = (start: number, end: number): Branch[] => {
+        return range(start, end).map(num => ({
+          name: `branch ${num}`
+        } as unknown as Branch))
+      }
+      const branchesByPage = new Map([
+        [1, createBranches(1, 101)],
+        [2, createBranches(101, 201)],
+        [3, createBranches(201, 301)],
+        [4, createBranches(301, 401)],
+        [5, createBranches(401, 501)],
+        [6, createBranches(501, 601)],
+        [7, createBranches(601, 701)],
+        [8, createBranches(701, 801)],
+        [9, createBranches(801, 901)],
+        [10, []]
+      ])
       reposListBranchesMock.mockImplementation(async ({ page }: { page: number }) => {
-        switch (page) {
-          case 1:
-            return await Promise.resolve({ data: expected1 })
-          case 2:
-            return await Promise.resolve({ data: expected2 })
-          default:
-            return await Promise.resolve({ data: [] })
+        const branches = branchesByPage.get(page)
+
+        if (branches !== undefined) {
+          return await Promise.resolve({ data: branches })
+        } else {
+          return await Promise.reject(new Error())
         }
       })
 
@@ -212,25 +215,16 @@ describe('GitHub', () => {
         repo
       })
 
-      expect(actual).toEqual(expected)
-      expect(reposListBranchesMock).toBeCalledTimes(3)
-      expect(reposListBranchesMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 1
-      })
-      expect(reposListBranchesMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 2
-      })
-      expect(reposListBranchesMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 3
+      expect.assertions(2 + 10)
+      expect(actual).toEqual(Array.from(branchesByPage.values()).flat())
+      expect(reposListBranchesMock).toBeCalledTimes(10)
+      Array.from(branchesByPage.keys()).forEach(page => {
+        expect(reposListBranchesMock).toBeCalledWith({
+          owner,
+          repo,
+          per_page: 100,
+          page
+        })
       })
     })
   })
@@ -262,28 +256,28 @@ describe('GitHub', () => {
 
   describe('fetchPullRequests', () => {
     it('calls octokit.pulls.list()', async () => {
-      const expected1 = [
-        {
-          id: 1
-        }
-      ] as unknown as PullRequest[]
-      const expected2 = [
-        {
-          id: 2
-        }
-      ] as unknown as PullRequest[]
-      const expected = [
-        ...expected1,
-        ...expected2
-      ]
+      const createPullRequests = (start: number, end: number): PullRequest[] => {
+        return range(start, end).map(id => ({ id } as unknown as PullRequest))
+      }
+      const pullRequestsByPage = new Map([
+        [1, createPullRequests(1, 101)],
+        [2, createPullRequests(101, 201)],
+        [3, createPullRequests(201, 301)],
+        [4, createPullRequests(301, 401)],
+        [5, createPullRequests(401, 501)],
+        [6, createPullRequests(501, 601)],
+        [7, createPullRequests(601, 701)],
+        [8, createPullRequests(701, 801)],
+        [9, createPullRequests(801, 901)],
+        [10, []]
+      ])
       pullsListMock.mockImplementation(async ({ page }: { page: number }) => {
-        switch (page) {
-          case 1:
-            return await Promise.resolve({ data: expected1 })
-          case 2:
-            return await Promise.resolve({ data: expected2 })
-          default:
-            return await Promise.resolve({ data: [] })
+        const pullRequests = pullRequestsByPage.get(page)
+
+        if (pullRequests !== undefined) {
+          return await Promise.resolve({ data: pullRequests })
+        } else {
+          return await Promise.reject(new Error())
         }
       })
 
@@ -294,53 +288,44 @@ describe('GitHub', () => {
         repo
       })
 
-      expect(actual).toEqual(expected)
-      expect(pullsListMock).toBeCalledTimes(3)
-      expect(pullsListMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 1
-      })
-      expect(pullsListMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 2
-      })
-      expect(pullsListMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 3
+      expect.assertions(2 + 10)
+      expect(actual).toEqual(Array.from(pullRequestsByPage.values()).flat())
+      expect(pullsListMock).toBeCalledTimes(10)
+      Array.from(pullRequestsByPage.keys()).forEach(page => {
+        expect(pullsListMock).toBeCalledWith({
+          owner,
+          repo,
+          per_page: 100,
+          page
+        })
       })
     })
   })
 
   describe('fetchReleases', () => {
     it('calls octokit.repos.listReleases()', async () => {
-      const expected1 = [
-        {
-          id: 1
-        }
-      ] as unknown as Release[]
-      const expected2 = [
-        {
-          id: 2
-        }
-      ] as unknown as Release[]
-      const expected = [
-        ...expected1,
-        ...expected2
-      ]
+      const createRelease = (start: number, end: number): Release[] => {
+        return range(start, end).map(id => ({ id } as unknown as Release))
+      }
+      const releasesByPage = new Map([
+        [1, createRelease(1, 101)],
+        [2, createRelease(101, 201)],
+        [3, createRelease(201, 301)],
+        [4, createRelease(301, 401)],
+        [5, createRelease(401, 501)],
+        [6, createRelease(501, 601)],
+        [7, createRelease(601, 701)],
+        [8, createRelease(701, 801)],
+        [9, createRelease(801, 901)],
+        [10, []]
+      ])
       reposListReleasesMock.mockImplementation(async ({ page }: { page: number }) => {
-        switch (page) {
-          case 1:
-            return await Promise.resolve({ data: expected1 })
-          case 2:
-            return await Promise.resolve({ data: expected2 })
-          default:
-            return await Promise.resolve({ data: [] })
+        const releases = releasesByPage.get(page)
+
+        if (releases !== undefined) {
+          return await Promise.resolve({ data: releases })
+        } else {
+          return await Promise.reject(new Error())
         }
       })
 
@@ -351,25 +336,16 @@ describe('GitHub', () => {
         repo
       })
 
-      expect(actual).toEqual(expected)
-      expect(reposListReleasesMock).toBeCalledTimes(3)
-      expect(reposListReleasesMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 1
-      })
-      expect(reposListReleasesMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 2
-      })
-      expect(reposListReleasesMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 3
+      expect.assertions(2 + 10)
+      expect(actual).toEqual(Array.from(releasesByPage.values()).flat())
+      expect(reposListReleasesMock).toBeCalledTimes(10)
+      Array.from(releasesByPage.keys()).forEach(page => {
+        expect(reposListReleasesMock).toBeCalledWith({
+          owner,
+          repo,
+          per_page: 100,
+          page
+        })
       })
     })
   })
