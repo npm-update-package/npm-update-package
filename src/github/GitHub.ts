@@ -168,7 +168,7 @@ export class GitHub {
   }): Promise<PullRequest[]> {
     const pullRequests: PullRequest[] = []
 
-    for (let page = 1; ;page++) {
+    for (const page of range(1, 11)) {
       const { data } = await this.octokit.pulls.list({
         owner,
         repo,

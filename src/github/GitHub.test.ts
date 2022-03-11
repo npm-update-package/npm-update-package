@@ -256,28 +256,28 @@ describe('GitHub', () => {
 
   describe('fetchPullRequests', () => {
     it('calls octokit.pulls.list()', async () => {
-      const expected1 = [
-        {
-          id: 1
-        }
-      ] as unknown as PullRequest[]
-      const expected2 = [
-        {
-          id: 2
-        }
-      ] as unknown as PullRequest[]
-      const expected = [
-        ...expected1,
-        ...expected2
-      ]
+      const createPullRequests = (start: number, end: number): PullRequest[] => {
+        return range(start, end).map(id => ({ id } as unknown as PullRequest))
+      }
+      const pullRequestsByPage = new Map([
+        [1, createPullRequests(1, 101)],
+        [2, createPullRequests(101, 201)],
+        [3, createPullRequests(201, 301)],
+        [4, createPullRequests(301, 401)],
+        [5, createPullRequests(401, 501)],
+        [6, createPullRequests(501, 601)],
+        [7, createPullRequests(601, 701)],
+        [8, createPullRequests(701, 801)],
+        [9, createPullRequests(801, 901)],
+        [10, []]
+      ])
       pullsListMock.mockImplementation(async ({ page }: { page: number }) => {
-        switch (page) {
-          case 1:
-            return await Promise.resolve({ data: expected1 })
-          case 2:
-            return await Promise.resolve({ data: expected2 })
-          default:
-            return await Promise.resolve({ data: [] })
+        const pullRequests = pullRequestsByPage.get(page)
+
+        if (pullRequests !== undefined) {
+          return await Promise.resolve({ data: pullRequests })
+        } else {
+          return await Promise.reject(new Error())
         }
       })
 
@@ -288,25 +288,16 @@ describe('GitHub', () => {
         repo
       })
 
-      expect(actual).toEqual(expected)
-      expect(pullsListMock).toBeCalledTimes(3)
-      expect(pullsListMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 1
-      })
-      expect(pullsListMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 2
-      })
-      expect(pullsListMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 3
+      expect.assertions(2 + 10)
+      expect(actual).toEqual(Array.from(pullRequestsByPage.values()).flat())
+      expect(pullsListMock).toBeCalledTimes(10)
+      Array.from(pullRequestsByPage.keys()).forEach(page => {
+        expect(pullsListMock).toBeCalledWith({
+          owner,
+          repo,
+          per_page: 100,
+          page
+        })
       })
     })
   })
