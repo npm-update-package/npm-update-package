@@ -302,6 +302,8 @@ describe('GitHub', () => {
     })
   })
 
+  // TODO: fetchReleaseByTagName
+
   describe('fetchReleases', () => {
     it('calls octokit.repos.listReleases()', async () => {
       const createRelease = (start: number, end: number): Release[] => {

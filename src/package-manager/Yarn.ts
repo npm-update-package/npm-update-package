@@ -7,6 +7,8 @@ export class Yarn implements PackageManager {
 
   constructor (private readonly terminal: Terminal) {}
 
+  // TODO: getVersions
+
   /**
    * @see https://classic.yarnpkg.com/en/docs/cli/install
    */

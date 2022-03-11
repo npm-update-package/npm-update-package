@@ -186,6 +186,8 @@ export class GitHub {
     return pullRequests
   }
 
+  // TODO: fetchReleaseByTagName
+
   async fetchReleases ({
     owner,
     repo
