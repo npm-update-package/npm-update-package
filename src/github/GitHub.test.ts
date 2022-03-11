@@ -304,28 +304,28 @@ describe('GitHub', () => {
 
   describe('fetchReleases', () => {
     it('calls octokit.repos.listReleases()', async () => {
-      const expected1 = [
-        {
-          id: 1
-        }
-      ] as unknown as Release[]
-      const expected2 = [
-        {
-          id: 2
-        }
-      ] as unknown as Release[]
-      const expected = [
-        ...expected1,
-        ...expected2
-      ]
+      const createRelease = (start: number, end: number): Release[] => {
+        return range(start, end).map(id => ({ id } as unknown as Release))
+      }
+      const releasesByPage = new Map([
+        [1, createRelease(1, 101)],
+        [2, createRelease(101, 201)],
+        [3, createRelease(201, 301)],
+        [4, createRelease(301, 401)],
+        [5, createRelease(401, 501)],
+        [6, createRelease(501, 601)],
+        [7, createRelease(601, 701)],
+        [8, createRelease(701, 801)],
+        [9, createRelease(801, 901)],
+        [10, []]
+      ])
       reposListReleasesMock.mockImplementation(async ({ page }: { page: number }) => {
-        switch (page) {
-          case 1:
-            return await Promise.resolve({ data: expected1 })
-          case 2:
-            return await Promise.resolve({ data: expected2 })
-          default:
-            return await Promise.resolve({ data: [] })
+        const releases = releasesByPage.get(page)
+
+        if (releases !== undefined) {
+          return await Promise.resolve({ data: releases })
+        } else {
+          return await Promise.reject(new Error())
         }
       })
 
@@ -336,25 +336,16 @@ describe('GitHub', () => {
         repo
       })
 
-      expect(actual).toEqual(expected)
-      expect(reposListReleasesMock).toBeCalledTimes(3)
-      expect(reposListReleasesMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 1
-      })
-      expect(reposListReleasesMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 2
-      })
-      expect(reposListReleasesMock).toBeCalledWith({
-        owner,
-        repo,
-        per_page: 100,
-        page: 3
+      expect.assertions(2 + 10)
+      expect(actual).toEqual(Array.from(releasesByPage.values()).flat())
+      expect(reposListReleasesMock).toBeCalledTimes(10)
+      Array.from(releasesByPage.keys()).forEach(page => {
+        expect(reposListReleasesMock).toBeCalledWith({
+          owner,
+          repo,
+          per_page: 100,
+          page
+        })
       })
     })
   })

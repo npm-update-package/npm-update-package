@@ -195,7 +195,7 @@ export class GitHub {
   }): Promise<Release[]> {
     const releases: Release[] = []
 
-    for (let page = 1; ;page++) {
+    for (const page of range(1, 11)) {
       const { data } = await this.octokit.repos.listReleases({
         owner,
         repo,
