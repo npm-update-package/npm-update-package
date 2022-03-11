@@ -12,6 +12,8 @@ describe('Yarn', () => {
     terminalRunMock.mockReset()
   })
 
+  // TODO: getVersions
+
   describe('install', () => {
     it('calls `yarn install`', async () => {
       await yarn.install()

@@ -12,6 +12,8 @@ describe('Npm', () => {
     terminalRunMock.mockReset()
   })
 
+  // TODO: getVersions
+
   describe('install', () => {
     it('calls `npm install', async () => {
       await npm.install()
