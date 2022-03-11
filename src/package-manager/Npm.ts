@@ -1,4 +1,3 @@
-import { SemVer } from '../semver'
 import type { Terminal } from '../terminal'
 import type { PackageManager } from './PackageManager'
 import { isVersions } from './Versions'
@@ -9,7 +8,7 @@ export class Npm implements PackageManager {
 
   constructor (private readonly terminal: Terminal) {}
 
-  async getVersions (packageName: string): Promise<SemVer[]> {
+  async getVersions (packageName: string): Promise<string[]> {
     const { stdout } = await this.terminal.run('npm', 'info', packageName, 'versions', '--json')
     const versions: unknown = JSON.parse(stdout)
 
@@ -17,7 +16,7 @@ export class Npm implements PackageManager {
       throw new Error(`Failed to parse versions. versions=${JSON.stringify(versions)}`)
     }
 
-    return versions.map(version => SemVer.of(version))
+    return versions
   }
 
   /**

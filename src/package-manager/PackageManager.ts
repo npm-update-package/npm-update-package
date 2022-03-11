@@ -1,8 +1,6 @@
-import type { SemVer } from '../semver'
-
 export interface PackageManager {
   packageFile: string
   lockFile: string
-  getVersions: (packageName: string) => Promise<SemVer[]>
+  getVersions: (packageName: string) => Promise<string[]>
   install: () => Promise<void>
 }
