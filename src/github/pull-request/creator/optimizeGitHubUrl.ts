@@ -1,7 +1,7 @@
 import { URL } from 'url'
 
 // TODO: Add test
-export const optimizeUrl = (url: string): string => {
+export const optimizeGitHubUrl = (url: string): string => {
   const newUrl = new URL(url)
 
   // NOTE: Prevent linking to other repositories.

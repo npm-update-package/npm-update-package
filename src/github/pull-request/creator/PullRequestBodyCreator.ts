@@ -10,7 +10,7 @@ import {
 } from '../../../package-json'
 import type { ReleasesFetcher } from '../../releases'
 import { createPullRequestMetadata } from '../metadata'
-import { optimizeUrl } from './optimizeUrl'
+import { optimizeGitHubUrl } from './optimizeGitHubUrl'
 
 export class PullRequestBodyCreator {
   private readonly options: Options
@@ -106,7 +106,7 @@ ${this.options.prBodyNotes}`
     }
 
     const items = releases.map(({ tag, url }) => {
-      const optimizedUrl = optimizeUrl(url)
+      const optimizedUrl = optimizeGitHubUrl(url)
       return `- [${tag}](${optimizedUrl})`
     })
     return `## Release notes
