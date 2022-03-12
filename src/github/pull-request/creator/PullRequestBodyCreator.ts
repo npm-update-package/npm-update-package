@@ -1,4 +1,3 @@
-import { URL } from 'url'
 import app from '../../../../package.json'
 import type { OutdatedPackage } from '../../../core'
 import { readFile } from '../../../file'
@@ -107,8 +106,8 @@ ${this.options.prBodyNotes}`
     }
 
     const items = releases.map(({ tag, url }) => {
-      const optimizedUrl = optimizeUrl(new URL(url))
-      return `- [${tag}](${optimizedUrl.toString()})`
+      const optimizedUrl = optimizeUrl(url)
+      return `- [${tag}](${optimizedUrl})`
     })
     return `## Release notes
 
