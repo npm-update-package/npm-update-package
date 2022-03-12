@@ -1,3 +1,4 @@
+import { URL } from 'url'
 import app from '../../../../package.json'
 import type { OutdatedPackage } from '../../../core'
 import { readFile } from '../../../file'
@@ -10,6 +11,7 @@ import {
 } from '../../../package-json'
 import type { ReleasesFetcher } from '../../releases'
 import { createPullRequestMetadata } from '../metadata'
+import { optimizeUrl } from './optimizeUrl'
 
 export class PullRequestBodyCreator {
   private readonly options: Options
@@ -104,7 +106,10 @@ ${this.options.prBodyNotes}`
       return undefined
     }
 
-    const items = releases.map(({ tag, url }) => `- [${tag}](${url})`)
+    const items = releases.map(({ tag, url }) => {
+      const optimizedUrl = optimizeUrl(new URL(url))
+      return `- [${tag}](${optimizedUrl.toString()})`
+    })
     return `## Release notes
 
 ${items.join('\n')}`
