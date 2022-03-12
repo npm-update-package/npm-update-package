@@ -184,7 +184,7 @@ User names to request reviews.
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --reviewers octocat npm-update-package-bot
+  --reviewers npm-update-package npm-update-package-bot
 ```
 
 ## GitHub token
