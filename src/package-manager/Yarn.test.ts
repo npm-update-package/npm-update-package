@@ -12,7 +12,31 @@ describe('Yarn', () => {
     terminalRunMock.mockReset()
   })
 
-  // TODO: getVersions
+  describe('getVersions', () => {
+    describe('calls `yarn info <package-name> versions --json', () => {
+      const packageName = '@npm-update-package/example'
+
+      it('returns versions if stdout is valid', async () => {
+        const expected = [
+          '1.0.0',
+          '2.0.0'
+        ]
+        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify(expected) })
+
+        const actual = await yarn.getVersions(packageName)
+
+        expect(actual).toEqual(expected)
+        expect(terminalRunMock).toBeCalledWith('yarn', 'info', packageName, 'versions', '--json')
+      })
+
+      it('throws Error if stdout is invalid', async () => {
+        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify({}) })
+
+        await expect(async () => await yarn.getVersions(packageName)).rejects.toThrow(Error)
+        expect(terminalRunMock).toBeCalledWith('yarn', 'info', packageName, 'versions', '--json')
+      })
+    })
+  })
 
   describe('install', () => {
     it('calls `yarn install`', async () => {
