@@ -5,8 +5,7 @@ describe('optimizeGitHubUrl', () => {
     type TestCase = [string, string]
     const cases: TestCase[] = [
       ['https://github.com/foo/', 'https://togithub.com/foo/'],
-      ['https://foo.github.com/bar/', 'https://foo.togithub.com/bar/'],
-      ['https://test-github.com/foo/', 'https://test-github.com/foo/'],
+      ['https://foo.github.com/bar/', 'https://foo.github.com/bar/'],
       ['https://github.com.test/foo/', 'https://github.com.test/foo/']
     ]
 
