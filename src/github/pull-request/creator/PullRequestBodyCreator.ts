@@ -95,6 +95,7 @@ ${this.options.prBodyNotes}`
   }): Promise<string | undefined> {
     const releases = await this.releasesFetcher.fetch({
       gitRepo,
+      packageName: outdatedPackage.name,
       from: outdatedPackage.currentVersion,
       to: outdatedPackage.newVersion
     })
@@ -103,7 +104,7 @@ ${this.options.prBodyNotes}`
       return undefined
     }
 
-    const items = releases.map(release => `- [${release.tag_name}](${release.html_url})`)
+    const items = releases.map(({ tag, url }) => `- [${tag}](${url})`)
     return `## Release notes
 
 ${items.join('\n')}`
