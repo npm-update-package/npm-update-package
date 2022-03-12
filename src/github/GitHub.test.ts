@@ -19,7 +19,6 @@ describe('GitHub', () => {
   const pullsRequestReviewersMock = jest.fn()
   const pullsUpdateMock = jest.fn()
   const reposGetMock = jest.fn()
-  const reposGetReleaseByTagMock = jest.fn()
   const reposListBranchesMock = jest.fn()
   const reposListReleasesMock = jest.fn()
   const octokit = {
@@ -39,7 +38,6 @@ describe('GitHub', () => {
     },
     repos: {
       get: reposGetMock,
-      getReleaseByTag: reposGetReleaseByTagMock,
       listBranches: reposListBranchesMock,
       listReleases: reposListReleasesMock
     }
@@ -56,7 +54,6 @@ describe('GitHub', () => {
     pullsRequestReviewersMock.mockReset()
     pullsUpdateMock.mockReset()
     reposGetMock.mockReset()
-    reposGetReleaseByTagMock.mockReset()
     reposListBranchesMock.mockReset()
     reposListReleasesMock.mockReset()
   })
