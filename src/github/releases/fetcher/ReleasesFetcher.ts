@@ -69,6 +69,7 @@ export class ReleasesFetcher {
     gitRepo: GitRepository
     tags: string[]
   }): Promise<Release[]> {
+    // TODO: Sleep between fetch
     const releases = await Promise.all(tags.map(async (tag) => {
       return await this.fetchReleaseByTag({
         gitRepo,
