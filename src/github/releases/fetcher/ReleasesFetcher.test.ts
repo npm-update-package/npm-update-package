@@ -1,29 +1,22 @@
-import { RequestError } from '@octokit/request-error'
-import { StatusCodes } from 'http-status-codes'
+import fetch from 'node-fetch'
+import type { Response } from 'node-fetch'
 import { GitRepository } from '../../../git'
-import {
-  createLogger,
-  LogLevel
-} from '../../../logger'
 import type { PackageManager } from '../../../package-manager'
 import { SemVer } from '../../../semver'
-import type { GitHub } from '../../GitHub'
 import { ReleasesFetcher } from './ReleasesFetcher'
+
+jest.mock('node-fetch')
 
 describe('ReleasesFetcher', () => {
   describe('fetch', () => {
-    const fetchReleaseByTagMock = jest.fn()
-    const github = {
-      fetchReleaseByTag: fetchReleaseByTagMock
-    } as unknown as GitHub
+    const fetchMock = jest.mocked(fetch)
     const getVersionsMock = jest.fn()
     const packageManager = {
       getVersions: getVersionsMock
     } as unknown as PackageManager
-    const logger = createLogger(LogLevel.Off)
 
     afterEach(() => {
-      fetchReleaseByTagMock.mockReset()
+      fetchMock.mockReset()
       getVersionsMock.mockReset()
     })
 
@@ -36,28 +29,20 @@ describe('ReleasesFetcher', () => {
         '2.1.0'
       ]
       getVersionsMock.mockResolvedValue(versions)
-      fetchReleaseByTagMock.mockImplementation(async ({ tag }: { tag: string }) => {
-        if (tag === 'v1.1.1') {
-          return await Promise.reject(new RequestError('test error', StatusCodes.NOT_FOUND, {
-            request: {
-              method: 'GET',
-              url: 'https://example.com/',
-              headers: {}
-            }
-          }))
+      fetchMock.mockImplementation(async (url) => {
+        if (typeof url === 'string' && url.endsWith('v1.1.1')) {
+          return await Promise.resolve({
+            ok: false
+          } as unknown as Response)
         } else {
           return await Promise.resolve({
-            tag_name: tag
-          })
+            ok: true
+          } as unknown as Response)
         }
       })
       const gitRepo = GitRepository.of('https://github.com/npm-update-package/example')
 
-      const releasesFetcher = new ReleasesFetcher({
-        github,
-        packageManager,
-        logger
-      })
+      const releasesFetcher = new ReleasesFetcher({ packageManager })
       const actual = await releasesFetcher.fetch({
         gitRepo,
         packageName: '@npm-update-package/example',
@@ -67,29 +52,19 @@ describe('ReleasesFetcher', () => {
 
       expect(actual).toEqual([
         {
-          tag_name: 'v1.1.0'
+          tag: 'v1.1.0',
+          url: 'https://github.com/npm-update-package/example/releases/tag/v1.1.0'
         },
         {
-          tag_name: 'v2.0.0'
+          tag: 'v2.0.0',
+          url: 'https://github.com/npm-update-package/example/releases/tag/v2.0.0'
         }
       ])
       expect(getVersionsMock).toBeCalledWith('@npm-update-package/example')
-      expect(fetchReleaseByTagMock).toBeCalledTimes(3)
-      expect(fetchReleaseByTagMock).toBeCalledWith({
-        owner: gitRepo.owner,
-        repo: gitRepo.name,
-        tag: 'v1.1.0'
-      })
-      expect(fetchReleaseByTagMock).toBeCalledWith({
-        owner: gitRepo.owner,
-        repo: gitRepo.name,
-        tag: 'v1.1.1'
-      })
-      expect(fetchReleaseByTagMock).toBeCalledWith({
-        owner: gitRepo.owner,
-        repo: gitRepo.name,
-        tag: 'v2.0.0'
-      })
+      expect(fetchMock).toBeCalledTimes(3)
+      expect(fetchMock).toBeCalledWith('https://github.com/npm-update-package/example/releases/tag/v1.1.0')
+      expect(fetchMock).toBeCalledWith('https://github.com/npm-update-package/example/releases/tag/v1.1.1')
+      expect(fetchMock).toBeCalledWith('https://github.com/npm-update-package/example/releases/tag/v2.0.0')
     })
   })
 })

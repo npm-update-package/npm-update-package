@@ -100,14 +100,7 @@ export const main = async ({
     packageManager: options.packageManager
   })
   const pullRequestTitleCreator = new PullRequestTitleCreator(options.prTitle)
-  const githubWithoutToken = createGitHub({
-    host: 'github.com'
-  })
-  const releasesFetcher = new ReleasesFetcher({
-    github: githubWithoutToken,
-    packageManager,
-    logger
-  })
+  const releasesFetcher = new ReleasesFetcher({ packageManager })
   const pullRequestBodyCreator = new PullRequestBodyCreator({
     options,
     releasesFetcher
