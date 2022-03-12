@@ -12,7 +12,31 @@ describe('Npm', () => {
     terminalRunMock.mockReset()
   })
 
-  // TODO: getVersions
+  describe('getVersions', () => {
+    describe('calls `npm info <package-name> versions --json', () => {
+      const packageName = '@npm-update-package/example'
+
+      it('returns versions if stdout is valid', async () => {
+        const expected = [
+          '1.0.0',
+          '2.0.0'
+        ]
+        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify(expected) })
+
+        const actual = await npm.getVersions(packageName)
+
+        expect(actual).toEqual(expected)
+        expect(terminalRunMock).toBeCalledWith('npm', 'info', packageName, 'versions', '--json')
+      })
+
+      it('throws Error if stdout is invalid', async () => {
+        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify({}) })
+
+        await expect(async () => await npm.getVersions(packageName)).rejects.toThrow(Error)
+        expect(terminalRunMock).toBeCalledWith('npm', 'info', packageName, 'versions', '--json')
+      })
+    })
+  })
 
   describe('install', () => {
     it('calls `npm install', async () => {
