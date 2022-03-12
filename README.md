@@ -1,5 +1,9 @@
 [![npm version](https://badge.fury.io/js/npm-update-package.svg)](https://badge.fury.io/js/npm-update-package)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+![Coverage:statements](docs/badge-statements.svg)
+![Coverage:branches](docs/badge-branches.svg)
+![Coverage:functions](docs/badge-functions.svg)
+![Coverage:lines](docs/badge-lines.svg)
 
 # npm-update-package
 
