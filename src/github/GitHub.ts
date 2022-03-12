@@ -9,7 +9,6 @@ export type Branch = ValuesType<RestEndpointMethodTypes['repos']['listBranches']
 export type CreatedPullRequest = RestEndpointMethodTypes['pulls']['create']['response']['data']
 export type Label = RestEndpointMethodTypes['issues']['getLabel']['response']['data']
 export type PullRequest = ValuesType<RestEndpointMethodTypes['pulls']['list']['response']['data']>
-export type Release = ValuesType<RestEndpointMethodTypes['repos']['listReleases']['response']['data']>
 export type Repository = RestEndpointMethodTypes['repos']['get']['response']['data']
 
 export class GitHub {
