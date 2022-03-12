@@ -20,6 +20,7 @@ describe('GitHub', () => {
   const pullsRequestReviewersMock = jest.fn()
   const pullsUpdateMock = jest.fn()
   const reposGetMock = jest.fn()
+  const reposGetReleaseByTagMock = jest.fn()
   const reposListBranchesMock = jest.fn()
   const reposListReleasesMock = jest.fn()
   const octokit = {
@@ -39,6 +40,7 @@ describe('GitHub', () => {
     },
     repos: {
       get: reposGetMock,
+      getReleaseByTag: reposGetReleaseByTagMock,
       listBranches: reposListBranchesMock,
       listReleases: reposListReleasesMock
     }
@@ -55,6 +57,7 @@ describe('GitHub', () => {
     pullsRequestReviewersMock.mockReset()
     pullsUpdateMock.mockReset()
     reposGetMock.mockReset()
+    reposGetReleaseByTagMock.mockReset()
     reposListBranchesMock.mockReset()
     reposListReleasesMock.mockReset()
   })
@@ -302,7 +305,30 @@ describe('GitHub', () => {
     })
   })
 
-  // TODO: fetchReleaseByTag
+  describe('fetchReleaseByTag', () => {
+    it('calls octokit.repos.getReleaseByTag()', async () => {
+      const expected = {
+        tag_name: 'v1.0.0'
+      } as unknown as Release
+      reposGetReleaseByTagMock.mockResolvedValue({ data: expected })
+
+      const owner = 'npm-update-package'
+      const repo = 'example'
+      const tag = 'v1.0.0'
+      const actual = await github.fetchReleaseByTag({
+        owner,
+        repo,
+        tag
+      })
+
+      expect(actual).toBe(expected)
+      expect(reposGetReleaseByTagMock).toBeCalledWith({
+        owner,
+        repo,
+        tag
+      })
+    })
+  })
 
   describe('fetchReleases', () => {
     it('calls octokit.repos.listReleases()', async () => {
