@@ -3,6 +3,7 @@
   "version": "0.45.9",
   "description": "CLI tool for creating pull requests to update npm packages",
   "scripts": {
+    "badges": "jest-coverage-badges output docs",
     "build": "tsc --project tsconfig.build.json",
     "clean": "rimraf dist",
     "lint": "eslint '**/*.{js,ts}'",
