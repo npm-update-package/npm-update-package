@@ -1,6 +1,5 @@
 import { URL } from 'url'
 
-// TODO: Add test
 export const optimizeGitHubUrl = (url: string): string => {
   const newUrl = new URL(url)
 
