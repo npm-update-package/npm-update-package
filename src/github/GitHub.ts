@@ -186,23 +186,6 @@ export class GitHub {
     return pullRequests
   }
 
-  async fetchReleaseByTag ({
-    owner,
-    repo,
-    tag
-  }: {
-    owner: string
-    repo: string
-    tag: string
-  }): Promise<Release> {
-    const { data } = await this.octokit.repos.getReleaseByTag({
-      owner,
-      repo,
-      tag
-    })
-    return data
-  }
-
   async fetchReleases ({
     owner,
     repo

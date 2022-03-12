@@ -305,31 +305,6 @@ describe('GitHub', () => {
     })
   })
 
-  describe('fetchReleaseByTag', () => {
-    it('calls octokit.repos.getReleaseByTag()', async () => {
-      const expected = {
-        tag_name: 'v1.0.0'
-      } as unknown as Release
-      reposGetReleaseByTagMock.mockResolvedValue({ data: expected })
-
-      const owner = 'npm-update-package'
-      const repo = 'example'
-      const tag = 'v1.0.0'
-      const actual = await github.fetchReleaseByTag({
-        owner,
-        repo,
-        tag
-      })
-
-      expect(actual).toBe(expected)
-      expect(reposGetReleaseByTagMock).toBeCalledWith({
-        owner,
-        repo,
-        tag
-      })
-    })
-  })
-
   describe('fetchReleases', () => {
     it('calls octokit.repos.listReleases()', async () => {
       const createRelease = (start: number, end: number): Release[] => {
