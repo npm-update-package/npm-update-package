@@ -4,6 +4,7 @@ import {
   lte,
   valid
 } from 'semver'
+import sleep from 'sleep-promise'
 import { isNotUndefined } from 'type-guards'
 import type { GitRepository } from '../../../git'
 import type { PackageManager } from '../../../package-manager'
@@ -69,8 +70,12 @@ export class ReleasesFetcher {
     gitRepo: GitRepository
     tags: string[]
   }): Promise<Release[]> {
-    // TODO: Sleep between fetch
-    const releases = await Promise.all(tags.map(async (tag) => {
+    const releases = await Promise.all(tags.map(async (tag, i) => {
+      if (i > 0) {
+        // NOTE: Sleeps for 1 second between fetches.
+        await sleep(1000)
+      }
+
       return await this.fetchReleaseByTag({
         gitRepo,
         tag
