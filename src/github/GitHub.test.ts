@@ -6,7 +6,6 @@ import {
   type CreatedPullRequest,
   type Label,
   type PullRequest,
-  type Release,
   type Repository
 } from './GitHub'
 
@@ -296,54 +295,6 @@ describe('GitHub', () => {
       expect(pullsListMock).toBeCalledTimes(10)
       Array.from(pullRequestsByPage.keys()).forEach(page => {
         expect(pullsListMock).toBeCalledWith({
-          owner,
-          repo,
-          per_page: 100,
-          page
-        })
-      })
-    })
-  })
-
-  describe('fetchReleases', () => {
-    it('calls octokit.repos.listReleases()', async () => {
-      const createRelease = (start: number, end: number): Release[] => {
-        return range(start, end).map(id => ({ id } as unknown as Release))
-      }
-      const releasesByPage = new Map([
-        [1, createRelease(1, 101)],
-        [2, createRelease(101, 201)],
-        [3, createRelease(201, 301)],
-        [4, createRelease(301, 401)],
-        [5, createRelease(401, 501)],
-        [6, createRelease(501, 601)],
-        [7, createRelease(601, 701)],
-        [8, createRelease(701, 801)],
-        [9, createRelease(801, 901)],
-        [10, []]
-      ])
-      reposListReleasesMock.mockImplementation(async ({ page }: { page: number }) => {
-        const releases = releasesByPage.get(page)
-
-        if (releases !== undefined) {
-          return await Promise.resolve({ data: releases })
-        } else {
-          return await Promise.reject(new Error())
-        }
-      })
-
-      const owner = 'npm-update-package'
-      const repo = 'example'
-      const actual = await github.fetchReleases({
-        owner,
-        repo
-      })
-
-      expect.assertions(2 + 10)
-      expect(actual).toEqual(Array.from(releasesByPage.values()).flat())
-      expect(reposListReleasesMock).toBeCalledTimes(10)
-      Array.from(releasesByPage.keys()).forEach(page => {
-        expect(reposListReleasesMock).toBeCalledWith({
           owner,
           repo,
           per_page: 100,
