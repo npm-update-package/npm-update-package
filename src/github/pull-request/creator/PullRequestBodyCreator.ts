@@ -95,6 +95,7 @@ ${this.options.prBodyNotes}`
   }): Promise<string | undefined> {
     const releases = await this.releasesFetcher.fetch({
       gitRepo,
+      packageName: outdatedPackage.name,
       from: outdatedPackage.currentVersion,
       to: outdatedPackage.newVersion
     })

@@ -103,7 +103,11 @@ export const main = async ({
   const githubWithoutToken = createGitHub({
     host: 'github.com'
   })
-  const releasesFetcher = new ReleasesFetcher(githubWithoutToken)
+  const releasesFetcher = new ReleasesFetcher({
+    github: githubWithoutToken,
+    packageManager,
+    logger
+  })
   const pullRequestBodyCreator = new PullRequestBodyCreator({
     options,
     releasesFetcher
