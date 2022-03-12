@@ -104,7 +104,7 @@ ${this.options.prBodyNotes}`
       return undefined
     }
 
-    const items = releases.map(release => `- [${release.tag}](${release.url})`)
+    const items = releases.map(({ tag, url }) => `- [${tag}](${url})`)
     return `## Release notes
 
 ${items.join('\n')}`
