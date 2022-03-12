@@ -20,7 +20,6 @@ describe('GitHub', () => {
   const pullsUpdateMock = jest.fn()
   const reposGetMock = jest.fn()
   const reposListBranchesMock = jest.fn()
-  const reposListReleasesMock = jest.fn()
   const octokit = {
     git: {
       deleteRef: gitDeleteRefMock
@@ -38,8 +37,7 @@ describe('GitHub', () => {
     },
     repos: {
       get: reposGetMock,
-      listBranches: reposListBranchesMock,
-      listReleases: reposListReleasesMock
+      listBranches: reposListBranchesMock
     }
   } as unknown as Octokit
   const github = new GitHub(octokit)
@@ -55,7 +53,6 @@ describe('GitHub', () => {
     pullsUpdateMock.mockReset()
     reposGetMock.mockReset()
     reposListBranchesMock.mockReset()
-    reposListReleasesMock.mockReset()
   })
 
   describe('addLabels', () => {
