@@ -1,5 +1,6 @@
 [![npm version](https://badge.fury.io/js/npm-update-package.svg)](https://badge.fury.io/js/npm-update-package)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+![test](https://github.com/npm-update-package/npm-update-package/actions/workflows/test.yml/badge.svg)
 ![Coverage:statements](docs/badge-statements.svg)
 ![Coverage:branches](docs/badge-branches.svg)
 ![Coverage:functions](docs/badge-functions.svg)
