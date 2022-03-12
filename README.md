@@ -26,7 +26,7 @@ Commit message template.
 |required|false|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
 
-#### Variables
+#### Available variables
 
 |Variable|Description|
 |---|---|
@@ -152,7 +152,7 @@ Pull request title template.
 |required|false|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
 
-#### Variables
+#### Available variables
 
 |Variable|Description|
 |---|---|
