@@ -6,7 +6,6 @@ import type {
   Label
 } from '../../GitHub'
 
-// TODO: Add test
 export class LabelCreator {
   private readonly github: GitHub
   private readonly gitRepo: GitRepository
