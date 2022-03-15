@@ -41,6 +41,23 @@ export class LabelCreator {
       return
     }
 
+    await this.createLabel({
+      name,
+      description,
+      color
+    })
+    this.logger.info(`${name} label has created.`)
+  }
+
+  private async createLabel ({
+    name,
+    description,
+    color
+  }: {
+    name: string
+    description?: string
+    color?: string
+  }): Promise<void> {
     await this.github.createLabel({
       owner: this.gitRepo.owner,
       repo: this.gitRepo.name,
@@ -48,7 +65,6 @@ export class LabelCreator {
       description,
       color
     })
-    this.logger.info(`${name} label has created.`)
   }
 
   private async fetchLabel (name: string): Promise<Label | undefined> {
