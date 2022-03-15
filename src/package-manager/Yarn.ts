@@ -8,6 +8,9 @@ export class Yarn implements PackageManager {
 
   constructor (private readonly terminal: Terminal) {}
 
+  /**
+   * @see https://classic.yarnpkg.com/en/docs/cli/info
+   */
   async getVersions (packageName: string): Promise<string[]> {
     const { stdout } = await this.terminal.run('yarn', 'info', packageName, 'versions', '--json')
     const versions: unknown = JSON.parse(stdout)
