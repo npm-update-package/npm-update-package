@@ -21,7 +21,12 @@ describe('Yarn', () => {
           '1.0.0',
           '2.0.0'
         ]
-        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify(expected) })
+        terminalRunMock.mockResolvedValue({
+          stdout: JSON.stringify({
+            type: 'inspect',
+            data: expected
+          })
+        })
 
         const actual = await yarn.getVersions(packageName)
 
