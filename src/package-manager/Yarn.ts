@@ -1,6 +1,7 @@
 import type { Terminal } from '../terminal'
+// TODO: Replace with isYarnVersions
+import { isNpmVersions } from './NpmVersions'
 import type { PackageManager } from './PackageManager'
-import { isVersions } from './Versions'
 
 export class Yarn implements PackageManager {
   readonly packageFile = 'package.json'
@@ -12,7 +13,7 @@ export class Yarn implements PackageManager {
     const { stdout } = await this.terminal.run('yarn', 'info', packageName, 'versions', '--json')
     const versions: unknown = JSON.parse(stdout)
 
-    if (!isVersions(versions)) {
+    if (!isNpmVersions(versions)) {
       throw new Error(`Failed to parse versions. versions=${JSON.stringify(versions)}`)
     }
 
