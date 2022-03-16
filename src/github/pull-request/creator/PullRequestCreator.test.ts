@@ -16,13 +16,15 @@ describe('PullRequestCreator', () => {
   describe('create', () => {
     const pullRequestBodyCreatorCreateMock = jest.fn()
     const pullRequestTitleCreatorCreateMock = jest.fn()
-    const githubCreatePullRequestMock = jest.fn()
+    const githubAddAssigneesMock = jest.fn()
     const githubAddLabelsMock = jest.fn()
+    const githubCreatePullRequestMock = jest.fn()
     const githubRequestReviewersMock = jest.fn()
 
     const github = {
-      createPullRequest: githubCreatePullRequestMock,
+      addAssignees: githubAddAssigneesMock,
       addLabels: githubAddLabelsMock,
+      createPullRequest: githubCreatePullRequestMock,
       requestReviewers: githubRequestReviewersMock
     } as unknown as GitHub
     const gitRepo = {
@@ -45,8 +47,9 @@ describe('PullRequestCreator', () => {
     afterEach(() => {
       pullRequestBodyCreatorCreateMock.mockReset()
       pullRequestTitleCreatorCreateMock.mockReset()
-      githubCreatePullRequestMock.mockReset()
+      githubAddAssigneesMock.mockReset()
       githubAddLabelsMock.mockReset()
+      githubCreatePullRequestMock.mockReset()
       githubRequestReviewersMock.mockReset()
     })
 
@@ -61,6 +64,7 @@ describe('PullRequestCreator', () => {
       githubCreatePullRequestMock.mockResolvedValue(pullRequest)
 
       const reviewers = ['npm-update-package']
+      const assignees = ['npm-update-package']
       const pullRequestCreator = new PullRequestCreator({
         github,
         gitRepo,
@@ -68,7 +72,8 @@ describe('PullRequestCreator', () => {
         pullRequestTitleCreator,
         pullRequestBodyCreator,
         logger,
-        reviewers
+        reviewers,
+        assignees
       })
       await pullRequestCreator.create({
         outdatedPackage,
