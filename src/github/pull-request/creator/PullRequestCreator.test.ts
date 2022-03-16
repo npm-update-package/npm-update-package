@@ -96,6 +96,12 @@ describe('PullRequestCreator', () => {
         issueNumber: pullRequest.number,
         labels: ['npm-update-package']
       })
+      expect(githubAddAssigneesMock).toBeCalledWith({
+        owner: gitRepo.owner,
+        repo: gitRepo.name,
+        issueNumber: pullRequest.number,
+        assignees
+      })
       expect(githubRequestReviewersMock).toBeCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
