@@ -11,6 +11,7 @@ import {
 
 describe('GitHub', () => {
   const gitDeleteRefMock = jest.fn()
+  const issuesAddAssigneesMock = jest.fn()
   const issuesAddLabelsMock = jest.fn()
   const issuesCreateLabelMock = jest.fn()
   const issuesGetLabelMock = jest.fn()
@@ -25,6 +26,7 @@ describe('GitHub', () => {
       deleteRef: gitDeleteRefMock
     },
     issues: {
+      addAssignees: issuesAddAssigneesMock,
       addLabels: issuesAddLabelsMock,
       createLabel: issuesCreateLabelMock,
       getLabel: issuesGetLabelMock
@@ -44,6 +46,7 @@ describe('GitHub', () => {
 
   afterEach(() => {
     gitDeleteRefMock.mockReset()
+    issuesAddAssigneesMock.mockReset()
     issuesAddLabelsMock.mockReset()
     issuesCreateLabelMock.mockReset()
     issuesGetLabelMock.mockReset()
@@ -53,6 +56,28 @@ describe('GitHub', () => {
     pullsUpdateMock.mockReset()
     reposGetMock.mockReset()
     reposListBranchesMock.mockReset()
+  })
+
+  describe('addAssignees', () => {
+    it('calls octokit.issues.addAssignees()', async () => {
+      const owner = 'npm-update-package'
+      const repo = 'example'
+      const issueNumber = 1
+      const assignees = ['npm-update-package-bot']
+      await github.addAssignees({
+        owner,
+        repo,
+        issueNumber,
+        assignees
+      })
+
+      expect(issuesAddAssigneesMock).toBeCalledWith({
+        owner,
+        repo,
+        issue_number: issueNumber,
+        assignees
+      })
+    })
   })
 
   describe('addLabels', () => {

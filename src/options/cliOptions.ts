@@ -5,6 +5,12 @@ import { OptionType } from './OptionType'
 
 export const cliOptions: CLIOption[] = [
   {
+    name: 'assignees',
+    description: 'User names to assign to pull request',
+    type: OptionType.StringArray,
+    required: false
+  },
+  {
     name: 'commit-message',
     description: 'Commit message template',
     type: OptionType.String,

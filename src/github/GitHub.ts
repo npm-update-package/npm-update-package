@@ -14,6 +14,25 @@ export type Repository = RestEndpointMethodTypes['repos']['get']['response']['da
 export class GitHub {
   constructor (private readonly octokit: Octokit) {}
 
+  async addAssignees ({
+    owner,
+    repo,
+    issueNumber,
+    assignees
+  }: {
+    owner: string
+    repo: string
+    issueNumber: number
+    assignees: string[]
+  }): Promise<void> {
+    await this.octokit.issues.addAssignees({
+      owner,
+      repo,
+      issue_number: issueNumber,
+      assignees
+    })
+  }
+
   async addLabels ({
     owner,
     repo,

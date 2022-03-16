@@ -22,6 +22,23 @@ npx npm-update-package --github-token $GITHUB_TOKEN
 You can customize behavior via command-line options.  
 Some options can embed variables like `{{packageName}}`(HTML-escaped) or `{{{packageName}}}`(not HTML-escaped).
 
+### `--assignees`
+
+User names to assign to pull request.
+
+|Name|Value|
+|---|---|
+|type|string[]|
+|required|false|
+
+#### Example
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --assignees npm-update-package npm-update-package-bot
+```
+
 ### `--commit-message`
 
 Commit message template.

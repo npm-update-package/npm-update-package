@@ -112,7 +112,8 @@ export const main = async ({
     pullRequestTitleCreator,
     pullRequestBodyCreator,
     logger,
-    reviewers: options.reviewers
+    reviewers: options.reviewers,
+    assignees: options.assignees
   })
   const commitMessageCreator = new CommitMessageCreator(options.commitMessage)
   const pullRequestFinder = new PullRequestFinder(pullRequests)
