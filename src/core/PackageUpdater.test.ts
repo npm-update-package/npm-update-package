@@ -18,6 +18,10 @@ describe('PackageUpdater', () => {
     const ncu = {
       update: ncuUpdateMock
     } as unknown as Ncu
+    const packageUpdater = new PackageUpdater({
+      packageManager,
+      ncu
+    })
     const outdatedPackage: OutdatedPackage = {
       name: '@npm-update-package/example',
       currentVersion: SemVer.of('1.0.0'),
@@ -34,10 +38,6 @@ describe('PackageUpdater', () => {
     it('returns undefined if succeeded to install package', async () => {
       ncuUpdateMock.mockResolvedValue([outdatedPackage])
 
-      const packageUpdater = new PackageUpdater({
-        packageManager,
-        ncu
-      })
       await packageUpdater.update(outdatedPackage)
 
       expect(ncuUpdateMock).toBeCalledWith(outdatedPackage)
@@ -46,11 +46,6 @@ describe('PackageUpdater', () => {
 
     it('throws error if failed to install package', async () => {
       ncuUpdateMock.mockResolvedValue([])
-
-      const packageUpdater = new PackageUpdater({
-        packageManager,
-        ncu
-      })
 
       await expect(async () => await packageUpdater.update(outdatedPackage)).rejects.toThrow(Error)
       expect(ncuUpdateMock).toBeCalledWith(outdatedPackage)
