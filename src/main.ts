@@ -4,8 +4,7 @@ import {
 } from 'fp-ts/lib/Either'
 import {
   OutdatedPackageProcessor,
-  OutdatedPackagesProcessor,
-  PackageUpdater
+  OutdatedPackagesProcessor
 } from './core'
 import {
   CommitMessageCreator,
@@ -119,20 +118,16 @@ export const main = async ({
   const commitMessageCreator = new CommitMessageCreator(options.commitMessage)
   const pullRequestFinder = new PullRequestFinder(pullRequests)
   const pullRequestCloser = new PullRequestCloser(github)
-  const packageUpdater = new PackageUpdater({
-    packageManager,
-    ncu
-  })
   const outdatedPackageProcessor = new OutdatedPackageProcessor({
     git,
+    ncu,
     packageManager,
     pullRequestCreator,
     branchFinder,
     logger,
     commitMessageCreator,
     pullRequestFinder,
-    pullRequestCloser,
-    packageUpdater
+    pullRequestCloser
   })
   const outdatedPackagesProcessor = new OutdatedPackagesProcessor({
     outdatedPackageProcessor,
