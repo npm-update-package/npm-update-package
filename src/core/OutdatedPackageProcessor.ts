@@ -15,16 +15,15 @@ import type {
   PullRequestFinder
 } from '../github'
 import type { Logger } from '../logger'
-import type { Ncu } from '../ncu'
 import type { PackageManager } from '../package-manager'
 import type { FailedResult } from './FailedResult'
 import type { OutdatedPackage } from './OutdatedPackage'
+import type { PackageUpdater } from './PackageUpdater'
 import type { SucceededResult } from './SucceededResult'
 
 // TODO: add test
 export class OutdatedPackageProcessor {
   private readonly git: Git
-  private readonly ncu: Ncu
   private readonly packageManager: PackageManager
   private readonly pullRequestCreator: PullRequestCreator
   private readonly branchFinder: BranchFinder
@@ -32,20 +31,20 @@ export class OutdatedPackageProcessor {
   private readonly commitMessageCreator: CommitMessageCreator
   private readonly pullRequestFinder: PullRequestFinder
   private readonly pullRequestCloser: PullRequestCloser
+  private readonly packageUpdater: PackageUpdater
 
   constructor ({
     git,
-    ncu,
     packageManager,
     pullRequestCreator,
     branchFinder,
     logger,
     commitMessageCreator,
     pullRequestFinder,
-    pullRequestCloser
+    pullRequestCloser,
+    packageUpdater
   }: {
     git: Git
-    ncu: Ncu
     packageManager: PackageManager
     pullRequestCreator: PullRequestCreator
     branchFinder: BranchFinder
@@ -53,9 +52,9 @@ export class OutdatedPackageProcessor {
     commitMessageCreator: CommitMessageCreator
     pullRequestFinder: PullRequestFinder
     pullRequestCloser: PullRequestCloser
+    packageUpdater: PackageUpdater
   }) {
     this.git = git
-    this.ncu = ncu
     this.packageManager = packageManager
     this.pullRequestCreator = pullRequestCreator
     this.branchFinder = branchFinder
@@ -63,6 +62,7 @@ export class OutdatedPackageProcessor {
     this.commitMessageCreator = commitMessageCreator
     this.pullRequestFinder = pullRequestFinder
     this.pullRequestCloser = pullRequestCloser
+    this.packageUpdater = packageUpdater
   }
 
   /**
@@ -85,7 +85,7 @@ export class OutdatedPackageProcessor {
 
     try {
       try {
-        await this.updatePackage(outdatedPackage)
+        await this.packageUpdater.update(outdatedPackage)
       } catch (error) {
         this.logger.error(error)
         return left({
@@ -119,16 +119,6 @@ export class OutdatedPackageProcessor {
       await this.git.removeBranch(branchName)
       this.logger.info(`${branchName} branch has removed.`)
     }
-  }
-
-  private async updatePackage (outdatedPackage: OutdatedPackage): Promise<void> {
-    const updatedPackages = await this.ncu.update(outdatedPackage)
-
-    if (updatedPackages.length !== 1) {
-      throw new Error(`Failed to update ${outdatedPackage.name}.`)
-    }
-
-    await this.packageManager.install()
   }
 
   private async closeOldPullRequests (outdatedPackage: OutdatedPackage): Promise<void> {
