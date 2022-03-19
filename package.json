@@ -1,6 +1,6 @@
 {
   "name": "npm-update-package",
-  "version": "0.46.5",
+  "version": "0.46.6",
   "description": "CLI tool for creating pull requests to update npm packages",
   "scripts": {
     "badges": "jest-coverage-badges output docs",
