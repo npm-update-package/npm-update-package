@@ -26,11 +26,11 @@ export class GitRepository {
     this.isGitHub = isGitHub
   }
 
-  static of (repository: string): GitRepository {
+  static of (repository: string): GitRepository | undefined {
     const result = gh(repository)
 
     if (result === null) {
-      throw new Error(`Failed to parse repository. repository=${repository}`)
+      return undefined
     }
 
     const {
@@ -39,13 +39,13 @@ export class GitRepository {
     } = result
 
     if (owner === null || name === null) {
-      throw new Error(`Failed to parse repository. repository=${repository}`)
+      return undefined
     }
 
     const host = result.protocol === 'github:' ? HOST_GITHUB : result.host
 
     if (host === null || !host.includes('.')) {
-      throw new Error(`Failed to parse repository. repository=${repository}`)
+      return undefined
     }
 
     return new GitRepository({

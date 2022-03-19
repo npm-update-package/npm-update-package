@@ -1,6 +1,5 @@
 import { GitRepository } from '../git'
 import type { PackageMetadata } from './PackageMetadata'
-import { parseRepositoryString } from './parseRepositoryString'
 
 export const extractRepository = ({
   repository
@@ -9,20 +8,12 @@ export const extractRepository = ({
     return undefined
   }
 
-  if (typeof repository === 'string') {
-    const {
-      owner,
-      repo,
-      isGitHub
-    } = parseRepositoryString(repository)
+  const repositoryString = typeof repository === 'string' ? repository : repository.url
+  const gitRepo = GitRepository.of(repositoryString)
 
-    if (!isGitHub) {
-      return undefined
-    }
-
-    return GitRepository.of(`${owner}/${repo}`)
+  if (gitRepo === undefined || !gitRepo.isGitHub) {
+    return undefined
   }
 
-  const { url } = repository
-  return GitRepository.of(url.replace(/^git\+/, ''))
+  return gitRepo
 }

@@ -2,24 +2,10 @@ import { URL } from 'url'
 import { GitRepository } from '../git'
 import { extractRepository } from './extractRepository'
 import type { PackageMetadata } from './PackageMetadata'
-import { parseRepositoryString } from './parseRepositoryString'
-
-jest.mock('./parseRepositoryString')
 
 describe('extractRepository', () => {
   describe('if repository is string', () => {
-    const parseRepositoryStringMock = jest.mocked(parseRepositoryString)
-
-    afterEach(() => {
-      parseRepositoryStringMock.mockReset()
-    })
-
     it('returns GitRepository instance if repository is GitHub', () => {
-      parseRepositoryStringMock.mockReturnValue({
-        owner: 'npm-update-package',
-        repo: 'example',
-        isGitHub: true
-      })
       const metadata: PackageMetadata = {
         name: '@npm-update-package/example',
         version: '1.0.0',
@@ -32,15 +18,9 @@ describe('extractRepository', () => {
       expect(actual?.url).toEqual(new URL('https://github.com/npm-update-package/example'))
       expect(actual?.owner).toBe('npm-update-package')
       expect(actual?.name).toBe('example')
-      expect(parseRepositoryStringMock).toBeCalledWith(metadata.repository)
     })
 
     it('returns undefined if repository is not GitHub', () => {
-      parseRepositoryStringMock.mockReturnValue({
-        owner: 'npm-update-package',
-        repo: 'example',
-        isGitHub: false
-      })
       const metadata: PackageMetadata = {
         name: '@npm-update-package/example',
         version: '1.0.0',
@@ -48,7 +28,6 @@ describe('extractRepository', () => {
       }
 
       expect(extractRepository(metadata)).toBeUndefined()
-      expect(parseRepositoryStringMock).toBeCalledWith(metadata.repository)
     })
   })
 

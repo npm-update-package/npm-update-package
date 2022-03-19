@@ -216,15 +216,16 @@ describe('GitRepository', () => {
 
       it.each<TestCase>(cases)('repository=$repository', ({ repository, expected }) => {
         const actual = GitRepository.of(repository)
+        expect(actual).toBeDefined()
         expect(actual).toBeInstanceOf(GitRepository)
-        expect(actual.url).toEqual(expected.url)
-        expect(actual.owner).toBe(expected.owner)
-        expect(actual.name).toBe(expected.name)
-        expect(actual.isGitHub).toBe(expected.isGitHub)
+        expect(actual?.url).toEqual(expected.url)
+        expect(actual?.owner).toBe(expected.owner)
+        expect(actual?.name).toBe(expected.name)
+        expect(actual?.isGitHub).toBe(expected.isGitHub)
       })
     })
 
-    describe('throws error if repository is invalid', () => {
+    describe('returns undefined if repository is invalid', () => {
       type TestCase = string
       const cases: TestCase[] = [
         '',
@@ -237,7 +238,9 @@ describe('GitRepository', () => {
       ]
 
       it.each<TestCase>(cases)('repository=%p', (repository) => {
-        expect(() => GitRepository.of(repository)).toThrow(Error)
+        const actual = GitRepository.of(repository)
+
+        expect(actual).toBeUndefined()
       })
     })
   })
