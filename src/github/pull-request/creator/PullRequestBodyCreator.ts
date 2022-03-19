@@ -33,7 +33,7 @@ export class PullRequestBodyCreator {
     sections.push(`This PR updates these packages:\n\n${outdatedPackagesTable}`)
     const gitRepo = await this.extractRepository(outdatedPackage)
 
-    if (gitRepo !== undefined) {
+    if (gitRepo?.isGitHub === true) {
       const releaseNotesSection = await this.createReleaseNotesSection({
         outdatedPackage,
         gitRepo
