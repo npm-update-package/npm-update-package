@@ -1,5 +1,5 @@
 import { URL } from 'url'
-import parse from 'parse-github-url'
+import gh from 'parse-github-url'
 
 export class GitRepository {
   readonly url: URL
@@ -21,7 +21,7 @@ export class GitRepository {
   }
 
   static of (repository: string): GitRepository {
-    const parsed = parse(repository)
+    const parsed = gh(repository)
 
     if (parsed === null) {
       throw new Error(`Failed to parse repository. repository=${repository}`)
