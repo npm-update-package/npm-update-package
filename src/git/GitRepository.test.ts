@@ -204,10 +204,9 @@ describe('GitRepository', () => {
       type TestCase = string
       const cases: TestCase[] = [
         '',
-        'https://github.com/',
-        'git@github.com',
-        'https://git.test/',
-        'git@git.test'
+        'unknown:npm-update-package/example',
+        'https://github.com',
+        'https://github.com/npm-update-package'
       ]
 
       it.each<TestCase>(cases)('repository=%p', (repository) => {
