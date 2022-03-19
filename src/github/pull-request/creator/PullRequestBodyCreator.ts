@@ -63,7 +63,7 @@ export class PullRequestBodyCreator {
     const packageName = outdatedPackage.name
     const currentVersion = outdatedPackage.currentVersion.version
     const newVersion = outdatedPackage.newVersion.version
-    return `## Diff
+    return `## Package diffs
 
 - [npmfs](https://npmfs.com/compare/${packageName}/${currentVersion}/${newVersion})
 - [Renovate Bot Package Diff](https://renovatebot.com/diffs/npm/${packageName}/${currentVersion}/${newVersion})`
