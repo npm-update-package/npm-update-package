@@ -22,6 +22,14 @@ describe('GitRepository', () => {
           }
         },
         {
+          repository: 'github:npm-update-package/example',
+          expected: {
+            url: new URL('https://github.com/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        },
+        {
           repository: 'https://github.com/npm-update-package/example',
           expected: {
             url: new URL('https://github.com/npm-update-package/example'),
@@ -31,6 +39,62 @@ describe('GitRepository', () => {
         },
         {
           repository: 'https://github.com/npm-update-package/example.git',
+          expected: {
+            url: new URL('https://github.com/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        },
+        {
+          repository: 'git+https://github.com/npm-update-package/example',
+          expected: {
+            url: new URL('https://github.com/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        },
+        {
+          repository: 'git+https://github.com/npm-update-package/example.git',
+          expected: {
+            url: new URL('https://github.com/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        },
+        {
+          repository: 'git+ssh://github.com/npm-update-package/example',
+          expected: {
+            url: new URL('https://github.com/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        },
+        {
+          repository: 'git+ssh://github.com/npm-update-package/example.git',
+          expected: {
+            url: new URL('https://github.com/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        },
+        {
+          repository: 'git://github.com/npm-update-package/example',
+          expected: {
+            url: new URL('https://github.com/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        },
+        {
+          repository: 'git://github.com/npm-update-package/example.git',
+          expected: {
+            url: new URL('https://github.com/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        },
+        {
+          repository: 'git@github.com:npm-update-package/example',
           expected: {
             url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
@@ -55,6 +119,62 @@ describe('GitRepository', () => {
         },
         {
           repository: 'https://git.test/npm-update-package/example.git',
+          expected: {
+            url: new URL('https://git.test/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        },
+        {
+          repository: 'git+https://git.test/npm-update-package/example',
+          expected: {
+            url: new URL('https://git.test/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        },
+        {
+          repository: 'git+https://git.test/npm-update-package/example.git',
+          expected: {
+            url: new URL('https://git.test/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        },
+        {
+          repository: 'git+ssh://git.test/npm-update-package/example',
+          expected: {
+            url: new URL('https://git.test/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        },
+        {
+          repository: 'git+ssh://git.test/npm-update-package/example.git',
+          expected: {
+            url: new URL('https://git.test/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        },
+        {
+          repository: 'git://git.test/npm-update-package/example',
+          expected: {
+            url: new URL('https://git.test/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        },
+        {
+          repository: 'git://git.test/npm-update-package/example.git',
+          expected: {
+            url: new URL('https://git.test/npm-update-package/example'),
+            owner: 'npm-update-package',
+            name: 'example'
+          }
+        },
+        {
+          repository: 'git@git.test:npm-update-package/example',
           expected: {
             url: new URL('https://git.test/npm-update-package/example'),
             owner: 'npm-update-package',
