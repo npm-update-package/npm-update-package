@@ -36,19 +36,9 @@ export class GitRepository {
       throw new Error(`Failed to parse repository. repository=${repository}`)
     }
 
-    const { protocol } = result
+    const host = result.protocol === 'github:' ? 'github.com' : result.host
 
-    if (protocol === 'github:') {
-      return new GitRepository({
-        url: new URL(`https://github.com/${owner}/${name}`),
-        owner,
-        name
-      })
-    }
-
-    const { host } = result
-
-    if (host === null) {
+    if (host === null || !host.includes('.')) {
       throw new Error(`Failed to parse repository. repository=${repository}`)
     }
 
