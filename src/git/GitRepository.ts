@@ -26,6 +26,22 @@ export class GitRepository {
     this.isGitHub = isGitHub
   }
 
+  /**
+   * Parses a repository string.
+   * @example Valid strings
+   * - `<owner>/<repo>`
+   * - `github:<owner>/<repo>`
+   * - `https://<host>/<owner>/<repo>`
+   * - `https://<host>/<owner>/<repo>.git`
+   * - `git://<host>/<owner>/<repo>`
+   * - `git://<host>/<owner>/<repo>.git`
+   * - `git+https://<host>/<owner>/<repo>`
+   * - `git+https://<host>/<owner>/<repo>.git`
+   * - `git+ssh://<host>/<owner>/<repo>`
+   * - `git+ssh://<host>/<owner>/<repo>.git`
+   * - `git@<host>:<owner>/<repo>`
+   * - `git@<host>:<owner>/<repo>.git`
+   */
   static of (repository: string): GitRepository | undefined {
     const result = gh(repository)
 
