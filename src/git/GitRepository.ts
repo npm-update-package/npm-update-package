@@ -21,22 +21,22 @@ export class GitRepository {
   }
 
   static of (repository: string): GitRepository {
-    const parsed = gh(repository)
+    const result = gh(repository)
 
-    if (parsed === null) {
+    if (result === null) {
       throw new Error(`Failed to parse repository. repository=${repository}`)
     }
 
     const {
       owner,
       name
-    } = parsed
+    } = result
 
     if (owner === null || name === null) {
       throw new Error(`Failed to parse repository. repository=${repository}`)
     }
 
-    const { protocol } = parsed
+    const { protocol } = result
 
     if (protocol === 'github:') {
       return new GitRepository({
@@ -46,7 +46,7 @@ export class GitRepository {
       })
     }
 
-    const { host } = parsed
+    const { host } = result
 
     if (host === null) {
       throw new Error(`Failed to parse repository. repository=${repository}`)
