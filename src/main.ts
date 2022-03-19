@@ -62,6 +62,10 @@ export const main = async ({
   const gitRepo = GitRepository.of(remoteUrl)
   logger.debug(`gitRepo=${JSON.stringify(gitRepo)}`)
 
+  if (gitRepo === undefined) {
+    throw new Error(`Failed to parse remote url. URL=${remoteUrl}`)
+  }
+
   const github = createGitHub({
     host: gitRepo.url.host,
     token: options.githubToken

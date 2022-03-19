@@ -2,78 +2,84 @@ import { URL } from 'url'
 import { GitRepository } from '../git'
 import { extractRepository } from './extractRepository'
 import type { PackageMetadata } from './PackageMetadata'
-import { parseRepositoryString } from './parseRepositoryString'
-
-jest.mock('./parseRepositoryString')
 
 describe('extractRepository', () => {
-  describe('if repository is string', () => {
-    const parseRepositoryStringMock = jest.mocked(parseRepositoryString)
-
-    afterEach(() => {
-      parseRepositoryStringMock.mockReset()
-    })
-
-    it('returns GitRepository instance if repository is GitHub', () => {
-      parseRepositoryStringMock.mockReturnValue({
-        owner: 'npm-update-package',
-        repo: 'example',
-        isGitHub: true
-      })
-      const metadata: PackageMetadata = {
-        name: '@npm-update-package/example',
-        version: '1.0.0',
-        repository: 'npm-update-package/example'
-      }
-
-      const actual = extractRepository(metadata)
-
-      expect(actual).toBeInstanceOf(GitRepository)
-      expect(actual?.url).toEqual(new URL('https://github.com/npm-update-package/example'))
-      expect(actual?.owner).toBe('npm-update-package')
-      expect(actual?.name).toBe('example')
-      expect(parseRepositoryStringMock).toBeCalledWith(metadata.repository)
-    })
-
-    it('returns undefined if repository is not GitHub', () => {
-      parseRepositoryStringMock.mockReturnValue({
-        owner: 'npm-update-package',
-        repo: 'example',
-        isGitHub: false
-      })
-      const metadata: PackageMetadata = {
-        name: '@npm-update-package/example',
-        version: '1.0.0',
-        repository: 'gitlab:npm-update-package/example'
-      }
-
-      expect(extractRepository(metadata)).toBeUndefined()
-      expect(parseRepositoryStringMock).toBeCalledWith(metadata.repository)
-    })
-  })
-
-  it('returns GitRepository instance if repository is object', () => {
-    const metadata: PackageMetadata = {
-      name: '@npm-update-package/example',
-      version: '1.0.0',
-      repository: {
-        url: 'https://github.com/npm-update-package/example.git'
+  describe('returns GitRepository instance if repository exists', () => {
+    interface TestCase {
+      metadata: PackageMetadata
+      expected: {
+        url: URL
+        owner: string
+        name: string
+        isGitHub: boolean
       }
     }
+    const cases: TestCase[] = [
+      {
+        metadata: {
+          name: '@npm-update-package/example',
+          version: '1.0.0',
+          repository: 'npm-update-package/example'
+        },
+        expected: {
+          url: new URL('https://github.com/npm-update-package/example'),
+          owner: 'npm-update-package',
+          name: 'example',
+          isGitHub: true
+        }
+      },
+      {
+        metadata: {
+          name: '@npm-update-package/example',
+          version: '1.0.0',
+          repository: {
+            url: 'https://github.com/npm-update-package/example'
+          }
+        },
+        expected: {
+          url: new URL('https://github.com/npm-update-package/example'),
+          owner: 'npm-update-package',
+          name: 'example',
+          isGitHub: true
+        }
+      },
+      {
+        metadata: {
+          name: '@npm-update-package/example',
+          version: '1.0.0',
+          repository: {
+            url: 'https://git.test/npm-update-package/example'
+          }
+        },
+        expected: {
+          url: new URL('https://git.test/npm-update-package/example'),
+          owner: 'npm-update-package',
+          name: 'example',
+          isGitHub: false
+        }
+      }
+    ]
 
-    const actual = extractRepository(metadata)
+    it.each<TestCase>(cases)('metadata=$metadata', ({ metadata, expected }) => {
+      const actual = extractRepository(metadata)
 
-    expect(actual).toBeInstanceOf(GitRepository)
-    expect(actual?.url).toEqual(new URL('https://github.com/npm-update-package/example'))
-    expect(actual?.owner).toBe('npm-update-package')
-    expect(actual?.name).toBe('example')
+      expect(actual).toBeDefined()
+      expect(actual).toBeInstanceOf(GitRepository)
+      expect(actual?.url).toEqual(expected.url)
+      expect(actual?.owner).toBe(expected.owner)
+      expect(actual?.name).toBe(expected.name)
+      expect(actual?.isGitHub).toBe(expected.isGitHub)
+    })
   })
 
-  it('returns undefined if repository is undefined', () => {
+  it('returns undefined if repository does not exist', () => {
     const metadata: PackageMetadata = {
       name: '@npm-update-package/example',
       version: '1.0.0'
     }
-    expect(extractRepository(metadata)).toBeUndefined()
+
+    const actual = extractRepository(metadata)
+
+    expect(actual).toBeUndefined()
   })
 })

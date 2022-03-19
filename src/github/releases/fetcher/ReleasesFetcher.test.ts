@@ -40,7 +40,7 @@ describe('ReleasesFetcher', () => {
           } as unknown as Response)
         }
       })
-      const gitRepo = GitRepository.of('https://github.com/npm-update-package/example')
+      const gitRepo = GitRepository.of('https://github.com/npm-update-package/example') as GitRepository
 
       const releasesFetcher = new ReleasesFetcher({ packageManager })
       const actual = await releasesFetcher.fetch({

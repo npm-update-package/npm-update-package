@@ -19,7 +19,7 @@ describe('LabelCreator', () => {
       fetchLabel: fetchLabelMock
     } as unknown as GitHub
     const logger = createLogger(LogLevel.Off)
-    const gitRepo = GitRepository.of('https://github.com/npm-update-package/example')
+    const gitRepo = GitRepository.of('https://github.com/npm-update-package/example') as GitRepository
     const labelCreator = new LabelCreator({
       github,
       gitRepo,
