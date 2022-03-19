@@ -10,6 +10,7 @@ describe('GitRepository', () => {
           url: URL
           owner: string
           name: string
+          isGitHub: boolean
         }
       }
       const cases: TestCase[] = [
@@ -18,7 +19,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: true
           }
         },
         {
@@ -26,7 +28,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: true
           }
         },
         {
@@ -34,7 +37,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: true
           }
         },
         {
@@ -42,7 +46,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: true
           }
         },
         {
@@ -50,7 +55,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: true
           }
         },
         {
@@ -58,7 +64,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: true
           }
         },
         {
@@ -66,7 +73,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: true
           }
         },
         {
@@ -74,7 +82,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: true
           }
         },
         {
@@ -82,7 +91,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: true
           }
         },
         {
@@ -90,7 +100,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: true
           }
         },
         {
@@ -98,7 +109,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: true
           }
         },
         {
@@ -106,7 +118,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://github.com/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: true
           }
         },
         {
@@ -114,7 +127,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://git.test/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: false
           }
         },
         {
@@ -122,7 +136,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://git.test/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: false
           }
         },
         {
@@ -130,7 +145,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://git.test/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: false
           }
         },
         {
@@ -138,7 +154,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://git.test/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: false
           }
         },
         {
@@ -146,7 +163,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://git.test/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: false
           }
         },
         {
@@ -154,7 +172,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://git.test/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: false
           }
         },
         {
@@ -162,7 +181,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://git.test/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: false
           }
         },
         {
@@ -170,7 +190,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://git.test/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: false
           }
         },
         {
@@ -178,7 +199,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://git.test/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: false
           }
         },
         {
@@ -186,7 +208,8 @@ describe('GitRepository', () => {
           expected: {
             url: new URL('https://git.test/npm-update-package/example'),
             owner: 'npm-update-package',
-            name: 'example'
+            name: 'example',
+            isGitHub: false
           }
         }
       ]
@@ -197,6 +220,7 @@ describe('GitRepository', () => {
         expect(actual.url).toEqual(expected.url)
         expect(actual.owner).toBe(expected.owner)
         expect(actual.name).toBe(expected.name)
+        expect(actual.isGitHub).toBe(expected.isGitHub)
       })
     })
 
