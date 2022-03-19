@@ -228,6 +228,9 @@ describe('GitRepository', () => {
       type TestCase = string
       const cases: TestCase[] = [
         '',
+        'gist:npm-update-package/example',
+        'bitbucket:npm-update-package/example',
+        'gitlab:npm-update-package/example',
         'unknown:npm-update-package/example',
         'https://github.com',
         'https://github.com/npm-update-package'
