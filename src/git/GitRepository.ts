@@ -28,18 +28,32 @@ export class GitRepository {
     }
 
     const {
-      host,
       owner,
       name
     } = parsed
 
-    if (host === null || owner === null || name === null) {
+    if (owner === null || name === null) {
       throw new Error(`Failed to parse repository. repository=${repository}`)
     }
 
-    const protocol = parsed.protocol ?? 'https:'
+    const { protocol } = parsed
+
+    if (protocol === 'github:') {
+      return new GitRepository({
+        url: new URL(`https://github.com/${owner}/${name}`),
+        owner,
+        name
+      })
+    }
+
+    const { host } = parsed
+
+    if (host === null) {
+      throw new Error(`Failed to parse repository. repository=${repository}`)
+    }
+
     return new GitRepository({
-      url: new URL(`${protocol}//${host}/${owner}/${name}`),
+      url: new URL(`https://${host}/${owner}/${name}`),
       owner,
       name
     })
