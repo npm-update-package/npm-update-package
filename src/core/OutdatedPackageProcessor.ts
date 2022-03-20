@@ -10,9 +10,9 @@ import {
 } from '../git'
 import type {
   BranchFinder,
-  PullRequestCloser,
   PullRequestCreator,
-  PullRequestFinder
+  PullRequestFinder,
+  PullRequestsCloser
 } from '../github'
 import type { Logger } from '../logger'
 import type { PackageManager } from '../package-manager'
@@ -30,7 +30,7 @@ export class OutdatedPackageProcessor {
   private readonly logger: Logger
   private readonly commitMessageCreator: CommitMessageCreator
   private readonly pullRequestFinder: PullRequestFinder
-  private readonly pullRequestCloser: PullRequestCloser
+  private readonly pullRequestsCloser: PullRequestsCloser
   private readonly packageUpdater: PackageUpdater
 
   constructor ({
@@ -41,7 +41,7 @@ export class OutdatedPackageProcessor {
     logger,
     commitMessageCreator,
     pullRequestFinder,
-    pullRequestCloser,
+    pullRequestsCloser,
     packageUpdater
   }: {
     git: Git
@@ -51,7 +51,7 @@ export class OutdatedPackageProcessor {
     logger: Logger
     commitMessageCreator: CommitMessageCreator
     pullRequestFinder: PullRequestFinder
-    pullRequestCloser: PullRequestCloser
+    pullRequestsCloser: PullRequestsCloser
     packageUpdater: PackageUpdater
   }) {
     this.git = git
@@ -61,7 +61,7 @@ export class OutdatedPackageProcessor {
     this.logger = logger
     this.commitMessageCreator = commitMessageCreator
     this.pullRequestFinder = pullRequestFinder
-    this.pullRequestCloser = pullRequestCloser
+    this.pullRequestsCloser = pullRequestsCloser
     this.packageUpdater = packageUpdater
   }
 
@@ -107,7 +107,6 @@ export class OutdatedPackageProcessor {
         branchName
       })
       this.logger.info(`Pull request for ${outdatedPackage.name} has created. ${pullRequest.html_url}`)
-
       await this.closeOldPullRequests(outdatedPackage)
       return right({
         outdatedPackage,
@@ -124,10 +123,6 @@ export class OutdatedPackageProcessor {
   private async closeOldPullRequests (outdatedPackage: OutdatedPackage): Promise<void> {
     const pullRequests = this.pullRequestFinder.findByPackageName(outdatedPackage.name)
     this.logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
-
-    await Promise.all(pullRequests.map(async (pullRequest) => {
-      await this.pullRequestCloser.close(pullRequest)
-      this.logger.info(`Pull request for ${outdatedPackage.name} has closed. ${pullRequest.html_url}`)
-    }))
+    await this.pullRequestsCloser.close(pullRequests)
   }
 }

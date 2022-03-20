@@ -20,6 +20,7 @@ import {
   PullRequestCloser,
   PullRequestCreator,
   PullRequestFinder,
+  PullRequestsCloser,
   PullRequestTitleCreator,
   ReleasesFetcher
 } from './github'
@@ -123,6 +124,10 @@ export const main = async ({
   const commitMessageCreator = new CommitMessageCreator(options.commitMessage)
   const pullRequestFinder = new PullRequestFinder(pullRequests)
   const pullRequestCloser = new PullRequestCloser(github)
+  const pullRequestsCloser = new PullRequestsCloser({
+    pullRequestCloser,
+    logger
+  })
   const packageUpdater = new PackageUpdater({
     packageManager,
     ncu
@@ -135,7 +140,7 @@ export const main = async ({
     logger,
     commitMessageCreator,
     pullRequestFinder,
-    pullRequestCloser,
+    pullRequestsCloser,
     packageUpdater
   })
   const outdatedPackagesProcessor = new OutdatedPackagesProcessor({
