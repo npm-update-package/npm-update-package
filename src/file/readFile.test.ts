@@ -15,10 +15,7 @@ describe('readFile', () => {
   })
 
   it('calls fs.promises.readFile()', async () => {
-    const expected = JSON.stringify({
-      name: '@npm-update-package/example',
-      version: '1.0.0'
-    })
+    const expected = 'file data'
     readFileMock.mockResolvedValue(expected)
     const path = 'package.json'
 
