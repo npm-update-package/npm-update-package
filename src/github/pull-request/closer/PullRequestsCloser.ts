@@ -2,7 +2,6 @@ import type { Logger } from '../../../logger'
 import type { PullRequest } from '../../GitHub'
 import type { PullRequestCloser } from './PullRequestCloser'
 
-// TODO: add test
 export class PullRequestsCloser {
   private readonly pullRequestCloser: PullRequestCloser
   private readonly logger: Logger
