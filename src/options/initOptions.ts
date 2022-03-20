@@ -1,24 +1,8 @@
-import { program } from 'commander'
-import pkg from '../../package.json'
 import { cliOptions } from './cliOptions'
-import {
-  isOptions,
-  type Options
-} from './Options'
-import { toCommanderOption } from './toCommanderOption'
+import { createOptions } from './createOptions'
+import type { Options } from './Options'
 
 // TODO: add test
 export const initOptions = (): Options => {
-  program.version(pkg.version)
-  cliOptions
-    .map(toCommanderOption)
-    .forEach(option => program.addOption(option))
-  program.parse(process.argv)
-  const options = program.opts()
-
-  if (!isOptions(options)) {
-    throw new Error(`Failed to parse command-line options. options=${JSON.stringify(options)}`)
-  }
-
-  return options
+  return createOptions(cliOptions)
 }
