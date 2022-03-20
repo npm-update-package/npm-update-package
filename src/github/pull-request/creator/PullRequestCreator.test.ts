@@ -45,12 +45,7 @@ describe('PullRequestCreator', () => {
     const branchName = 'branch name'
 
     afterEach(() => {
-      pullRequestBodyCreatorCreateMock.mockReset()
-      pullRequestTitleCreatorCreateMock.mockReset()
-      githubAddAssigneesMock.mockReset()
-      githubAddLabelsMock.mockReset()
-      githubCreatePullRequestMock.mockReset()
-      githubRequestReviewersMock.mockReset()
+      jest.resetAllMocks()
     })
 
     it('creates pull request', async () => {

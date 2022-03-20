@@ -15,8 +15,7 @@ describe('PullRequestCloser', () => {
     } as unknown as GitHub
 
     afterEach(() => {
-      githubClosePullRequestMock.mockReset()
-      githubDeleteBranchMock.mockReset()
+      jest.resetAllMocks()
     })
 
     it('closes pull request', async () => {

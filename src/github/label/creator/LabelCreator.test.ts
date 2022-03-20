@@ -27,9 +27,7 @@ describe('LabelCreator', () => {
     })
 
     afterEach(() => {
-      isNotFoundErrorMock.mockReset()
-      createLabelMock.mockReset()
-      fetchLabelMock.mockReset()
+      jest.resetAllMocks()
     })
 
     it('does not create label if it already exists', async () => {

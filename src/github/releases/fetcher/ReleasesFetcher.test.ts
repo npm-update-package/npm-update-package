@@ -16,8 +16,7 @@ describe('ReleasesFetcher', () => {
     } as unknown as PackageManager
 
     afterEach(() => {
-      fetchMock.mockReset()
-      getVersionsMock.mockReset()
+      jest.resetAllMocks()
     })
 
     it('returns releases', async () => {

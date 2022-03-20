@@ -46,10 +46,7 @@ describe('PullRequestBodyCreator', () => {
     } as unknown as ReleasesFetcher
 
     afterEach(() => {
-      readFileMock.mockReset()
-      parsePackageJsonMock.mockReset()
-      extractRepositoryMock.mockReset()
-      releasesFetcherFetchMock.mockReset()
+      jest.resetAllMocks()
     })
 
     describe('returns Markdown string', () => {

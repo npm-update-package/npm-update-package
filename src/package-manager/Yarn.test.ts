@@ -9,7 +9,7 @@ describe('Yarn', () => {
   const yarn = new Yarn(terminal)
 
   afterEach(() => {
-    terminalRunMock.mockReset()
+    jest.resetAllMocks()
   })
 
   describe('getVersions', () => {
