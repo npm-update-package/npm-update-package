@@ -11,7 +11,7 @@ describe('readFile', () => {
   const readFileMock = jest.mocked(fs.promises.readFile)
 
   afterEach(() => {
-    readFileMock.mockReset()
+    jest.resetAllMocks()
   })
 
   it('calls fs.promises.readFile()', async () => {

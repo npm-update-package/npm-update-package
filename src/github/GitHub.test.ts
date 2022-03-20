@@ -45,17 +45,7 @@ describe('GitHub', () => {
   const github = new GitHub(octokit)
 
   afterEach(() => {
-    gitDeleteRefMock.mockReset()
-    issuesAddAssigneesMock.mockReset()
-    issuesAddLabelsMock.mockReset()
-    issuesCreateLabelMock.mockReset()
-    issuesGetLabelMock.mockReset()
-    pullsCreateMock.mockReset()
-    pullsListMock.mockReset()
-    pullsRequestReviewersMock.mockReset()
-    pullsUpdateMock.mockReset()
-    reposGetMock.mockReset()
-    reposListBranchesMock.mockReset()
+    jest.resetAllMocks()
   })
 
   describe('addAssignees', () => {

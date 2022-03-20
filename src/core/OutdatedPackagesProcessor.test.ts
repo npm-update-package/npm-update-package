@@ -27,7 +27,7 @@ describe('OutdatedPackagesProcessor', () => {
     const logger = createLogger(LogLevel.Off)
 
     afterEach(() => {
-      outdatedPackageProcessorProcessMock.mockReset()
+      jest.resetAllMocks()
     })
 
     it('calls OutdatedPackageProcessor.process() by each packages', async () => {

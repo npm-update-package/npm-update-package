@@ -9,7 +9,7 @@ describe('Git', () => {
   const git = new Git(terminal)
 
   afterEach(() => {
-    terminalRunMock.mockReset()
+    jest.resetAllMocks()
   })
 
   describe('add', () => {

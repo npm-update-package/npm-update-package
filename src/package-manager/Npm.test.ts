@@ -9,7 +9,7 @@ describe('Npm', () => {
   const npm = new Npm(terminal)
 
   afterEach(() => {
-    terminalRunMock.mockReset()
+    jest.resetAllMocks()
   })
 
   describe('getVersions', () => {

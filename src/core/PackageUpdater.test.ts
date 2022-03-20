@@ -31,8 +31,7 @@ describe('PackageUpdater', () => {
     }
 
     afterEach(() => {
-      packageManagerInstallMock.mockReset()
-      ncuUpdateMock.mockReset()
+      jest.resetAllMocks()
     })
 
     it('returns undefined if succeeded to install package', async () => {
