@@ -33,6 +33,7 @@ describe('Npm', () => {
         terminalRunMock.mockResolvedValue({ stdout: JSON.stringify({}) })
 
         await expect(async () => await npm.getVersions(packageName)).rejects.toThrow(Error)
+
         expect(terminalRunMock).toBeCalledWith('npm', 'info', packageName, 'versions', '--json')
       })
     })
