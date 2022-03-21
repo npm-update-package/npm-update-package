@@ -77,8 +77,8 @@ describe('PullRequestFinder', () => {
           body: null
         }
       ] as unknown as PullRequest[]
-
       const pullRequestFinder = new PullRequestFinder(pullRequests)
+
       const actual = pullRequestFinder.findByPackageName('@npm-update-package/foo')
 
       expect(actual).toEqual(expected)
