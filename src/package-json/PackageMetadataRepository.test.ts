@@ -4,15 +4,29 @@ import {
 } from './PackageMetadataRepository'
 
 describe('isPackageMetadataRepository', () => {
-  const repository: PackageMetadataRepository = {
-    url: 'https://github.com/npm-update-package/example.git'
-  }
+  describe('returns whether value is PackageMetadataRepository', () => {
+    interface TestCase {
+      value: unknown
+      expected: boolean
+    }
+    const repository: PackageMetadataRepository = {
+      url: 'https://github.com/npm-update-package/example.git'
+    }
+    const cases: TestCase[] = [
+      {
+        value: repository,
+        expected: true
+      },
+      {
+        value: {},
+        expected: false
+      }
+    ]
 
-  it('returns true if value is PackageMetadataRepository', () => {
-    expect(isPackageMetadataRepository(repository)).toBe(true)
-  })
+    it.each(cases)('value=$value', ({ value, expected }) => {
+      const actual = isPackageMetadataRepository(value)
 
-  it('returns false if value is not PackageMetadataRepository', () => {
-    expect(isPackageMetadataRepository(JSON.stringify(repository))).toBe(false)
+      expect(actual).toBe(expected)
+    })
   })
 })

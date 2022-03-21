@@ -34,10 +34,11 @@ describe('Yarn', () => {
         expect(terminalRunMock).toBeCalledWith('yarn', 'info', packageName, 'versions', '--json')
       })
 
-      it('throws Error if stdout is invalid', async () => {
+      it('throws error if stdout is invalid', async () => {
         terminalRunMock.mockResolvedValue({ stdout: JSON.stringify({}) })
 
         await expect(async () => await yarn.getVersions(packageName)).rejects.toThrow(Error)
+
         expect(terminalRunMock).toBeCalledWith('yarn', 'info', packageName, 'versions', '--json')
       })
     })

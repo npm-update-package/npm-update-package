@@ -7,21 +7,20 @@ import { Yarn } from './Yarn'
 describe('createPackageManager', () => {
   const terminal = new Terminal()
 
-  it(`returns new Npm instance if packageManager is ${PackageManagerName.Npm}`, () => {
-    const packageManager = createPackageManager({
-      terminal,
-      packageManager: PackageManagerName.Npm
+  describe('returns new PackageManager instance', () => {
+    type TestCase = [PackageManagerName, typeof Npm | typeof Yarn]
+    const cases: TestCase[] = [
+      [PackageManagerName.Npm, Npm],
+      [PackageManagerName.Yarn, Yarn]
+    ]
+
+    it.each(cases)('packageManager=%p', (packageManager, expected) => {
+      const actual = createPackageManager({
+        terminal,
+        packageManager
+      })
+
+      expect(actual).toBeInstanceOf(expected)
     })
-
-    expect(packageManager).toBeInstanceOf(Npm)
-  })
-
-  it(`returns new Yarn instance if packageManager is ${PackageManagerName.Yarn}`, () => {
-    const packageManager = createPackageManager({
-      terminal,
-      packageManager: PackageManagerName.Yarn
-    })
-
-    expect(packageManager).toBeInstanceOf(Yarn)
   })
 })

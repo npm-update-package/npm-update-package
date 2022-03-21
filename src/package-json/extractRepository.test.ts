@@ -60,7 +60,7 @@ describe('extractRepository', () => {
       }
     ]
 
-    it.each<TestCase>(cases)('metadata=$metadata', ({ metadata, expected }) => {
+    it.each(cases)('metadata=$metadata', ({ metadata, expected }) => {
       const actual = extractRepository(metadata)
 
       expect(actual).toBeDefined()

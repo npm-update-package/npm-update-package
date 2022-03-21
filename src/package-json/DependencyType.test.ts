@@ -14,8 +14,10 @@ describe('isDependencyType', () => {
       ['unknown', false]
     ]
 
-    it.each<TestCase>(cases)('value=%p, expected=%p', (value, expected) => {
-      expect(isDependencyType(value)).toBe(expected)
+    it.each(cases)('value=%p', (value, expected) => {
+      const actual = isDependencyType(value)
+
+      expect(actual).toBe(expected)
     })
   })
 })

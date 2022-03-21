@@ -12,8 +12,10 @@ describe('isOptionType', () => {
       ['unknown', false]
     ]
 
-    it.each<TestCase>(cases)('value=%p, expected=%p', (value, expected) => {
-      expect(isOptionType(value)).toBe(expected)
+    it.each(cases)('value=%p', (value, expected) => {
+      const actual = isOptionType(value)
+
+      expect(actual).toBe(expected)
     })
   })
 })

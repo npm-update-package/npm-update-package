@@ -4,15 +4,29 @@ import {
 } from './PackageMetadataDependencies'
 
 describe('isPackageMetadataDependencies', () => {
-  const dependencies: PackageMetadataDependencies = {
-    '@npm-update-package/example': '1.0.0'
-  }
+  describe('returns whether value is PackageMetadataDependencies', () => {
+    interface TestCase {
+      value: unknown
+      expected: boolean
+    }
+    const dependencies: PackageMetadataDependencies = {
+      '@npm-update-package/example': '1.0.0'
+    }
+    const cases: TestCase[] = [
+      {
+        value: dependencies,
+        expected: true
+      },
+      {
+        value: [dependencies],
+        expected: false
+      }
+    ]
 
-  it('returns true if value is PackageMetadataDependencies', () => {
-    expect(isPackageMetadataDependencies(dependencies)).toBe(true)
-  })
+    it.each(cases)('value=$value', ({ value, expected }) => {
+      const actual = isPackageMetadataDependencies(value)
 
-  it('returns false if value is not PackageMetadataDependencies', () => {
-    expect(isPackageMetadataDependencies(JSON.stringify(dependencies))).toBe(false)
+      expect(actual).toBe(expected)
+    })
   })
 })

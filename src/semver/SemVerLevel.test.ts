@@ -13,8 +13,10 @@ describe('isSemVerLevel', () => {
       ['unknown', false]
     ]
 
-    it.each<TestCase>(cases)('value=%p, expected=%p', (value, expected) => {
-      expect(isSemVerLevel(value)).toBe(expected)
+    it.each(cases)('value=%p', (value, expected) => {
+      const actual = isSemVerLevel(value)
+
+      expect(actual).toBe(expected)
     })
   })
 })

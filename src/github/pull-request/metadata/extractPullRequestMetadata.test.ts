@@ -19,8 +19,10 @@ describe('extractPullRequestMetadata', () => {
 \`\`\`
 
 </div>`
-    const metadata = extractPullRequestMetadata(body)
-    expect(metadata).toEqual({
+
+    const actual = extractPullRequestMetadata(body)
+
+    expect(actual).toEqual({
       version: '1.0.0',
       packages: [
         {
@@ -33,21 +35,23 @@ describe('extractPullRequestMetadata', () => {
     })
   })
 
-  it('returns undefined if body does not contain metadata', () => {
-    const body = ''
-    const metadata = extractPullRequestMetadata(body)
-    expect(metadata).toBeUndefined()
-  })
-
-  it('returns undefined if metadata is invalid', () => {
-    const body = `<div id="npm-update-package-metadata">
+  describe('returns undefined if body does not contain metadata', () => {
+    type TestCase = string
+    const cases: TestCase[] = [
+      '',
+      `<div id="npm-update-package-metadata">
 
 \`\`\`json
 {}
 \`\`\`
 
 </div>`
-    const metadata = extractPullRequestMetadata(body)
-    expect(metadata).toBeUndefined()
+    ]
+
+    it.each(cases)('body=%p', (body) => {
+      const actual = extractPullRequestMetadata(body)
+
+      expect(actual).toBeUndefined()
+    })
   })
 })

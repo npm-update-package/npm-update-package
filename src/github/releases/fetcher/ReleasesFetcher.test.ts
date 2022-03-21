@@ -1,3 +1,4 @@
+import { StatusCodes } from 'http-status-codes'
 import fetch from 'node-fetch'
 import type { Response } from 'node-fetch'
 import { GitRepository } from '../../../git'
@@ -14,34 +15,39 @@ describe('ReleasesFetcher', () => {
     const packageManager = {
       getVersions: getVersionsMock
     } as unknown as PackageManager
+    const releasesFetcher = new ReleasesFetcher({ packageManager })
 
     afterEach(() => {
       jest.resetAllMocks()
     })
 
     it('returns releases', async () => {
-      const versions = [
+      getVersionsMock.mockResolvedValue([
         '1.0.0',
         '1.1.0',
         '1.1.1',
         '2.0.0',
         '2.1.0'
-      ]
-      getVersionsMock.mockResolvedValue(versions)
+      ])
       fetchMock.mockImplementation(async (url) => {
         if (typeof url === 'string' && url.endsWith('v1.1.1')) {
           return await Promise.resolve({
-            ok: false
+            ok: false,
+            status: StatusCodes.NOT_FOUND
           } as unknown as Response)
         } else {
           return await Promise.resolve({
-            ok: true
+            ok: true,
+            status: StatusCodes.OK
           } as unknown as Response)
         }
       })
-      const gitRepo = GitRepository.of('https://github.com/npm-update-package/example') as GitRepository
+      const gitRepo = {
+        owner: 'npm-update-package',
+        name: 'example',
+        url: 'https://github.com/npm-update-package/example'
+      } as unknown as GitRepository
 
-      const releasesFetcher = new ReleasesFetcher({ packageManager })
       const actual = await releasesFetcher.fetch({
         gitRepo,
         packageName: '@npm-update-package/example',
@@ -54,6 +60,7 @@ describe('ReleasesFetcher', () => {
           tag: 'v1.1.0',
           url: 'https://github.com/npm-update-package/example/releases/tag/v1.1.0'
         },
+        // v1.1.1 is missing
         {
           tag: 'v2.0.0',
           url: 'https://github.com/npm-update-package/example/releases/tag/v2.0.0'

@@ -54,6 +54,7 @@ describe('GitHub', () => {
       const repo = 'example'
       const issueNumber = 1
       const assignees = ['npm-update-package-bot']
+
       await github.addAssignees({
         owner,
         repo,
@@ -76,6 +77,7 @@ describe('GitHub', () => {
       const repo = 'example'
       const issueNumber = 1
       const labels = ['test label']
+
       await github.addLabels({
         owner,
         repo,
@@ -97,6 +99,7 @@ describe('GitHub', () => {
       const owner = 'npm-update-package'
       const repo = 'example'
       const pullNumber = 1
+
       await github.closePullRequest({
         owner,
         repo,
@@ -119,6 +122,7 @@ describe('GitHub', () => {
       const name = 'test label'
       const description = 'test description'
       const color = 'FFFFFF'
+
       await github.createLabel({
         owner,
         repo,
@@ -143,13 +147,13 @@ describe('GitHub', () => {
         id: 1
       } as unknown as CreatedPullRequest
       pullsCreateMock.mockResolvedValue({ data: expected })
-
       const owner = 'npm-update-package'
       const repo = 'example'
       const baseBranch = 'master'
       const headBranch = 'develop'
       const title = 'test title'
       const body = 'test body'
+
       const actual = await github.createPullRequest({
         owner,
         repo,
@@ -176,6 +180,7 @@ describe('GitHub', () => {
       const owner = 'npm-update-package'
       const repo = 'example'
       const branch = 'develop'
+
       await github.deleteBranch({
         owner,
         repo,
@@ -218,9 +223,9 @@ describe('GitHub', () => {
           return await Promise.reject(new Error())
         }
       })
-
       const owner = 'npm-update-package'
       const repo = 'example'
+
       const actual = await github.fetchBranches({
         owner,
         repo
@@ -246,10 +251,10 @@ describe('GitHub', () => {
         id: 1
       } as unknown as Label
       issuesGetLabelMock.mockResolvedValue({ data: expected })
-
       const owner = 'npm-update-package'
       const repo = 'example'
       const name = 'test label'
+
       const actual = await github.fetchLabel({
         owner,
         repo,
@@ -291,9 +296,9 @@ describe('GitHub', () => {
           return await Promise.reject(new Error())
         }
       })
-
       const owner = 'npm-update-package'
       const repo = 'example'
+
       const actual = await github.fetchPullRequests({
         owner,
         repo
@@ -319,9 +324,9 @@ describe('GitHub', () => {
         id: 1
       } as unknown as Repository
       reposGetMock.mockResolvedValue({ data: expected })
-
       const owner = 'npm-update-package'
       const repo = 'example'
+
       const actual = await github.fetchRepository({
         owner,
         repo
@@ -341,6 +346,7 @@ describe('GitHub', () => {
       const repo = 'example'
       const pullNumber = 1
       const reviewers = ['npm-update-package-bot']
+
       await github.requestReviewers({
         owner,
         repo,
