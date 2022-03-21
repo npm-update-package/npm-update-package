@@ -4,7 +4,9 @@ describe('toJSON', () => {
   describe('returns JSON string', () => {
     interface TestCase {
       value: unknown
-      pretty: boolean
+      options?: {
+        pretty?: boolean
+      }
       expected: string
     }
     const value = {
@@ -14,12 +16,14 @@ describe('toJSON', () => {
     const cases: TestCase[] = [
       {
         value,
-        pretty: false,
+        options: undefined,
         expected: '{"number":1,"string":"foo"}'
       },
       {
         value,
-        pretty: true,
+        options: {
+          pretty: true
+        },
         expected:
 `{
   "number": 1,
@@ -28,8 +32,8 @@ describe('toJSON', () => {
       }
     ]
 
-    it.each(cases)('value=$value, pretty=$pretty', ({ value, pretty, expected }) => {
-      const actual = toJSON(value, { pretty })
+    it.each(cases)('value=$value, options=$options', ({ value, options, expected }) => {
+      const actual = toJSON(value, options)
 
       expect(actual).toBe(expected)
     })
