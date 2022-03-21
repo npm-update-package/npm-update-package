@@ -5,23 +5,47 @@ import {
 } from './PullRequestMetadata'
 
 describe('isPullRequestMetadata', () => {
-  const metadata: PullRequestMetadata = {
-    version: '1.0.0',
-    packages: [
+  describe('returns whether value is PullRequestMetadata', () => {
+    interface TestCase {
+      value: unknown
+      expected: boolean
+    }
+    const metadata: PullRequestMetadata = {
+      version: '1.0.0',
+      packages: [
+        {
+          name: '@npm-update-package/example',
+          currentVersion: '1.0.0',
+          newVersion: '2.0.0',
+          level: SemVerLevel.Major
+        }
+      ]
+    }
+    const cases: TestCase[] = [
       {
-        name: '@npm-update-package/example',
-        currentVersion: '1.0.0',
-        newVersion: '2.0.0',
-        level: SemVerLevel.Major
+        value: metadata,
+        expected: true
+      },
+      {
+        value: {
+          ...metadata,
+          version: undefined
+        },
+        expected: false
+      },
+      {
+        value: {
+          ...metadata,
+          packages: undefined
+        },
+        expected: false
       }
     ]
-  }
 
-  it('returns true if value is PullRequestMetadata', () => {
-    expect(isPullRequestMetadata(metadata)).toBe(true)
-  })
+    it.each(cases)('value=$value', ({ value, expected }) => {
+      const actual = isPullRequestMetadata(value)
 
-  it('returns false if value is not PullRequestMetadata', () => {
-    expect(isPullRequestMetadata(JSON.stringify(metadata))).toBe(false)
+      expect(actual).toBe(expected)
+    })
   })
 })
