@@ -214,8 +214,9 @@ describe('GitRepository', () => {
         }
       ]
 
-      it.each<TestCase>(cases)('repository=$repository', ({ repository, expected }) => {
+      it.each(cases)('repository=$repository', ({ repository, expected }) => {
         const actual = GitRepository.of(repository)
+
         expect(actual).toBeDefined()
         expect(actual).toBeInstanceOf(GitRepository)
         expect(actual?.url).toEqual(expected.url)
@@ -237,7 +238,7 @@ describe('GitRepository', () => {
         'https://github.com/npm-update-package'
       ]
 
-      it.each<TestCase>(cases)('repository=%p', (repository) => {
+      it.each(cases)('repository=%p', (repository) => {
         const actual = GitRepository.of(repository)
 
         expect(actual).toBeUndefined()
