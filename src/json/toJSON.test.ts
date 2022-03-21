@@ -1,65 +1,37 @@
 import { toJSON } from './toJSON'
 
-type TestCase = [unknown, string]
-
 describe('toJSON', () => {
-  describe('returns not indented JSON string if pretty option is false', () => {
+  describe('returns JSON string', () => {
+    interface TestCase {
+      value: unknown
+      pretty: boolean
+      expected: string
+    }
+    const value = {
+      number: 1,
+      string: 'foo'
+    }
     const cases: TestCase[] = [
-      [
-        {
-          number: 1,
-          string: 'string'
-        },
-        '{"number":1,"string":"string"}'
-      ],
-      [
-        [
-          {
-            number: 1,
-            string: 'string'
-          }
-        ],
-        '[{"number":1,"string":"string"}]'
-      ]
-    ]
-
-    it.each<TestCase>(cases)('value=%j', (value, expected) => {
-      const json = toJSON(value)
-      expect(json).toBe(expected)
-    })
-  })
-
-  describe('returns indented JSON string if pretty option is true', () => {
-    const cases: TestCase[] = [
-      [
-        {
-          number: 1,
-          string: 'string'
-        },
+      {
+        value,
+        pretty: false,
+        expected: '{"number":1,"string":"foo"}'
+      },
+      {
+        value,
+        pretty: true,
+        expected:
 `{
   "number": 1,
-  "string": "string"
+  "string": "foo"
 }`
-      ],
-      [
-        [
-          {
-            number: 1,
-            string: 'string'
-          }
-        ],
-`[
-  {
-    "number": 1,
-    "string": "string"
-  }
-]`
-      ]
+      }
     ]
 
-    it.each<TestCase>(cases)('value=%j', (value, expected) => {
-      const json = toJSON(value, { pretty: true })
-      expect(json).toBe(expected)
+    it.each(cases)('value=$value, pretty=$pretty', ({ value, pretty, expected }) => {
+      const actual = toJSON(value, { pretty })
+
+      expect(actual).toBe(expected)
     })
   })
 })
