@@ -47,6 +47,7 @@ describe('PackageUpdater', () => {
       ncuUpdateMock.mockResolvedValue([])
 
       await expect(async () => await packageUpdater.update(outdatedPackage)).rejects.toThrow(Error)
+
       expect(ncuUpdateMock).toBeCalledWith(outdatedPackage)
       expect(packageManagerInstallMock).not.toBeCalled()
     })
