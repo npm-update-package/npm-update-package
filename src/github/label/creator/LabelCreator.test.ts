@@ -19,7 +19,10 @@ describe('LabelCreator', () => {
       fetchLabel: fetchLabelMock
     } as unknown as GitHub
     const logger = createLogger(LogLevel.Off)
-    const gitRepo = GitRepository.of('https://github.com/npm-update-package/example') as GitRepository
+    const gitRepo = {
+      owner: 'npm-update-package',
+      name: 'example'
+    } as unknown as GitRepository
     const labelCreator = new LabelCreator({
       github,
       gitRepo,
@@ -51,8 +54,8 @@ describe('LabelCreator', () => {
     })
 
     it('creates label if it does not exist', async () => {
-      const fetchLabelError = new Error()
-      fetchLabelMock.mockRejectedValue(fetchLabelError)
+      const error = new Error()
+      fetchLabelMock.mockRejectedValue(error)
       isNotFoundErrorMock.mockReturnValue(true)
 
       await labelCreator.create({
@@ -66,7 +69,7 @@ describe('LabelCreator', () => {
         repo: gitRepo.name,
         name: 'npm-update-package'
       })
-      expect(isNotFoundErrorMock).toBeCalledWith(fetchLabelError)
+      expect(isNotFoundErrorMock).toBeCalledWith(error)
       expect(createLabelMock).toBeCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
@@ -77,21 +80,21 @@ describe('LabelCreator', () => {
     })
 
     it('throws error if it occurred when fetching label', async () => {
-      const fetchLabelError = new Error()
-      fetchLabelMock.mockRejectedValue(fetchLabelError)
+      const error = new Error()
+      fetchLabelMock.mockRejectedValue(error)
       isNotFoundErrorMock.mockReturnValue(false)
 
       await expect(async () => await labelCreator.create({
         name: 'npm-update-package',
         description: 'Created by npm-update-package',
         color: 'A00F21'
-      })).rejects.toThrow(fetchLabelError)
+      })).rejects.toThrow(error)
       expect(fetchLabelMock).toBeCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
         name: 'npm-update-package'
       })
-      expect(isNotFoundErrorMock).toBeCalledWith(fetchLabelError)
+      expect(isNotFoundErrorMock).toBeCalledWith(error)
       expect(createLabelMock).not.toBeCalled()
     })
   })
