@@ -1,4 +1,7 @@
-import { isNcuResult } from './NcuResult'
+import {
+  isNcuResult,
+  type NcuResult
+} from './NcuResult'
 
 describe('isNcuResult', () => {
   describe('returns whether value is NcuResult', () => {
@@ -6,19 +9,16 @@ describe('isNcuResult', () => {
       value: unknown
       expected: boolean
     }
+    const ncuResult: NcuResult = {
+      '@npm-update-package/example': '1.0.0'
+    }
     const cases: TestCase[] = [
       {
-        value: {
-          '@npm-update-package/example': '1.0.0'
-        },
+        value: ncuResult,
         expected: true
       },
       {
-        value: [
-          {
-            '@npm-update-package/example': '1.0.0'
-          }
-        ],
+        value: [ncuResult],
         expected: false
       }
     ]
