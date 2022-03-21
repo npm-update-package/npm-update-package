@@ -18,6 +18,7 @@ describe('Git', () => {
         'package.json',
         'package-lock.json'
       ]
+
       await git.add(...files)
 
       expect(terminalRunMock).toBeCalledWith('git', 'add', ...files)
@@ -27,6 +28,7 @@ describe('Git', () => {
   describe('commit', () => {
     it('calls `git commit --message <message>`', async () => {
       const message = 'test message'
+
       await git.commit(message)
 
       expect(terminalRunMock).toBeCalledWith('git', 'commit', '--message', message)
@@ -36,6 +38,7 @@ describe('Git', () => {
   describe('createBranch', () => {
     it('calls `git checkout -b <branchName>`', async () => {
       const branchName = 'test-branch-name'
+
       await git.createBranch(branchName)
 
       expect(terminalRunMock).toBeCalledWith('git', 'checkout', '-b', branchName)
@@ -57,6 +60,7 @@ describe('Git', () => {
   describe('push', () => {
     it('calls `git push origin <branchName>`', async () => {
       const branchName = 'test-branch-name'
+
       await git.push(branchName)
 
       expect(terminalRunMock).toBeCalledWith('git', 'push', 'origin', branchName)
@@ -66,6 +70,7 @@ describe('Git', () => {
   describe('removeBranch', () => {
     it('calls `git branch -D <branchName>`', async () => {
       const branchName = 'test-branch-name'
+
       await git.removeBranch(branchName)
 
       expect(terminalRunMock).toBeCalledWith('git', 'branch', '-D', branchName)
@@ -78,6 +83,7 @@ describe('Git', () => {
         'package.json',
         'package-lock.json'
       ]
+
       await git.restore(...files)
 
       expect(terminalRunMock).toBeCalledWith('git', 'checkout', ...files)
@@ -87,6 +93,7 @@ describe('Git', () => {
   describe('switch', () => {
     it('calls `git checkout <branchName>`', async () => {
       const branchName = 'test-branch-name'
+
       await git.switch(branchName)
 
       expect(terminalRunMock).toBeCalledWith('git', 'checkout', branchName)
