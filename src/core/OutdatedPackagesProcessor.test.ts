@@ -25,13 +25,17 @@ describe('OutdatedPackagesProcessor', () => {
       process: outdatedPackageProcessorProcessMock
     } as unknown as OutdatedPackageProcessor
     const logger = createLogger(LogLevel.Off)
+    const outdatedPackagesProcessor = new OutdatedPackagesProcessor({
+      outdatedPackageProcessor,
+      logger
+    })
 
     afterEach(() => {
       jest.resetAllMocks()
     })
 
     it('calls OutdatedPackageProcessor.process() by each packages', async () => {
-      const createdPackage: OutdatedPackage = {
+      const packageToBeCreated: OutdatedPackage = {
         name: '@npm-update-package/example-1',
         currentVersion: SemVer.of('1.0.0'),
         newVersion: SemVer.of('2.0.0'),
@@ -39,10 +43,10 @@ describe('OutdatedPackagesProcessor', () => {
         dependencyType: DependencyType.Dependencies
       }
       const createdResult: Either<FailedResult, SucceededResult> = right({
-        outdatedPackage: createdPackage,
+        outdatedPackage: packageToBeCreated,
         created: true
       })
-      const skippedPackage: OutdatedPackage = {
+      const PackageToBeSkipped: OutdatedPackage = {
         name: '@npm-update-package/example-2',
         currentVersion: SemVer.of('1.0.0'),
         newVersion: SemVer.of('1.1.0'),
@@ -50,10 +54,10 @@ describe('OutdatedPackagesProcessor', () => {
         dependencyType: DependencyType.Dependencies
       }
       const skippedResult: Either<FailedResult, SucceededResult> = right({
-        outdatedPackage: skippedPackage,
+        outdatedPackage: PackageToBeSkipped,
         skipped: true
       })
-      const failedPackage: OutdatedPackage = {
+      const PackageToBeFailed: OutdatedPackage = {
         name: '@npm-update-package/example-3',
         currentVersion: SemVer.of('1.0.0'),
         newVersion: SemVer.of('1.0.1'),
@@ -61,39 +65,35 @@ describe('OutdatedPackagesProcessor', () => {
         dependencyType: DependencyType.DevDependencies
       }
       const failedResult: Either<FailedResult, SucceededResult> = left({
-        outdatedPackage: failedPackage,
+        outdatedPackage: PackageToBeFailed,
         error: new Error('Failed to update package')
       })
       outdatedPackageProcessorProcessMock.mockImplementation((outdatedPackage: OutdatedPackage) => {
         switch (outdatedPackage.name) {
-          case createdPackage.name:
+          case packageToBeCreated.name:
             return createdResult
-          case skippedPackage.name:
+          case PackageToBeSkipped.name:
             return skippedResult
-          case failedPackage.name:
+          case PackageToBeFailed.name:
             return failedResult
         }
       })
 
-      const outdatedPackagesProcessor = new OutdatedPackagesProcessor({
-        outdatedPackageProcessor,
-        logger
-      })
-      const results = await outdatedPackagesProcessor.process([
-        createdPackage,
-        skippedPackage,
-        failedPackage
+      const actual = await outdatedPackagesProcessor.process([
+        packageToBeCreated,
+        PackageToBeSkipped,
+        PackageToBeFailed
       ])
 
-      expect(results).toEqual([
+      expect(actual).toEqual([
         createdResult,
         skippedResult,
         failedResult
       ])
       expect(outdatedPackageProcessorProcessMock).toBeCalledTimes(3)
-      expect(outdatedPackageProcessorProcessMock).toBeCalledWith(createdPackage)
-      expect(outdatedPackageProcessorProcessMock).toBeCalledWith(skippedPackage)
-      expect(outdatedPackageProcessorProcessMock).toBeCalledWith(failedPackage)
+      expect(outdatedPackageProcessorProcessMock).toBeCalledWith(packageToBeCreated)
+      expect(outdatedPackageProcessorProcessMock).toBeCalledWith(PackageToBeSkipped)
+      expect(outdatedPackageProcessorProcessMock).toBeCalledWith(PackageToBeFailed)
     })
   })
 })
