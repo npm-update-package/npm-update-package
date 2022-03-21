@@ -10,7 +10,7 @@ describe('optimizeGitHubUrl', () => {
       ['https://github.com.test/foo/', 'https://github.com.test/foo/']
     ]
 
-    it.each<TestCase>(cases)('url=%p', (url, expected) => {
+    it.each(cases)('url=%p', (url, expected) => {
       const actual = optimizeGitHubUrl(url)
 
       expect(actual).toBe(expected)
