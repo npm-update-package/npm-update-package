@@ -38,6 +38,7 @@ describe('Yarn', () => {
         terminalRunMock.mockResolvedValue({ stdout: JSON.stringify({}) })
 
         await expect(async () => await yarn.getVersions(packageName)).rejects.toThrow(Error)
+
         expect(terminalRunMock).toBeCalledWith('yarn', 'info', packageName, 'versions', '--json')
       })
     })
