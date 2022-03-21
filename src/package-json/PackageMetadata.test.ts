@@ -4,29 +4,46 @@ import {
 } from './PackageMetadata'
 
 describe('isPackageMetadata', () => {
-  const metadata: PackageMetadata = {
-    name: '@npm-update-package/example',
-    version: '1.0.0',
-    dependencies: {
-      '@npm-update-package/example-dependencies': '1.0.0'
-    },
-    devDependencies: {
-      '@npm-update-package/example-devDependencies': '1.0.0'
-    },
-    peerDependencies: {
-      '@npm-update-package/example-peerDependencies': '1.0.0'
-    },
-    optionalDependencies: {
-      '@npm-update-package/example-optionalDependencies': '1.0.0'
-    },
-    repository: 'npm-update-package/example'
-  }
+  describe('returns whether value is PackageMetadata', () => {
+    interface TestCase {
+      value: unknown
+      expected: boolean
+    }
+    const metadata: PackageMetadata = {
+      name: '@npm-update-package/example',
+      version: '1.0.0',
+      dependencies: {
+        '@npm-update-package/example-dependencies': '1.0.0'
+      },
+      devDependencies: {
+        '@npm-update-package/example-devDependencies': '1.0.0'
+      },
+      peerDependencies: {
+        '@npm-update-package/example-peerDependencies': '1.0.0'
+      },
+      optionalDependencies: {
+        '@npm-update-package/example-optionalDependencies': '1.0.0'
+      },
+      repository: 'npm-update-package/example'
+    }
+    const cases: TestCase[] = [
+      {
+        value: metadata,
+        expected: true
+      },
+      {
+        value: {
+          ...metadata,
+          name: undefined
+        },
+        expected: false
+      }
+    ]
 
-  it('returns true if value is PackageMetadata', () => {
-    expect(isPackageMetadata(metadata)).toBe(true)
-  })
+    it.each(cases)('value=$value', ({ value, expected }) => {
+      const actual = isPackageMetadata(value)
 
-  it('returns false if value is not PackageMetadata', () => {
-    expect(isPackageMetadata(JSON.stringify(metadata))).toBe(false)
+      expect(actual).toBe(expected)
+    })
   })
 })
