@@ -17,7 +17,7 @@ describe('isLogLevel', () => {
       ['unknown', false]
     ]
 
-    it.each(cases)('value=%p, expected=%p', (value, expected) => {
+    it.each(cases)('value=%p', (value, expected) => {
       const actual = isLogLevel(value)
 
       expect(actual).toBe(expected)
