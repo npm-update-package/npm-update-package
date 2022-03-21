@@ -11,7 +11,7 @@ describe('isNotFoundError', () => {
     }
     const request: RequestOptions = {
       method: 'GET',
-      url: 'https://example.com/',
+      url: 'https://example.test/',
       headers: {}
     }
     const options = { request }
