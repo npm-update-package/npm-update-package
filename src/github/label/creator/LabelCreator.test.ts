@@ -89,6 +89,7 @@ describe('LabelCreator', () => {
         description: 'Created by npm-update-package',
         color: 'A00F21'
       })).rejects.toThrow(error)
+
       expect(fetchLabelMock).toBeCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
