@@ -29,8 +29,9 @@ describe('PullRequestsCloser', () => {
       const pullRequest2 = {
         number: 2
       } as unknown as PullRequest
+      const pullRequests = [pullRequest1, pullRequest2]
 
-      await pullRequestsCreator.close([pullRequest1, pullRequest2])
+      await pullRequestsCreator.close(pullRequests)
 
       expect(pullRequestCloserCloseMock).toBeCalledTimes(2)
       expect(pullRequestCloserCloseMock).toBeCalledWith(pullRequest1)
