@@ -12,8 +12,10 @@ describe('isPackageManagerName', () => {
       ['unknown', false]
     ]
 
-    it.each<TestCase>(cases)('value=%p, expected=%p', (value, expected) => {
-      expect(isPackageManagerName(value)).toBe(expected)
+    it.each(cases)('value=%p', (value, expected) => {
+      const actual = isPackageManagerName(value)
+
+      expect(actual).toBe(expected)
     })
   })
 })
