@@ -46,7 +46,7 @@ describe('OutdatedPackagesProcessor', () => {
         outdatedPackage: packageToBeCreated,
         created: true
       })
-      const PackageToBeSkipped: OutdatedPackage = {
+      const packageToBeSkipped: OutdatedPackage = {
         name: '@npm-update-package/example-2',
         currentVersion: SemVer.of('1.0.0'),
         newVersion: SemVer.of('1.1.0'),
@@ -54,10 +54,10 @@ describe('OutdatedPackagesProcessor', () => {
         dependencyType: DependencyType.Dependencies
       }
       const skippedResult: Either<FailedResult, SucceededResult> = right({
-        outdatedPackage: PackageToBeSkipped,
+        outdatedPackage: packageToBeSkipped,
         skipped: true
       })
-      const PackageToBeFailed: OutdatedPackage = {
+      const packageToBeFailed: OutdatedPackage = {
         name: '@npm-update-package/example-3',
         currentVersion: SemVer.of('1.0.0'),
         newVersion: SemVer.of('1.0.1'),
@@ -65,24 +65,24 @@ describe('OutdatedPackagesProcessor', () => {
         dependencyType: DependencyType.DevDependencies
       }
       const failedResult: Either<FailedResult, SucceededResult> = left({
-        outdatedPackage: PackageToBeFailed,
+        outdatedPackage: packageToBeFailed,
         error: new Error('Failed to update package')
       })
       outdatedPackageProcessorProcessMock.mockImplementation((outdatedPackage: OutdatedPackage) => {
         switch (outdatedPackage.name) {
           case packageToBeCreated.name:
             return createdResult
-          case PackageToBeSkipped.name:
+          case packageToBeSkipped.name:
             return skippedResult
-          case PackageToBeFailed.name:
+          case packageToBeFailed.name:
             return failedResult
         }
       })
 
       const actual = await outdatedPackagesProcessor.process([
         packageToBeCreated,
-        PackageToBeSkipped,
-        PackageToBeFailed
+        packageToBeSkipped,
+        packageToBeFailed
       ])
 
       expect(actual).toEqual([
@@ -92,8 +92,8 @@ describe('OutdatedPackagesProcessor', () => {
       ])
       expect(outdatedPackageProcessorProcessMock).toBeCalledTimes(3)
       expect(outdatedPackageProcessorProcessMock).toBeCalledWith(packageToBeCreated)
-      expect(outdatedPackageProcessorProcessMock).toBeCalledWith(PackageToBeSkipped)
-      expect(outdatedPackageProcessorProcessMock).toBeCalledWith(PackageToBeFailed)
+      expect(outdatedPackageProcessorProcessMock).toBeCalledWith(packageToBeSkipped)
+      expect(outdatedPackageProcessorProcessMock).toBeCalledWith(packageToBeFailed)
     })
   })
 })
