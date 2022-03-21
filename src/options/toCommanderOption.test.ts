@@ -59,7 +59,7 @@ describe('toCommanderOption', () => {
           defaultValue: 'chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}'
         }
       },
-      // choices
+      // has choices
       {
         cliOption: {
           name: 'package-manager',
@@ -107,7 +107,7 @@ describe('toCommanderOption', () => {
       }
     ]
 
-    it.each<TestCase>(cases)('cliOption=$cliOption', ({ cliOption, expected }) => {
+    it.each(cases)('cliOption=$cliOption', ({ cliOption, expected }) => {
       const actual = toCommanderOption(cliOption)
 
       expect(actual.name()).toBe(expected.name)
