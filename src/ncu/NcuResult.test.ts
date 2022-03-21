@@ -14,12 +14,6 @@ describe('isNcuResult', () => {
         expected: true
       },
       {
-        value: JSON.stringify({
-          '@npm-update-package/example': '1.0.0'
-        }),
-        expected: false
-      },
-      {
         value: [
           {
             '@npm-update-package/example': '1.0.0'
