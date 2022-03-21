@@ -1,18 +1,38 @@
-import {
-  isNcuResult,
-  type NcuResult
-} from './NcuResult'
+import { isNcuResult } from './NcuResult'
 
 describe('isNcuResult', () => {
-  const result: NcuResult = {
-    '@npm-update-package/example': '1.0.0'
-  }
+  describe('returns whether value is NcuResult', () => {
+    interface TestCase {
+      value: unknown
+      expected: boolean
+    }
+    const cases: TestCase[] = [
+      {
+        value: {
+          '@npm-update-package/example': '1.0.0'
+        },
+        expected: true
+      },
+      {
+        value: JSON.stringify({
+          '@npm-update-package/example': '1.0.0'
+        }),
+        expected: false
+      },
+      {
+        value: [
+          {
+            '@npm-update-package/example': '1.0.0'
+          }
+        ],
+        expected: false
+      }
+    ]
 
-  it('returns true if value is NcuResult', () => {
-    expect(isNcuResult(result)).toBe(true)
-  })
+    it.each(cases)('value=$value', ({ value, expected }) => {
+      const actual = isNcuResult(value)
 
-  it('returns false if value is not NcuResult', () => {
-    expect(isNcuResult(JSON.stringify(result))).toBe(false)
+      expect(actual).toBe(expected)
+    })
   })
 })
