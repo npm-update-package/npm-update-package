@@ -6,22 +6,39 @@ import {
 } from './Options'
 
 describe('isOptions', () => {
-  const options: Options = {
-    commitMessage: 'test commitMessage',
-    githubToken: 'test githubToken',
-    logLevel: LogLevel.Info,
-    packageManager: PackageManagerName.Npm,
-    prTitle: 'test prTitle',
-    ignorePackages: ['@npm-update-package/example'],
-    prBodyNotes: 'test prBodyNotes',
-    reviewers: ['npm-update-package-bot']
-  }
+  describe('returns whether value is Options', () => {
+    interface TestCase {
+      value: unknown
+      expected: boolean
+    }
+    const options: Options = {
+      commitMessage: 'test commitMessage',
+      githubToken: 'test githubToken',
+      logLevel: LogLevel.Info,
+      packageManager: PackageManagerName.Npm,
+      prTitle: 'test prTitle',
+      ignorePackages: ['@npm-update-package/example'],
+      prBodyNotes: 'test prBodyNotes',
+      reviewers: ['npm-update-package-bot']
+    }
+    const cases: TestCase[] = [
+      {
+        value: options,
+        expected: true
+      },
+      {
+        value: {
+          ...options,
+          githubToken: undefined
+        },
+        expected: false
+      }
+    ]
 
-  it('returns true if value is Options', () => {
-    expect(isOptions(options)).toBe(true)
-  })
+    it.each(cases)('value=$value', ({ value, expected }) => {
+      const actual = isOptions(value)
 
-  it('returns false if value is not Options', () => {
-    expect(isOptions(JSON.stringify(options))).toBe(false)
+      expect(actual).toBe(expected)
+    })
   })
 })
