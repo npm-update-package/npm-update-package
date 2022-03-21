@@ -27,6 +27,13 @@ describe('isYarnVersions', () => {
           type: undefined
         },
         expected: false
+      },
+      {
+        value: {
+          ...versions,
+          data: undefined
+        },
+        expected: false
       }
     ]
 
