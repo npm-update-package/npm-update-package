@@ -4,28 +4,36 @@ import { StatusCodes } from 'http-status-codes'
 import { isNotFoundError } from './NotFoundError'
 
 describe('isNotFoundError', () => {
-  describe('if value is instance of RequestError', () => {
-    const message = 'test message'
+  describe('returns whether value is NotFoundError', () => {
+    interface TestCase {
+      error: Error
+      expected: boolean
+    }
     const request: RequestOptions = {
       method: 'GET',
-      url: 'https://example.com/',
+      url: 'https://example.test/',
       headers: {}
     }
     const options = { request }
+    const cases: TestCase[] = [
+      {
+        error: new RequestError('test message', StatusCodes.NOT_FOUND, options),
+        expected: true
+      },
+      {
+        error: new RequestError('test message', StatusCodes.BAD_REQUEST, options),
+        expected: false
+      },
+      {
+        error: new Error('test message'),
+        expected: false
+      }
+    ]
 
-    it(`returns true if status is ${StatusCodes.NOT_FOUND}`, () => {
-      const error = new RequestError(message, StatusCodes.NOT_FOUND, options)
-      expect(isNotFoundError(error)).toBe(true)
+    it.each(cases)('error=$error', ({ error, expected }) => {
+      const actual = isNotFoundError(error)
+
+      expect(actual).toBe(expected)
     })
-
-    it(`returns false if status is not ${StatusCodes.NOT_FOUND}`, () => {
-      const error = new RequestError(message, StatusCodes.BAD_REQUEST, options)
-      expect(isNotFoundError(error)).toBe(false)
-    })
-  })
-
-  it('returns false if value is not instance of RequestError', () => {
-    const error = new Error()
-    expect(isNotFoundError(error)).toBe(false)
   })
 })

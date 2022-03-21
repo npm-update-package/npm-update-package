@@ -10,59 +10,59 @@ import {
 } from '../git'
 import type {
   BranchFinder,
-  PullRequestCloser,
   PullRequestCreator,
-  PullRequestFinder
+  PullRequestFinder,
+  PullRequestsCloser
 } from '../github'
 import type { Logger } from '../logger'
-import type { Ncu } from '../ncu'
 import type { PackageManager } from '../package-manager'
 import type { FailedResult } from './FailedResult'
 import type { OutdatedPackage } from './OutdatedPackage'
+import type { PackageUpdater } from './PackageUpdater'
 import type { SucceededResult } from './SucceededResult'
 
 // TODO: add test
 export class OutdatedPackageProcessor {
   private readonly git: Git
-  private readonly ncu: Ncu
   private readonly packageManager: PackageManager
   private readonly pullRequestCreator: PullRequestCreator
   private readonly branchFinder: BranchFinder
   private readonly logger: Logger
   private readonly commitMessageCreator: CommitMessageCreator
   private readonly pullRequestFinder: PullRequestFinder
-  private readonly pullRequestCloser: PullRequestCloser
+  private readonly pullRequestsCloser: PullRequestsCloser
+  private readonly packageUpdater: PackageUpdater
 
   constructor ({
     git,
-    ncu,
     packageManager,
     pullRequestCreator,
     branchFinder,
     logger,
     commitMessageCreator,
     pullRequestFinder,
-    pullRequestCloser
+    pullRequestsCloser,
+    packageUpdater
   }: {
     git: Git
-    ncu: Ncu
     packageManager: PackageManager
     pullRequestCreator: PullRequestCreator
     branchFinder: BranchFinder
     logger: Logger
     commitMessageCreator: CommitMessageCreator
     pullRequestFinder: PullRequestFinder
-    pullRequestCloser: PullRequestCloser
+    pullRequestsCloser: PullRequestsCloser
+    packageUpdater: PackageUpdater
   }) {
     this.git = git
-    this.ncu = ncu
     this.packageManager = packageManager
     this.pullRequestCreator = pullRequestCreator
     this.branchFinder = branchFinder
     this.logger = logger
     this.commitMessageCreator = commitMessageCreator
     this.pullRequestFinder = pullRequestFinder
-    this.pullRequestCloser = pullRequestCloser
+    this.pullRequestsCloser = pullRequestsCloser
+    this.packageUpdater = packageUpdater
   }
 
   /**
@@ -85,7 +85,7 @@ export class OutdatedPackageProcessor {
 
     try {
       try {
-        await this.updatePackage(outdatedPackage)
+        await this.packageUpdater.update(outdatedPackage)
       } catch (error) {
         this.logger.error(error)
         return left({
@@ -107,7 +107,6 @@ export class OutdatedPackageProcessor {
         branchName
       })
       this.logger.info(`Pull request for ${outdatedPackage.name} has created. ${pullRequest.html_url}`)
-
       await this.closeOldPullRequests(outdatedPackage)
       return right({
         outdatedPackage,
@@ -121,23 +120,9 @@ export class OutdatedPackageProcessor {
     }
   }
 
-  private async updatePackage (outdatedPackage: OutdatedPackage): Promise<void> {
-    const updatedPackages = await this.ncu.update(outdatedPackage)
-
-    if (updatedPackages.length !== 1) {
-      throw new Error(`Failed to update ${outdatedPackage.name}.`)
-    }
-
-    await this.packageManager.install()
-  }
-
   private async closeOldPullRequests (outdatedPackage: OutdatedPackage): Promise<void> {
     const pullRequests = this.pullRequestFinder.findByPackageName(outdatedPackage.name)
     this.logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
-
-    await Promise.all(pullRequests.map(async (pullRequest) => {
-      await this.pullRequestCloser.close(pullRequest)
-      this.logger.info(`Pull request for ${outdatedPackage.name} has closed. ${pullRequest.html_url}`)
-    }))
+    await this.pullRequestsCloser.close(pullRequests)
   }
 }

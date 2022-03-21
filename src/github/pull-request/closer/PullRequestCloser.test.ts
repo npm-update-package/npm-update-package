@@ -8,15 +8,14 @@ describe('PullRequestCloser', () => {
   describe('close', () => {
     const githubClosePullRequestMock = jest.fn()
     const githubDeleteBranchMock = jest.fn()
-
     const github = {
       closePullRequest: githubClosePullRequestMock,
       deleteBranch: githubDeleteBranchMock
     } as unknown as GitHub
+    const pullRequestCreator = new PullRequestCloser(github)
 
     afterEach(() => {
-      githubClosePullRequestMock.mockReset()
-      githubDeleteBranchMock.mockReset()
+      jest.resetAllMocks()
     })
 
     it('closes pull request', async () => {
@@ -35,7 +34,6 @@ describe('PullRequestCloser', () => {
         }
       } as unknown as PullRequest
 
-      const pullRequestCreator = new PullRequestCloser(github)
       await pullRequestCreator.close(pullRequest)
 
       expect(githubClosePullRequestMock).toBeCalledWith({

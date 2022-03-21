@@ -17,6 +17,7 @@ export class PullRequestCreator {
   private readonly pullRequestBodyCreator: PullRequestBodyCreator
   private readonly logger: Logger
   private readonly reviewers: string[] | undefined
+  private readonly assignees: string[] | undefined
 
   constructor ({
     github,
@@ -25,7 +26,8 @@ export class PullRequestCreator {
     pullRequestTitleCreator,
     pullRequestBodyCreator,
     logger,
-    reviewers
+    reviewers,
+    assignees
   }: {
     github: GitHub
     gitRepo: GitRepository
@@ -34,6 +36,7 @@ export class PullRequestCreator {
     pullRequestBodyCreator: PullRequestBodyCreator
     logger: Logger
     reviewers?: string[]
+    assignees?: string[]
   }) {
     this.github = github
     this.gitRepo = gitRepo
@@ -42,6 +45,7 @@ export class PullRequestCreator {
     this.pullRequestBodyCreator = pullRequestBodyCreator
     this.logger = logger
     this.reviewers = reviewers
+    this.assignees = assignees
   }
 
   async create ({
@@ -73,6 +77,15 @@ export class PullRequestCreator {
       issueNumber: pullRequest.number,
       labels: ['npm-update-package']
     })
+
+    if (this.assignees !== undefined) {
+      await this.github.addAssignees({
+        owner: this.gitRepo.owner,
+        repo: this.gitRepo.name,
+        issueNumber: pullRequest.number,
+        assignees: this.assignees
+      })
+    }
 
     if (this.reviewers !== undefined) {
       await this.github.requestReviewers({

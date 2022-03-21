@@ -11,5 +11,6 @@
       "matchPackageNames": ["node"],
       "allowedVersions": "<14"
     }
-  ]
+  ],
+  "separateMultipleMajor": true
 }

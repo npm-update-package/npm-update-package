@@ -3,19 +3,30 @@ import { SemVer } from './SemVer'
 import { SemVerLevel } from './SemVerLevel'
 
 describe('compareSemVers', () => {
-  it('returns SemVerLevel.Major if major versions are different', () => {
-    expect(compareSemVers(SemVer.of('1.0.0'), SemVer.of('2.1.1'))).toBe(SemVerLevel.Major)
-  })
+  describe('returns SemVerLevel if both versions are different', () => {
+    type TestCase = [string, string, SemVerLevel]
+    const cases: TestCase[] = [
+      [
+        '1.0.0', '2.0.0', SemVerLevel.Major
+      ],
+      [
+        '1.0.0', '1.1.0', SemVerLevel.Minor
+      ],
+      [
+        '1.0.0', '1.0.1', SemVerLevel.Patch
+      ]
+    ]
 
-  it('returns SemVerLevel.Minor if minor versions are different', () => {
-    expect(compareSemVers(SemVer.of('1.0.0'), SemVer.of('1.1.1'))).toBe(SemVerLevel.Minor)
-  })
+    it.each(cases)('version1=%p, version2=%p', (version1, version2, expected) => {
+      const actual = compareSemVers(SemVer.of(version1), SemVer.of(version2))
 
-  it('returns SemVerLevel.Patch if patch versions are different', () => {
-    expect(compareSemVers(SemVer.of('1.0.0'), SemVer.of('1.0.1'))).toBe(SemVerLevel.Patch)
+      expect(actual).toBe(expected)
+    })
   })
 
   it('returns undefined if both versions are same', () => {
-    expect(compareSemVers(SemVer.of('1.0.0'), SemVer.of('1.0.0'))).toBeUndefined()
+    const actual = compareSemVers(SemVer.of('1.0.0'), SemVer.of('1.0.0'))
+
+    expect(actual).toBeUndefined()
   })
 })

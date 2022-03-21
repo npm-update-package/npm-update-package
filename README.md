@@ -1,5 +1,11 @@
 [![npm version](https://badge.fury.io/js/npm-update-package.svg)](https://badge.fury.io/js/npm-update-package)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![eslint](https://github.com/npm-update-package/npm-update-package/actions/workflows/eslint.yml/badge.svg)](https://github.com/npm-update-package/npm-update-package/actions/workflows/eslint.yml)
+[![test](https://github.com/npm-update-package/npm-update-package/actions/workflows/test.yml/badge.svg)](https://github.com/npm-update-package/npm-update-package/actions/workflows/test.yml)
+![Coverage:statements](docs/badge-statements.svg)
+![Coverage:branches](docs/badge-branches.svg)
+![Coverage:functions](docs/badge-functions.svg)
+![Coverage:lines](docs/badge-lines.svg)
 
 # npm-update-package
 
@@ -16,81 +22,193 @@ npx npm-update-package --github-token $GITHUB_TOKEN
 You can customize behavior via command-line options.  
 Some options can embed variables like `{{packageName}}`(HTML-escaped) or `{{{packageName}}}`(not HTML-escaped).
 
+### `--assignees`
+
+User names to assign to pull request.
+
+|Name|Value|
+|---|---|
+|type|string[]|
+|required|false|
+
+#### Example
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --assignees npm-update-package npm-update-package-bot
+```
+
 ### `--commit-message`
 
-Commit message template
+Commit message template.
 
-- type: string
-- required: false
-- variables
-  - `currentVersion`: current package version
-  - `newVersion`: new package version
-  - `packageName`: package name
-  - `level`: semver level (major/minor/patch)
-  - `dependencyType`: dependency type (dependencies/devDependencies/peerDependencies/optionalDependencies)
-- default: `chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`
+|Name|Value|
+|---|---|
+|type|string|
+|required|false|
+|default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
+
+#### Available variables
+
+|Variable|Description|
+|---|---|
+|`currentVersion`|Current package version|
+|`newVersion`|New package version|
+|`packageName`|Package name|
+|`level`|Semver level (`major`/`minor`/`patch`)|
+|`dependencyType`|Dependency type (`dependencies`/`devDependencies`/`peerDependencies`/`optionalDependencies`)|
+
+#### Example
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --commit-message "chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}"
+```
 
 ### `--github-token`
 
-[GitHub token](#github-token)
+[GitHub token](#github-token).
 
-- type: string
-- required: true
+|Name|Value|
+|---|---|
+|type|string|
+|required|true|
 
 ### `--ignore-packages`
 
-Package names to ignore
+Package names to ignore.
 
-- type: string[]
-- required: false
+|Name|Value|
+|---|---|
+|type|string[]|
+|required|false|
+
+#### Example
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --ignore-packages @types/jest jest
+```
 
 ### `--log-level`
 
-Log level to show
+Log level to show.
 
-- type: string
-- required: false
-- allowed values
-  - `off`: Do not output any logs.
-  - `fatal`: Output fatal logs.
-  - `error`: Output fatal/error logs.
-  - `warn`: Output fatal/error/warn logs.
-  - `info`: Output fatal/error/warn/info logs.
-  - `debug`: Output fatal/error/warn/info/debug logs.
-  - `trace`: Output fatal/error/warn/info/debug/trace logs.
-- default: `info`
+|Name|Value|
+|---|---|
+|type|string|
+|required|false|
+|default|`info`|
+
+#### Allowed values
+
+|Value|Description|
+|---|---|
+|`off`|Do not output any logs.|
+|`fatal`|Output fatal logs.|
+|`error`|Output fatal/error logs.|
+|`warn`|Output fatal/error/warn logs.|
+|`info`|Output fatal/error/warn/info logs.|
+|`debug`|Output fatal/error/warn/info/debug logs.|
+|`trace`|Output fatal/error/warn/info/debug/trace logs.|
+
+#### Example
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --log-level info
+```
 
 ### `--package-manager`
 
-Package manager of your project
+Package manager of your project.
 
-- type: string
-- required: false
-- allowed values
-  - `npm`: npm
-  - `yarn`: Yarn
-- default: `npm`
+|Name|Value|
+|---|---|
+|type|string|
+|required|false|
+|default|`npm`|
+
+#### Allowed values
+
+|Value|Description|
+|---|---|
+|`npm`|npm|
+|`yarn`|Yarn|
+
+#### Example
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --package-manager npm
+```
+
+### `--pr-body-notes`
+
+Additional notes for Pull request body.
+
+|Name|Value|
+|---|---|
+|type|string|
+|required|false|
+
+#### Example
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --pr-body-notes "**:warning: Please see diff and release notes before merging.**"
+```
 
 ### `--pr-title`
 
-Pull request title template
+Pull request title template.
 
-- type: string
-- required: false
-- variables
-  - `currentVersion`: current package version
-  - `newVersion`: new package version
-  - `packageName`: package name
-  - `level`: semver level (major/minor/patch)
-  - `dependencyType`: dependency type (dependencies/devDependencies/peerDependencies/optionalDependencies)
-- default: `chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`
+|Name|Value|
+|---|---|
+|type|string|
+|required|false|
+|default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
+
+#### Available variables
+
+|Variable|Description|
+|---|---|
+|`currentVersion`|Current package version|
+|`newVersion`|New package version|
+|`packageName`|Package name|
+|`level`|Semver level (`major`/`minor`/`patch`)|
+|`dependencyType`|Dependency type (`dependencies`/`devDependencies`/`peerDependencies`/`optionalDependencies`)|
+
+#### Example
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --pr-title "chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}"
+```
 
 ### `--reviewers`
 
-User names to request reviews
+User names to request reviews.
 
-- type: string[]
-- required: false
+|Name|Value|
+|---|---|
+|type|string[]|
+|required|false|
+
+#### Example
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --reviewers npm-update-package npm-update-package-bot
+```
 
 ## GitHub token
 
@@ -287,6 +405,10 @@ end
 
 npm-update-package can be used in environments where Renovate cannot be used for some reason.
 
-### Conflicts have occurred in the pull request. What should I do?
+### What should I do if conflicts occurred in the pull request?
 
-If conflicts have occurred in the pull request, close it and run npm-update-package again.
+If you have difficulty resolving it manually, close the pull request and run npm-update-package again.
+
+## How to development
+
+See [Wiki](https://github.com/npm-update-package/npm-update-package/wiki).

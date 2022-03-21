@@ -4,17 +4,20 @@ import { BranchFinder } from './BranchFinder'
 describe('BranchFinder', () => {
   describe('findByName', () => {
     const branch = {
-      name: 'test_branch_name'
+      name: 'foo'
     } as unknown as Branch
-    const branchFinder = new BranchFinder([branch])
+    const branches = [branch]
+    const branchFinder = new BranchFinder(branches)
 
     it('returns branch if exists', () => {
-      const actual = branchFinder.findByName('test_branch_name')
+      const actual = branchFinder.findByName('foo')
+
       expect(actual).toBe(branch)
     })
 
-    it('returns undefined if does not exists', () => {
-      const actual = branchFinder.findByName('not_test_branch_name')
+    it('returns undefined if branch does not exist', () => {
+      const actual = branchFinder.findByName('bar')
+
       expect(actual).toBeUndefined()
     })
   })

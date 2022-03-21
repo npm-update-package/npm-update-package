@@ -2,23 +2,34 @@ import type { PullRequest } from '../../GitHub'
 import { isPullRequestByNpmUpdatePackage } from './isPullRequestByNpmUpdatePackage'
 
 describe('isPullRequestByNpmUpdatePackage', () => {
-  it('returns true if pull request has label `npm-update-package`', () => {
-    const pullRequest = {
-      labels: [
-        {
-          name: 'npm-update-package'
-        }
-      ]
-    } as unknown as PullRequest
+  describe('returns whether pull request is by npm-update-package', () => {
+    interface TestCase {
+      pullRequest: PullRequest
+      expected: boolean
+    }
+    const cases: TestCase[] = [
+      {
+        pullRequest: {
+          labels: [
+            {
+              name: 'npm-update-package'
+            }
+          ]
+        } as unknown as PullRequest,
+        expected: true
+      },
+      {
+        pullRequest: {
+          labels: []
+        } as unknown as PullRequest,
+        expected: false
+      }
+    ]
 
-    expect(isPullRequestByNpmUpdatePackage(pullRequest)).toBe(true)
-  })
+    it.each(cases)('pullRequest=$pullRequest', ({ pullRequest, expected }) => {
+      const actual = isPullRequestByNpmUpdatePackage(pullRequest)
 
-  it('returns false if pull request does not have label `npm-update-package`', () => {
-    const pullRequest = {
-      labels: []
-    } as unknown as PullRequest
-
-    expect(isPullRequestByNpmUpdatePackage(pullRequest)).toBe(false)
+      expect(actual).toBe(expected)
+    })
   })
 })

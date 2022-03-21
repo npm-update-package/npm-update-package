@@ -2,7 +2,6 @@ import { Option } from 'commander'
 import type { CLIOption } from './CLIOption'
 import { OptionType } from './OptionType'
 
-// TODO: add test
 export const toCommanderOption = (cliOption: CLIOption): Option => {
   const argument = createArgumentString(cliOption)
   const option = new Option(`--${cliOption.name} ${argument}`, cliOption.description)
@@ -19,10 +18,8 @@ export const toCommanderOption = (cliOption: CLIOption): Option => {
 }
 
 const createArgumentString = (cliOption: CLIOption): string => {
-  const prefix = cliOption.required ? '<' : '['
-  const suffix = cliOption.required ? '>' : ']'
   const name = createArgumentNameString(cliOption.type)
-  return `${prefix}${name}${suffix}`
+  return cliOption.required ? `<${name}>` : `[${name}]`
 }
 
 const createArgumentNameString = (optionType: OptionType): string => {

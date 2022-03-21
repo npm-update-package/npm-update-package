@@ -2,18 +2,36 @@ import type {
   Octokit,
   RestEndpointMethodTypes
 } from '@octokit/rest'
+import { range } from 'lodash'
 import type { ValuesType } from 'utility-types'
 
 export type Branch = ValuesType<RestEndpointMethodTypes['repos']['listBranches']['response']['data']>
 export type CreatedPullRequest = RestEndpointMethodTypes['pulls']['create']['response']['data']
 export type Label = RestEndpointMethodTypes['issues']['getLabel']['response']['data']
 export type PullRequest = ValuesType<RestEndpointMethodTypes['pulls']['list']['response']['data']>
-export type Release = ValuesType<RestEndpointMethodTypes['repos']['listReleases']['response']['data']>
 export type Repository = RestEndpointMethodTypes['repos']['get']['response']['data']
 
-// TODO: add test
 export class GitHub {
   constructor (private readonly octokit: Octokit) {}
+
+  async addAssignees ({
+    owner,
+    repo,
+    issueNumber,
+    assignees
+  }: {
+    owner: string
+    repo: string
+    issueNumber: number
+    assignees: string[]
+  }): Promise<void> {
+    await this.octokit.issues.addAssignees({
+      owner,
+      repo,
+      issue_number: issueNumber,
+      assignees
+    })
+  }
 
   async addLabels ({
     owner,
@@ -124,7 +142,7 @@ export class GitHub {
   }): Promise<Branch[]> {
     const branches: Branch[] = []
 
-    for (let page = 1; ;page++) {
+    for (const page of range(1, 11)) {
       const { data } = await this.octokit.repos.listBranches({
         owner,
         repo,
@@ -168,7 +186,7 @@ export class GitHub {
   }): Promise<PullRequest[]> {
     const pullRequests: PullRequest[] = []
 
-    for (let page = 1; ;page++) {
+    for (const page of range(1, 11)) {
       const { data } = await this.octokit.pulls.list({
         owner,
         repo,
@@ -184,33 +202,6 @@ export class GitHub {
     }
 
     return pullRequests
-  }
-
-  async fetchReleases ({
-    owner,
-    repo
-  }: {
-    owner: string
-    repo: string
-  }): Promise<Release[]> {
-    const releases: Release[] = []
-
-    for (let page = 1; ;page++) {
-      const { data } = await this.octokit.repos.listReleases({
-        owner,
-        repo,
-        per_page: 100,
-        page
-      })
-
-      if (data.length === 0) {
-        break
-      }
-
-      releases.push(...data)
-    }
-
-    return releases
   }
 
   async fetchRepository ({

@@ -31,7 +31,9 @@ const Options = intersection([
     prTitle: string
   }),
   partial({
+    assignees: array(string),
     ignorePackages: array(string),
+    prBodyNotes: string,
     reviewers: array(string)
   })
 ])

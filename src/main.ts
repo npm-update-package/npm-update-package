@@ -4,11 +4,13 @@ import {
 } from 'fp-ts/lib/Either'
 import {
   OutdatedPackageProcessor,
-  OutdatedPackagesProcessor
+  OutdatedPackagesProcessor,
+  PackageUpdater
 } from './core'
 import {
   CommitMessageCreator,
-  Git
+  Git,
+  GitRepository
 } from './git'
 import {
   BranchFinder,
@@ -18,6 +20,7 @@ import {
   PullRequestCloser,
   PullRequestCreator,
   PullRequestFinder,
+  PullRequestsCloser,
   PullRequestTitleCreator,
   ReleasesFetcher
 } from './github'
@@ -56,8 +59,13 @@ export const main = async ({
 
   const terminal = new Terminal()
   const git = new Git(terminal)
-  const gitRepo = await git.getRepository()
+  const remoteUrl = await git.getRemoteUrl()
+  const gitRepo = GitRepository.of(remoteUrl)
   logger.debug(`gitRepo=${JSON.stringify(gitRepo)}`)
+
+  if (gitRepo === undefined) {
+    throw new Error(`Failed to parse remote url. URL=${remoteUrl}`)
+  }
 
   const github = createGitHub({
     host: gitRepo.url.host,
@@ -98,11 +106,9 @@ export const main = async ({
     packageManager: options.packageManager
   })
   const pullRequestTitleCreator = new PullRequestTitleCreator(options.prTitle)
-  const githubWithoutToken = createGitHub({
-    host: 'github.com'
-  })
-  const releasesFetcher = new ReleasesFetcher(githubWithoutToken)
+  const releasesFetcher = new ReleasesFetcher({ packageManager })
   const pullRequestBodyCreator = new PullRequestBodyCreator({
+    options,
     releasesFetcher
   })
   const pullRequestCreator = new PullRequestCreator({
@@ -112,21 +118,30 @@ export const main = async ({
     pullRequestTitleCreator,
     pullRequestBodyCreator,
     logger,
-    reviewers: options.reviewers
+    reviewers: options.reviewers,
+    assignees: options.assignees
   })
   const commitMessageCreator = new CommitMessageCreator(options.commitMessage)
   const pullRequestFinder = new PullRequestFinder(pullRequests)
   const pullRequestCloser = new PullRequestCloser(github)
+  const pullRequestsCloser = new PullRequestsCloser({
+    pullRequestCloser,
+    logger
+  })
+  const packageUpdater = new PackageUpdater({
+    packageManager,
+    ncu
+  })
   const outdatedPackageProcessor = new OutdatedPackageProcessor({
     git,
-    ncu,
     packageManager,
     pullRequestCreator,
     branchFinder,
     logger,
     commitMessageCreator,
     pullRequestFinder,
-    pullRequestCloser
+    pullRequestsCloser,
+    packageUpdater
   })
   const outdatedPackagesProcessor = new OutdatedPackagesProcessor({
     outdatedPackageProcessor,
