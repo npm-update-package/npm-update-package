@@ -13,7 +13,7 @@ describe('PullRequestsCloser', () => {
       close: pullRequestCloserCloseMock
     } as unknown as PullRequestCloser
     const logger = createLogger(LogLevel.Off)
-    const pullRequestsCreator = new PullRequestsCloser({
+    const pullRequestsCloser = new PullRequestsCloser({
       pullRequestCloser,
       logger
     })
@@ -31,7 +31,7 @@ describe('PullRequestsCloser', () => {
       } as unknown as PullRequest
       const pullRequests = [pullRequest1, pullRequest2]
 
-      await pullRequestsCreator.close(pullRequests)
+      await pullRequestsCloser.close(pullRequests)
 
       expect(pullRequestCloserCloseMock).toBeCalledTimes(2)
       expect(pullRequestCloserCloseMock).toBeCalledWith(pullRequest1)
