@@ -1,4 +1,3 @@
-
 import pkg from '../../../../package.json'
 import type { OutdatedPackage } from '../../../core'
 import { DependencyType } from '../../../package-json'
@@ -19,9 +18,10 @@ describe('createPullRequestMetadata', () => {
         dependencyType: DependencyType.Dependencies
       }
     ]
-    const metadata = createPullRequestMetadata(outdatedPackages)
 
-    expect(metadata).toEqual({
+    const actual = createPullRequestMetadata(outdatedPackages)
+
+    expect(actual).toEqual({
       version: pkg.version,
       packages: [
         {
