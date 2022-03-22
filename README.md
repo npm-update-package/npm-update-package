@@ -36,7 +36,7 @@ User names to assign to pull request.
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --assignees npm-update-package npm-update-package-bot
+  --assignees octocat mona
 ```
 
 ### `--commit-message`
@@ -207,7 +207,7 @@ User names to request reviews.
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --reviewers npm-update-package npm-update-package-bot
+  --reviewers octocat mona
 ```
 
 ## GitHub token
