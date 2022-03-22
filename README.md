@@ -3,10 +3,6 @@
 [![eslint](https://github.com/npm-update-package/npm-update-package/actions/workflows/eslint.yml/badge.svg)](https://github.com/npm-update-package/npm-update-package/actions/workflows/eslint.yml)
 [![test](https://github.com/npm-update-package/npm-update-package/actions/workflows/test.yml/badge.svg)](https://github.com/npm-update-package/npm-update-package/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/npm-update-package/npm-update-package/branch/master/graph/badge.svg?token=FUBQ16RBUV)](https://codecov.io/gh/npm-update-package/npm-update-package)
-![Coverage:statements](docs/badge-statements.svg)
-![Coverage:branches](docs/badge-branches.svg)
-![Coverage:functions](docs/badge-functions.svg)
-![Coverage:lines](docs/badge-lines.svg)
 
 # npm-update-package
 
