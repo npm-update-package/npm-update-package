@@ -20,5 +20,7 @@ jobs:
       run: npm ci
     - name: Test
       run: npm test
-    - name: Upload coverage to Codecov
-      run: npx codecov
+    - name: Coveralls
+      uses: coverallsapp/github-action@v1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
