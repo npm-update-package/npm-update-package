@@ -12,6 +12,7 @@ import type { ReleasesFetcher } from '../../releases'
 import { createPullRequestMetadata } from '../metadata'
 import { optimizeGitHubUrl } from './optimizeGitHubUrl'
 
+// TODO: Split into multiple classes and functions
 export class PullRequestBodyCreator {
   private readonly options: Options
   private readonly releasesFetcher: ReleasesFetcher
