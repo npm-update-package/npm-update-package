@@ -31,9 +31,12 @@ export class PullRequestBodyCreator {
     const sections: string[] = []
     const outdatedPackagesTable = this.createOutdatedPackagesTable(outdatedPackage)
     sections.push(`This PR updates these packages:\n\n${outdatedPackagesTable}`)
-    const diffSection = this.createDiffSection(outdatedPackage)
-    sections.push(diffSection)
     const gitRepo = await this.extractRepository(outdatedPackage)
+    const diffSection = this.createDiffSection({
+      outdatedPackage,
+      gitRepo
+    })
+    sections.push(diffSection)
 
     if (gitRepo?.isGitHub === true) {
       const releaseNotesSection = await this.createReleaseNotesSection({
@@ -59,14 +62,27 @@ export class PullRequestBodyCreator {
     return sections.join('\n\n')
   }
 
-  private createDiffSection (outdatedPackage: OutdatedPackage): string {
+  private createDiffSection ({
+    outdatedPackage,
+    gitRepo
+  }: {
+    outdatedPackage: OutdatedPackage
+    gitRepo?: GitRepository
+  }): string {
     const packageName = outdatedPackage.name
     const currentVersion = outdatedPackage.currentVersion.version
     const newVersion = outdatedPackage.newVersion.version
+    const links: string[] = []
+
+    if (gitRepo?.isGitHub === true) {
+      links.push(`- [GitHub](${gitRepo.url.toString()}/compare/v${currentVersion}...v${newVersion})`)
+    }
+
+    links.push(`- [npmfs](https://npmfs.com/compare/${packageName}/${currentVersion}/${newVersion})`)
+    links.push(`- [Renovate Bot Package Diff](https://renovatebot.com/diffs/npm/${packageName}/${currentVersion}/${newVersion})`)
     return `## Package diffs
 
-- [npmfs](https://npmfs.com/compare/${packageName}/${currentVersion}/${newVersion})
-- [Renovate Bot Package Diff](https://renovatebot.com/diffs/npm/${packageName}/${currentVersion}/${newVersion})`
+${links.join('\n')}`
   }
 
   private createFooter (): string {
