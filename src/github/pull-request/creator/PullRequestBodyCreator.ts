@@ -134,7 +134,7 @@ ${this.options.prBodyNotes}`
 
     const items = releases.map(({ tag, url }) => {
       const optimizedUrl = optimizeGitHubUrl(url)
-      return `- [${tag}](${optimizedUrl})`
+      return `- [${tag}](${optimizedUrl.toString()})`
     })
     return `## Release notes
 
