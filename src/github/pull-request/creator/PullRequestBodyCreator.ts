@@ -76,7 +76,9 @@ export class PullRequestBodyCreator {
     const links: string[] = []
 
     if (gitRepo?.isGitHub === true) {
-      links.push(`- [GitHub](${gitRepo.url.toString()}/compare/v${currentVersion}...v${newVersion})`)
+      const url = `${gitRepo.url.toString()}/compare/v${currentVersion}...v${newVersion}`
+      const optimizedUrl = optimizeGitHubUrl(url).toString()
+      links.push(`- [GitHub](${optimizedUrl})`)
     }
 
     links.push(`- [npmfs](https://npmfs.com/compare/${packageName}/${currentVersion}/${newVersion})`)
@@ -133,7 +135,7 @@ ${this.options.prBodyNotes}`
     }
 
     const items = releases.map(({ tag, url }) => {
-      const optimizedUrl = optimizeGitHubUrl(url)
+      const optimizedUrl = optimizeGitHubUrl(url).toString()
       return `- [${tag}](${optimizedUrl})`
     })
     return `## Release notes
