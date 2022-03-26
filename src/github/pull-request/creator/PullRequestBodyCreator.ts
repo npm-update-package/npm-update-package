@@ -1,15 +1,14 @@
 import type { OutdatedPackage } from '../../../core'
 import { readFile } from '../../../file'
 import type { GitRepository } from '../../../git'
-import { toJSON } from '../../../json'
 import type { Options } from '../../../options'
 import {
   extractRepository,
   parsePackageJson
 } from '../../../package-json'
 import type { ReleasesFetcher } from '../../releases'
-import { createPullRequestMetadata } from '../metadata'
 import { createFooter } from './createFooter'
+import { createMetadataSection } from './createMetadataSection'
 import { createNotesSection } from './createNotesSection'
 import { createOutdatedPackagesTable } from './createOutdatedPackagesTable'
 import { createPackageDiffsSection } from './createPackageDiffsSection'
@@ -58,7 +57,7 @@ export class PullRequestBodyCreator {
       sections.push(notesSection)
     }
 
-    const metadataSection = this.createMetadataSection(outdatedPackage)
+    const metadataSection = createMetadataSection(outdatedPackage)
     sections.push(`---\n${metadataSection}`)
     const footer = createFooter()
     sections.push(`---\n${footer}`)
@@ -96,23 +95,5 @@ ${items.join('\n')}`
     const packageJson = await readFile(`node_modules/${outdatedPackage.name}/package.json`)
     const pkg = parsePackageJson(packageJson)
     return extractRepository(pkg)
-  }
-
-  private createMetadataSection (outdatedPackage: OutdatedPackage): string {
-    const metadata = createPullRequestMetadata([outdatedPackage])
-    const json = toJSON(metadata, { pretty: true })
-    return `<details>
-<summary>Metadata</summary>
-
-**Don't remove or edit this section because it will be used by npm-update-package.**
-
-<div id="npm-update-package-metadata">
-
-\`\`\`json
-${json}
-\`\`\`
-
-</div>
-</details>`
   }
 }

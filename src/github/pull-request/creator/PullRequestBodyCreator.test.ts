@@ -1,4 +1,3 @@
-import app from '../../../../package.json'
 import type { OutdatedPackage } from '../../../core'
 import { readFile } from '../../../file'
 import { GitRepository } from '../../../git'
@@ -16,6 +15,7 @@ import {
 } from '../../../semver'
 import type { Release } from '../../releases'
 import { createFooter } from './createFooter'
+import { createMetadataSection } from './createMetadataSection'
 import { createNotesSection } from './createNotesSection'
 import { createOutdatedPackagesTable } from './createOutdatedPackagesTable'
 import { createPackageDiffsSection } from './createPackageDiffsSection'
@@ -24,6 +24,7 @@ import { PullRequestBodyCreator } from './PullRequestBodyCreator'
 jest.mock('../../../file')
 jest.mock('../../../package-json')
 jest.mock('./createFooter')
+jest.mock('./createMetadataSection')
 jest.mock('./createNotesSection')
 jest.mock('./createOutdatedPackagesTable')
 jest.mock('./createPackageDiffsSection')
@@ -37,6 +38,7 @@ describe('PullRequestBodyCreator', () => {
     const createOutdatedPackagesTableMock = jest.mocked(createOutdatedPackagesTable)
     const createPackageDiffsSectionMock = jest.mocked(createPackageDiffsSection)
     const createNotesSectionMock = jest.mocked(createNotesSection)
+    const createMetadataSectionMock = jest.mocked(createMetadataSection)
     const createFooterMock = jest.mocked(createFooter)
     const releasesFetcherFetchMock = jest.fn()
     const releasesFetcher = {
@@ -54,6 +56,7 @@ describe('PullRequestBodyCreator', () => {
         outdatedPackagesTable: string
         packageDiffsSection: string
         notesSection: string
+        metadataSection: string
         footer: string
         releases: Release[]
         expected: string
@@ -66,6 +69,7 @@ describe('PullRequestBodyCreator', () => {
           outdatedPackagesTable: '<outdated-packages-table>',
           packageDiffsSection: '<package-diffs>',
           notesSection: '<notes>',
+          metadataSection: '<metadata>',
           footer: '<footer>',
           releases: [],
           expected: `This PR updates these packages:
@@ -75,29 +79,7 @@ describe('PullRequestBodyCreator', () => {
 <package-diffs>
 
 ---
-<details>
-<summary>Metadata</summary>
-
-**Don't remove or edit this section because it will be used by npm-update-package.**
-
-<div id="npm-update-package-metadata">
-
-\`\`\`json
-{
-  "version": "${app.version}",
-  "packages": [
-    {
-      "name": "@npm-update-package/example",
-      "currentVersion": "1.0.0",
-      "newVersion": "2.0.0",
-      "level": "major"
-    }
-  ]
-}
-\`\`\`
-
-</div>
-</details>
+<metadata>
 
 ---
 <footer>`
@@ -109,6 +91,7 @@ describe('PullRequestBodyCreator', () => {
           outdatedPackagesTable: '<outdated-packages-table>',
           packageDiffsSection: '<package-diffs>',
           notesSection: '<notes>',
+          metadataSection: '<metadata>',
           footer: '<footer>',
           releases: [],
           expected: `This PR updates these packages:
@@ -118,29 +101,7 @@ describe('PullRequestBodyCreator', () => {
 <package-diffs>
 
 ---
-<details>
-<summary>Metadata</summary>
-
-**Don't remove or edit this section because it will be used by npm-update-package.**
-
-<div id="npm-update-package-metadata">
-
-\`\`\`json
-{
-  "version": "${app.version}",
-  "packages": [
-    {
-      "name": "@npm-update-package/example",
-      "currentVersion": "1.0.0",
-      "newVersion": "2.0.0",
-      "level": "major"
-    }
-  ]
-}
-\`\`\`
-
-</div>
-</details>
+<metadata>
 
 ---
 <footer>`
@@ -152,6 +113,7 @@ describe('PullRequestBodyCreator', () => {
           outdatedPackagesTable: '<outdated-packages-table>',
           packageDiffsSection: '<package-diffs>',
           notesSection: '<notes>',
+          metadataSection: '<metadata>',
           footer: '<footer>',
           releases: [],
           expected: `This PR updates these packages:
@@ -161,29 +123,7 @@ describe('PullRequestBodyCreator', () => {
 <package-diffs>
 
 ---
-<details>
-<summary>Metadata</summary>
-
-**Don't remove or edit this section because it will be used by npm-update-package.**
-
-<div id="npm-update-package-metadata">
-
-\`\`\`json
-{
-  "version": "${app.version}",
-  "packages": [
-    {
-      "name": "@npm-update-package/example",
-      "currentVersion": "1.0.0",
-      "newVersion": "2.0.0",
-      "level": "major"
-    }
-  ]
-}
-\`\`\`
-
-</div>
-</details>
+<metadata>
 
 ---
 <footer>`
@@ -195,6 +135,7 @@ describe('PullRequestBodyCreator', () => {
           outdatedPackagesTable: '<outdated-packages-table>',
           packageDiffsSection: '<package-diffs>',
           notesSection: '<notes>',
+          metadataSection: '<metadata>',
           footer: '<footer>',
           releases: [
             {
@@ -218,29 +159,7 @@ describe('PullRequestBodyCreator', () => {
 - [v2.0.0](https://togithub.com/npm-update-package/example/releases/tag/v2.0.0)
 
 ---
-<details>
-<summary>Metadata</summary>
-
-**Don't remove or edit this section because it will be used by npm-update-package.**
-
-<div id="npm-update-package-metadata">
-
-\`\`\`json
-{
-  "version": "${app.version}",
-  "packages": [
-    {
-      "name": "@npm-update-package/example",
-      "currentVersion": "1.0.0",
-      "newVersion": "2.0.0",
-      "level": "major"
-    }
-  ]
-}
-\`\`\`
-
-</div>
-</details>
+<metadata>
 
 ---
 <footer>`
@@ -254,6 +173,7 @@ describe('PullRequestBodyCreator', () => {
           outdatedPackagesTable: '<outdated-packages-table>',
           packageDiffsSection: '<package-diffs>',
           notesSection: '<notes>',
+          metadataSection: '<metadata>',
           footer: '<footer>',
           releases: [],
           expected: `This PR updates these packages:
@@ -265,29 +185,7 @@ describe('PullRequestBodyCreator', () => {
 <notes>
 
 ---
-<details>
-<summary>Metadata</summary>
-
-**Don't remove or edit this section because it will be used by npm-update-package.**
-
-<div id="npm-update-package-metadata">
-
-\`\`\`json
-{
-  "version": "${app.version}",
-  "packages": [
-    {
-      "name": "@npm-update-package/example",
-      "currentVersion": "1.0.0",
-      "newVersion": "2.0.0",
-      "level": "major"
-    }
-  ]
-}
-\`\`\`
-
-</div>
-</details>
+<metadata>
 
 ---
 <footer>`
@@ -313,6 +211,7 @@ describe('PullRequestBodyCreator', () => {
         outdatedPackagesTable,
         packageDiffsSection,
         notesSection,
+        metadataSection,
         footer,
         releases,
         expected
@@ -323,6 +222,7 @@ describe('PullRequestBodyCreator', () => {
         createOutdatedPackagesTableMock.mockReturnValue(outdatedPackagesTable)
         createPackageDiffsSectionMock.mockReturnValue(packageDiffsSection)
         createNotesSectionMock.mockReturnValue(notesSection)
+        createMetadataSectionMock.mockReturnValue(metadataSection)
         createFooterMock.mockReturnValue(footer)
         releasesFetcherFetchMock.mockResolvedValue(releases)
         const pullRequestBodyCreator = new PullRequestBodyCreator({
@@ -332,7 +232,7 @@ describe('PullRequestBodyCreator', () => {
 
         const actual = await pullRequestBodyCreator.create(outdatedPackage)
 
-        expect.assertions(9)
+        expect.assertions(10)
         expect(actual).toBe(expected)
         expect(readFileMock).toBeCalledWith('node_modules/@npm-update-package/example/package.json')
         expect(parsePackageJsonMock).toBeCalledWith(packageJson)
@@ -342,6 +242,7 @@ describe('PullRequestBodyCreator', () => {
           outdatedPackage,
           gitRepo
         })
+        expect(createMetadataSectionMock).toBeCalledWith(outdatedPackage)
         expect(createFooterMock).toBeCalledWith()
 
         if (gitRepo?.isGitHub === true) {
