@@ -62,29 +62,7 @@ describe('PullRequestBodyCreator', () => {
         expected: string
       }
       const cases: TestCase[] = [
-        // Base
-        {
-          options: {} as unknown as Options,
-          gitRepo: GitRepository.of('https://github.com/npm-update-package/example'),
-          outdatedPackagesTable: '<outdated-packages-table>',
-          packageDiffsSection: '<package-diffs>',
-          notesSection: '<notes>',
-          metadataSection: '<metadata>',
-          footer: '<footer>',
-          releases: [],
-          expected: `This PR updates these packages:
-
-<outdated-packages-table>
-
-<package-diffs>
-
----
-<metadata>
-
----
-<footer>`
-        },
-        // Repository of package can not find
+        // Repository does not exist
         {
           options: {} as unknown as Options,
           gitRepo: undefined,
@@ -106,7 +84,7 @@ describe('PullRequestBodyCreator', () => {
 ---
 <footer>`
         },
-        // Repository of package is not GitHub
+        // Repository exists / Repository is not GitHub
         {
           options: {} as unknown as Options,
           gitRepo: GitRepository.of('https://git.test/npm-update-package/example'),
@@ -128,7 +106,29 @@ describe('PullRequestBodyCreator', () => {
 ---
 <footer>`
         },
-        // Release notes exists
+        // Repository exists / Repository is GitHub
+        {
+          options: {} as unknown as Options,
+          gitRepo: GitRepository.of('https://github.com/npm-update-package/example'),
+          outdatedPackagesTable: '<outdated-packages-table>',
+          packageDiffsSection: '<package-diffs>',
+          notesSection: '<notes>',
+          metadataSection: '<metadata>',
+          footer: '<footer>',
+          releases: [],
+          expected: `This PR updates these packages:
+
+<outdated-packages-table>
+
+<package-diffs>
+
+---
+<metadata>
+
+---
+<footer>`
+        },
+        // Repository exists / Repository is GitHub / Release notes exists
         {
           options: {} as unknown as Options,
           gitRepo: GitRepository.of('https://github.com/npm-update-package/example'),
@@ -164,7 +164,7 @@ describe('PullRequestBodyCreator', () => {
 ---
 <footer>`
         },
-        // prBodyNotes option exists
+        // Repository exists / Repository is GitHub / prBodyNotes option exists
         {
           options: {
             prBodyNotes: '**:warning: Please see diff and release notes before merging.**'
