@@ -10,6 +10,7 @@ import {
 import type { ReleasesFetcher } from '../../releases'
 import { createPullRequestMetadata } from '../metadata'
 import { createFooter } from './createFooter'
+import { createNotesSection } from './createNotesSection'
 import { createPackageDiffsSection } from './createPackageDiffsSection'
 import { optimizeGitHubUrl } from './optimizeGitHubUrl'
 
@@ -51,9 +52,8 @@ export class PullRequestBodyCreator {
       }
     }
 
-    const notesSection = this.createNotesSection()
-
-    if (notesSection !== undefined) {
+    if (this.options.prBodyNotes !== undefined) {
+      const notesSection = createNotesSection(this.options.prBodyNotes)
       sections.push(notesSection)
     }
 
@@ -76,16 +76,6 @@ export class PullRequestBodyCreator {
     return `|Package|Dependency type|Level|Current version|New version|
 |---|---|---|---|---|
 |${packageLink}|${dependencyType}|${level}|${currentVersionLink}|${newVersionLink}|`
-  }
-
-  private createNotesSection (): string | undefined {
-    if (this.options.prBodyNotes === undefined) {
-      return undefined
-    }
-
-    return `## Notes
-
-${this.options.prBodyNotes}`
   }
 
   private async createReleaseNotesSection ({

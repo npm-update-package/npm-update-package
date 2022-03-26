@@ -16,12 +16,14 @@ import {
 } from '../../../semver'
 import type { Release } from '../../releases'
 import { createFooter } from './createFooter'
+import { createNotesSection } from './createNotesSection'
 import { createPackageDiffsSection } from './createPackageDiffsSection'
 import { PullRequestBodyCreator } from './PullRequestBodyCreator'
 
 jest.mock('../../../file')
 jest.mock('../../../package-json')
 jest.mock('./createPackageDiffsSection')
+jest.mock('./createNotesSection')
 jest.mock('./createFooter')
 
 describe('PullRequestBodyCreator', () => {
@@ -30,6 +32,7 @@ describe('PullRequestBodyCreator', () => {
     const parsePackageJsonMock = jest.mocked(parsePackageJson)
     const extractRepositoryMock = jest.mocked(extractRepository)
     const createPackageDiffsSectionMock = jest.mocked(createPackageDiffsSection)
+    const createNotesSectionMock = jest.mocked(createNotesSection)
     const createFooterMock = jest.mocked(createFooter)
     const releasesFetcherFetchMock = jest.fn()
     const releasesFetcher = {
@@ -45,6 +48,7 @@ describe('PullRequestBodyCreator', () => {
         options: Options
         gitRepo?: GitRepository
         packageDiffsSection: string
+        notesSection: string
         footer: string
         releases: Release[]
         expected: string
@@ -55,6 +59,7 @@ describe('PullRequestBodyCreator', () => {
           options: {} as unknown as Options,
           gitRepo: GitRepository.of('https://github.com/npm-update-package/example'),
           packageDiffsSection: '<package-diffs>',
+          notesSection: '<notes>',
           footer: '<footer>',
           releases: [],
           expected: `This PR updates these packages:
@@ -98,6 +103,7 @@ describe('PullRequestBodyCreator', () => {
           options: {} as unknown as Options,
           gitRepo: undefined,
           packageDiffsSection: '<package-diffs>',
+          notesSection: '<notes>',
           footer: '<footer>',
           releases: [],
           expected: `This PR updates these packages:
@@ -141,6 +147,7 @@ describe('PullRequestBodyCreator', () => {
           options: {} as unknown as Options,
           gitRepo: GitRepository.of('https://git.test/npm-update-package/example'),
           packageDiffsSection: '<package-diffs>',
+          notesSection: '<notes>',
           footer: '<footer>',
           releases: [],
           expected: `This PR updates these packages:
@@ -179,11 +186,12 @@ describe('PullRequestBodyCreator', () => {
 ---
 <footer>`
         },
-        // Release notes section exists
+        // Release notes exists
         {
           options: {} as unknown as Options,
           gitRepo: GitRepository.of('https://github.com/npm-update-package/example'),
           packageDiffsSection: '<package-diffs>',
+          notesSection: '<notes>',
           footer: '<footer>',
           releases: [
             {
@@ -236,13 +244,14 @@ describe('PullRequestBodyCreator', () => {
 ---
 <footer>`
         },
-        // Notes section exists
+        // prBodyNotes option exists
         {
           options: {
             prBodyNotes: '**:warning: Please see diff and release notes before merging.**'
           } as unknown as Options,
           gitRepo: GitRepository.of('https://github.com/npm-update-package/example'),
           packageDiffsSection: '<package-diffs>',
+          notesSection: '<notes>',
           footer: '<footer>',
           releases: [],
           expected: `This PR updates these packages:
@@ -253,9 +262,7 @@ describe('PullRequestBodyCreator', () => {
 
 <package-diffs>
 
-## Notes
-
-**:warning: Please see diff and release notes before merging.**
+<notes>
 
 ---
 <details>
@@ -304,6 +311,7 @@ describe('PullRequestBodyCreator', () => {
         options,
         gitRepo,
         packageDiffsSection,
+        notesSection,
         footer,
         releases,
         expected
@@ -312,6 +320,7 @@ describe('PullRequestBodyCreator', () => {
         parsePackageJsonMock.mockReturnValue(packageMetadata)
         extractRepositoryMock.mockReturnValue(gitRepo)
         createPackageDiffsSectionMock.mockReturnValue(packageDiffsSection)
+        createNotesSectionMock.mockReturnValue(notesSection)
         createFooterMock.mockReturnValue(footer)
         releasesFetcherFetchMock.mockResolvedValue(releases)
         const pullRequestBodyCreator = new PullRequestBodyCreator({
@@ -321,7 +330,7 @@ describe('PullRequestBodyCreator', () => {
 
         const actual = await pullRequestBodyCreator.create(outdatedPackage)
 
-        expect.assertions(7)
+        expect.assertions(8)
         expect(actual).toBe(expected)
         expect(readFileMock).toBeCalledWith('node_modules/@npm-update-package/example/package.json')
         expect(parsePackageJsonMock).toBeCalledWith(packageJson)
@@ -343,6 +352,14 @@ describe('PullRequestBodyCreator', () => {
         } else {
           // eslint-disable-next-line jest/no-conditional-expect
           expect(releasesFetcherFetchMock).not.toBeCalled()
+        }
+
+        if (options.prBodyNotes !== undefined) {
+          // eslint-disable-next-line jest/no-conditional-expect
+          expect(createNotesSectionMock).toBeCalledWith(options.prBodyNotes)
+        } else {
+          // eslint-disable-next-line jest/no-conditional-expect
+          expect(createNotesSectionMock).not.toBeCalled()
         }
       })
     })
