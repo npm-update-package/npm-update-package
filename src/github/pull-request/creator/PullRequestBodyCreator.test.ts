@@ -17,20 +17,24 @@ import {
 import type { Release } from '../../releases'
 import { createFooter } from './createFooter'
 import { createNotesSection } from './createNotesSection'
+import { createOutdatedPackagesTable } from './createOutdatedPackagesTable'
 import { createPackageDiffsSection } from './createPackageDiffsSection'
 import { PullRequestBodyCreator } from './PullRequestBodyCreator'
 
 jest.mock('../../../file')
 jest.mock('../../../package-json')
-jest.mock('./createPackageDiffsSection')
-jest.mock('./createNotesSection')
 jest.mock('./createFooter')
+jest.mock('./createNotesSection')
+jest.mock('./createOutdatedPackagesTable')
+jest.mock('./createPackageDiffsSection')
+jest.mock('./createPackageDiffsSection')
 
 describe('PullRequestBodyCreator', () => {
   describe('create', () => {
     const readFileMock = jest.mocked(readFile)
     const parsePackageJsonMock = jest.mocked(parsePackageJson)
     const extractRepositoryMock = jest.mocked(extractRepository)
+    const createOutdatedPackagesTableMock = jest.mocked(createOutdatedPackagesTable)
     const createPackageDiffsSectionMock = jest.mocked(createPackageDiffsSection)
     const createNotesSectionMock = jest.mocked(createNotesSection)
     const createFooterMock = jest.mocked(createFooter)
@@ -47,6 +51,7 @@ describe('PullRequestBodyCreator', () => {
       interface TestCase {
         options: Options
         gitRepo?: GitRepository
+        outdatedPackagesTable: string
         packageDiffsSection: string
         notesSection: string
         footer: string
@@ -58,15 +63,14 @@ describe('PullRequestBodyCreator', () => {
         {
           options: {} as unknown as Options,
           gitRepo: GitRepository.of('https://github.com/npm-update-package/example'),
+          outdatedPackagesTable: '<outdated-packages-table>',
           packageDiffsSection: '<package-diffs>',
           notesSection: '<notes>',
           footer: '<footer>',
           releases: [],
           expected: `This PR updates these packages:
 
-|Package|Dependency type|Level|Current version|New version|
-|---|---|---|---|---|
-|[@npm-update-package/example](https://www.npmjs.com/package/@npm-update-package/example)|dependencies|major|[\`1.0.0\`](https://www.npmjs.com/package/@npm-update-package/example/v/1.0.0)|[\`2.0.0\`](https://www.npmjs.com/package/@npm-update-package/example/v/2.0.0)|
+<outdated-packages-table>
 
 <package-diffs>
 
@@ -102,15 +106,14 @@ describe('PullRequestBodyCreator', () => {
         {
           options: {} as unknown as Options,
           gitRepo: undefined,
+          outdatedPackagesTable: '<outdated-packages-table>',
           packageDiffsSection: '<package-diffs>',
           notesSection: '<notes>',
           footer: '<footer>',
           releases: [],
           expected: `This PR updates these packages:
 
-|Package|Dependency type|Level|Current version|New version|
-|---|---|---|---|---|
-|[@npm-update-package/example](https://www.npmjs.com/package/@npm-update-package/example)|dependencies|major|[\`1.0.0\`](https://www.npmjs.com/package/@npm-update-package/example/v/1.0.0)|[\`2.0.0\`](https://www.npmjs.com/package/@npm-update-package/example/v/2.0.0)|
+<outdated-packages-table>
 
 <package-diffs>
 
@@ -146,15 +149,14 @@ describe('PullRequestBodyCreator', () => {
         {
           options: {} as unknown as Options,
           gitRepo: GitRepository.of('https://git.test/npm-update-package/example'),
+          outdatedPackagesTable: '<outdated-packages-table>',
           packageDiffsSection: '<package-diffs>',
           notesSection: '<notes>',
           footer: '<footer>',
           releases: [],
           expected: `This PR updates these packages:
 
-|Package|Dependency type|Level|Current version|New version|
-|---|---|---|---|---|
-|[@npm-update-package/example](https://www.npmjs.com/package/@npm-update-package/example)|dependencies|major|[\`1.0.0\`](https://www.npmjs.com/package/@npm-update-package/example/v/1.0.0)|[\`2.0.0\`](https://www.npmjs.com/package/@npm-update-package/example/v/2.0.0)|
+<outdated-packages-table>
 
 <package-diffs>
 
@@ -190,6 +192,7 @@ describe('PullRequestBodyCreator', () => {
         {
           options: {} as unknown as Options,
           gitRepo: GitRepository.of('https://github.com/npm-update-package/example'),
+          outdatedPackagesTable: '<outdated-packages-table>',
           packageDiffsSection: '<package-diffs>',
           notesSection: '<notes>',
           footer: '<footer>',
@@ -205,9 +208,7 @@ describe('PullRequestBodyCreator', () => {
           ] as Release[],
           expected: `This PR updates these packages:
 
-|Package|Dependency type|Level|Current version|New version|
-|---|---|---|---|---|
-|[@npm-update-package/example](https://www.npmjs.com/package/@npm-update-package/example)|dependencies|major|[\`1.0.0\`](https://www.npmjs.com/package/@npm-update-package/example/v/1.0.0)|[\`2.0.0\`](https://www.npmjs.com/package/@npm-update-package/example/v/2.0.0)|
+<outdated-packages-table>
 
 <package-diffs>
 
@@ -250,15 +251,14 @@ describe('PullRequestBodyCreator', () => {
             prBodyNotes: '**:warning: Please see diff and release notes before merging.**'
           } as unknown as Options,
           gitRepo: GitRepository.of('https://github.com/npm-update-package/example'),
+          outdatedPackagesTable: '<outdated-packages-table>',
           packageDiffsSection: '<package-diffs>',
           notesSection: '<notes>',
           footer: '<footer>',
           releases: [],
           expected: `This PR updates these packages:
 
-|Package|Dependency type|Level|Current version|New version|
-|---|---|---|---|---|
-|[@npm-update-package/example](https://www.npmjs.com/package/@npm-update-package/example)|dependencies|major|[\`1.0.0\`](https://www.npmjs.com/package/@npm-update-package/example/v/1.0.0)|[\`2.0.0\`](https://www.npmjs.com/package/@npm-update-package/example/v/2.0.0)|
+<outdated-packages-table>
 
 <package-diffs>
 
@@ -310,6 +310,7 @@ describe('PullRequestBodyCreator', () => {
       it.each(cases)('options=$options, gitRepo=$gitRepo, releases=$releases', async ({
         options,
         gitRepo,
+        outdatedPackagesTable,
         packageDiffsSection,
         notesSection,
         footer,
@@ -319,6 +320,7 @@ describe('PullRequestBodyCreator', () => {
         readFileMock.mockResolvedValue(packageJson)
         parsePackageJsonMock.mockReturnValue(packageMetadata)
         extractRepositoryMock.mockReturnValue(gitRepo)
+        createOutdatedPackagesTableMock.mockReturnValue(outdatedPackagesTable)
         createPackageDiffsSectionMock.mockReturnValue(packageDiffsSection)
         createNotesSectionMock.mockReturnValue(notesSection)
         createFooterMock.mockReturnValue(footer)
@@ -330,11 +332,12 @@ describe('PullRequestBodyCreator', () => {
 
         const actual = await pullRequestBodyCreator.create(outdatedPackage)
 
-        expect.assertions(8)
+        expect.assertions(9)
         expect(actual).toBe(expected)
         expect(readFileMock).toBeCalledWith('node_modules/@npm-update-package/example/package.json')
         expect(parsePackageJsonMock).toBeCalledWith(packageJson)
         expect(extractRepositoryMock).toBeCalledWith(packageMetadata)
+        expect(createOutdatedPackagesTableMock).toBeCalledWith(outdatedPackage)
         expect(createPackageDiffsSectionMock).toBeCalledWith({
           outdatedPackage,
           gitRepo
