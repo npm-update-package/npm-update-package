@@ -22,6 +22,7 @@ import type { PackageUpdater } from './PackageUpdater'
 import type { SucceededResult } from './SucceededResult'
 
 // TODO: add test
+// TODO: Split into multiple classes and functions
 export class OutdatedPackageProcessor {
   private readonly git: Git
   private readonly packageManager: PackageManager
