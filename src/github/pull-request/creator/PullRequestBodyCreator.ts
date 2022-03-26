@@ -10,6 +10,7 @@ import {
 import type { ReleasesFetcher } from '../../releases'
 import { createPullRequestMetadata } from '../metadata'
 import { createFooter } from './createFooter'
+import { createPackageDiffsSection } from './createPackageDiffsSection'
 import { optimizeGitHubUrl } from './optimizeGitHubUrl'
 
 // TODO: Split into multiple classes and functions
@@ -33,7 +34,7 @@ export class PullRequestBodyCreator {
     const outdatedPackagesTable = this.createOutdatedPackagesTable(outdatedPackage)
     sections.push(`This PR updates these packages:\n\n${outdatedPackagesTable}`)
     const gitRepo = await this.extractRepository(outdatedPackage)
-    const diffSection = this.createDiffSection({
+    const diffSection = createPackageDiffsSection({
       outdatedPackage,
       gitRepo
     })
@@ -61,31 +62,6 @@ export class PullRequestBodyCreator {
     const footer = createFooter()
     sections.push(`---\n${footer}`)
     return sections.join('\n\n')
-  }
-
-  private createDiffSection ({
-    outdatedPackage,
-    gitRepo
-  }: {
-    outdatedPackage: OutdatedPackage
-    gitRepo?: GitRepository
-  }): string {
-    const packageName = outdatedPackage.name
-    const currentVersion = outdatedPackage.currentVersion.version
-    const newVersion = outdatedPackage.newVersion.version
-    const links: string[] = []
-
-    if (gitRepo?.isGitHub === true) {
-      const url = `${gitRepo.url.toString()}/compare/v${currentVersion}...v${newVersion}`
-      const optimizedUrl = optimizeGitHubUrl(url).toString()
-      links.push(`- [GitHub](${optimizedUrl})`)
-    }
-
-    links.push(`- [npmfs](https://npmfs.com/compare/${packageName}/${currentVersion}/${newVersion})`)
-    links.push(`- [Renovate Bot Package Diff](https://renovatebot.com/diffs/npm/${packageName}/${currentVersion}/${newVersion})`)
-    return `## Package diffs
-
-${links.join('\n')}`
   }
 
   private createOutdatedPackagesTable (outdatedPackage: OutdatedPackage): string {
