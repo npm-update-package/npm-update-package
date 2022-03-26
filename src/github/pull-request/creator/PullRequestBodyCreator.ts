@@ -11,6 +11,7 @@ import type { ReleasesFetcher } from '../../releases'
 import { createPullRequestMetadata } from '../metadata'
 import { createFooter } from './createFooter'
 import { createNotesSection } from './createNotesSection'
+import { createOutdatedPackagesTable } from './createOutdatedPackagesTable'
 import { createPackageDiffsSection } from './createPackageDiffsSection'
 import { optimizeGitHubUrl } from './optimizeGitHubUrl'
 
@@ -32,7 +33,7 @@ export class PullRequestBodyCreator {
 
   async create (outdatedPackage: OutdatedPackage): Promise<string> {
     const sections: string[] = []
-    const outdatedPackagesTable = this.createOutdatedPackagesTable(outdatedPackage)
+    const outdatedPackagesTable = createOutdatedPackagesTable(outdatedPackage)
     sections.push(`This PR updates these packages:\n\n${outdatedPackagesTable}`)
     const gitRepo = await this.extractRepository(outdatedPackage)
     const diffSection = createPackageDiffsSection({
@@ -62,20 +63,6 @@ export class PullRequestBodyCreator {
     const footer = createFooter()
     sections.push(`---\n${footer}`)
     return sections.join('\n\n')
-  }
-
-  private createOutdatedPackagesTable (outdatedPackage: OutdatedPackage): string {
-    const packageName = outdatedPackage.name
-    const packageLink = `[${packageName}](https://www.npmjs.com/package/${packageName})`
-    const dependencyType = outdatedPackage.dependencyType
-    const level = outdatedPackage.level
-    const currentVersion = outdatedPackage.currentVersion.version
-    const currentVersionLink = `[\`${currentVersion}\`](https://www.npmjs.com/package/${packageName}/v/${currentVersion})`
-    const newVersion = outdatedPackage.newVersion.version
-    const newVersionLink = `[\`${newVersion}\`](https://www.npmjs.com/package/${packageName}/v/${newVersion})`
-    return `|Package|Dependency type|Level|Current version|New version|
-|---|---|---|---|---|
-|${packageLink}|${dependencyType}|${level}|${currentVersionLink}|${newVersionLink}|`
   }
 
   private async createReleaseNotesSection ({
