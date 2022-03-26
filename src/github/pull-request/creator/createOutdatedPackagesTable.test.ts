@@ -7,7 +7,7 @@ import {
 import { createOutdatedPackagesTable } from './createOutdatedPackagesTable'
 
 describe('createOutdatedPackagesTable', () => {
-  it('returns Notes section', () => {
+  it('returns outdated packages table', () => {
     const outdatedPackage: OutdatedPackage = {
       name: '@npm-update-package/example',
       currentVersion: SemVer.of('1.0.0'),
