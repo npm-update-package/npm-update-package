@@ -106,28 +106,6 @@ describe('PullRequestBodyCreator', () => {
 ---
 <footer>`
         },
-        // Repository exists / Repository is GitHub
-        {
-          options: {} as unknown as Options,
-          gitRepo: GitRepository.of('https://github.com/npm-update-package/example'),
-          outdatedPackagesTable: '<outdated-packages-table>',
-          packageDiffsSection: '<package-diffs>',
-          notesSection: '<notes>',
-          metadataSection: '<metadata>',
-          footer: '<footer>',
-          releases: [],
-          expected: `This PR updates these packages:
-
-<outdated-packages-table>
-
-<package-diffs>
-
----
-<metadata>
-
----
-<footer>`
-        },
         // Repository exists / Repository is GitHub / Release notes exists
         {
           options: {} as unknown as Options,
