@@ -12,7 +12,7 @@ import { createMetadataSection } from './createMetadataSection'
 import { createNotesSection } from './createNotesSection'
 import { createOutdatedPackagesTable } from './createOutdatedPackagesTable'
 import { createPackageDiffsSection } from './createPackageDiffsSection'
-import { optimizeGitHubUrl } from './optimizeGitHubUrl'
+import { createReleaseNotesSection } from './createReleaseNotesSection'
 
 // TODO: Split into multiple classes and functions
 export class PullRequestBodyCreator {
@@ -42,12 +42,15 @@ export class PullRequestBodyCreator {
     sections.push(diffSection)
 
     if (gitRepo?.isGitHub === true) {
-      const releaseNotesSection = await this.createReleaseNotesSection({
-        outdatedPackage,
-        gitRepo
+      const releases = await this.releasesFetcher.fetch({
+        gitRepo,
+        packageName: outdatedPackage.name,
+        from: outdatedPackage.currentVersion,
+        to: outdatedPackage.newVersion
       })
 
-      if (releaseNotesSection !== undefined) {
+      if (releases.length > 0) {
+        const releaseNotesSection = createReleaseNotesSection(releases)
         sections.push(releaseNotesSection)
       }
     }
@@ -62,33 +65,6 @@ export class PullRequestBodyCreator {
     const footer = createFooter()
     sections.push(`---\n${footer}`)
     return sections.join('\n\n')
-  }
-
-  private async createReleaseNotesSection ({
-    outdatedPackage,
-    gitRepo
-  }: {
-    outdatedPackage: OutdatedPackage
-    gitRepo: GitRepository
-  }): Promise<string | undefined> {
-    const releases = await this.releasesFetcher.fetch({
-      gitRepo,
-      packageName: outdatedPackage.name,
-      from: outdatedPackage.currentVersion,
-      to: outdatedPackage.newVersion
-    })
-
-    if (releases.length === 0) {
-      return undefined
-    }
-
-    const items = releases.map(({ tag, url }) => {
-      const optimizedUrl = optimizeGitHubUrl(url).toString()
-      return `- [${tag}](${optimizedUrl})`
-    })
-    return `## Release notes
-
-${items.join('\n')}`
   }
 
   private async extractRepository (outdatedPackage: OutdatedPackage): Promise<GitRepository | undefined> {

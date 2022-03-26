@@ -19,6 +19,7 @@ import { createMetadataSection } from './createMetadataSection'
 import { createNotesSection } from './createNotesSection'
 import { createOutdatedPackagesTable } from './createOutdatedPackagesTable'
 import { createPackageDiffsSection } from './createPackageDiffsSection'
+import { createReleaseNotesSection } from './createReleaseNotesSection'
 import { PullRequestBodyCreator } from './PullRequestBodyCreator'
 
 jest.mock('../../../file')
@@ -28,7 +29,7 @@ jest.mock('./createMetadataSection')
 jest.mock('./createNotesSection')
 jest.mock('./createOutdatedPackagesTable')
 jest.mock('./createPackageDiffsSection')
-jest.mock('./createPackageDiffsSection')
+jest.mock('./createReleaseNotesSection')
 
 describe('PullRequestBodyCreator', () => {
   describe('create', () => {
@@ -39,6 +40,7 @@ describe('PullRequestBodyCreator', () => {
     const createPackageDiffsSectionMock = jest.mocked(createPackageDiffsSection)
     const createNotesSectionMock = jest.mocked(createNotesSection)
     const createMetadataSectionMock = jest.mocked(createMetadataSection)
+    const createReleaseNotesSectionMock = jest.mocked(createReleaseNotesSection)
     const createFooterMock = jest.mocked(createFooter)
     const releasesFetcherFetchMock = jest.fn()
     const releasesFetcher = {
@@ -59,6 +61,7 @@ describe('PullRequestBodyCreator', () => {
         metadataSection: string
         footer: string
         releases: Release[]
+        releaseNotesSection: string
         expected: string
       }
       const cases: TestCase[] = [
@@ -72,6 +75,7 @@ describe('PullRequestBodyCreator', () => {
           metadataSection: '<metadata>',
           footer: '<footer>',
           releases: [],
+          releaseNotesSection: '<release-notes>',
           expected: `This PR updates these packages:
 
 <outdated-packages-table>
@@ -94,6 +98,7 @@ describe('PullRequestBodyCreator', () => {
           metadataSection: '<metadata>',
           footer: '<footer>',
           releases: [],
+          releaseNotesSection: '<release-notes>',
           expected: `This PR updates these packages:
 
 <outdated-packages-table>
@@ -125,16 +130,14 @@ describe('PullRequestBodyCreator', () => {
               url: 'https://github.com/npm-update-package/example/releases/tag/v2.0.0'
             }
           ] as Release[],
+          releaseNotesSection: '<release-notes>',
           expected: `This PR updates these packages:
 
 <outdated-packages-table>
 
 <package-diffs>
 
-## Release notes
-
-- [v1.0.0](https://togithub.com/npm-update-package/example/releases/tag/v1.0.0)
-- [v2.0.0](https://togithub.com/npm-update-package/example/releases/tag/v2.0.0)
+<release-notes>
 
 ---
 <metadata>
@@ -154,6 +157,7 @@ describe('PullRequestBodyCreator', () => {
           metadataSection: '<metadata>',
           footer: '<footer>',
           releases: [],
+          releaseNotesSection: '<release-notes>',
           expected: `This PR updates these packages:
 
 <outdated-packages-table>
@@ -192,6 +196,7 @@ describe('PullRequestBodyCreator', () => {
         metadataSection,
         footer,
         releases,
+        releaseNotesSection,
         expected
       }) => {
         readFileMock.mockResolvedValue(packageJson)
@@ -203,6 +208,7 @@ describe('PullRequestBodyCreator', () => {
         createMetadataSectionMock.mockReturnValue(metadataSection)
         createFooterMock.mockReturnValue(footer)
         releasesFetcherFetchMock.mockResolvedValue(releases)
+        createReleaseNotesSectionMock.mockReturnValue(releaseNotesSection)
         const pullRequestBodyCreator = new PullRequestBodyCreator({
           options,
           releasesFetcher
@@ -210,7 +216,7 @@ describe('PullRequestBodyCreator', () => {
 
         const actual = await pullRequestBodyCreator.create(outdatedPackage)
 
-        expect.assertions(10)
+        expect.assertions(11)
         expect(actual).toBe(expected)
         expect(readFileMock).toBeCalledWith('node_modules/@npm-update-package/example/package.json')
         expect(parsePackageJsonMock).toBeCalledWith(packageJson)
@@ -231,9 +237,19 @@ describe('PullRequestBodyCreator', () => {
             from: outdatedPackage.currentVersion,
             to: outdatedPackage.newVersion
           })
+
+          if (releases.length > 0) {
+            // eslint-disable-next-line jest/no-conditional-expect
+            expect(createReleaseNotesSectionMock).toBeCalledWith(releases)
+          } else {
+            // eslint-disable-next-line jest/no-conditional-expect
+            expect(createReleaseNotesSectionMock).not.toBeCalled()
+          }
         } else {
           // eslint-disable-next-line jest/no-conditional-expect
           expect(releasesFetcherFetchMock).not.toBeCalled()
+          // eslint-disable-next-line jest/no-conditional-expect
+          expect(createReleaseNotesSectionMock).not.toBeCalled()
         }
 
         if (options.prBodyNotes !== undefined) {
