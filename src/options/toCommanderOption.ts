@@ -15,7 +15,7 @@ export const toCommanderOption = (cliOption: CLIOption): Option => {
   }
 
   if (cliOption.type === OptionType.Number) {
-    option.argParser(value => Number(value))
+    option.argParser(Number)
   }
 
   return option
