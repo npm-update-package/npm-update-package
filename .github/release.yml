@@ -6,6 +6,9 @@ changelog:
     - title: "Exciting New Features 🎉"
       labels:
         - "enhancement"
+    - title: "Dependency Updates"
+      labels:
+        - "renovate"
     - title: "Other Changes"
       labels:
         - "*"
