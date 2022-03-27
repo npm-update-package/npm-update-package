@@ -16,7 +16,7 @@ describe('toCommanderOption', () => {
         variadic: boolean
         short?: string
         long: string
-        defaultValue?: string
+        defaultValue?: number | string
         argChoices?: string[]
       }
     }
@@ -42,21 +42,21 @@ describe('toCommanderOption', () => {
       // optional
       {
         cliOption: {
-          name: 'commit-message',
-          description: 'Commit message template',
-          type: OptionType.String,
+          name: 'fetch-sleep-time',
+          description: 'Sleep time between fetching (ms)',
+          type: OptionType.Number,
           required: false,
-          default: 'chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}'
+          default: 1000
         },
         expected: {
-          name: 'commit-message',
-          flags: '--commit-message [value]',
-          description: 'Commit message template',
+          name: 'fetch-sleep-time',
+          flags: '--fetch-sleep-time [value]',
+          description: 'Sleep time between fetching (ms)',
           required: false,
           optional: true,
           variadic: false,
-          long: '--commit-message',
-          defaultValue: 'chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}'
+          long: '--fetch-sleep-time',
+          defaultValue: 1000
         }
       },
       // has choices

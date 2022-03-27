@@ -14,6 +14,10 @@ export const toCommanderOption = (cliOption: CLIOption): Option => {
     option.default(cliOption.default)
   }
 
+  if (cliOption.type === OptionType.Number) {
+    option.argParser(value => Number(value))
+  }
+
   return option
 }
 
@@ -24,6 +28,7 @@ const createArgumentString = (cliOption: CLIOption): string => {
 
 const createArgumentNameString = (optionType: OptionType): string => {
   switch (optionType) {
+    case OptionType.Number:
     case OptionType.String:
       return 'value'
     case OptionType.StringArray:
