@@ -7,19 +7,24 @@ import {
 import sleep from 'sleep-promise'
 import { isNotUndefined } from 'type-guards'
 import type { GitRepository } from '../../../git'
+import type { Options } from '../../../options'
 import type { PackageManager } from '../../../package-manager'
 import type { SemVer } from '../../../semver'
 import type { Release } from '../Release'
 
 // TODO: Split into multiple classes and functions
 export class ReleasesFetcher {
+  private readonly options: Options
   private readonly packageManager: PackageManager
 
   constructor ({
+    options,
     packageManager
   }: {
+    options: Options
     packageManager: PackageManager
   }) {
+    this.options = options
     this.packageManager = packageManager
   }
 
@@ -73,9 +78,7 @@ export class ReleasesFetcher {
   }): Promise<Release[]> {
     const releases = await Promise.all(tags.map(async (tag, i) => {
       if (i > 0) {
-        // NOTE: Sleeps for 1 second between fetches.
-        // TODO: Use fetch-sleep-time option
-        await sleep(1000)
+        await sleep(this.options.fetchSleepTime)
       }
 
       return await this.fetchReleaseByTag({

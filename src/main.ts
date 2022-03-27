@@ -106,7 +106,10 @@ export const main = async ({
     packageManager: options.packageManager
   })
   const pullRequestTitleCreator = new PullRequestTitleCreator(options.prTitle)
-  const releasesFetcher = new ReleasesFetcher({ packageManager })
+  const releasesFetcher = new ReleasesFetcher({
+    options,
+    packageManager
+  })
   const pullRequestBodyCreator = new PullRequestBodyCreator({
     options,
     releasesFetcher
