@@ -7,6 +7,7 @@ describe('isOptionType', () => {
   describe('returns whether value is OptionType', () => {
     type TestCase = [unknown, boolean]
     const cases: TestCase[] = [
+      [OptionType.Number, true],
       [OptionType.String, true],
       [OptionType.StringArray, true],
       ['unknown', false]

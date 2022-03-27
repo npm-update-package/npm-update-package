@@ -60,7 +60,25 @@ Commit message template.
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --commit-message "chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}"
+  --commit-message "chore({{{dependencyType}}}): {{{level}}} update {{{packageName}}} from {{{currentVersion}}} to v{{{newVersion}}}"
+```
+
+### `--fetch-sleep-time`
+
+Sleep time between fetching (ms).
+
+|Name|Value|
+|---|---|
+|type|number|
+|required|false|
+|default|`1000`|
+
+#### Example
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --fetch-sleep-time 2000
 ```
 
 ### `--github-token`
@@ -116,7 +134,7 @@ Log level to show.
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --log-level info
+  --log-level debug
 ```
 
 ### `--package-manager`
@@ -141,7 +159,7 @@ Package manager of your project.
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --package-manager npm
+  --package-manager yarn
 ```
 
 ### `--pr-body-notes`
@@ -186,7 +204,7 @@ Pull request title template.
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --pr-title "chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}"
+  --pr-title "chore({{{dependencyType}}}): {{{level}}} update {{{packageName}}} from {{{currentVersion}}} to v{{{newVersion}}}"
 ```
 
 ### `--reviewers`

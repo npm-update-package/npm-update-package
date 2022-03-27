@@ -1,21 +1,31 @@
 import { StatusCodes } from 'http-status-codes'
 import fetch from 'node-fetch'
 import type { Response } from 'node-fetch'
+import sleep from 'sleep-promise'
 import { GitRepository } from '../../../git'
+import type { Options } from '../../../options'
 import type { PackageManager } from '../../../package-manager'
 import { SemVer } from '../../../semver'
 import { ReleasesFetcher } from './ReleasesFetcher'
 
 jest.mock('node-fetch')
+jest.mock('sleep-promise')
 
 describe('ReleasesFetcher', () => {
   describe('fetch', () => {
     const fetchMock = jest.mocked(fetch)
+    const sleepMock = jest.mocked(sleep)
     const getVersionsMock = jest.fn()
+    const options = {
+      fetchSleepTime: 1000
+    } as unknown as Options
     const packageManager = {
       getVersions: getVersionsMock
     } as unknown as PackageManager
-    const releasesFetcher = new ReleasesFetcher({ packageManager })
+    const releasesFetcher = new ReleasesFetcher({
+      options,
+      packageManager
+    })
 
     afterEach(() => {
       jest.resetAllMocks()
@@ -29,6 +39,7 @@ describe('ReleasesFetcher', () => {
         '2.0.0',
         '2.1.0'
       ])
+      sleepMock.mockResolvedValue(undefined)
       fetchMock.mockImplementation(async (url) => {
         if (typeof url === 'string' && url.endsWith('v1.1.1')) {
           return await Promise.resolve({
@@ -67,6 +78,8 @@ describe('ReleasesFetcher', () => {
         }
       ])
       expect(getVersionsMock).toBeCalledWith('@npm-update-package/example')
+      expect(sleepMock).toBeCalledTimes(2)
+      expect(sleepMock).toBeCalledWith(options.fetchSleepTime)
       expect(fetchMock).toBeCalledTimes(3)
       expect(fetchMock).toBeCalledWith('https://github.com/npm-update-package/example/releases/tag/v1.1.0')
       expect(fetchMock).toBeCalledWith('https://github.com/npm-update-package/example/releases/tag/v1.1.1')

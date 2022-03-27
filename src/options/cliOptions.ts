@@ -18,6 +18,13 @@ export const cliOptions: CLIOption[] = [
     default: 'chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}'
   },
   {
+    name: 'fetch-sleep-time',
+    description: 'Sleep time between fetching (ms)',
+    type: OptionType.Number,
+    required: false,
+    default: 1000
+  },
+  {
     name: 'github-token',
     description: 'GitHub token',
     type: OptionType.String,

@@ -1,4 +1,5 @@
 export const OptionType = {
+  Number: 'number',
   String: 'string',
   StringArray: 'string[]'
 } as const
