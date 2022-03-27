@@ -15,7 +15,7 @@ describe('toCommanderOption', () => {
         variadic: boolean
         short?: string
         long: string
-        defaultValue?: number | string
+        defaultValue?: number | string | string[]
         argChoices?: string[]
       }
     }
@@ -100,8 +100,7 @@ describe('toCommanderOption', () => {
           name: 'optional-string',
           description: 'optional string',
           type: OptionType.String,
-          required: false,
-          default: 'default'
+          required: false
         },
         expected: {
           name: 'optional-string',
@@ -110,12 +109,10 @@ describe('toCommanderOption', () => {
           required: false,
           optional: true,
           variadic: false,
-          long: '--optional-string',
-          defaultValue: 'default'
+          long: '--optional-string'
         }
       },
-      // TODO: optional string array
-      /*
+      // optional string array
       {
         cliOption: {
           name: 'optional-string-array',
@@ -126,17 +123,15 @@ describe('toCommanderOption', () => {
         },
         expected: {
           name: 'optional-string-array',
-          flags: '--optional-string-array [values...]',
-          description: 'optional string-array',
+          flags: '--optional-string-array [strings...]',
+          description: 'optional string array',
           required: false,
           optional: true,
-          variadic: false,
+          variadic: true,
           long: '--optional-string-array',
           defaultValue: ['default']
         }
       },
-      */
-
       // has choices
       {
         cliOption: {
@@ -178,7 +173,7 @@ describe('toCommanderOption', () => {
       expect(actual.variadic).toBe(expected.variadic)
       expect(actual.short).toBe(expected.short)
       expect(actual.long).toBe(expected.long)
-      expect(actual.defaultValue).toBe(expected.defaultValue)
+      expect(actual.defaultValue).toEqual(expected.defaultValue)
       expect(actual.argChoices).toEqual(expected.argChoices)
     })
   })
