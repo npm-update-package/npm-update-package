@@ -5,7 +5,6 @@ import {
   valid
 } from 'semver'
 import sleep from 'sleep-promise'
-import { isNotUndefined } from 'type-guards'
 import type { GitRepository } from '../../../git'
 import type { Options } from '../../../options'
 import type { PackageManager } from '../../../package-manager'
@@ -76,17 +75,24 @@ export class ReleasesFetcher {
     gitRepo: GitRepository
     tags: string[]
   }): Promise<Release[]> {
-    const releases = await Promise.all(tags.map(async (tag, i) => {
+    const releases: Release[] = []
+
+    for (const [i, tag] of tags.entries()) {
       if (i > 0) {
         await sleep(this.options.fetchSleepTime)
       }
 
-      return await this.fetchReleaseByTag({
+      const release = await this.fetchReleaseByTag({
         gitRepo,
         tag
       })
-    }))
-    return releases.filter(isNotUndefined)
+
+      if (release !== undefined) {
+        releases.push(release)
+      }
+    }
+
+    return releases
   }
 
   private async getVersions ({
