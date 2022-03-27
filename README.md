@@ -63,6 +63,24 @@ npx npm-update-package \
   --commit-message "chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}"
 ```
 
+### `--fetch-sleep-time`
+
+Sleep time between fetching (ms).
+
+|Name|Value|
+|---|---|
+|type|number|
+|required|false|
+|default|`1000`|
+
+#### Example
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --fetch-sleep-time 2000
+```
+
 ### `--github-token`
 
 [GitHub token](#github-token).

@@ -1,4 +1,3 @@
-import { PackageManagerName } from '../package-manager'
 import type { CLIOption } from './CLIOption'
 import { OptionType } from './OptionType'
 import { toCommanderOption } from './toCommanderOption'
@@ -21,88 +20,149 @@ describe('toCommanderOption', () => {
       }
     }
     const cases: TestCase[] = [
-      // required
+      // required number
       {
         cliOption: {
-          name: 'github-token',
-          description: 'GitHub token',
+          name: 'required-number',
+          description: 'required number',
+          type: OptionType.Number,
+          required: true
+        },
+        expected: {
+          name: 'required-number',
+          flags: '--required-number <value>',
+          description: 'required number',
+          required: true,
+          optional: false,
+          variadic: false,
+          long: '--required-number'
+        }
+      },
+      // required string
+      {
+        cliOption: {
+          name: 'required-string',
+          description: 'required string',
           type: OptionType.String,
           required: true
         },
         expected: {
-          name: 'github-token',
-          flags: '--github-token <value>',
-          description: 'GitHub token',
+          name: 'required-string',
+          flags: '--required-string <value>',
+          description: 'required string',
           required: true,
           optional: false,
           variadic: false,
-          long: '--github-token'
+          long: '--required-string'
         }
       },
-      // optional
+      // required string array
       {
         cliOption: {
-          name: 'fetch-sleep-time',
-          description: 'Sleep time between fetching (ms)',
-          type: OptionType.Number,
-          required: false,
-          default: 1000
+          name: 'required-string-array',
+          description: 'required string array',
+          type: OptionType.StringArray,
+          required: true
         },
         expected: {
-          name: 'fetch-sleep-time',
-          flags: '--fetch-sleep-time [value]',
-          description: 'Sleep time between fetching (ms)',
+          name: 'required-string-array',
+          flags: '--required-string-array <values...>',
+          description: 'required string array',
+          required: true,
+          optional: false,
+          variadic: true,
+          long: '--required-string-array'
+        }
+      },
+      // optional number
+      {
+        cliOption: {
+          name: 'optional-number',
+          description: 'optional number',
+          type: OptionType.Number,
+          required: false,
+          default: 1
+        },
+        expected: {
+          name: 'optional-number',
+          flags: '--optional-number [value]',
+          description: 'optional number',
           required: false,
           optional: true,
           variadic: false,
-          long: '--fetch-sleep-time',
-          defaultValue: 1000
+          long: '--optional-number',
+          defaultValue: 1
         }
       },
+      // optional string
+      {
+        cliOption: {
+          name: 'optional-string',
+          description: 'optional string',
+          type: OptionType.String,
+          required: false,
+          default: 'default'
+        },
+        expected: {
+          name: 'optional-string',
+          flags: '--optional-string [value]',
+          description: 'optional string',
+          required: false,
+          optional: true,
+          variadic: false,
+          long: '--optional-string',
+          defaultValue: 'default'
+        }
+      },
+      // TODO: optional string array
+      /*
+      {
+        cliOption: {
+          name: 'optional-string-array',
+          description: 'optional string array',
+          type: OptionType.StringArray,
+          required: false,
+          default: ['default']
+        },
+        expected: {
+          name: 'optional-string-array',
+          flags: '--optional-string-array [values...]',
+          description: 'optional string-array',
+          required: false,
+          optional: true,
+          variadic: false,
+          long: '--optional-string-array',
+          defaultValue: ['default']
+        }
+      },
+      */
+
       // has choices
       {
         cliOption: {
-          name: 'package-manager',
-          description: 'Package manager of your project',
+          name: 'has-choices',
+          description: 'has choices',
           type: OptionType.String,
           required: false,
           choices: [
-            PackageManagerName.Npm,
-            PackageManagerName.Yarn
+            'foo',
+            'bar'
           ],
-          default: PackageManagerName.Npm
+          default: 'foo'
         },
         expected: {
-          name: 'package-manager',
-          flags: '--package-manager [value]',
-          description: 'Package manager of your project',
+          name: 'has-choices',
+          flags: '--has-choices [value]',
+          description: 'has choices',
           required: false,
           optional: true,
           variadic: false,
-          long: '--package-manager',
-          defaultValue: PackageManagerName.Npm,
+          long: '--has-choices',
+          defaultValue: 'foo',
           argChoices: [
-            PackageManagerName.Npm,
-            PackageManagerName.Yarn
+            'foo',
+            'bar'
           ]
-        }
-      },
-      // multiple values
-      {
-        cliOption: {
-          name: 'reviewers',
-          description: 'User names to request reviews',
-          type: OptionType.StringArray,
-          required: false
-        },
-        expected: {
-          name: 'reviewers',
-          flags: '--reviewers [values...]',
-          description: 'User names to request reviews',
-          required: false,
-          optional: true,
-          variadic: true,
-          long: '--reviewers'
         }
       }
     ]

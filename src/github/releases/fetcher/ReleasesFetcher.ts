@@ -74,6 +74,7 @@ export class ReleasesFetcher {
     const releases = await Promise.all(tags.map(async (tag, i) => {
       if (i > 0) {
         // NOTE: Sleeps for 1 second between fetches.
+        // TODO: Use fetch-sleep-time option
         await sleep(1000)
       }
 
