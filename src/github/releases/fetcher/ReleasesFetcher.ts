@@ -11,6 +11,7 @@ import type { PackageManager } from '../../../package-manager'
 import type { SemVer } from '../../../semver'
 import type { Release } from '../Release'
 
+// TODO: Split into multiple classes and functions
 export class ReleasesFetcher {
   private readonly packageManager: PackageManager
 

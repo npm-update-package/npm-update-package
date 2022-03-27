@@ -7,7 +7,7 @@ import {
 } from './Options'
 import { toCommanderOption } from './toCommanderOption'
 
-// TODO: add test
+// TODO: Add test
 export const createOptions = (cliOptions: CLIOption[]): Options => {
   program.version(pkg.version)
   cliOptions
