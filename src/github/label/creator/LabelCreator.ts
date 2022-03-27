@@ -6,6 +6,7 @@ import type {
   Label
 } from '../../GitHub'
 
+// TODO: Split into multiple classes and functions
 export class LabelCreator {
   private readonly github: GitHub
   private readonly gitRepo: GitRepository

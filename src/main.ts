@@ -30,7 +30,7 @@ import type { Options } from './options'
 import { createPackageManager } from './package-manager'
 import { Terminal } from './terminal'
 
-// TODO: add test
+// TODO: Add test
 export const main = async ({
   options,
   logger
@@ -106,7 +106,10 @@ export const main = async ({
     packageManager: options.packageManager
   })
   const pullRequestTitleCreator = new PullRequestTitleCreator(options.prTitle)
-  const releasesFetcher = new ReleasesFetcher({ packageManager })
+  const releasesFetcher = new ReleasesFetcher({
+    options,
+    packageManager
+  })
   const pullRequestBodyCreator = new PullRequestBodyCreator({
     options,
     releasesFetcher
@@ -169,7 +172,7 @@ export const main = async ({
   const failedPackages = failedResults.map(({ outdatedPackage }) => outdatedPackage)
   logger.debug(`failedPackages=${JSON.stringify(failedPackages)}`)
 
-  // TODO: show as table
+  // TODO: Show as table
   logger.info(`Processed ${succeededResults.length + failedPackages.length} packages:
 - ${createdPackages.length} packages: created (${createdPackages.map(({ name }) => name).join(',')})
 - ${skippedPackages.length} packages: skipped: (${skippedPackages.map(({ name }) => name).join(',')})

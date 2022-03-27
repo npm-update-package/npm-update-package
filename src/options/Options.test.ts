@@ -13,6 +13,7 @@ describe('isOptions', () => {
     }
     const options: Options = {
       commitMessage: 'test commitMessage',
+      fetchSleepTime: 1000,
       githubToken: 'test githubToken',
       logLevel: LogLevel.Info,
       packageManager: PackageManagerName.Npm,

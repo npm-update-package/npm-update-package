@@ -15,7 +15,7 @@ import {
 } from '../semver'
 import { isNcuResult } from './NcuResult'
 
-// TODO: add test
+// TODO: Add test
 export class Ncu {
   private readonly options: Options
   private readonly logger: Logger
