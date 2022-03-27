@@ -30,7 +30,7 @@ describe('toCommanderOption', () => {
         },
         expected: {
           name: 'required-number',
-          flags: '--required-number <value>',
+          flags: '--required-number <number>',
           description: 'required number',
           required: true,
           optional: false,
@@ -48,7 +48,7 @@ describe('toCommanderOption', () => {
         },
         expected: {
           name: 'required-string',
-          flags: '--required-string <value>',
+          flags: '--required-string <string>',
           description: 'required string',
           required: true,
           optional: false,
@@ -66,7 +66,7 @@ describe('toCommanderOption', () => {
         },
         expected: {
           name: 'required-string-array',
-          flags: '--required-string-array <values...>',
+          flags: '--required-string-array <strings...>',
           description: 'required string array',
           required: true,
           optional: false,
@@ -85,7 +85,7 @@ describe('toCommanderOption', () => {
         },
         expected: {
           name: 'optional-number',
-          flags: '--optional-number [value]',
+          flags: '--optional-number [number]',
           description: 'optional number',
           required: false,
           optional: true,
@@ -105,7 +105,7 @@ describe('toCommanderOption', () => {
         },
         expected: {
           name: 'optional-string',
-          flags: '--optional-string [value]',
+          flags: '--optional-string [string]',
           description: 'optional string',
           required: false,
           optional: true,
@@ -152,7 +152,7 @@ describe('toCommanderOption', () => {
         },
         expected: {
           name: 'has-choices',
-          flags: '--has-choices [value]',
+          flags: '--has-choices [string]',
           description: 'has choices',
           required: false,
           optional: true,
