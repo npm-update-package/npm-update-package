@@ -20,6 +20,7 @@ describe('createPackageDiffsSection', () => {
         expected: `## Package diffs
 
 - [npmfs](https://npmfs.com/compare/@npm-update-package/example/1.0.0/2.0.0)
+- [Package Diff](https://diff.intrinsic.com/@npm-update-package/example/1.0.0/2.0.0)
 - [Renovate Bot Package Diff](https://renovatebot.com/diffs/npm/@npm-update-package/example/1.0.0/2.0.0)`
       },
       // Repository exists
@@ -29,6 +30,7 @@ describe('createPackageDiffsSection', () => {
 
 - [GitHub](https://togithub.com/npm-update-package/example/compare/v1.0.0...v2.0.0)
 - [npmfs](https://npmfs.com/compare/@npm-update-package/example/1.0.0/2.0.0)
+- [Package Diff](https://diff.intrinsic.com/@npm-update-package/example/1.0.0/2.0.0)
 - [Renovate Bot Package Diff](https://renovatebot.com/diffs/npm/@npm-update-package/example/1.0.0/2.0.0)`
       }
     ]
