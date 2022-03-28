@@ -3,15 +3,12 @@ import { parseNumberOption } from './parseNumberOption'
 
 describe('parseNumberOption', () => {
   describe('returns number if value is valid', () => {
-    type TestCase = [string, number]
-    const cases: TestCase[] = [
+    it.each([
       ['0', 0],
       ['1', 1],
       ['-1', -1],
       ['0.1', 0.1]
-    ]
-
-    it.each(cases)('value=%p', (value, expected) => {
+    ])('value=%p', (value, expected) => {
       const actual = parseNumberOption(value)
 
       expect(actual).toBe(expected)
