@@ -1,7 +1,7 @@
 import { Option } from 'commander'
 import type { CLIOption } from './CLIOption'
 import { OptionType } from './OptionType'
-import { toBoolean } from './toBoolean'
+import { parseBooleanOption } from './parseBooleanOption'
 
 export const toCommanderOption = (cliOption: CLIOption): Option => {
   const argument = createArgumentString(cliOption)
@@ -16,7 +16,7 @@ export const toCommanderOption = (cliOption: CLIOption): Option => {
   }
 
   if (cliOption.type === OptionType.Boolean) {
-    option.argParser(toBoolean)
+    option.argParser(parseBooleanOption)
   }
 
   if (cliOption.type === OptionType.Number) {

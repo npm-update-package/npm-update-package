@@ -1,7 +1,7 @@
 import { InvalidArgumentError } from 'commander'
-import { toBoolean } from './toBoolean'
+import { parseBooleanOption } from './parseBooleanOption'
 
-describe('toBoolean', () => {
+describe('parseBooleanOption', () => {
   describe('returns boolean if value is valid', () => {
     type TestCase = [string, boolean]
     const cases: TestCase[] = [
@@ -10,7 +10,7 @@ describe('toBoolean', () => {
     ]
 
     it.each(cases)('value=%p', (value, expected) => {
-      const actual = toBoolean(value)
+      const actual = parseBooleanOption(value)
 
       expect(actual).toBe(expected)
     })
@@ -23,7 +23,7 @@ describe('toBoolean', () => {
       '',
       'unknown'
     ])('value=%p', (value) => {
-      expect(() => toBoolean(value)).toThrow(InvalidArgumentError)
+      expect(() => parseBooleanOption(value)).toThrow(InvalidArgumentError)
     })
   })
 })

@@ -1,6 +1,6 @@
 import { InvalidArgumentError } from 'commander'
 
-export const toBoolean = (value: string): boolean => {
+export const parseBooleanOption = (value: string): boolean => {
   switch (value) {
     case 'true':
       return true
