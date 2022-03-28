@@ -47,7 +47,7 @@ npx npm-update-package --github-token $GITHUB_TOKEN
 
 ## Options
 
-You can customize behavior via options.  
+You can customize behavior via CLI options.  
 Some options can embed variables like `{{packageName}}`(HTML-escaped) or `{{{packageName}}}`(not HTML-escaped).
 
 ### assignees
