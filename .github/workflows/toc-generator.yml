@@ -1,5 +1,5 @@
 on: push
-name: TOC Generator
+name: toc-generator
 jobs:
   toc-generator:
     name: TOC Generator
