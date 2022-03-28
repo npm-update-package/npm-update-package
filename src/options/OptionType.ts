@@ -1,4 +1,5 @@
 export const OptionType = {
+  Boolean: 'boolean',
   Number: 'number',
   String: 'string',
   StringArray: 'string[]'

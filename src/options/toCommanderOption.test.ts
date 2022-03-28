@@ -20,6 +20,24 @@ describe('toCommanderOption', () => {
       }
     }
     const cases: TestCase[] = [
+      // required boolean
+      {
+        cliOption: {
+          name: 'required-boolean',
+          description: 'required boolean',
+          type: OptionType.Boolean,
+          required: true
+        },
+        expected: {
+          name: 'required-boolean',
+          flags: '--required-boolean <boolean>',
+          description: 'required boolean',
+          required: true,
+          optional: false,
+          variadic: false,
+          long: '--required-boolean'
+        }
+      },
       // required number
       {
         cliOption: {
@@ -72,6 +90,26 @@ describe('toCommanderOption', () => {
           optional: false,
           variadic: true,
           long: '--required-string-array'
+        }
+      },
+      // optional boolean
+      {
+        cliOption: {
+          name: 'optional-boolean',
+          description: 'optional boolean',
+          type: OptionType.Boolean,
+          required: false,
+          default: 1
+        },
+        expected: {
+          name: 'optional-boolean',
+          flags: '--optional-boolean [boolean]',
+          description: 'optional boolean',
+          required: false,
+          optional: true,
+          variadic: false,
+          long: '--optional-boolean',
+          defaultValue: 1
         }
       },
       // optional number
