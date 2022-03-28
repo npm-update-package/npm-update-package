@@ -7,6 +7,11 @@
 
 CLI tool for creating pull requests to update npm packages
 
+## Table of Contents
+
+<!-- START doctoc -->
+<!-- END doctoc -->
+
 ## Usage
 
 ```sh
