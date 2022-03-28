@@ -69,7 +69,7 @@ User names to assign to pull request.
 |type|string[]|
 |required|false|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -97,7 +97,7 @@ Commit message template.
 |`level`|Semver level (`major`/`minor`/`patch`)|
 |`dependencyType`|Dependency type (`dependencies`/`devDependencies`/`peerDependencies`/`optionalDependencies`)|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -115,7 +115,7 @@ Whether to fetch release notes.
 |required|false|
 |default|`true`|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -133,7 +133,7 @@ Sleep time between fetching (ms).
 |required|false|
 |default|`1000`|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -159,7 +159,7 @@ Package names to ignore.
 |type|string[]|
 |required|false|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -189,7 +189,7 @@ Log level to show.
 |`debug`|Output fatal/error/warn/info/debug logs.|
 |`trace`|Output fatal/error/warn/info/debug/trace logs.|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -214,7 +214,7 @@ Package manager of your project.
 |`npm`|npm|
 |`yarn`|Yarn|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -231,7 +231,7 @@ Additional notes for Pull request body.
 |type|string|
 |required|false|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -259,7 +259,7 @@ Pull request title template.
 |`level`|Semver level (`major`/`minor`/`patch`)|
 |`dependencyType`|Dependency type (`dependencies`/`devDependencies`/`peerDependencies`/`optionalDependencies`)|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -276,7 +276,7 @@ User names to request reviews.
 |type|string[]|
 |required|false|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
