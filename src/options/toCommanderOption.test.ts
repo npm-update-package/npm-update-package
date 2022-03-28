@@ -15,7 +15,7 @@ describe('toCommanderOption', () => {
         variadic: boolean
         short?: string
         long: string
-        defaultValue?: number | string | string[]
+        defaultValue?: boolean | number | string | string[]
         argChoices?: string[]
       }
     }
@@ -99,7 +99,7 @@ describe('toCommanderOption', () => {
           description: 'optional boolean',
           type: OptionType.Boolean,
           required: false,
-          default: 1
+          default: true
         },
         expected: {
           name: 'optional-boolean',
@@ -109,7 +109,7 @@ describe('toCommanderOption', () => {
           optional: true,
           variadic: false,
           long: '--optional-boolean',
-          defaultValue: 1
+          defaultValue: true
         }
       },
       // optional number
