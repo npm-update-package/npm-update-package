@@ -9,8 +9,46 @@ CLI tool for creating pull requests to update npm packages
 
 ## Table of Contents
 
-<!-- START doctoc -->
-<!-- END doctoc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Usage](#usage)
+- [Options](#options)
+  - [`--assignees`](#--assignees)
+    - [Example](#example)
+  - [`--commit-message`](#--commit-message)
+    - [Available variables](#available-variables)
+    - [Example](#example-1)
+  - [`--fetch-release-notes`](#--fetch-release-notes)
+    - [Example](#example-2)
+  - [`--fetch-sleep-time`](#--fetch-sleep-time)
+    - [Example](#example-3)
+  - [`--github-token`](#--github-token)
+  - [`--ignore-packages`](#--ignore-packages)
+    - [Example](#example-4)
+  - [`--log-level`](#--log-level)
+    - [Allowed values](#allowed-values)
+    - [Example](#example-5)
+  - [`--package-manager`](#--package-manager)
+    - [Allowed values](#allowed-values-1)
+    - [Example](#example-6)
+  - [`--pr-body-notes`](#--pr-body-notes)
+    - [Example](#example-7)
+  - [`--pr-title`](#--pr-title)
+    - [Available variables](#available-variables-1)
+    - [Example](#example-8)
+  - [`--reviewers`](#--reviewers)
+    - [Example](#example-9)
+- [GitHub token](#github-token)
+- [Examples](#examples)
+- [Flow](#flow)
+- [FAQ](#faq)
+  - [What is the purpose of npm-update-package?](#what-is-the-purpose-of-npm-update-package)
+  - [What should I do if conflicts occurred in the pull request?](#what-should-i-do-if-conflicts-occurred-in-the-pull-request)
+- [How to development](#how-to-development)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Usage
 
