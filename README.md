@@ -301,7 +301,7 @@ Creating a GitHub App may be tedious, but you only have to do it once the first 
 
 ## Examples
 
-- [Use token of GitHub Actions](https://github.com/npm-update-package/example-github-actions)
+### Use token of GitHub Actions
 
 ```yaml
 name: npm-update-package
@@ -324,7 +324,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-- [Use token of GitHub App](https://github.com/npm-update-package/example-github-app)
+See working example on [example-github-actions](https://github.com/npm-update-package/example-github-actions).
+
+### Use token of GitHub App
 
 ```yaml
 name: npm-update-package
@@ -355,7 +357,9 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 ```
 
-- [Use Personal access token](https://github.com/npm-update-package/example-pat)
+See working example on [example-github-app](https://github.com/npm-update-package/example-github-app).
+
+### Use Personal access token
 
 ```yaml
 name: npm-update-package
@@ -380,7 +384,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 ```
 
-- [Use Yarn](https://github.com/npm-update-package/example-yarn)
+See working example on [example-pat](https://github.com/npm-update-package/example-pat).
+
+### Use Yarn
 
 ```yaml
 name: npm-update-package
@@ -410,6 +416,8 @@ jobs:
           GIT_USER_NAME: npm-update-package[bot]
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 ```
+
+See working example on [example-yarn](https://github.com/npm-update-package/example-yarn).
 
 ## Flow
 
