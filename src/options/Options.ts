@@ -1,5 +1,6 @@
 import {
   array,
+  boolean,
   intersection,
   literal,
   number,
@@ -15,6 +16,7 @@ import { PackageManagerName } from '../package-manager'
 const Options = intersection([
   type({
     commitMessage: string,
+    fetchReleaseNotes: boolean,
     fetchSleepTime: number,
     githubToken: string,
     logLevel: union([

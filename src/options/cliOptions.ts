@@ -18,6 +18,13 @@ export const cliOptions: CLIOption[] = [
     default: 'chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}'
   },
   {
+    name: 'fetch-release-notes',
+    description: 'Whether to fetch release notes',
+    type: OptionType.Boolean,
+    required: false,
+    default: true
+  },
+  {
     name: 'fetch-sleep-time',
     description: 'Sleep time between fetching (ms)',
     type: OptionType.Number,
