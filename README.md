@@ -47,15 +47,16 @@ npx npm-update-package --github-token $GITHUB_TOKEN
 
 ## Options
 
-You can customize behavior via command-line options.  
+You can customize behavior via options.  
 Some options can embed variables like `{{packageName}}`(HTML-escaped) or `{{{packageName}}}`(not HTML-escaped).
 
-### `--assignees`
+### assignees
 
 User names to assign to pull request.
 
 |Name|Value|
 |---|---|
+|cli|`--assignees`|
 |type|string[]|
 |required|false|
 
@@ -67,12 +68,13 @@ npx npm-update-package \
   --assignees octocat mona
 ```
 
-### `--commit-message`
+### commitMessage
 
 Commit message template.
 
 |Name|Value|
 |---|---|
+|cli|`--commit-message`|
 |type|string|
 |required|false|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
@@ -95,12 +97,13 @@ npx npm-update-package \
   --commit-message "chore({{{dependencyType}}}): {{{level}}} update {{{packageName}}} from {{{currentVersion}}} to v{{{newVersion}}}"
 ```
 
-### `--fetch-release-notes`
+### fetchReleaseNotes
 
 Whether to fetch release notes.
 
 |Name|Value|
 |---|---|
+|cli|`--fetch-release-notes`|
 |type|boolean|
 |required|false|
 |default|`true`|
@@ -113,12 +116,13 @@ npx npm-update-package \
   --fetch-release-notes false
 ```
 
-### `--fetch-sleep-time`
+### fetchSleepTime
 
 Sleep time between fetching (ms).
 
 |Name|Value|
 |---|---|
+|cli|`--fetch-sleep-time`|
 |type|number|
 |required|false|
 |default|`1000`|
@@ -131,21 +135,23 @@ npx npm-update-package \
   --fetch-sleep-time 2000
 ```
 
-### `--github-token`
+### githubToken
 
 [GitHub token](#github-token).
 
 |Name|Value|
 |---|---|
+|cli|`--github-token`|
 |type|string|
 |required|true|
 
-### `--ignore-packages`
+### ignorePackages
 
 Package names to ignore.
 
 |Name|Value|
 |---|---|
+|cli|`--ignore-packages`|
 |type|string[]|
 |required|false|
 
@@ -157,12 +163,13 @@ npx npm-update-package \
   --ignore-packages @types/jest jest
 ```
 
-### `--log-level`
+### logLevel
 
 Log level to show.
 
 |Name|Value|
 |---|---|
+|cli|`--log-level`|
 |type|string|
 |required|false|
 |default|`info`|
@@ -187,12 +194,13 @@ npx npm-update-package \
   --log-level debug
 ```
 
-### `--package-manager`
+### packageManager
 
 Package manager of your project.
 
 |Name|Value|
 |---|---|
+|cli|`--package-manager`|
 |type|string|
 |required|false|
 |default|`npm`|
@@ -212,12 +220,13 @@ npx npm-update-package \
   --package-manager yarn
 ```
 
-### `--pr-body-notes`
+### prBodyNotes
 
 Additional notes for Pull request body.
 
 |Name|Value|
 |---|---|
+|cli|`--pr-body-notes`|
 |type|string|
 |required|false|
 
@@ -229,12 +238,13 @@ npx npm-update-package \
   --pr-body-notes "**:warning: Please see diff and release notes before merging.**"
 ```
 
-### `--pr-title`
+### prTitle
 
 Pull request title template.
 
 |Name|Value|
 |---|---|
+|cli|`--pr-title`|
 |type|string|
 |required|false|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
@@ -257,12 +267,13 @@ npx npm-update-package \
   --pr-title "chore({{{dependencyType}}}): {{{level}}} update {{{packageName}}} from {{{currentVersion}}} to v{{{newVersion}}}"
 ```
 
-### `--reviewers`
+### reviewers
 
 User names to request reviews.
 
 |Name|Value|
 |---|---|
+|cli|`--reviewers`|
 |type|string[]|
 |required|false|
 
