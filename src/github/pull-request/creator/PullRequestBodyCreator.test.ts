@@ -65,9 +65,36 @@ describe('PullRequestBodyCreator', () => {
         expected: string
       }
       const cases: TestCase[] = [
+        // options.fetchReleaseNotes is false
+        {
+          options: {
+            fetchReleaseNotes: false
+          } as unknown as Options,
+          gitRepo: GitRepository.of('https://github.com/npm-update-package/example'),
+          outdatedPackagesTable: '<outdated-packages-table>',
+          packageDiffsSection: '<package-diffs>',
+          notesSection: '<notes>',
+          metadataSection: '<metadata>',
+          footer: '<footer>',
+          releases: [],
+          releaseNotesSection: '<release-notes>',
+          expected: `This PR updates these packages:
+
+<outdated-packages-table>
+
+<package-diffs>
+
+---
+<metadata>
+
+---
+<footer>`
+        },
         // Repository does not exist
         {
-          options: {} as unknown as Options,
+          options: {
+            fetchReleaseNotes: true
+          } as unknown as Options,
           gitRepo: undefined,
           outdatedPackagesTable: '<outdated-packages-table>',
           packageDiffsSection: '<package-diffs>',
@@ -90,7 +117,9 @@ describe('PullRequestBodyCreator', () => {
         },
         // Repository exists / Repository is not GitHub
         {
-          options: {} as unknown as Options,
+          options: {
+            fetchReleaseNotes: true
+          } as unknown as Options,
           gitRepo: GitRepository.of('https://git.test/npm-update-package/example'),
           outdatedPackagesTable: '<outdated-packages-table>',
           packageDiffsSection: '<package-diffs>',
@@ -113,7 +142,9 @@ describe('PullRequestBodyCreator', () => {
         },
         // Repository exists / Repository is GitHub / Release notes exists
         {
-          options: {} as unknown as Options,
+          options: {
+            fetchReleaseNotes: true
+          } as unknown as Options,
           gitRepo: GitRepository.of('https://github.com/npm-update-package/example'),
           outdatedPackagesTable: '<outdated-packages-table>',
           packageDiffsSection: '<package-diffs>',
@@ -148,6 +179,7 @@ describe('PullRequestBodyCreator', () => {
         // Repository exists / Repository is GitHub / prBodyNotes option exists
         {
           options: {
+            fetchReleaseNotes: true,
             prBodyNotes: '**:warning: Please see diff and release notes before merging.**'
           } as unknown as Options,
           gitRepo: GitRepository.of('https://github.com/npm-update-package/example'),
@@ -229,7 +261,7 @@ describe('PullRequestBodyCreator', () => {
         expect(createMetadataSectionMock).toBeCalledWith(outdatedPackage)
         expect(createFooterMock).toBeCalledWith()
 
-        if (gitRepo?.isGitHub === true) {
+        if (options.fetchReleaseNotes && gitRepo?.isGitHub === true) {
           // eslint-disable-next-line jest/no-conditional-expect
           expect(releasesFetcherFetchMock).toBeCalledWith({
             gitRepo,

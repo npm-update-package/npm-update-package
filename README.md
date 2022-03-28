@@ -63,6 +63,24 @@ npx npm-update-package \
   --commit-message "chore({{{dependencyType}}}): {{{level}}} update {{{packageName}}} from {{{currentVersion}}} to v{{{newVersion}}}"
 ```
 
+### `--fetch-release-notes`
+
+Whether to fetch release notes.
+
+|Name|Value|
+|---|---|
+|type|boolean|
+|required|false|
+|default|`true`|
+
+#### Example
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --fetch-release-notes false
+```
+
 ### `--fetch-sleep-time`
 
 Sleep time between fetching (ms).

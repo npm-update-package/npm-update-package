@@ -41,7 +41,7 @@ export class PullRequestBodyCreator {
     })
     sections.push(diffSection)
 
-    if (gitRepo?.isGitHub === true) {
+    if (this.options.fetchReleaseNotes && gitRepo?.isGitHub === true) {
       const releases = await this.releasesFetcher.fetch({
         gitRepo,
         packageName: outdatedPackage.name,
