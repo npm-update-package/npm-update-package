@@ -3,13 +3,10 @@ import { parseBooleanOption } from './parseBooleanOption'
 
 describe('parseBooleanOption', () => {
   describe('returns boolean if value is valid', () => {
-    type TestCase = [string, boolean]
-    const cases: TestCase[] = [
+    it.each([
       ['true', true],
       ['false', false]
-    ]
-
-    it.each(cases)('value=%p', (value, expected) => {
+    ])('value=%p', (value, expected) => {
       const actual = parseBooleanOption(value)
 
       expect(actual).toBe(expected)
