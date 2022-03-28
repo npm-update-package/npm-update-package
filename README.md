@@ -77,7 +77,7 @@ Commit message template.
 |required|false|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
 
-#### Available variables
+Available variables:
 
 |Variable|Description|
 |---|---|
@@ -167,7 +167,7 @@ Log level to show.
 |required|false|
 |default|`info`|
 
-#### Allowed values
+Allowed values:
 
 |Value|Description|
 |---|---|
@@ -197,7 +197,7 @@ Package manager of your project.
 |required|false|
 |default|`npm`|
 
-#### Allowed values
+Allowed values:
 
 |Value|Description|
 |---|---|
@@ -239,7 +239,7 @@ Pull request title template.
 |required|false|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
 
-#### Available variables
+Available variables:
 
 |Variable|Description|
 |---|---|
