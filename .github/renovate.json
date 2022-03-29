@@ -1,6 +1,9 @@
 {
   "extends": [
-    "config:base"
+    "config:base",
+    ":automergePatch",
+    ":separateMultipleMajorReleases",
+    ":separatePatchReleases"
   ],
   "labels": ["renovate"],
   "packageRules": [
@@ -12,6 +15,5 @@
       "matchPackageNames": ["node"],
       "allowedVersions": "<13"
     }
-  ],
-  "separateMultipleMajor": true
+  ]
 }
