@@ -1,6 +1,6 @@
 {
   "name": "npm-update-package",
-  "version": "0.50.0",
+  "version": "0.52.1",
   "description": "CLI tool for creating pull requests to update npm packages",
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
@@ -33,14 +33,14 @@
   "devDependencies": {
     "@jest/types": "27.4.2",
     "@tsconfig/node12": "1.0.9",
-    "@types/jest": "27.4.0",
-    "@types/lodash": "4.14.180",
+    "@types/jest": "27.4.1",
+    "@types/lodash": "4.14.181",
     "@types/mustache": "4.1.2",
     "@types/node": "12.20.40",
     "@types/node-fetch": "2.6.1",
     "@types/parse-github-url": "1.0.0",
     "@types/semver": "7.3.9",
-    "@typescript-eslint/eslint-plugin": "5.16.0",
+    "@typescript-eslint/eslint-plugin": "5.17.0",
     "eslint": "8.12.0",
     "eslint-config-standard-with-typescript": "21.0.1",
     "eslint-plugin-import": "2.25.4",

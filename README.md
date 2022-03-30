@@ -7,6 +7,38 @@
 
 CLI tool for creating pull requests to update npm packages
 
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Usage](#usage)
+- [Options](#options)
+  - [assignees](#assignees)
+  - [commitMessage](#commitmessage)
+  - [fetchReleaseNotes](#fetchreleasenotes)
+  - [fetchSleepTime](#fetchsleeptime)
+  - [githubToken](#githubtoken)
+  - [ignorePackages](#ignorepackages)
+  - [logLevel](#loglevel)
+  - [packageManager](#packagemanager)
+  - [prBodyNotes](#prbodynotes)
+  - [prTitle](#prtitle)
+  - [reviewers](#reviewers)
+- [GitHub token](#github-token)
+- [Examples](#examples)
+  - [Use token of GitHub Actions](#use-token-of-github-actions)
+  - [Use token of GitHub App](#use-token-of-github-app)
+  - [Use Personal access token](#use-personal-access-token)
+  - [Use Yarn](#use-yarn)
+- [Flow](#flow)
+- [FAQ](#faq)
+  - [What is the purpose of npm-update-package?](#what-is-the-purpose-of-npm-update-package)
+  - [What should I do if conflicts occurred in the pull request?](#what-should-i-do-if-conflicts-occurred-in-the-pull-request)
+- [How to development](#how-to-development)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Usage
 
 ```sh
@@ -15,19 +47,20 @@ npx npm-update-package --github-token $GITHUB_TOKEN
 
 ## Options
 
-You can customize behavior via command-line options.  
+You can customize behavior via CLI options.  
 Some options can embed variables like `{{packageName}}`(HTML-escaped) or `{{{packageName}}}`(not HTML-escaped).
 
-### `--assignees`
+### assignees
 
 User names to assign to pull request.
 
 |Name|Value|
 |---|---|
+|cli|`--assignees`|
 |type|string[]|
 |required|false|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -35,17 +68,18 @@ npx npm-update-package \
   --assignees octocat mona
 ```
 
-### `--commit-message`
+### commitMessage
 
 Commit message template.
 
 |Name|Value|
 |---|---|
+|cli|`--commit-message`|
 |type|string|
 |required|false|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
 
-#### Available variables
+Available variables:
 
 |Variable|Description|
 |---|---|
@@ -55,7 +89,7 @@ Commit message template.
 |`level`|Semver level (`major`/`minor`/`patch`)|
 |`dependencyType`|Dependency type (`dependencies`/`devDependencies`/`peerDependencies`/`optionalDependencies`)|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -63,17 +97,37 @@ npx npm-update-package \
   --commit-message "chore({{{dependencyType}}}): {{{level}}} update {{{packageName}}} from {{{currentVersion}}} to v{{{newVersion}}}"
 ```
 
-### `--fetch-sleep-time`
+### fetchReleaseNotes
+
+Whether to fetch release notes.
+
+|Name|Value|
+|---|---|
+|cli|`--fetch-release-notes`|
+|type|boolean|
+|required|false|
+|default|`true`|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --fetch-release-notes false
+```
+
+### fetchSleepTime
 
 Sleep time between fetching (ms).
 
 |Name|Value|
 |---|---|
+|cli|`--fetch-sleep-time`|
 |type|number|
 |required|false|
 |default|`1000`|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -81,25 +135,27 @@ npx npm-update-package \
   --fetch-sleep-time 2000
 ```
 
-### `--github-token`
+### githubToken
 
 [GitHub token](#github-token).
 
 |Name|Value|
 |---|---|
+|cli|`--github-token`|
 |type|string|
 |required|true|
 
-### `--ignore-packages`
+### ignorePackages
 
 Package names to ignore.
 
 |Name|Value|
 |---|---|
+|cli|`--ignore-packages`|
 |type|string[]|
 |required|false|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -107,17 +163,18 @@ npx npm-update-package \
   --ignore-packages @types/jest jest
 ```
 
-### `--log-level`
+### logLevel
 
 Log level to show.
 
 |Name|Value|
 |---|---|
+|cli|`--log-level`|
 |type|string|
 |required|false|
 |default|`info`|
 
-#### Allowed values
+Allowed values:
 
 |Value|Description|
 |---|---|
@@ -129,7 +186,7 @@ Log level to show.
 |`debug`|Output fatal/error/warn/info/debug logs.|
 |`trace`|Output fatal/error/warn/info/debug/trace logs.|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -137,24 +194,25 @@ npx npm-update-package \
   --log-level debug
 ```
 
-### `--package-manager`
+### packageManager
 
 Package manager of your project.
 
 |Name|Value|
 |---|---|
+|cli|`--package-manager`|
 |type|string|
 |required|false|
 |default|`npm`|
 
-#### Allowed values
+Allowed values:
 
 |Value|Description|
 |---|---|
 |`npm`|npm|
 |`yarn`|Yarn|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -162,16 +220,17 @@ npx npm-update-package \
   --package-manager yarn
 ```
 
-### `--pr-body-notes`
+### prBodyNotes
 
 Additional notes for Pull request body.
 
 |Name|Value|
 |---|---|
+|cli|`--pr-body-notes`|
 |type|string|
 |required|false|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -179,17 +238,18 @@ npx npm-update-package \
   --pr-body-notes "**:warning: Please see diff and release notes before merging.**"
 ```
 
-### `--pr-title`
+### prTitle
 
 Pull request title template.
 
 |Name|Value|
 |---|---|
+|cli|`--pr-title`|
 |type|string|
 |required|false|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
 
-#### Available variables
+Available variables:
 
 |Variable|Description|
 |---|---|
@@ -199,7 +259,7 @@ Pull request title template.
 |`level`|Semver level (`major`/`minor`/`patch`)|
 |`dependencyType`|Dependency type (`dependencies`/`devDependencies`/`peerDependencies`/`optionalDependencies`)|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -207,16 +267,17 @@ npx npm-update-package \
   --pr-title "chore({{{dependencyType}}}): {{{level}}} update {{{packageName}}} from {{{currentVersion}}} to v{{{newVersion}}}"
 ```
 
-### `--reviewers`
+### reviewers
 
 User names to request reviews.
 
 |Name|Value|
 |---|---|
+|cli|`--reviewers`|
 |type|string[]|
 |required|false|
 
-#### Example
+Example:
 
 ```sh
 npx npm-update-package \
@@ -255,7 +316,7 @@ Creating a GitHub App may be tedious, but you only have to do it once the first 
 
 ## Examples
 
-- [Use token of GitHub Actions](https://github.com/npm-update-package/example-github-actions)
+### Use token of GitHub Actions
 
 ```yaml
 name: npm-update-package
@@ -278,7 +339,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-- [Use token of GitHub App](https://github.com/npm-update-package/example-github-app)
+See working example on [example-github-actions](https://github.com/npm-update-package/example-github-actions).
+
+### Use token of GitHub App
 
 ```yaml
 name: npm-update-package
@@ -309,7 +372,9 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 ```
 
-- [Use Personal access token](https://github.com/npm-update-package/example-pat)
+See working example on [example-github-app](https://github.com/npm-update-package/example-github-app).
+
+### Use Personal access token
 
 ```yaml
 name: npm-update-package
@@ -334,7 +399,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 ```
 
-- [Use Yarn](https://github.com/npm-update-package/example-yarn)
+See working example on [example-pat](https://github.com/npm-update-package/example-pat).
+
+### Use Yarn
 
 ```yaml
 name: npm-update-package
@@ -364,6 +431,8 @@ jobs:
           GIT_USER_NAME: npm-update-package[bot]
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 ```
+
+See working example on [example-yarn](https://github.com/npm-update-package/example-yarn).
 
 ## Flow
 

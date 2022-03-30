@@ -21,6 +21,7 @@ export const createPackageDiffsSection = ({
   }
 
   links.push(`- [npmfs](https://npmfs.com/compare/${packageName}/${currentVersion}/${newVersion})`)
+  links.push(`- [Package Diff](https://diff.intrinsic.com/${packageName}/${currentVersion}/${newVersion})`)
   links.push(`- [Renovate Bot Package Diff](https://renovatebot.com/diffs/npm/${packageName}/${currentVersion}/${newVersion})`)
   return `## Package diffs
 

@@ -13,7 +13,7 @@ interface RequiredOption extends OptionBase {
 
 interface OptionalOption extends OptionBase {
   required: false
-  default?: number | string | string[]
+  default?: boolean | number | string | string[]
 }
 
 export type CLIOption = RequiredOption | OptionalOption
