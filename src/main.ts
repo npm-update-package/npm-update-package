@@ -10,6 +10,7 @@ import {
 import {
   CommitMessageCreator,
   Git,
+  GitConfigInitializer,
   GitRepository
 } from './git'
 import {
@@ -146,6 +147,11 @@ export const main = async ({
     pullRequestsCloser,
     packageUpdater
   })
+  const gitConfigInitializer = new GitConfigInitializer({
+    options,
+    git
+  })
+  await gitConfigInitializer.initialize()
   const outdatedPackagesProcessor = new OutdatedPackagesProcessor({
     outdatedPackageProcessor,
     logger
