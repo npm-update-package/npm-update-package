@@ -18,6 +18,8 @@ CLI tool for creating pull requests to update npm packages
   - [commitMessage](#commitmessage)
   - [fetchReleaseNotes](#fetchreleasenotes)
   - [fetchSleepTime](#fetchsleeptime)
+  - [gitUserEmail](#gituseremail)
+  - [gitUserName](#gitusername)
   - [githubToken](#githubtoken)
   - [ignorePackages](#ignorepackages)
   - [logLevel](#loglevel)
@@ -133,6 +135,42 @@ Example:
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
   --fetch-sleep-time 2000
+```
+
+### gitUserEmail
+
+Git user email.
+
+|Name|Value|
+|---|---|
+|cli|`--git-user-email`|
+|type|string|
+|required|false|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --git-user-email octocat@example.com
+```
+
+### gitUserName
+
+Git user name.
+
+|Name|Value|
+|---|---|
+|cli|`--git-user-name`|
+|type|string|
+|required|false|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --git-user-name octocat
 ```
 
 ### githubToken

@@ -36,6 +36,8 @@ const Options = intersection([
   }),
   partial({
     assignees: array(string),
+    gitUserEmail: string,
+    gitUserName: string,
     ignorePackages: array(string),
     prBodyNotes: string,
     reviewers: array(string)
