@@ -32,6 +32,12 @@ export const cliOptions: CLIOption[] = [
     default: 1000
   },
   {
+    name: 'git-user-email',
+    description: 'Git user email',
+    type: OptionType.String,
+    required: false
+  },
+  {
     name: 'git-user-name',
     description: 'Git user name',
     type: OptionType.String,
