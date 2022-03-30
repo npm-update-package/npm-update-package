@@ -18,6 +18,8 @@ CLI tool for creating pull requests to update npm packages
   - [commitMessage](#commitmessage)
   - [fetchReleaseNotes](#fetchreleasenotes)
   - [fetchSleepTime](#fetchsleeptime)
+  - [gitUserEmail](#gituseremail)
+  - [gitUserName](#gitusername)
   - [githubToken](#githubtoken)
   - [ignorePackages](#ignorepackages)
   - [logLevel](#loglevel)
