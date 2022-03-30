@@ -135,6 +135,24 @@ npx npm-update-package \
   --fetch-sleep-time 2000
 ```
 
+### gitUserName
+
+Git user name.
+
+|Name|Value|
+|---|---|
+|cli|`--git-user-name`|
+|type|string|
+|required|false|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --git-user-name octocat
+```
+
 ### githubToken
 
 [GitHub token](#github-token).
