@@ -90,6 +90,17 @@ describe('Git', () => {
     })
   })
 
+  describe('setConfig', () => {
+    it('calls `git config <key> <value>`', async () => {
+      const key = 'user.name'
+      const value = 'octocat'
+
+      await git.setConfig(key, value)
+
+      expect(terminalRunMock).toBeCalledWith('git', 'config', key, value)
+    })
+  })
+
   describe('switch', () => {
     it('calls `git checkout <branchName>`', async () => {
       const branchName = 'test-branch-name'
