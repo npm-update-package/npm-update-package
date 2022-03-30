@@ -19,6 +19,8 @@ describe('initOptions', () => {
       commitMessage: 'test commitMessage',
       fetchReleaseNotes: true,
       fetchSleepTime: 1000,
+      gitUserEmail: 'octocat@example.com',
+      gitUserName: 'octocat',
       githubToken: 'test githubToken',
       logLevel: LogLevel.Info,
       packageManager: PackageManagerName.Npm,
