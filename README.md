@@ -13,6 +13,7 @@ CLI tool for creating pull requests to update npm packages
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Usage](#usage)
+- [Requirements](#requirements)
 - [Options](#options)
   - [assignees](#assignees)
   - [commitMessage](#commitmessage)
