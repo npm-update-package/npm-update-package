@@ -368,9 +368,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
       - run: |
-          git config user.name $GIT_USER_NAME
-          git config user.email $GIT_USER_EMAIL
-          npx npm-update-package --github-token $GITHUB_TOKEN
+          npx npm-update-package \
+            --github-token $GITHUB_TOKEN \
+            --git-user-name $GIT_USER_NAME \
+            --git-user-email $GIT_USER_EMAIL
         env:
           GIT_USER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           GIT_USER_NAME: github-actions[bot]
@@ -399,9 +400,10 @@ jobs:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
       - run: |
-          git config user.name $GIT_USER_NAME
-          git config user.email $GIT_USER_EMAIL
-          npx npm-update-package --github-token $GITHUB_TOKEN
+          npx npm-update-package \
+            --github-token $GITHUB_TOKEN \
+            --git-user-name $GIT_USER_NAME \
+            --git-user-email $GIT_USER_EMAIL
         env:
           # TODO: Replace with your GitHub App's email
           GIT_USER_EMAIL: 97396142+npm-update-package[bot]@users.noreply.github.com
@@ -426,9 +428,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
       - run: |
-          git config user.name $GIT_USER_NAME
-          git config user.email $GIT_USER_EMAIL
-          npx npm-update-package --github-token $GITHUB_TOKEN
+          npx npm-update-package \
+            --github-token $GITHUB_TOKEN \
+            --git-user-name $GIT_USER_NAME \
+            --git-user-email $GIT_USER_EMAIL
         env:
           # TODO: Replace with your email
           GIT_USER_EMAIL: 97961304+npm-update-package-bot@users.noreply.github.com
@@ -459,9 +462,11 @@ jobs:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
       - run: |
-          git config user.name $GIT_USER_NAME
-          git config user.email $GIT_USER_EMAIL
-          npx npm-update-package --github-token $GITHUB_TOKEN --package-manager yarn
+          npx npm-update-package \
+            --github-token $GITHUB_TOKEN \
+            --git-user-name $GIT_USER_NAME \
+            --git-user-email $GIT_USER_EMAIL \
+            --package-manager yarn
         env:
           # TODO: Replace with your GitHub App's email
           GIT_USER_EMAIL: 97396142+npm-update-package[bot]@users.noreply.github.com
