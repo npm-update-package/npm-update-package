@@ -47,6 +47,12 @@ CLI tool for creating pull requests to update npm packages
 npx npm-update-package --github-token $GITHUB_TOKEN
 ```
 
+## Requirements
+
+- Git
+- Node.js
+- Package manager: npm or Yarn
+
 ## Options
 
 You can customize behavior via CLI options.  
