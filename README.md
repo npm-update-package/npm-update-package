@@ -52,7 +52,7 @@ npx npm-update-package --github-token $GITHUB_TOKEN
 
 - Git
 - Node.js
-- Package manager: npm or Yarn
+- npm or Yarn
 
 ## Options
 
