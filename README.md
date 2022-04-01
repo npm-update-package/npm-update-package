@@ -54,6 +54,11 @@ npx npm-update-package --github-token $GITHUB_TOKEN
 - Node.js
 - npm or Yarn
 
+## Supported platforms
+
+- GitHub
+- GitHub Enterprise
+
 ## Options
 
 You can customize behavior via CLI options.  
