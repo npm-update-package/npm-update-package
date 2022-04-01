@@ -14,6 +14,7 @@ CLI tool for creating pull requests to update npm packages
 
 - [Usage](#usage)
 - [Requirements](#requirements)
+- [Supported platforms](#supported-platforms)
 - [Options](#options)
   - [assignees](#assignees)
   - [commitMessage](#commitmessage)
@@ -53,6 +54,11 @@ npx npm-update-package --github-token $GITHUB_TOKEN
 - Git
 - Node.js
 - npm or Yarn
+
+## Supported platforms
+
+- GitHub
+- GitHub Enterprise
 
 ## Options
 
