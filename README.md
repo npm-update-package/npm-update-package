@@ -13,6 +13,7 @@ CLI tool for creating pull requests to update npm packages
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Usage](#usage)
+- [Requirements](#requirements)
 - [Options](#options)
   - [assignees](#assignees)
   - [commitMessage](#commitmessage)
@@ -46,6 +47,12 @@ CLI tool for creating pull requests to update npm packages
 ```sh
 npx npm-update-package --github-token $GITHUB_TOKEN
 ```
+
+## Requirements
+
+- Git
+- Node.js
+- npm or Yarn
 
 ## Options
 
