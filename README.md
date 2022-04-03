@@ -254,7 +254,6 @@ Package manager of your project.
 |cli|`--package-manager`|
 |type|string|
 |required|false|
-|default|`npm`|
 
 Allowed values:
 

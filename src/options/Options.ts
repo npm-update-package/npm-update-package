@@ -28,10 +28,6 @@ const Options = intersection([
       literal(LogLevel.Debug),
       literal(LogLevel.Trace)
     ]),
-    packageManager: union([
-      literal(PackageManagerName.Npm),
-      literal(PackageManagerName.Yarn)
-    ]),
     prTitle: string
   }),
   partial({
@@ -39,6 +35,10 @@ const Options = intersection([
     gitUserEmail: string,
     gitUserName: string,
     ignorePackages: array(string),
+    packageManager: union([
+      literal(PackageManagerName.Npm),
+      literal(PackageManagerName.Yarn)
+    ]),
     prBodyNotes: string,
     reviewers: array(string)
   })
