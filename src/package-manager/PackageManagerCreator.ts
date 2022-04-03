@@ -1,3 +1,4 @@
+import type { Logger } from '../logger'
 import type { Options } from '../options'
 import type { Terminal } from '../terminal'
 import { detectPackageManager } from './detectPackageManager'
@@ -7,10 +8,23 @@ import { PackageManagerName } from './PackageManagerName'
 import { Yarn } from './Yarn'
 
 export class PackageManagerCreator {
-  constructor (private readonly options: Options) {}
+  private readonly options: Options
+  private readonly logger: Logger
+
+  constructor ({
+    options,
+    logger
+  }: {
+    options: Options
+    logger: Logger
+  }) {
+    this.options = options
+    this.logger = logger
+  }
 
   async create (terminal: Terminal): Promise<PackageManager> {
-    const packageManagerName = this.options.packageManager ?? await detectPackageManager()
+    const packageManagerName = await this.getPackageManagerName()
+    this.logger.trace(`packageManagerName=${packageManagerName}`)
 
     switch (packageManagerName) {
       case PackageManagerName.Npm:
@@ -18,5 +32,14 @@ export class PackageManagerCreator {
       case PackageManagerName.Yarn:
         return new Yarn(terminal)
     }
+  }
+
+  private async getPackageManagerName (): Promise<PackageManagerName> {
+    if (this.options.packageManager !== undefined) {
+      return this.options.packageManager
+    }
+
+    this.logger.info('Try to detect package manager from lock file.')
+    return await detectPackageManager()
   }
 }

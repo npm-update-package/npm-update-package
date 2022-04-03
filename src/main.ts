@@ -102,7 +102,10 @@ export const main = async ({
   })
 
   const branchFinder = new BranchFinder(branches)
-  const packageManagerCreator = new PackageManagerCreator(options)
+  const packageManagerCreator = new PackageManagerCreator({
+    options,
+    logger
+  })
   const packageManager = await packageManagerCreator.create(terminal)
   const pullRequestTitleCreator = new PullRequestTitleCreator(options.prTitle)
   const releasesFetcher = new ReleasesFetcher({
