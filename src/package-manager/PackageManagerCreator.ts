@@ -6,7 +6,6 @@ import type { PackageManager } from './PackageManager'
 import { PackageManagerName } from './PackageManagerName'
 import { Yarn } from './Yarn'
 
-// TODO: Add test
 export class PackageManagerCreator {
   constructor (private readonly options: Options) {}
 
