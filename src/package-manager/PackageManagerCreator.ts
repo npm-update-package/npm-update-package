@@ -8,15 +8,7 @@ import { Yarn } from './Yarn'
 
 // TODO: Add test
 export class PackageManagerCreator {
-  private readonly options: Options
-
-  constructor ({
-    options
-  }: {
-    options: Options
-  }) {
-    this.options = options
-  }
+  constructor (private readonly options: Options) {}
 
   async create (terminal: Terminal): Promise<PackageManager> {
     const packageManagerName = this.options.packageManager ?? await this.detect()
