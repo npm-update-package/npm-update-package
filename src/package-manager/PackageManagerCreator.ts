@@ -28,8 +28,10 @@ export class PackageManagerCreator {
 
     switch (packageManagerName) {
       case PackageManagerName.Npm:
+        this.logger.info('Use npm as package manager')
         return new Npm(terminal)
       case PackageManagerName.Yarn:
+        this.logger.info('Use Yarn as package manager')
         return new Yarn(terminal)
     }
   }
