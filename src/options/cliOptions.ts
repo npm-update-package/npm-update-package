@@ -79,8 +79,7 @@ export const cliOptions: CLIOption[] = [
     choices: [
       PackageManagerName.Npm,
       PackageManagerName.Yarn
-    ],
-    default: PackageManagerName.Npm
+    ]
   },
   {
     name: 'pr-body-notes',

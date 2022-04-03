@@ -33,6 +33,7 @@ export class Ncu {
 
   async check (): Promise<OutdatedPackage[]> {
     return await this.run({
+      packageManager: this.options.packageManager,
       jsonUpgraded: true,
       reject: this.options.ignorePackages
     })
@@ -40,6 +41,7 @@ export class Ncu {
 
   async update (outdatedPackage: OutdatedPackage): Promise<OutdatedPackage[]> {
     return await this.run({
+      packageManager: this.options.packageManager,
       jsonUpgraded: true,
       filter: outdatedPackage.name,
       upgrade: true

@@ -1,5 +1,5 @@
-export * from './createPackageManager'
 export * from './Npm'
 export * from './PackageManager'
+export * from './PackageManagerCreator'
 export * from './PackageManagerName'
 export * from './Yarn'

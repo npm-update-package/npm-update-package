@@ -28,7 +28,7 @@ import {
 import type { Logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'
-import { createPackageManager } from './package-manager'
+import { PackageManagerCreator } from './package-manager'
 import { Terminal } from './terminal'
 
 // TODO: Add test
@@ -102,10 +102,11 @@ export const main = async ({
   })
 
   const branchFinder = new BranchFinder(branches)
-  const packageManager = createPackageManager({
-    terminal,
-    packageManager: options.packageManager
+  const packageManagerCreator = new PackageManagerCreator({
+    options,
+    logger
   })
+  const packageManager = await packageManagerCreator.create(terminal)
   const pullRequestTitleCreator = new PullRequestTitleCreator(options.prTitle)
   const releasesFetcher = new ReleasesFetcher({
     options,
