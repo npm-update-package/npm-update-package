@@ -1,6 +1,6 @@
-import { canReadWrite } from '../file'
 import type { Options } from '../options'
 import type { Terminal } from '../terminal'
+import { detectPackageManager } from './detectPackageManager'
 import { Npm } from './Npm'
 import type { PackageManager } from './PackageManager'
 import { PackageManagerName } from './PackageManagerName'
@@ -11,7 +11,7 @@ export class PackageManagerCreator {
   constructor (private readonly options: Options) {}
 
   async create (terminal: Terminal): Promise<PackageManager> {
-    const packageManagerName = this.options.packageManager ?? await this.detect()
+    const packageManagerName = this.options.packageManager ?? await detectPackageManager()
 
     switch (packageManagerName) {
       case PackageManagerName.Npm:
@@ -19,17 +19,5 @@ export class PackageManagerCreator {
       case PackageManagerName.Yarn:
         return new Yarn(terminal)
     }
-  }
-
-  private async detect (): Promise<PackageManagerName> {
-    if (await canReadWrite('package-lock.json')) {
-      return PackageManagerName.Npm
-    }
-
-    if (await canReadWrite('yarn.lock')) {
-      return PackageManagerName.Yarn
-    }
-
-    throw new Error('No lock file exists.')
   }
 }
