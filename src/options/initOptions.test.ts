@@ -24,6 +24,7 @@ describe('initOptions', () => {
       githubToken: 'test githubToken',
       logLevel: LogLevel.Info,
       packageManager: PackageManagerName.Npm,
+      prBodyGithubHost: 'github.test',
       prTitle: 'test prTitle',
       ignorePackages: ['@npm-update-package/example'],
       prBodyNotes: 'test prBodyNotes',
