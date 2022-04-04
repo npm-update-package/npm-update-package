@@ -16,7 +16,9 @@ import {
 import {
   BranchFinder,
   createGitHub,
+  GitHubUrlOptimizer,
   LabelCreator,
+  PackageDiffsSectionCreator,
   PullRequestBodyCreator,
   PullRequestCloser,
   PullRequestCreator,
@@ -112,9 +114,12 @@ export const main = async ({
     options,
     packageManager
   })
+  const githubUrlOptimizer = new GitHubUrlOptimizer(options)
+  const packageDiffsSectionCreator = new PackageDiffsSectionCreator(githubUrlOptimizer)
   const pullRequestBodyCreator = new PullRequestBodyCreator({
     options,
-    releasesFetcher
+    releasesFetcher,
+    packageDiffsSectionCreator
   })
   const pullRequestCreator = new PullRequestCreator({
     github,

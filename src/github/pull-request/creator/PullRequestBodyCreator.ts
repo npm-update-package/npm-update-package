@@ -11,23 +11,27 @@ import { createFooter } from './createFooter'
 import { createMetadataSection } from './createMetadataSection'
 import { createNotesSection } from './createNotesSection'
 import { createOutdatedPackagesTable } from './createOutdatedPackagesTable'
-import { createPackageDiffsSection } from './createPackageDiffsSection'
 import { createReleaseNotesSection } from './createReleaseNotesSection'
+import type { PackageDiffsSectionCreator } from './PackageDiffsSectionCreator'
 
 // TODO: Split into multiple classes and functions
 export class PullRequestBodyCreator {
   private readonly options: Options
   private readonly releasesFetcher: ReleasesFetcher
+  private readonly packageDiffsSectionCreator: PackageDiffsSectionCreator
 
   constructor ({
     options,
-    releasesFetcher
+    releasesFetcher,
+    packageDiffsSectionCreator
   }: {
     options: Options
     releasesFetcher: ReleasesFetcher
+    packageDiffsSectionCreator: PackageDiffsSectionCreator
   }) {
     this.options = options
     this.releasesFetcher = releasesFetcher
+    this.packageDiffsSectionCreator = packageDiffsSectionCreator
   }
 
   async create (outdatedPackage: OutdatedPackage): Promise<string> {
@@ -35,7 +39,7 @@ export class PullRequestBodyCreator {
     const outdatedPackagesTable = createOutdatedPackagesTable(outdatedPackage)
     sections.push(`This PR updates these packages:\n\n${outdatedPackagesTable}`)
     const gitRepo = await this.extractRepository(outdatedPackage)
-    const diffSection = createPackageDiffsSection({
+    const diffSection = this.packageDiffsSectionCreator.create({
       outdatedPackage,
       gitRepo
     })

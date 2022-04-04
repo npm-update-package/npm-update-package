@@ -18,8 +18,8 @@ import { createFooter } from './createFooter'
 import { createMetadataSection } from './createMetadataSection'
 import { createNotesSection } from './createNotesSection'
 import { createOutdatedPackagesTable } from './createOutdatedPackagesTable'
-import { createPackageDiffsSection } from './createPackageDiffsSection'
 import { createReleaseNotesSection } from './createReleaseNotesSection'
+import type { PackageDiffsSectionCreator } from './PackageDiffsSectionCreator'
 import { PullRequestBodyCreator } from './PullRequestBodyCreator'
 
 jest.mock('../../../file')
@@ -28,7 +28,6 @@ jest.mock('./createFooter')
 jest.mock('./createMetadataSection')
 jest.mock('./createNotesSection')
 jest.mock('./createOutdatedPackagesTable')
-jest.mock('./createPackageDiffsSection')
 jest.mock('./createReleaseNotesSection')
 
 describe('PullRequestBodyCreator', () => {
@@ -37,7 +36,6 @@ describe('PullRequestBodyCreator', () => {
     const parsePackageJsonMock = jest.mocked(parsePackageJson)
     const extractRepositoryMock = jest.mocked(extractRepository)
     const createOutdatedPackagesTableMock = jest.mocked(createOutdatedPackagesTable)
-    const createPackageDiffsSectionMock = jest.mocked(createPackageDiffsSection)
     const createNotesSectionMock = jest.mocked(createNotesSection)
     const createMetadataSectionMock = jest.mocked(createMetadataSection)
     const createReleaseNotesSectionMock = jest.mocked(createReleaseNotesSection)
@@ -46,6 +44,10 @@ describe('PullRequestBodyCreator', () => {
     const releasesFetcher = {
       fetch: releasesFetcherFetchMock
     } as unknown as ReleasesFetcher
+    const packageDiffsSectionCreatorCreateMock = jest.fn()
+    const packageDiffsSectionCreator = {
+      create: packageDiffsSectionCreatorCreateMock
+    } as unknown as PackageDiffsSectionCreator
 
     afterEach(() => {
       jest.resetAllMocks()
@@ -235,7 +237,7 @@ describe('PullRequestBodyCreator', () => {
         parsePackageJsonMock.mockReturnValue(packageMetadata)
         extractRepositoryMock.mockReturnValue(gitRepo)
         createOutdatedPackagesTableMock.mockReturnValue(outdatedPackagesTable)
-        createPackageDiffsSectionMock.mockReturnValue(packageDiffsSection)
+        packageDiffsSectionCreatorCreateMock.mockReturnValue(packageDiffsSection)
         createNotesSectionMock.mockReturnValue(notesSection)
         createMetadataSectionMock.mockReturnValue(metadataSection)
         createFooterMock.mockReturnValue(footer)
@@ -243,7 +245,8 @@ describe('PullRequestBodyCreator', () => {
         createReleaseNotesSectionMock.mockReturnValue(releaseNotesSection)
         const pullRequestBodyCreator = new PullRequestBodyCreator({
           options,
-          releasesFetcher
+          releasesFetcher,
+          packageDiffsSectionCreator
         })
 
         const actual = await pullRequestBodyCreator.create(outdatedPackage)
@@ -254,7 +257,7 @@ describe('PullRequestBodyCreator', () => {
         expect(parsePackageJsonMock).toBeCalledWith(packageJson)
         expect(extractRepositoryMock).toBeCalledWith(packageMetadata)
         expect(createOutdatedPackagesTableMock).toBeCalledWith(outdatedPackage)
-        expect(createPackageDiffsSectionMock).toBeCalledWith({
+        expect(packageDiffsSectionCreatorCreateMock).toBeCalledWith({
           outdatedPackage,
           gitRepo
         })
