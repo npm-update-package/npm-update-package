@@ -1,7 +1,6 @@
 import { URL } from 'url'
 import type { Options } from '../../../options'
 
-// TODO: Add test
 export class GitHubUrlOptimizer {
   constructor (private readonly options: Options) {}
 
