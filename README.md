@@ -270,6 +270,25 @@ npx npm-update-package \
   --package-manager yarn
 ```
 
+### prBodyGithubHost
+
+GitHub host of pull request body.
+
+|Name|Value|
+|---|---|
+|cli|`--pr-body-github-host`|
+|type|string|
+|required|false|
+|default|`togithub.com`|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --pr-body-github-host "togithub.example"
+```
+
 ### prBodyNotes
 
 Additional notes for Pull request body.
