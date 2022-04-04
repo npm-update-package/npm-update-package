@@ -455,41 +455,6 @@ jobs:
 
 See working example on [example-pat](https://github.com/npm-update-package/example-pat).
 
-### Use Yarn
-
-```yaml
-name: npm-update-package
-on:
-  schedule:
-    - cron: '0 0 * * *'
-jobs:
-  npm-update-package:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-      - name: Generate token
-        id: generate_token
-        uses: tibdex/github-app-token@v1
-        with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.PRIVATE_KEY }}
-      - run: |
-          npx npm-update-package \
-            --github-token $GITHUB_TOKEN \
-            --git-user-name $GIT_USER_NAME \
-            --git-user-email $GIT_USER_EMAIL \
-            --package-manager yarn
-        env:
-          # TODO: Replace with your GitHub App's email
-          GIT_USER_EMAIL: 97396142+npm-update-package[bot]@users.noreply.github.com
-          # TODO: Replace with your GitHub App's user name
-          GIT_USER_NAME: npm-update-package[bot]
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-```
-
-See working example on [example-yarn](https://github.com/npm-update-package/example-yarn).
-
 ## Flow
 
 The following shows the process flow of npm-update-package.
