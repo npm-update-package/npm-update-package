@@ -26,6 +26,7 @@ CLI tool for creating pull requests to update npm packages
   - [ignorePackages](#ignorepackages)
   - [logLevel](#loglevel)
   - [packageManager](#packagemanager)
+  - [prBodyGithubHost](#prbodygithubhost)
   - [prBodyNotes](#prbodynotes)
   - [prTitle](#prtitle)
   - [reviewers](#reviewers)
