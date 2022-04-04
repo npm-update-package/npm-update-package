@@ -287,7 +287,7 @@ Example:
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --pr-body-github-host "togithub.example"
+  --pr-body-github-host "github.example"
 ```
 
 ### prBodyNotes
