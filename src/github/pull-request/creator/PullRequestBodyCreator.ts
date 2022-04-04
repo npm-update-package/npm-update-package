@@ -11,27 +11,31 @@ import { createFooter } from './createFooter'
 import { createMetadataSection } from './createMetadataSection'
 import { createNotesSection } from './createNotesSection'
 import { createOutdatedPackagesTable } from './createOutdatedPackagesTable'
-import { createReleaseNotesSection } from './createReleaseNotesSection'
 import type { PackageDiffsSectionCreator } from './PackageDiffsSectionCreator'
+import type { ReleaseNotesSectionCreator } from './ReleaseNotesSectionCreator'
 
 // TODO: Split into multiple classes and functions
 export class PullRequestBodyCreator {
   private readonly options: Options
   private readonly releasesFetcher: ReleasesFetcher
   private readonly packageDiffsSectionCreator: PackageDiffsSectionCreator
+  private readonly releaseNotesSectionCreator: ReleaseNotesSectionCreator
 
   constructor ({
     options,
     releasesFetcher,
-    packageDiffsSectionCreator
+    packageDiffsSectionCreator,
+    releaseNotesSectionCreator
   }: {
     options: Options
     releasesFetcher: ReleasesFetcher
     packageDiffsSectionCreator: PackageDiffsSectionCreator
+    releaseNotesSectionCreator: ReleaseNotesSectionCreator
   }) {
     this.options = options
     this.releasesFetcher = releasesFetcher
     this.packageDiffsSectionCreator = packageDiffsSectionCreator
+    this.releaseNotesSectionCreator = releaseNotesSectionCreator
   }
 
   async create (outdatedPackage: OutdatedPackage): Promise<string> {
@@ -54,7 +58,7 @@ export class PullRequestBodyCreator {
       })
 
       if (releases.length > 0) {
-        const releaseNotesSection = createReleaseNotesSection(releases)
+        const releaseNotesSection = this.releaseNotesSectionCreator.create(releases)
         sections.push(releaseNotesSection)
       }
     }

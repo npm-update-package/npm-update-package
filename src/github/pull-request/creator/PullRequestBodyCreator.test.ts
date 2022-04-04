@@ -18,9 +18,9 @@ import { createFooter } from './createFooter'
 import { createMetadataSection } from './createMetadataSection'
 import { createNotesSection } from './createNotesSection'
 import { createOutdatedPackagesTable } from './createOutdatedPackagesTable'
-import { createReleaseNotesSection } from './createReleaseNotesSection'
 import type { PackageDiffsSectionCreator } from './PackageDiffsSectionCreator'
 import { PullRequestBodyCreator } from './PullRequestBodyCreator'
+import type { ReleaseNotesSectionCreator } from './ReleaseNotesSectionCreator'
 
 jest.mock('../../../file')
 jest.mock('../../../package-json')
@@ -28,7 +28,6 @@ jest.mock('./createFooter')
 jest.mock('./createMetadataSection')
 jest.mock('./createNotesSection')
 jest.mock('./createOutdatedPackagesTable')
-jest.mock('./createReleaseNotesSection')
 
 describe('PullRequestBodyCreator', () => {
   describe('create', () => {
@@ -38,7 +37,6 @@ describe('PullRequestBodyCreator', () => {
     const createOutdatedPackagesTableMock = jest.mocked(createOutdatedPackagesTable)
     const createNotesSectionMock = jest.mocked(createNotesSection)
     const createMetadataSectionMock = jest.mocked(createMetadataSection)
-    const createReleaseNotesSectionMock = jest.mocked(createReleaseNotesSection)
     const createFooterMock = jest.mocked(createFooter)
     const releasesFetcherFetchMock = jest.fn()
     const releasesFetcher = {
@@ -48,6 +46,10 @@ describe('PullRequestBodyCreator', () => {
     const packageDiffsSectionCreator = {
       create: packageDiffsSectionCreatorCreateMock
     } as unknown as PackageDiffsSectionCreator
+    const ReleaseNotesSectionCreatorCreateMock = jest.fn()
+    const releaseNotesSectionCreator = {
+      create: ReleaseNotesSectionCreatorCreateMock
+    } as unknown as ReleaseNotesSectionCreator
 
     afterEach(() => {
       jest.resetAllMocks()
@@ -242,11 +244,12 @@ describe('PullRequestBodyCreator', () => {
         createMetadataSectionMock.mockReturnValue(metadataSection)
         createFooterMock.mockReturnValue(footer)
         releasesFetcherFetchMock.mockResolvedValue(releases)
-        createReleaseNotesSectionMock.mockReturnValue(releaseNotesSection)
+        ReleaseNotesSectionCreatorCreateMock.mockReturnValue(releaseNotesSection)
         const pullRequestBodyCreator = new PullRequestBodyCreator({
           options,
           releasesFetcher,
-          packageDiffsSectionCreator
+          packageDiffsSectionCreator,
+          releaseNotesSectionCreator
         })
 
         const actual = await pullRequestBodyCreator.create(outdatedPackage)
@@ -275,16 +278,16 @@ describe('PullRequestBodyCreator', () => {
 
           if (releases.length > 0) {
             // eslint-disable-next-line jest/no-conditional-expect
-            expect(createReleaseNotesSectionMock).toBeCalledWith(releases)
+            expect(ReleaseNotesSectionCreatorCreateMock).toBeCalledWith(releases)
           } else {
             // eslint-disable-next-line jest/no-conditional-expect
-            expect(createReleaseNotesSectionMock).not.toBeCalled()
+            expect(ReleaseNotesSectionCreatorCreateMock).not.toBeCalled()
           }
         } else {
           // eslint-disable-next-line jest/no-conditional-expect
           expect(releasesFetcherFetchMock).not.toBeCalled()
           // eslint-disable-next-line jest/no-conditional-expect
-          expect(createReleaseNotesSectionMock).not.toBeCalled()
+          expect(ReleaseNotesSectionCreatorCreateMock).not.toBeCalled()
         }
 
         if (options.prBodyNotes !== undefined) {
