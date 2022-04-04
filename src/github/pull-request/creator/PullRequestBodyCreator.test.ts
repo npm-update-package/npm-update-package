@@ -46,9 +46,9 @@ describe('PullRequestBodyCreator', () => {
     const packageDiffsSectionCreator = {
       create: packageDiffsSectionCreatorCreateMock
     } as unknown as PackageDiffsSectionCreator
-    const ReleaseNotesSectionCreatorCreateMock = jest.fn()
+    const releaseNotesSectionCreatorCreateMock = jest.fn()
     const releaseNotesSectionCreator = {
-      create: ReleaseNotesSectionCreatorCreateMock
+      create: releaseNotesSectionCreatorCreateMock
     } as unknown as ReleaseNotesSectionCreator
 
     afterEach(() => {
@@ -244,7 +244,7 @@ describe('PullRequestBodyCreator', () => {
         createMetadataSectionMock.mockReturnValue(metadataSection)
         createFooterMock.mockReturnValue(footer)
         releasesFetcherFetchMock.mockResolvedValue(releases)
-        ReleaseNotesSectionCreatorCreateMock.mockReturnValue(releaseNotesSection)
+        releaseNotesSectionCreatorCreateMock.mockReturnValue(releaseNotesSection)
         const pullRequestBodyCreator = new PullRequestBodyCreator({
           options,
           releasesFetcher,
@@ -278,16 +278,16 @@ describe('PullRequestBodyCreator', () => {
 
           if (releases.length > 0) {
             // eslint-disable-next-line jest/no-conditional-expect
-            expect(ReleaseNotesSectionCreatorCreateMock).toBeCalledWith(releases)
+            expect(releaseNotesSectionCreatorCreateMock).toBeCalledWith(releases)
           } else {
             // eslint-disable-next-line jest/no-conditional-expect
-            expect(ReleaseNotesSectionCreatorCreateMock).not.toBeCalled()
+            expect(releaseNotesSectionCreatorCreateMock).not.toBeCalled()
           }
         } else {
           // eslint-disable-next-line jest/no-conditional-expect
           expect(releasesFetcherFetchMock).not.toBeCalled()
           // eslint-disable-next-line jest/no-conditional-expect
-          expect(ReleaseNotesSectionCreatorCreateMock).not.toBeCalled()
+          expect(releaseNotesSectionCreatorCreateMock).not.toBeCalled()
         }
 
         if (options.prBodyNotes !== undefined) {
