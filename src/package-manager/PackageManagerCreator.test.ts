@@ -5,7 +5,7 @@ import {
 import type { Options } from '../options'
 import { Terminal } from '../terminal'
 import { detectPackageManager } from './detectPackageManager'
-import { Npm } from './Npm'
+import { Npm } from './npm/Npm'
 import { PackageManagerCreator } from './PackageManagerCreator'
 import { PackageManagerName } from './PackageManagerName'
 import { Yarn } from './Yarn'
