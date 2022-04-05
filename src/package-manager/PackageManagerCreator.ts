@@ -5,7 +5,7 @@ import { detectPackageManager } from './detectPackageManager'
 import { Npm } from './npm'
 import type { PackageManager } from './PackageManager'
 import { PackageManagerName } from './PackageManagerName'
-import { Yarn } from './Yarn'
+import { Yarn } from './yarn'
 
 export class PackageManagerCreator {
   private readonly options: Options

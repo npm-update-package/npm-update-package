@@ -1,4 +1,4 @@
-import type { Terminal } from '../terminal'
+import type { Terminal } from '../../terminal'
 import { Yarn } from './Yarn'
 
 describe('Yarn', () => {

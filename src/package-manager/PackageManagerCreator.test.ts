@@ -8,7 +8,7 @@ import { detectPackageManager } from './detectPackageManager'
 import { Npm } from './npm'
 import { PackageManagerCreator } from './PackageManagerCreator'
 import { PackageManagerName } from './PackageManagerName'
-import { Yarn } from './Yarn'
+import { Yarn } from './yarn'
 
 jest.mock('./detectPackageManager')
 
