@@ -1,18 +1,18 @@
 changelog:
   categories:
-    - title: "Breaking Changes"
+    - title: "Breaking changes"
       labels:
         - "breaking change"
-    - title: "New Features"
+    - title: "New features"
       labels:
         - "enhancement"
-    - title: "Dependency Updates"
+    - title: "Dependency updates"
       labels:
         - "dependencies"
         - "renovate"
     - title: "Documentation"
       labels:
         - "documentation"
-    - title: "Other Changes"
+    - title: "Other changes"
       labels:
         - "*"
