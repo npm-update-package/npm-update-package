@@ -2,7 +2,6 @@ import type { OutdatedPackage } from '../../../core'
 import type { GitRepository } from '../../../git'
 import type { GitHubUrlOptimizer } from './GitHubUrlOptimizer'
 
-// TODO: Add test
 export class PackageDiffsSectionCreator {
   constructor (private readonly gitHubUrlOptimizer: GitHubUrlOptimizer) {}
 
