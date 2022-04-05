@@ -14,7 +14,7 @@ import type {
   PullRequestFinder,
   PullRequestsCloser
 } from '../github'
-import { logger } from '../logger/singleton'
+import { logger } from '../logger'
 import type { PackageManager } from '../package-manager'
 import type { FailedResult } from './FailedResult'
 import type { OutdatedPackage } from './OutdatedPackage'

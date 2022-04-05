@@ -1,4 +1,4 @@
-import { logger } from '../logger/singleton'
+import { logger } from '../logger'
 import type { Options } from '../options'
 import type { Terminal } from '../terminal'
 import { detectPackageManager } from './detectPackageManager'

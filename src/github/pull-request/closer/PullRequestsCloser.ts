@@ -1,4 +1,4 @@
-import { logger } from '../../../logger/singleton'
+import { logger } from '../../../logger'
 import type { PullRequest } from '../../GitHub'
 import type { PullRequestCloser } from './PullRequestCloser'
 

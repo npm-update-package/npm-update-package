@@ -1,6 +1,6 @@
 import type { OutdatedPackage } from '../../../core'
 import type { GitRepository } from '../../../git'
-import { logger } from '../../../logger/singleton'
+import { logger } from '../../../logger'
 import type {
   CreatedPullRequest,
   GitHub,

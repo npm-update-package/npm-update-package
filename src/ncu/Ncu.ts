@@ -3,7 +3,7 @@ import type { RunOptions } from 'npm-check-updates/build/src/types'
 import { isNotUndefined } from 'type-guards'
 import type { OutdatedPackage } from '../core'
 import { readFile } from '../file'
-import { logger } from '../logger/singleton'
+import { logger } from '../logger'
 import type { Options } from '../options'
 import {
   DependencyType,

@@ -1,5 +1,5 @@
 import type { Either } from 'fp-ts/lib/Either'
-import { logger } from '../logger/singleton'
+import { logger } from '../logger'
 import type { FailedResult } from './FailedResult'
 import type { OutdatedPackage } from './OutdatedPackage'
 import type { OutdatedPackageProcessor } from './OutdatedPackageProcessor'

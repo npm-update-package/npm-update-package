@@ -1,5 +1,5 @@
 import type { GitRepository } from '../../../git'
-import { logger } from '../../../logger/singleton'
+import { logger } from '../../../logger'
 import { isNotFoundError } from '../../errors'
 import type {
   GitHub,

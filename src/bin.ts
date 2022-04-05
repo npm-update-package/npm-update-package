@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import pkg from '../package.json'
-import { logger } from './logger/singleton'
+import { logger } from './logger'
 import { main } from './main'
 import { initOptions } from './options'
 

@@ -28,7 +28,7 @@ import {
   ReleaseNotesSectionCreator,
   ReleasesFetcher
 } from './github'
-import { logger } from './logger/singleton'
+import { logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'
 import { PackageManagerCreator } from './package-manager'
