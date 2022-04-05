@@ -1,5 +1,5 @@
-import type { Terminal } from '../terminal'
-import type { PackageManager } from './PackageManager'
+import type { Terminal } from '../../terminal'
+import type { PackageManager } from '../PackageManager'
 import { isYarnVersions } from './YarnVersions'
 
 export class Yarn implements PackageManager {
