@@ -1,9 +1,5 @@
 import type { OutdatedPackage } from '../../../core'
 import type { GitRepository } from '../../../git'
-import {
-  createLogger,
-  LogLevel
-} from '../../../logger'
 import type {
   GitHub,
   Repository as GitHubRepository
@@ -39,7 +35,6 @@ describe('PullRequestCreator', () => {
     const pullRequestTitleCreator = {
       create: pullRequestTitleCreatorCreateMock
     } as unknown as PullRequestTitleCreator
-    const logger = createLogger(LogLevel.Off)
     const reviewers = ['npm-update-package']
     const assignees = ['npm-update-package']
     const pullRequestCreator = new PullRequestCreator({
@@ -48,7 +43,6 @@ describe('PullRequestCreator', () => {
       githubRepo,
       pullRequestTitleCreator,
       pullRequestBodyCreator,
-      logger,
       reviewers,
       assignees
     })

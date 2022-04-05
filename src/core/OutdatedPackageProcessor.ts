@@ -14,7 +14,7 @@ import type {
   PullRequestFinder,
   PullRequestsCloser
 } from '../github'
-import type { Logger } from '../logger'
+import { logger } from '../logger/singleton'
 import type { PackageManager } from '../package-manager'
 import type { FailedResult } from './FailedResult'
 import type { OutdatedPackage } from './OutdatedPackage'
@@ -28,7 +28,6 @@ export class OutdatedPackageProcessor {
   private readonly packageManager: PackageManager
   private readonly pullRequestCreator: PullRequestCreator
   private readonly branchFinder: BranchFinder
-  private readonly logger: Logger
   private readonly commitMessageCreator: CommitMessageCreator
   private readonly pullRequestFinder: PullRequestFinder
   private readonly pullRequestsCloser: PullRequestsCloser
@@ -39,7 +38,6 @@ export class OutdatedPackageProcessor {
     packageManager,
     pullRequestCreator,
     branchFinder,
-    logger,
     commitMessageCreator,
     pullRequestFinder,
     pullRequestsCloser,
@@ -49,7 +47,6 @@ export class OutdatedPackageProcessor {
     packageManager: PackageManager
     pullRequestCreator: PullRequestCreator
     branchFinder: BranchFinder
-    logger: Logger
     commitMessageCreator: CommitMessageCreator
     pullRequestFinder: PullRequestFinder
     pullRequestsCloser: PullRequestsCloser
@@ -59,7 +56,6 @@ export class OutdatedPackageProcessor {
     this.packageManager = packageManager
     this.pullRequestCreator = pullRequestCreator
     this.branchFinder = branchFinder
-    this.logger = logger
     this.commitMessageCreator = commitMessageCreator
     this.pullRequestFinder = pullRequestFinder
     this.pullRequestsCloser = pullRequestsCloser
@@ -71,10 +67,10 @@ export class OutdatedPackageProcessor {
    */
   async process (outdatedPackage: OutdatedPackage): Promise<Either<FailedResult, SucceededResult>> {
     const branchName = createBranchName(outdatedPackage)
-    this.logger.debug(`branchName=${branchName}`)
+    logger.debug(`branchName=${branchName}`)
 
     if (this.branchFinder.findByName(branchName) !== undefined) {
-      this.logger.info(`Skip ${outdatedPackage.name} because ${branchName} branch already exists on remote.`)
+      logger.info(`Skip ${outdatedPackage.name} because ${branchName} branch already exists on remote.`)
       return right({
         outdatedPackage,
         skipped: true
@@ -82,24 +78,24 @@ export class OutdatedPackageProcessor {
     }
 
     await this.git.createBranch(branchName)
-    this.logger.info(`${branchName} branch has created.`)
+    logger.info(`${branchName} branch has created.`)
 
     try {
       try {
         await this.packageUpdater.update(outdatedPackage)
       } catch (error) {
-        this.logger.error(error)
+        logger.error(error)
         return left({
           outdatedPackage,
           error
         })
       }
 
-      this.logger.info(`${outdatedPackage.name} has updated from v${outdatedPackage.currentVersion.version} to v${outdatedPackage.newVersion.version}`)
+      logger.info(`${outdatedPackage.name} has updated from v${outdatedPackage.currentVersion.version} to v${outdatedPackage.newVersion.version}`)
 
       await this.git.add(this.packageManager.packageFile, this.packageManager.lockFile)
       const message = this.commitMessageCreator.create(outdatedPackage)
-      this.logger.debug(`message=${message}`)
+      logger.debug(`message=${message}`)
 
       await this.git.commit(message)
       await this.git.push(branchName)
@@ -107,7 +103,7 @@ export class OutdatedPackageProcessor {
         outdatedPackage,
         branchName
       })
-      this.logger.info(`Pull request for ${outdatedPackage.name} has created. ${pullRequest.html_url}`)
+      logger.info(`Pull request for ${outdatedPackage.name} has created. ${pullRequest.html_url}`)
       await this.closeOldPullRequests(outdatedPackage)
       return right({
         outdatedPackage,
@@ -117,13 +113,13 @@ export class OutdatedPackageProcessor {
       await this.git.restore(this.packageManager.packageFile, this.packageManager.lockFile)
       await this.git.switch('-')
       await this.git.removeBranch(branchName)
-      this.logger.info(`${branchName} branch has removed.`)
+      logger.info(`${branchName} branch has removed.`)
     }
   }
 
   private async closeOldPullRequests (outdatedPackage: OutdatedPackage): Promise<void> {
     const pullRequests = this.pullRequestFinder.findByPackageName(outdatedPackage.name)
-    this.logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
+    logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
     await this.pullRequestsCloser.close(pullRequests)
   }
 }
