@@ -1,7 +1,6 @@
 import { Release } from '../../releases'
 import type { GitHubUrlOptimizer } from './GitHubUrlOptimizer'
 
-// TODO: Add test
 export class ReleaseNotesSectionCreator {
   constructor (private readonly gitHubUrlOptimizer: GitHubUrlOptimizer) {}
 
