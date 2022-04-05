@@ -40,6 +40,8 @@ describe('ReleaseNotesSectionCreator', () => {
 
 - [v1.0.0](https://github.test/npm-update-package/example/releases/tag/v1.0.0)
 - [v2.0.0](https://github.test/npm-update-package/example/releases/tag/v2.0.0)`)
+      expect(optimizeMock).toBeCalledWith('https://github.com/npm-update-package/example/releases/tag/v1.0.0')
+      expect(optimizeMock).toBeCalledWith('https://github.com/npm-update-package/example/releases/tag/v2.0.0')
     })
   })
 })
