@@ -16,13 +16,16 @@ import {
 import {
   BranchFinder,
   createGitHub,
+  GitHubUrlOptimizer,
   LabelCreator,
+  PackageDiffsSectionCreator,
   PullRequestBodyCreator,
   PullRequestCloser,
   PullRequestCreator,
   PullRequestFinder,
   PullRequestsCloser,
   PullRequestTitleCreator,
+  ReleaseNotesSectionCreator,
   ReleasesFetcher
 } from './github'
 import type { Logger } from './logger'
@@ -112,9 +115,14 @@ export const main = async ({
     options,
     packageManager
   })
+  const githubUrlOptimizer = new GitHubUrlOptimizer(options)
+  const packageDiffsSectionCreator = new PackageDiffsSectionCreator(githubUrlOptimizer)
+  const releaseNotesSectionCreator = new ReleaseNotesSectionCreator(githubUrlOptimizer)
   const pullRequestBodyCreator = new PullRequestBodyCreator({
     options,
-    releasesFetcher
+    releasesFetcher,
+    packageDiffsSectionCreator,
+    releaseNotesSectionCreator
   })
   const pullRequestCreator = new PullRequestCreator({
     github,

@@ -26,6 +26,7 @@ CLI tool for creating pull requests to update npm packages
   - [ignorePackages](#ignorepackages)
   - [logLevel](#loglevel)
   - [packageManager](#packagemanager)
+  - [prBodyGithubHost](#prbodygithubhost)
   - [prBodyNotes](#prbodynotes)
   - [prTitle](#prtitle)
   - [reviewers](#reviewers)
@@ -268,6 +269,25 @@ Example:
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
   --package-manager yarn
+```
+
+### prBodyGithubHost
+
+GitHub host of pull request body.
+
+|Name|Value|
+|---|---|
+|cli|`--pr-body-github-host`|
+|type|string|
+|required|false|
+|default|`togithub.com`|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --pr-body-github-host "github.example"
 ```
 
 ### prBodyNotes

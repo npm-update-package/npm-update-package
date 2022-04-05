@@ -82,6 +82,13 @@ export const cliOptions: CLIOption[] = [
     ]
   },
   {
+    name: 'pr-body-github-host',
+    description: 'GitHub host of pull request body',
+    type: OptionType.String,
+    required: false,
+    default: 'togithub.com'
+  },
+  {
     name: 'pr-body-notes',
     description: 'Additional notes for Pull request body',
     type: OptionType.String,

@@ -18,9 +18,9 @@ import { createFooter } from './createFooter'
 import { createMetadataSection } from './createMetadataSection'
 import { createNotesSection } from './createNotesSection'
 import { createOutdatedPackagesTable } from './createOutdatedPackagesTable'
-import { createPackageDiffsSection } from './createPackageDiffsSection'
-import { createReleaseNotesSection } from './createReleaseNotesSection'
+import type { PackageDiffsSectionCreator } from './PackageDiffsSectionCreator'
 import { PullRequestBodyCreator } from './PullRequestBodyCreator'
+import type { ReleaseNotesSectionCreator } from './ReleaseNotesSectionCreator'
 
 jest.mock('../../../file')
 jest.mock('../../../package-json')
@@ -28,8 +28,6 @@ jest.mock('./createFooter')
 jest.mock('./createMetadataSection')
 jest.mock('./createNotesSection')
 jest.mock('./createOutdatedPackagesTable')
-jest.mock('./createPackageDiffsSection')
-jest.mock('./createReleaseNotesSection')
 
 describe('PullRequestBodyCreator', () => {
   describe('create', () => {
@@ -37,15 +35,21 @@ describe('PullRequestBodyCreator', () => {
     const parsePackageJsonMock = jest.mocked(parsePackageJson)
     const extractRepositoryMock = jest.mocked(extractRepository)
     const createOutdatedPackagesTableMock = jest.mocked(createOutdatedPackagesTable)
-    const createPackageDiffsSectionMock = jest.mocked(createPackageDiffsSection)
     const createNotesSectionMock = jest.mocked(createNotesSection)
     const createMetadataSectionMock = jest.mocked(createMetadataSection)
-    const createReleaseNotesSectionMock = jest.mocked(createReleaseNotesSection)
     const createFooterMock = jest.mocked(createFooter)
     const releasesFetcherFetchMock = jest.fn()
     const releasesFetcher = {
       fetch: releasesFetcherFetchMock
     } as unknown as ReleasesFetcher
+    const packageDiffsSectionCreatorCreateMock = jest.fn()
+    const packageDiffsSectionCreator = {
+      create: packageDiffsSectionCreatorCreateMock
+    } as unknown as PackageDiffsSectionCreator
+    const releaseNotesSectionCreatorCreateMock = jest.fn()
+    const releaseNotesSectionCreator = {
+      create: releaseNotesSectionCreatorCreateMock
+    } as unknown as ReleaseNotesSectionCreator
 
     afterEach(() => {
       jest.resetAllMocks()
@@ -235,15 +239,17 @@ describe('PullRequestBodyCreator', () => {
         parsePackageJsonMock.mockReturnValue(packageMetadata)
         extractRepositoryMock.mockReturnValue(gitRepo)
         createOutdatedPackagesTableMock.mockReturnValue(outdatedPackagesTable)
-        createPackageDiffsSectionMock.mockReturnValue(packageDiffsSection)
+        packageDiffsSectionCreatorCreateMock.mockReturnValue(packageDiffsSection)
         createNotesSectionMock.mockReturnValue(notesSection)
         createMetadataSectionMock.mockReturnValue(metadataSection)
         createFooterMock.mockReturnValue(footer)
         releasesFetcherFetchMock.mockResolvedValue(releases)
-        createReleaseNotesSectionMock.mockReturnValue(releaseNotesSection)
+        releaseNotesSectionCreatorCreateMock.mockReturnValue(releaseNotesSection)
         const pullRequestBodyCreator = new PullRequestBodyCreator({
           options,
-          releasesFetcher
+          releasesFetcher,
+          packageDiffsSectionCreator,
+          releaseNotesSectionCreator
         })
 
         const actual = await pullRequestBodyCreator.create(outdatedPackage)
@@ -254,7 +260,7 @@ describe('PullRequestBodyCreator', () => {
         expect(parsePackageJsonMock).toBeCalledWith(packageJson)
         expect(extractRepositoryMock).toBeCalledWith(packageMetadata)
         expect(createOutdatedPackagesTableMock).toBeCalledWith(outdatedPackage)
-        expect(createPackageDiffsSectionMock).toBeCalledWith({
+        expect(packageDiffsSectionCreatorCreateMock).toBeCalledWith({
           outdatedPackage,
           gitRepo
         })
@@ -272,16 +278,16 @@ describe('PullRequestBodyCreator', () => {
 
           if (releases.length > 0) {
             // eslint-disable-next-line jest/no-conditional-expect
-            expect(createReleaseNotesSectionMock).toBeCalledWith(releases)
+            expect(releaseNotesSectionCreatorCreateMock).toBeCalledWith(releases)
           } else {
             // eslint-disable-next-line jest/no-conditional-expect
-            expect(createReleaseNotesSectionMock).not.toBeCalled()
+            expect(releaseNotesSectionCreatorCreateMock).not.toBeCalled()
           }
         } else {
           // eslint-disable-next-line jest/no-conditional-expect
           expect(releasesFetcherFetchMock).not.toBeCalled()
           // eslint-disable-next-line jest/no-conditional-expect
-          expect(createReleaseNotesSectionMock).not.toBeCalled()
+          expect(releaseNotesSectionCreatorCreateMock).not.toBeCalled()
         }
 
         if (options.prBodyNotes !== undefined) {

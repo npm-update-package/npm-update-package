@@ -28,6 +28,7 @@ const Options = intersection([
       literal(LogLevel.Debug),
       literal(LogLevel.Trace)
     ]),
+    prBodyGithubHost: string,
     prTitle: string
   }),
   partial({
