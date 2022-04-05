@@ -1,6 +1,6 @@
-import type { Terminal } from '../terminal'
+import type { Terminal } from '../../terminal'
+import type { PackageManager } from '../PackageManager'
 import { isNpmVersions } from './NpmVersions'
-import type { PackageManager } from './PackageManager'
 
 export class Npm implements PackageManager {
   readonly packageFile = 'package.json'
