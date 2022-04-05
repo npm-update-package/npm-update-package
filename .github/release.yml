@@ -8,6 +8,7 @@ changelog:
         - "enhancement"
     - title: "Dependency Updates"
       labels:
+        - "dependencies"
         - "renovate"
     - title: "Other Changes"
       labels:
