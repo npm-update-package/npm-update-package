@@ -1,7 +1,3 @@
-import {
-  createLogger,
-  LogLevel
-} from '../logger'
 import type { Options } from '../options'
 import { Terminal } from '../terminal'
 import { detectPackageManager } from './detectPackageManager'
@@ -15,7 +11,6 @@ jest.mock('./detectPackageManager')
 describe('PackageManagerCreator', () => {
   describe('create', () => {
     const detectPackageManagerMock = jest.mocked(detectPackageManager)
-    const logger = createLogger(LogLevel.Off)
     const terminal = new Terminal()
 
     afterEach(() => {
@@ -30,10 +25,7 @@ describe('PackageManagerCreator', () => {
         const options = {
           packageManager
         } as unknown as Options
-        const packageManagerCreator = new PackageManagerCreator({
-          options,
-          logger
-        })
+        const packageManagerCreator = new PackageManagerCreator(options)
 
         const actual = await packageManagerCreator.create(terminal)
 
@@ -49,10 +41,7 @@ describe('PackageManagerCreator', () => {
       ])('packageManager=%p', async (packageManager, expected) => {
         detectPackageManagerMock.mockResolvedValue(packageManager)
         const options = {} as unknown as Options
-        const packageManagerCreator = new PackageManagerCreator({
-          options,
-          logger
-        })
+        const packageManagerCreator = new PackageManagerCreator(options)
 
         const actual = await packageManagerCreator.create(terminal)
 

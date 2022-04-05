@@ -1,6 +1,6 @@
 import type { OutdatedPackage } from '../../../core'
 import type { GitRepository } from '../../../git'
-import type { Logger } from '../../../logger'
+import { logger } from '../../../logger'
 import type {
   CreatedPullRequest,
   GitHub,
@@ -15,7 +15,6 @@ export class PullRequestCreator {
   private readonly githubRepo: GitHubRepository
   private readonly pullRequestTitleCreator: PullRequestTitleCreator
   private readonly pullRequestBodyCreator: PullRequestBodyCreator
-  private readonly logger: Logger
   private readonly reviewers: string[] | undefined
   private readonly assignees: string[] | undefined
 
@@ -25,7 +24,6 @@ export class PullRequestCreator {
     githubRepo,
     pullRequestTitleCreator,
     pullRequestBodyCreator,
-    logger,
     reviewers,
     assignees
   }: {
@@ -34,7 +32,6 @@ export class PullRequestCreator {
     githubRepo: GitHubRepository
     pullRequestTitleCreator: PullRequestTitleCreator
     pullRequestBodyCreator: PullRequestBodyCreator
-    logger: Logger
     reviewers?: string[]
     assignees?: string[]
   }) {
@@ -43,7 +40,6 @@ export class PullRequestCreator {
     this.githubRepo = githubRepo
     this.pullRequestTitleCreator = pullRequestTitleCreator
     this.pullRequestBodyCreator = pullRequestBodyCreator
-    this.logger = logger
     this.reviewers = reviewers
     this.assignees = assignees
   }
@@ -56,10 +52,10 @@ export class PullRequestCreator {
     branchName: string
   }): Promise<CreatedPullRequest> {
     const title = this.pullRequestTitleCreator.create(outdatedPackage)
-    this.logger.debug(`title=${title}`)
+    logger.debug(`title=${title}`)
 
     const body = await this.pullRequestBodyCreator.create(outdatedPackage)
-    this.logger.debug(`body=${body}`)
+    logger.debug(`body=${body}`)
 
     const pullRequest = await this.github.createPullRequest({
       owner: this.gitRepo.owner,
@@ -69,7 +65,7 @@ export class PullRequestCreator {
       title,
       body
     })
-    this.logger.debug(`pullRequest=${JSON.stringify(pullRequest)}`)
+    logger.debug(`pullRequest=${JSON.stringify(pullRequest)}`)
 
     await this.github.addLabels({
       owner: this.gitRepo.owner,

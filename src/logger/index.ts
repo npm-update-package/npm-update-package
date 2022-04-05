@@ -1,3 +1,2 @@
-export * from './createLogger'
-export * from './Logger'
+export * from './logger'
 export * from './LogLevel'

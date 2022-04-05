@@ -1,7 +1,3 @@
-import {
-  createLogger,
-  LogLevel
-} from '../../../logger'
 import type { PullRequest } from '../../GitHub'
 import type { PullRequestCloser } from './PullRequestCloser'
 import { PullRequestsCloser } from './PullRequestsCloser'
@@ -12,11 +8,7 @@ describe('PullRequestsCloser', () => {
     const pullRequestCloser = {
       close: pullRequestCloserCloseMock
     } as unknown as PullRequestCloser
-    const logger = createLogger(LogLevel.Off)
-    const pullRequestsCloser = new PullRequestsCloser({
-      pullRequestCloser,
-      logger
-    })
+    const pullRequestsCloser = new PullRequestsCloser(pullRequestCloser)
 
     afterEach(() => {
       jest.resetAllMocks()

@@ -28,29 +28,20 @@ import {
   ReleaseNotesSectionCreator,
   ReleasesFetcher
 } from './github'
-import type { Logger } from './logger'
+import { logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'
 import { PackageManagerCreator } from './package-manager'
 import { Terminal } from './terminal'
 
 // TODO: Add test
-export const main = async ({
-  options,
-  logger
-}: {
-  options: Options
-  logger: Logger
-}): Promise<void> => {
+export const main = async (options: Options): Promise<void> => {
   logger.debug(`options=${JSON.stringify({
     ...options,
     githubToken: options.githubToken !== '' ? '***' : ''
   })}`)
 
-  const ncu = new Ncu({
-    options,
-    logger
-  })
+  const ncu = new Ncu(options)
   const outdatedPackages = await ncu.check()
   logger.debug(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
 
@@ -95,8 +86,7 @@ export const main = async ({
 
   const labelCreator = new LabelCreator({
     github,
-    gitRepo,
-    logger
+    gitRepo
   })
   await labelCreator.create({
     name: 'npm-update-package',
@@ -105,10 +95,7 @@ export const main = async ({
   })
 
   const branchFinder = new BranchFinder(branches)
-  const packageManagerCreator = new PackageManagerCreator({
-    options,
-    logger
-  })
+  const packageManagerCreator = new PackageManagerCreator(options)
   const packageManager = await packageManagerCreator.create(terminal)
   const pullRequestTitleCreator = new PullRequestTitleCreator(options.prTitle)
   const releasesFetcher = new ReleasesFetcher({
@@ -130,17 +117,13 @@ export const main = async ({
     githubRepo,
     pullRequestTitleCreator,
     pullRequestBodyCreator,
-    logger,
     reviewers: options.reviewers,
     assignees: options.assignees
   })
   const commitMessageCreator = new CommitMessageCreator(options.commitMessage)
   const pullRequestFinder = new PullRequestFinder(pullRequests)
   const pullRequestCloser = new PullRequestCloser(github)
-  const pullRequestsCloser = new PullRequestsCloser({
-    pullRequestCloser,
-    logger
-  })
+  const pullRequestsCloser = new PullRequestsCloser(pullRequestCloser)
   const packageUpdater = new PackageUpdater({
     packageManager,
     ncu
@@ -150,7 +133,6 @@ export const main = async ({
     packageManager,
     pullRequestCreator,
     branchFinder,
-    logger,
     commitMessageCreator,
     pullRequestFinder,
     pullRequestsCloser,
@@ -161,10 +143,7 @@ export const main = async ({
     git
   })
   await gitConfigInitializer.initialize()
-  const outdatedPackagesProcessor = new OutdatedPackagesProcessor({
-    outdatedPackageProcessor,
-    logger
-  })
+  const outdatedPackagesProcessor = new OutdatedPackagesProcessor(outdatedPackageProcessor)
   const results = await outdatedPackagesProcessor.process(outdatedPackages)
   logger.debug(`results=${JSON.stringify(results)}`)
 
