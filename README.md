@@ -83,6 +83,25 @@ npx npm-update-package \
   --assignees octocat mona
 ```
 
+### assigneesSampleSize
+
+How many members to be assigned to assignees.
+
+|Name|Value|
+|---|---|
+|cli|`--assignees-sample-size`|
+|type|number|
+|required|false|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --assignees octocat mona
+  --assignees-sample-size 1
+```
+
 ### commitMessage
 
 Commit message template.

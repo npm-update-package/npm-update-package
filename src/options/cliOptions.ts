@@ -11,6 +11,12 @@ export const cliOptions: CLIOption[] = [
     required: false
   },
   {
+    name: 'assignees-sample-size',
+    description: 'How many members to be assigned to assignees',
+    type: OptionType.Number,
+    required: false
+  },
+  {
     name: 'commit-message',
     description: 'Commit message template',
     type: OptionType.String,
