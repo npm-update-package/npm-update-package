@@ -1,5 +1,6 @@
 import type { OutdatedPackage } from '../../../core'
 import type { GitRepository } from '../../../git'
+import type { Options } from '../../../options'
 import type {
   GitHub,
   Repository as GitHubRepository
@@ -37,14 +38,17 @@ describe('PullRequestCreator', () => {
     } as unknown as PullRequestTitleCreator
     const reviewers = ['npm-update-package']
     const assignees = ['npm-update-package']
+    const options = {
+      assignees,
+      reviewers
+    } as unknown as Options
     const pullRequestCreator = new PullRequestCreator({
+      options,
       github,
       gitRepo,
       githubRepo,
       pullRequestTitleCreator,
-      pullRequestBodyCreator,
-      reviewers,
-      assignees
+      pullRequestBodyCreator
     })
 
     afterEach(() => {

@@ -112,13 +112,12 @@ export const main = async (options: Options): Promise<void> => {
     releaseNotesSectionCreator
   })
   const pullRequestCreator = new PullRequestCreator({
+    options,
     github,
     gitRepo,
     githubRepo,
     pullRequestTitleCreator,
-    pullRequestBodyCreator,
-    reviewers: options.reviewers,
-    assignees: options.assignees
+    pullRequestBodyCreator
   })
   const commitMessageCreator = new CommitMessageCreator(options.commitMessage)
   const pullRequestFinder = new PullRequestFinder(pullRequests)
