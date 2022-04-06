@@ -17,6 +17,7 @@ CLI tool for creating pull requests to update npm packages
 - [Supported platforms](#supported-platforms)
 - [Options](#options)
   - [assignees](#assignees)
+  - [assigneesSampleSize](#assigneessamplesize)
   - [commitMessage](#commitmessage)
   - [fetchReleaseNotes](#fetchreleasenotes)
   - [fetchSleepTime](#fetchsleeptime)
