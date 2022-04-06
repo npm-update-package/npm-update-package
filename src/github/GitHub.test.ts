@@ -1,5 +1,5 @@
 import type { Octokit } from '@octokit/rest'
-import { range } from '../number'
+import range from 'lodash/range'
 import {
   GitHub,
   type Branch,
@@ -198,7 +198,7 @@ describe('GitHub', () => {
   describe('fetchBranches', () => {
     it('calls octokit.repos.listBranches()', async () => {
       const createBranches = (start: number, end: number): Branch[] => {
-        return [...range(start, end)].map(num => ({
+        return range(start, end).map(num => ({
           name: `branch ${num}`
         } as unknown as Branch))
       }
@@ -273,7 +273,7 @@ describe('GitHub', () => {
   describe('fetchPullRequests', () => {
     it('calls octokit.pulls.list()', async () => {
       const createPullRequests = (start: number, end: number): PullRequest[] => {
-        return [...range(start, end)].map(id => ({ id } as unknown as PullRequest))
+        return range(start, end).map(id => ({ id } as unknown as PullRequest))
       }
       const pullRequestsByPage = new Map([
         [1, createPullRequests(1, 101)],
