@@ -1,3 +1,4 @@
+import shuffle from 'lodash/shuffle'
 import type { OutdatedPackage } from '../../../core'
 import type { GitRepository } from '../../../git'
 import { logger } from '../../../logger'
@@ -72,11 +73,14 @@ export class PullRequestCreator {
     })
 
     if (this.options.assignees !== undefined) {
+      const assignees = this.options.assigneesSampleSize !== undefined
+        ? shuffle(this.options.assignees).slice(0, this.options.assigneesSampleSize)
+        : this.options.assignees
       await this.github.addAssignees({
         owner: this.gitRepo.owner,
         repo: this.gitRepo.name,
         issueNumber: pullRequest.number,
-        assignees: this.options.assignees
+        assignees
       })
     }
 
