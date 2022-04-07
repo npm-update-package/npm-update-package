@@ -40,8 +40,8 @@ describe('PullRequestCreator', () => {
       add: assigneesAdderAddMock
     } as unknown as AssigneesAdder
     const options = {
-      assignees: ['npm-update-package'],
-      reviewers: ['npm-update-package']
+      assignees: ['alice', 'bob'],
+      reviewers: ['carol', 'dave']
     } as unknown as Options
     const pullRequestCreator = new PullRequestCreator({
       options,
