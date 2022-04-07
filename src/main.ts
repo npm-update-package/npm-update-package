@@ -14,6 +14,7 @@ import {
   GitRepository
 } from './git'
 import {
+  AssigneesAdder,
   BranchFinder,
   createGitHub,
   GitHubUrlOptimizer,
@@ -111,13 +112,18 @@ export const main = async (options: Options): Promise<void> => {
     packageDiffsSectionCreator,
     releaseNotesSectionCreator
   })
+  const assigneesAdder = new AssigneesAdder({
+    github,
+    gitRepo
+  })
   const pullRequestCreator = new PullRequestCreator({
     options,
     github,
     gitRepo,
     githubRepo,
     pullRequestTitleCreator,
-    pullRequestBodyCreator
+    pullRequestBodyCreator,
+    assigneesAdder
   })
   const commitMessageCreator = new CommitMessageCreator(options.commitMessage)
   const pullRequestFinder = new PullRequestFinder(pullRequests)

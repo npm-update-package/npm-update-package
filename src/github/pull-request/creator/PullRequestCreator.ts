@@ -1,4 +1,3 @@
-import shuffle from 'lodash/shuffle'
 import type { OutdatedPackage } from '../../../core'
 import type { GitRepository } from '../../../git'
 import { logger } from '../../../logger'
@@ -8,6 +7,7 @@ import type {
   GitHub,
   Repository as GitHubRepository
 } from '../../GitHub'
+import type { AssigneesAdder } from './AssigneesAdder'
 import type { PullRequestBodyCreator } from './PullRequestBodyCreator'
 import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
 
@@ -18,6 +18,7 @@ export class PullRequestCreator {
   private readonly githubRepo: GitHubRepository
   private readonly pullRequestTitleCreator: PullRequestTitleCreator
   private readonly pullRequestBodyCreator: PullRequestBodyCreator
+  private readonly assigneesAdder: AssigneesAdder
 
   constructor ({
     options,
@@ -25,7 +26,8 @@ export class PullRequestCreator {
     gitRepo,
     githubRepo,
     pullRequestTitleCreator,
-    pullRequestBodyCreator
+    pullRequestBodyCreator,
+    assigneesAdder
   }: {
     options: Options
     github: GitHub
@@ -33,6 +35,7 @@ export class PullRequestCreator {
     githubRepo: GitHubRepository
     pullRequestTitleCreator: PullRequestTitleCreator
     pullRequestBodyCreator: PullRequestBodyCreator
+    assigneesAdder: AssigneesAdder
   }) {
     this.options = options
     this.github = github
@@ -40,6 +43,7 @@ export class PullRequestCreator {
     this.githubRepo = githubRepo
     this.pullRequestTitleCreator = pullRequestTitleCreator
     this.pullRequestBodyCreator = pullRequestBodyCreator
+    this.assigneesAdder = assigneesAdder
   }
 
   async create ({
@@ -73,14 +77,10 @@ export class PullRequestCreator {
     })
 
     if (this.options.assignees !== undefined) {
-      const assignees = this.options.assigneesSampleSize !== undefined
-        ? shuffle(this.options.assignees).slice(0, this.options.assigneesSampleSize)
-        : this.options.assignees
-      await this.github.addAssignees({
-        owner: this.gitRepo.owner,
-        repo: this.gitRepo.name,
+      await this.assigneesAdder.add({
         issueNumber: pullRequest.number,
-        assignees
+        assignees: this.options.assignees,
+        sampleSize: this.options.assigneesSampleSize
       })
     }
 
