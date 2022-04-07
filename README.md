@@ -31,6 +31,7 @@ CLI tool for creating pull requests to update npm packages
   - [prBodyNotes](#prbodynotes)
   - [prTitle](#prtitle)
   - [reviewers](#reviewers)
+  - [reviewersSampleSize](#reviewerssamplesize)
 - [GitHub token](#github-token)
 - [Examples](#examples)
   - [Use token of GitHub Actions](#use-token-of-github-actions)
