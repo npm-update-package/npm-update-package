@@ -99,7 +99,7 @@ Example:
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --assignees alice bob
+  --assignees alice bob \
   --assignees-sample-size 1
 ```
 
