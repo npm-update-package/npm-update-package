@@ -112,5 +112,11 @@ export const cliOptions: CLIOption[] = [
     description: 'User names to request reviews',
     type: OptionType.StringArray,
     required: false
+  },
+  {
+    name: 'reviewers-sample-size',
+    description: 'How many members to be assigned to reviewers',
+    type: OptionType.Number,
+    required: false
   }
 ]
