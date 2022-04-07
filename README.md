@@ -81,7 +81,7 @@ Example:
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --assignees octocat mona
+  --assignees alice bob
 ```
 
 ### assigneesSampleSize
@@ -99,7 +99,7 @@ Example:
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --assignees octocat mona
+  --assignees alice bob
   --assignees-sample-size 1
 ```
 
@@ -185,7 +185,7 @@ Example:
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --git-user-email octocat@example.com
+  --git-user-email alice@example.com
 ```
 
 ### gitUserName
@@ -203,7 +203,7 @@ Example:
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --git-user-name octocat
+  --git-user-name alice
 ```
 
 ### githubToken
@@ -372,7 +372,7 @@ Example:
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --reviewers octocat mona
+  --reviewers alice bob
 ```
 
 ## GitHub token
