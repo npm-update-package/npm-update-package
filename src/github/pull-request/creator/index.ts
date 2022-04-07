@@ -1,3 +1,4 @@
+export * from './AssigneesAdder'
 export * from './GitHubUrlOptimizer'
 export * from './PackageDiffsSectionCreator'
 export * from './PullRequestBodyCreator'

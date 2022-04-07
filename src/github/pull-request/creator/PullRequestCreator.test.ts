@@ -1,9 +1,11 @@
 import type { OutdatedPackage } from '../../../core'
 import type { GitRepository } from '../../../git'
+import type { Options } from '../../../options'
 import type {
   GitHub,
   Repository as GitHubRepository
 } from '../../GitHub'
+import type { AssigneesAdder } from './AssigneesAdder'
 import type { PullRequestBodyCreator } from './PullRequestBodyCreator'
 import { PullRequestCreator } from './PullRequestCreator'
 import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
@@ -12,12 +14,11 @@ describe('PullRequestCreator', () => {
   describe('create', () => {
     const pullRequestBodyCreatorCreateMock = jest.fn()
     const pullRequestTitleCreatorCreateMock = jest.fn()
-    const githubAddAssigneesMock = jest.fn()
     const githubAddLabelsMock = jest.fn()
     const githubCreatePullRequestMock = jest.fn()
     const githubRequestReviewersMock = jest.fn()
+    const assigneesAdderAddMock = jest.fn()
     const github = {
-      addAssignees: githubAddAssigneesMock,
       addLabels: githubAddLabelsMock,
       createPullRequest: githubCreatePullRequestMock,
       requestReviewers: githubRequestReviewersMock
@@ -35,16 +36,21 @@ describe('PullRequestCreator', () => {
     const pullRequestTitleCreator = {
       create: pullRequestTitleCreatorCreateMock
     } as unknown as PullRequestTitleCreator
-    const reviewers = ['npm-update-package']
-    const assignees = ['npm-update-package']
+    const assigneesAdder = {
+      add: assigneesAdderAddMock
+    } as unknown as AssigneesAdder
+    const options = {
+      assignees: ['alice', 'bob'],
+      reviewers: ['carol', 'dave']
+    } as unknown as Options
     const pullRequestCreator = new PullRequestCreator({
+      options,
       github,
       gitRepo,
       githubRepo,
       pullRequestTitleCreator,
       pullRequestBodyCreator,
-      reviewers,
-      assignees
+      assigneesAdder
     })
 
     afterEach(() => {
@@ -84,17 +90,16 @@ describe('PullRequestCreator', () => {
         issueNumber: pullRequest.number,
         labels: ['npm-update-package']
       })
-      expect(githubAddAssigneesMock).toBeCalledWith({
-        owner: gitRepo.owner,
-        repo: gitRepo.name,
+      expect(assigneesAdderAddMock).toBeCalledWith({
         issueNumber: pullRequest.number,
-        assignees
+        assignees: options.assignees,
+        sampleSize: options.assigneesSampleSize
       })
       expect(githubRequestReviewersMock).toBeCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
         pullNumber: pullRequest.number,
-        reviewers
+        reviewers: options.reviewers
       })
     })
   })

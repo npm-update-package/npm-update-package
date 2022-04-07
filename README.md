@@ -17,6 +17,7 @@ CLI tool for creating pull requests to update npm packages
 - [Supported platforms](#supported-platforms)
 - [Options](#options)
   - [assignees](#assignees)
+  - [assigneesSampleSize](#assigneessamplesize)
   - [commitMessage](#commitmessage)
   - [fetchReleaseNotes](#fetchreleasenotes)
   - [fetchSleepTime](#fetchsleeptime)
@@ -80,7 +81,26 @@ Example:
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --assignees octocat mona
+  --assignees alice bob
+```
+
+### assigneesSampleSize
+
+How many members to be assigned to assignees.
+
+|Name|Value|
+|---|---|
+|cli|`--assignees-sample-size`|
+|type|number|
+|required|false|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --assignees alice bob \
+  --assignees-sample-size 1
 ```
 
 ### commitMessage
@@ -165,7 +185,7 @@ Example:
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --git-user-email octocat@example.com
+  --git-user-email alice@example.com
 ```
 
 ### gitUserName
@@ -183,7 +203,7 @@ Example:
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --git-user-name octocat
+  --git-user-name alice
 ```
 
 ### githubToken
@@ -352,7 +372,7 @@ Example:
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --reviewers octocat mona
+  --reviewers alice bob
 ```
 
 ## GitHub token

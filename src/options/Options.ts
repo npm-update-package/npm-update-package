@@ -33,6 +33,7 @@ const Options = intersection([
   }),
   partial({
     assignees: array(string),
+    assigneesSampleSize: number,
     gitUserEmail: string,
     gitUserName: string,
     ignorePackages: array(string),

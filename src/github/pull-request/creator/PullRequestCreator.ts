@@ -1,47 +1,49 @@
 import type { OutdatedPackage } from '../../../core'
 import type { GitRepository } from '../../../git'
 import { logger } from '../../../logger'
+import type { Options } from '../../../options'
 import type {
   CreatedPullRequest,
   GitHub,
   Repository as GitHubRepository
 } from '../../GitHub'
+import type { AssigneesAdder } from './AssigneesAdder'
 import type { PullRequestBodyCreator } from './PullRequestBodyCreator'
 import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
 
 export class PullRequestCreator {
+  private readonly options: Options
   private readonly github: GitHub
   private readonly gitRepo: GitRepository
   private readonly githubRepo: GitHubRepository
   private readonly pullRequestTitleCreator: PullRequestTitleCreator
   private readonly pullRequestBodyCreator: PullRequestBodyCreator
-  private readonly reviewers: string[] | undefined
-  private readonly assignees: string[] | undefined
+  private readonly assigneesAdder: AssigneesAdder
 
   constructor ({
+    options,
     github,
     gitRepo,
     githubRepo,
     pullRequestTitleCreator,
     pullRequestBodyCreator,
-    reviewers,
-    assignees
+    assigneesAdder
   }: {
+    options: Options
     github: GitHub
     gitRepo: GitRepository
     githubRepo: GitHubRepository
     pullRequestTitleCreator: PullRequestTitleCreator
     pullRequestBodyCreator: PullRequestBodyCreator
-    reviewers?: string[]
-    assignees?: string[]
+    assigneesAdder: AssigneesAdder
   }) {
+    this.options = options
     this.github = github
     this.gitRepo = gitRepo
     this.githubRepo = githubRepo
     this.pullRequestTitleCreator = pullRequestTitleCreator
     this.pullRequestBodyCreator = pullRequestBodyCreator
-    this.reviewers = reviewers
-    this.assignees = assignees
+    this.assigneesAdder = assigneesAdder
   }
 
   async create ({
@@ -74,21 +76,20 @@ export class PullRequestCreator {
       labels: ['npm-update-package']
     })
 
-    if (this.assignees !== undefined) {
-      await this.github.addAssignees({
-        owner: this.gitRepo.owner,
-        repo: this.gitRepo.name,
+    if (this.options.assignees !== undefined) {
+      await this.assigneesAdder.add({
         issueNumber: pullRequest.number,
-        assignees: this.assignees
+        assignees: this.options.assignees,
+        sampleSize: this.options.assigneesSampleSize
       })
     }
 
-    if (this.reviewers !== undefined) {
+    if (this.options.reviewers !== undefined) {
       await this.github.requestReviewers({
         owner: this.gitRepo.owner,
         repo: this.gitRepo.name,
         pullNumber: pullRequest.number,
-        reviewers: this.reviewers
+        reviewers: this.options.reviewers
       })
     }
 

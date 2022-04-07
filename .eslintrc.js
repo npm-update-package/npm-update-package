@@ -17,6 +17,17 @@ module.exports = {
       }
     }],
     'no-console': 'error',
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          {
+            name: 'lodash',
+            message: "Please use `import foo from 'lodash/foo'` instead."
+          }
+        ]
+      }
+    ],
     'sort-imports': 'off',
     'tsdoc/syntax': 'warn'
   }
