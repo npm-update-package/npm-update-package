@@ -10,6 +10,7 @@ import type {
 import type { AssigneesAdder } from './AssigneesAdder'
 import type { PullRequestBodyCreator } from './PullRequestBodyCreator'
 import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
+import type { ReviewersAdder } from './ReviewersAdder'
 
 export class PullRequestCreator {
   private readonly options: Options
@@ -19,6 +20,7 @@ export class PullRequestCreator {
   private readonly pullRequestTitleCreator: PullRequestTitleCreator
   private readonly pullRequestBodyCreator: PullRequestBodyCreator
   private readonly assigneesAdder: AssigneesAdder
+  private readonly reviewersAdder: ReviewersAdder
 
   constructor ({
     options,
@@ -27,7 +29,8 @@ export class PullRequestCreator {
     githubRepo,
     pullRequestTitleCreator,
     pullRequestBodyCreator,
-    assigneesAdder
+    assigneesAdder,
+    reviewersAdder
   }: {
     options: Options
     github: GitHub
@@ -36,6 +39,7 @@ export class PullRequestCreator {
     pullRequestTitleCreator: PullRequestTitleCreator
     pullRequestBodyCreator: PullRequestBodyCreator
     assigneesAdder: AssigneesAdder
+    reviewersAdder: ReviewersAdder
   }) {
     this.options = options
     this.github = github
@@ -44,6 +48,7 @@ export class PullRequestCreator {
     this.pullRequestTitleCreator = pullRequestTitleCreator
     this.pullRequestBodyCreator = pullRequestBodyCreator
     this.assigneesAdder = assigneesAdder
+    this.reviewersAdder = reviewersAdder
   }
 
   async create ({
@@ -85,11 +90,10 @@ export class PullRequestCreator {
     }
 
     if (this.options.reviewers !== undefined) {
-      await this.github.requestReviewers({
-        owner: this.gitRepo.owner,
-        repo: this.gitRepo.name,
+      await this.reviewersAdder.add({
         pullNumber: pullRequest.number,
-        reviewers: this.options.reviewers
+        reviewers: this.options.reviewers,
+        sampleSize: this.options.reviewersSampleSize
       })
     }
 

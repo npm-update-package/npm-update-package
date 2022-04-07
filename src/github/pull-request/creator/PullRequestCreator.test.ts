@@ -9,6 +9,7 @@ import type { AssigneesAdder } from './AssigneesAdder'
 import type { PullRequestBodyCreator } from './PullRequestBodyCreator'
 import { PullRequestCreator } from './PullRequestCreator'
 import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
+import type { ReviewersAdder } from './ReviewersAdder'
 
 describe('PullRequestCreator', () => {
   describe('create', () => {
@@ -16,12 +17,11 @@ describe('PullRequestCreator', () => {
     const pullRequestTitleCreatorCreateMock = jest.fn()
     const githubAddLabelsMock = jest.fn()
     const githubCreatePullRequestMock = jest.fn()
-    const githubRequestReviewersMock = jest.fn()
     const assigneesAdderAddMock = jest.fn()
+    const reviewersAdderAddMock = jest.fn()
     const github = {
       addLabels: githubAddLabelsMock,
-      createPullRequest: githubCreatePullRequestMock,
-      requestReviewers: githubRequestReviewersMock
+      createPullRequest: githubCreatePullRequestMock
     } as unknown as GitHub
     const gitRepo = {
       owner: 'repository owner',
@@ -39,9 +39,14 @@ describe('PullRequestCreator', () => {
     const assigneesAdder = {
       add: assigneesAdderAddMock
     } as unknown as AssigneesAdder
+    const reviewersAdder = {
+      add: reviewersAdderAddMock
+    } as unknown as ReviewersAdder
     const options = {
       assignees: ['alice', 'bob'],
-      reviewers: ['carol', 'dave']
+      assigneesSampleSize: 1,
+      reviewers: ['carol', 'dave'],
+      reviewersSampleSize: 1
     } as unknown as Options
     const pullRequestCreator = new PullRequestCreator({
       options,
@@ -50,7 +55,8 @@ describe('PullRequestCreator', () => {
       githubRepo,
       pullRequestTitleCreator,
       pullRequestBodyCreator,
-      assigneesAdder
+      assigneesAdder,
+      reviewersAdder
     })
 
     afterEach(() => {
@@ -95,11 +101,10 @@ describe('PullRequestCreator', () => {
         assignees: options.assignees,
         sampleSize: options.assigneesSampleSize
       })
-      expect(githubRequestReviewersMock).toBeCalledWith({
-        owner: gitRepo.owner,
-        repo: gitRepo.name,
+      expect(reviewersAdderAddMock).toBeCalledWith({
         pullNumber: pullRequest.number,
-        reviewers: options.reviewers
+        reviewers: options.reviewers,
+        sampleSize: options.reviewersSampleSize
       })
     })
   })
