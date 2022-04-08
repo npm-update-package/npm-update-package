@@ -11,6 +11,7 @@ import type {
 import { logger } from '../logger'
 import type { Options } from '../options'
 import type { PackageManager } from '../package-manager'
+import { Create } from './Create'
 import type { OutdatedPackageProcessor } from './OutdatedPackageProcessor'
 import { OutdatedPullRequestStrategy } from './OutdatedPullRequestStrategy'
 import type { PackageUpdater } from './PackageUpdater'
@@ -43,6 +44,17 @@ export class OutdatedPackageProcessorCreator {
     logger.trace(`strategy=${strategy}`)
 
     switch (strategy) {
+      case OutdatedPullRequestStrategy.Create:
+        return new Create({
+          git,
+          packageManager,
+          pullRequestCreator,
+          branchFinder,
+          commitMessageCreator,
+          pullRequestFinder,
+          pullRequestsCloser,
+          packageUpdater
+        })
       case OutdatedPullRequestStrategy.Recreate:
         return new Recreate({
           git,

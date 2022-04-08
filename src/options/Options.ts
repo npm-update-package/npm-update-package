@@ -29,7 +29,10 @@ const Options = intersection([
       literal(LogLevel.Debug),
       literal(LogLevel.Trace)
     ]),
-    outdatedPrStrategy: literal(OutdatedPullRequestStrategy.Recreate),
+    outdatedPrStrategy: union([
+      literal(OutdatedPullRequestStrategy.Create),
+      literal(OutdatedPullRequestStrategy.Recreate)
+    ]),
     prBodyGithubHost: string,
     prTitle: string
   }),

@@ -282,6 +282,7 @@ Allowed values:
 
 |Value|Description|
 |---|---|
+|`create`|Create new pull request.|
 |`recreate`|Close old pull requests and create new pull request.|
 
 Example:
@@ -289,7 +290,7 @@ Example:
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --outdated-pr-strategy recreate
+  --outdated-pr-strategy create
 ```
 
 ### packageManager

@@ -1,4 +1,5 @@
 export const OutdatedPullRequestStrategy = {
+  Create: 'create',
   Recreate: 'recreate'
 } as const
 // eslint-disable-next-line @typescript-eslint/no-redeclare
