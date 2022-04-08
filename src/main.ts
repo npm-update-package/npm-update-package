@@ -27,7 +27,8 @@ import {
   PullRequestsCloser,
   PullRequestTitleCreator,
   ReleaseNotesSectionCreator,
-  ReleasesFetcher
+  ReleasesFetcher,
+  ReviewersAdder
 } from './github'
 import { logger } from './logger'
 import { Ncu } from './ncu'
@@ -116,6 +117,10 @@ export const main = async (options: Options): Promise<void> => {
     github,
     gitRepo
   })
+  const reviewersAdder = new ReviewersAdder({
+    github,
+    gitRepo
+  })
   const pullRequestCreator = new PullRequestCreator({
     options,
     github,
@@ -123,7 +128,8 @@ export const main = async (options: Options): Promise<void> => {
     githubRepo,
     pullRequestTitleCreator,
     pullRequestBodyCreator,
-    assigneesAdder
+    assigneesAdder,
+    reviewersAdder
   })
   const commitMessageCreator = new CommitMessageCreator(options.commitMessage)
   const pullRequestFinder = new PullRequestFinder(pullRequests)

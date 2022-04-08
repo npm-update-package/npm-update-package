@@ -42,7 +42,8 @@ const Options = intersection([
       literal(PackageManagerName.Yarn)
     ]),
     prBodyNotes: string,
-    reviewers: array(string)
+    reviewers: array(string),
+    reviewersSampleSize: number
   })
 ])
 

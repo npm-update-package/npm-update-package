@@ -31,6 +31,7 @@ CLI tool for creating pull requests to update npm packages
   - [prBodyNotes](#prbodynotes)
   - [prTitle](#prtitle)
   - [reviewers](#reviewers)
+  - [reviewersSampleSize](#reviewerssamplesize)
 - [GitHub token](#github-token)
 - [Examples](#examples)
   - [Use token of GitHub Actions](#use-token-of-github-actions)
@@ -373,6 +374,25 @@ Example:
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
   --reviewers alice bob
+```
+
+### reviewersSampleSize
+
+How many members to be assigned to reviewers.
+
+|Name|Value|
+|---|---|
+|cli|`--reviewers-sample-size`|
+|type|number|
+|required|false|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --reviewers alice bob \
+  --reviewers-sample-size 1
 ```
 
 ## GitHub token
