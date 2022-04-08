@@ -3,9 +3,9 @@ import {
   isRight
 } from 'fp-ts/lib/Either'
 import {
-  OutdatedPackageProcessor,
   OutdatedPackagesProcessor,
-  PackageUpdater
+  PackageUpdater,
+  Recreate
 } from './core'
 import {
   CommitMessageCreator,
@@ -139,7 +139,7 @@ export const main = async (options: Options): Promise<void> => {
     packageManager,
     ncu
   })
-  const outdatedPackageProcessor = new OutdatedPackageProcessor({
+  const outdatedPackageProcessor = new Recreate({
     git,
     packageManager,
     pullRequestCreator,

@@ -23,7 +23,7 @@ import type { SucceededResult } from './SucceededResult'
 
 // TODO: Add test
 // TODO: Split into multiple classes and functions
-export class OutdatedPackageProcessor {
+export class Recreate {
   private readonly git: Git
   private readonly packageManager: PackageManager
   private readonly pullRequestCreator: PullRequestCreator
