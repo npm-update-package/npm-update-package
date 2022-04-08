@@ -266,6 +266,31 @@ npx npm-update-package \
   --log-level debug
 ```
 
+### outdatedPrStrategy
+
+What to do when outdated PR exists.
+
+|Name|Value|
+|---|---|
+|cli|`--outdated-pr-strategy`|
+|type|string|
+|required|false|
+|default|`recreate`|
+
+Allowed values:
+
+|Value|Description|
+|---|---|
+|`recreate`|Close old PRs and create new PR.|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --outdated-pr-strategy recreate
+```
+
 ### packageManager
 
 Package manager of your project.  

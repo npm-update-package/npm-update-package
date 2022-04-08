@@ -1,3 +1,4 @@
+import { OutdatedPullRequestStrategy } from '../github'
 import { LogLevel } from '../logger'
 import { PackageManagerName } from '../package-manager'
 import type { CLIOption } from './CLIOption'
@@ -76,6 +77,16 @@ export const cliOptions: CLIOption[] = [
       LogLevel.Trace
     ],
     default: LogLevel.Info
+  },
+  {
+    name: 'outdated-pr-strategy',
+    description: 'What to do when outdated PR exists',
+    type: OptionType.String,
+    required: false,
+    choices: [
+      OutdatedPullRequestStrategy.Recreate
+    ],
+    default: OutdatedPullRequestStrategy.Recreate
   },
   {
     name: 'package-manager',
