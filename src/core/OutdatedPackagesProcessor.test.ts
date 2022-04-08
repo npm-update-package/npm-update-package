@@ -10,8 +10,8 @@ import {
 } from '../semver'
 import type { FailedResult } from './FailedResult'
 import type { OutdatedPackage } from './OutdatedPackage'
+import type { OutdatedPackageProcessor } from './OutdatedPackageProcessor'
 import { OutdatedPackagesProcessor } from './OutdatedPackagesProcessor'
-import type { Recreate } from './Recreate'
 import type { SucceededResult } from './SucceededResult'
 
 describe('OutdatedPackagesProcessor', () => {
@@ -19,7 +19,7 @@ describe('OutdatedPackagesProcessor', () => {
     const outdatedPackageProcessorProcessMock = jest.fn()
     const outdatedPackageProcessor = {
       process: outdatedPackageProcessorProcessMock
-    } as unknown as Recreate
+    } as unknown as OutdatedPackageProcessor
     const outdatedPackagesProcessor = new OutdatedPackagesProcessor(outdatedPackageProcessor)
 
     afterEach(() => {
