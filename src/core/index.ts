@@ -1,5 +1,6 @@
 export * from './FailedResult'
 export * from './OutdatedPackage'
+export * from './OutdatedPackageProcessor'
 export * from './OutdatedPackagesProcessor'
 export * from './PackageUpdater'
 export * from './Recreate'
