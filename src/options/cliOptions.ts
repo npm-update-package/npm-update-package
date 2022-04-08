@@ -80,7 +80,7 @@ export const cliOptions: CLIOption[] = [
   },
   {
     name: 'outdated-pr-strategy',
-    description: 'What to do when outdated PR exists',
+    description: 'What to do when outdated pull request exists',
     type: OptionType.String,
     required: false,
     choices: [

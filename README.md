@@ -268,7 +268,7 @@ npx npm-update-package \
 
 ### outdatedPrStrategy
 
-What to do when outdated PR exists.
+What to do when outdated pull request exists.
 
 |Name|Value|
 |---|---|
@@ -281,7 +281,7 @@ Allowed values:
 
 |Value|Description|
 |---|---|
-|`recreate`|Close old PRs and create new PR.|
+|`recreate`|Close old pull requests and create new pull request.|
 
 Example:
 
