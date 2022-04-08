@@ -10,7 +10,7 @@ import {
   union,
   type TypeOf
 } from 'io-ts'
-import { OutdatedPullRequestStrategy } from '../github'
+import { OutdatedPullRequestStrategy } from '../core'
 import { LogLevel } from '../logger'
 import { PackageManagerName } from '../package-manager'
 

@@ -2,7 +2,6 @@ import type {
   CommitMessageCreator,
   Git
 } from '../git'
-import { OutdatedPullRequestStrategy } from '../github'
 import type {
   BranchFinder,
   PullRequestCreator,
@@ -13,6 +12,7 @@ import { logger } from '../logger'
 import type { Options } from '../options'
 import type { PackageManager } from '../package-manager'
 import type { OutdatedPackageProcessor } from './OutdatedPackageProcessor'
+import { OutdatedPullRequestStrategy } from './OutdatedPullRequestStrategy'
 import type { PackageUpdater } from './PackageUpdater'
 import { Recreate } from './Recreate'
 
