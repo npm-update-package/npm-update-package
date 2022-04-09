@@ -30,9 +30,9 @@ export class Recreate implements OutdatedPackageProcessor {
   private readonly pullRequestCreator: PullRequestCreator
   private readonly branchFinder: BranchFinder
   private readonly commitMessageCreator: CommitMessageCreator
+  private readonly packageUpdater: PackageUpdater
   private readonly pullRequestFinder: PullRequestFinder
   private readonly pullRequestsCloser: PullRequestsCloser
-  private readonly packageUpdater: PackageUpdater
 
   constructor ({
     git,
@@ -40,27 +40,27 @@ export class Recreate implements OutdatedPackageProcessor {
     pullRequestCreator,
     branchFinder,
     commitMessageCreator,
+    packageUpdater,
     pullRequestFinder,
-    pullRequestsCloser,
-    packageUpdater
+    pullRequestsCloser
   }: {
     git: Git
     packageManager: PackageManager
     pullRequestCreator: PullRequestCreator
     branchFinder: BranchFinder
     commitMessageCreator: CommitMessageCreator
+    packageUpdater: PackageUpdater
     pullRequestFinder: PullRequestFinder
     pullRequestsCloser: PullRequestsCloser
-    packageUpdater: PackageUpdater
   }) {
     this.git = git
     this.packageManager = packageManager
     this.pullRequestCreator = pullRequestCreator
     this.branchFinder = branchFinder
     this.commitMessageCreator = commitMessageCreator
+    this.packageUpdater = packageUpdater
     this.pullRequestFinder = pullRequestFinder
     this.pullRequestsCloser = pullRequestsCloser
-    this.packageUpdater = packageUpdater
   }
 
   /**

@@ -29,8 +29,8 @@ export class Skip implements OutdatedPackageProcessor {
   private readonly pullRequestCreator: PullRequestCreator
   private readonly branchFinder: BranchFinder
   private readonly commitMessageCreator: CommitMessageCreator
-  private readonly pullRequestFinder: PullRequestFinder
   private readonly packageUpdater: PackageUpdater
+  private readonly pullRequestFinder: PullRequestFinder
 
   constructor ({
     git,
@@ -38,24 +38,24 @@ export class Skip implements OutdatedPackageProcessor {
     pullRequestCreator,
     branchFinder,
     commitMessageCreator,
-    pullRequestFinder,
-    packageUpdater
+    packageUpdater,
+    pullRequestFinder
   }: {
     git: Git
     packageManager: PackageManager
     pullRequestCreator: PullRequestCreator
     branchFinder: BranchFinder
     commitMessageCreator: CommitMessageCreator
-    pullRequestFinder: PullRequestFinder
     packageUpdater: PackageUpdater
+    pullRequestFinder: PullRequestFinder
   }) {
     this.git = git
     this.packageManager = packageManager
     this.pullRequestCreator = pullRequestCreator
     this.branchFinder = branchFinder
     this.commitMessageCreator = commitMessageCreator
-    this.pullRequestFinder = pullRequestFinder
     this.packageUpdater = packageUpdater
+    this.pullRequestFinder = pullRequestFinder
   }
 
   /**
