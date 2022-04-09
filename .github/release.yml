@@ -6,6 +6,9 @@ changelog:
     - title: "New features"
       labels:
         - "enhancement"
+    - title: "Bug fixes"
+      labels:
+        - "bug"
     - title: "Dependency updates"
       labels:
         - "dependencies"
