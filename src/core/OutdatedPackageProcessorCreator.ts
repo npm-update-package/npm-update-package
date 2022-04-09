@@ -75,7 +75,6 @@ export class OutdatedPackageProcessorCreator {
           branchFinder,
           commitMessageCreator,
           pullRequestFinder,
-          pullRequestsCloser,
           packageUpdater
         })
     }
