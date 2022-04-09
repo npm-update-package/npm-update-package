@@ -10,6 +10,7 @@ import {
   union,
   type TypeOf
 } from 'io-ts'
+import { OutdatedPullRequestStrategy } from '../core'
 import { LogLevel } from '../logger'
 import { PackageManagerName } from '../package-manager'
 
@@ -27,6 +28,11 @@ const Options = intersection([
       literal(LogLevel.Info),
       literal(LogLevel.Debug),
       literal(LogLevel.Trace)
+    ]),
+    outdatedPrStrategy: union([
+      literal(OutdatedPullRequestStrategy.Create),
+      literal(OutdatedPullRequestStrategy.Recreate),
+      literal(OutdatedPullRequestStrategy.Skip)
     ]),
     prBodyGithubHost: string,
     prTitle: string
