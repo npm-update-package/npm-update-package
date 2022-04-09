@@ -8,7 +8,6 @@ import type {
   PullRequestFinder,
   PullRequestsCloser
 } from '../github'
-import { logger } from '../logger'
 import type { Options } from '../options'
 import type { PackageManager } from '../package-manager'
 import { Create } from './Create'
@@ -41,10 +40,7 @@ export class OutdatedPackageProcessorCreator {
     pullRequestsCloser: PullRequestsCloser
     packageUpdater: PackageUpdater
   }): OutdatedPackageProcessor {
-    const strategy = this.options.outdatedPrStrategy
-    logger.trace(`strategy=${strategy}`)
-
-    switch (strategy) {
+    switch (this.options.outdatedPrStrategy) {
       case OutdatedPullRequestStrategy.Create:
         return new Create({
           git,
