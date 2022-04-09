@@ -52,7 +52,6 @@ export class OutdatedPackageProcessorCreator {
           pullRequestCreator,
           branchFinder,
           commitMessageCreator,
-          pullRequestFinder,
           packageUpdater
         })
       case OutdatedPullRequestStrategy.Recreate:
