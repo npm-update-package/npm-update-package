@@ -5,6 +5,7 @@ import {
 } from 'fp-ts/lib/Either'
 import {
   createBranchName,
+  GitTransaction,
   type CommitMessageCreator,
   type Git
 } from '../git'
@@ -65,10 +66,12 @@ export class Create implements OutdatedPackageProcessor {
       })
     }
 
-    await this.git.createBranch(branchName)
-    logger.info(`${branchName} branch has created.`)
-
-    try {
+    const transaction = new GitTransaction({
+      git: this.git,
+      branchName,
+      files: [this.packageManager.packageFile, this.packageManager.lockFile]
+    })
+    return await transaction.run(async ({ git, branchName }) => {
       try {
         await this.packageUpdater.update(outdatedPackage)
       } catch (error) {
@@ -80,11 +83,11 @@ export class Create implements OutdatedPackageProcessor {
       }
 
       logger.info(`${outdatedPackage.name} has updated from v${outdatedPackage.currentVersion.version} to v${outdatedPackage.newVersion.version}`)
-      await this.git.add(this.packageManager.packageFile, this.packageManager.lockFile)
+      await git.add(this.packageManager.packageFile, this.packageManager.lockFile)
       const message = this.commitMessageCreator.create(outdatedPackage)
       logger.trace(`message=${message}`)
-      await this.git.commit(message)
-      await this.git.push(branchName)
+      await git.commit(message)
+      await git.push(branchName)
       const pullRequest = await this.pullRequestCreator.create({
         outdatedPackage,
         branchName
@@ -95,11 +98,6 @@ export class Create implements OutdatedPackageProcessor {
         outdatedPackage,
         created: true
       })
-    } finally {
-      await this.git.restore(this.packageManager.packageFile, this.packageManager.lockFile)
-      await this.git.switch('-')
-      await this.git.removeBranch(branchName)
-      logger.info(`${branchName} branch has removed.`)
-    }
+    })
   }
 }
