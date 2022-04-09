@@ -26,6 +26,7 @@ CLI tool for creating pull requests to update npm packages
   - [githubToken](#githubtoken)
   - [ignorePackages](#ignorepackages)
   - [logLevel](#loglevel)
+  - [outdatedPrStrategy](#outdatedprstrategy)
   - [packageManager](#packagemanager)
   - [prBodyGithubHost](#prbodygithubhost)
   - [prBodyNotes](#prbodynotes)
@@ -264,6 +265,33 @@ Example:
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
   --log-level debug
+```
+
+### outdatedPrStrategy
+
+What to do when outdated pull requests exist.
+
+|Name|Value|
+|---|---|
+|cli|`--outdated-pr-strategy`|
+|type|string|
+|required|false|
+|default|`recreate`|
+
+Allowed values:
+
+|Value|Description|
+|---|---|
+|`create`|Create new pull request.|
+|`recreate`|Close old pull requests and create new pull request.|
+|`skip`|Skip creating pull request.|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --outdated-pr-strategy create
 ```
 
 ### packageManager

@@ -1,3 +1,4 @@
+import { OutdatedPullRequestStrategy } from '../core'
 import { LogLevel } from '../logger'
 import { PackageManagerName } from '../package-manager'
 import { cliOptions } from './cliOptions'
@@ -23,6 +24,7 @@ describe('initOptions', () => {
       gitUserName: 'octocat',
       githubToken: 'test githubToken',
       logLevel: LogLevel.Info,
+      outdatedPrStrategy: OutdatedPullRequestStrategy.Recreate,
       packageManager: PackageManagerName.Npm,
       prBodyGithubHost: 'github.test',
       prTitle: 'test prTitle',
