@@ -269,7 +269,7 @@ npx npm-update-package \
 
 ### outdatedPrStrategy
 
-What to do when outdated pull request exists.
+What to do when outdated pull requests exist.
 
 |Name|Value|
 |---|---|
