@@ -16,6 +16,7 @@ import type { OutdatedPackageProcessor } from './OutdatedPackageProcessor'
 import { OutdatedPullRequestStrategy } from './OutdatedPullRequestStrategy'
 import type { PackageUpdater } from './PackageUpdater'
 import { Recreate } from './Recreate'
+import { Skip } from './Skip'
 
 // TODO: Add test
 export class OutdatedPackageProcessorCreator {
@@ -57,6 +58,17 @@ export class OutdatedPackageProcessorCreator {
         })
       case OutdatedPullRequestStrategy.Recreate:
         return new Recreate({
+          git,
+          packageManager,
+          pullRequestCreator,
+          branchFinder,
+          commitMessageCreator,
+          pullRequestFinder,
+          pullRequestsCloser,
+          packageUpdater
+        })
+      case OutdatedPullRequestStrategy.Skip:
+        return new Skip({
           git,
           packageManager,
           pullRequestCreator,

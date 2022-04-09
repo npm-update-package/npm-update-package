@@ -284,6 +284,7 @@ Allowed values:
 |---|---|
 |`create`|Create new pull request.|
 |`recreate`|Close old pull requests and create new pull request.|
+|`skip`|Skip creating pull request.|
 
 Example:
 

@@ -31,7 +31,8 @@ const Options = intersection([
     ]),
     outdatedPrStrategy: union([
       literal(OutdatedPullRequestStrategy.Create),
-      literal(OutdatedPullRequestStrategy.Recreate)
+      literal(OutdatedPullRequestStrategy.Recreate),
+      literal(OutdatedPullRequestStrategy.Skip)
     ]),
     prBodyGithubHost: string,
     prTitle: string

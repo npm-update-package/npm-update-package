@@ -85,7 +85,8 @@ export const cliOptions: CLIOption[] = [
     required: false,
     choices: [
       OutdatedPullRequestStrategy.Create,
-      OutdatedPullRequestStrategy.Recreate
+      OutdatedPullRequestStrategy.Recreate,
+      OutdatedPullRequestStrategy.Skip
     ],
     default: OutdatedPullRequestStrategy.Recreate
   },

@@ -1,6 +1,7 @@
 export const OutdatedPullRequestStrategy = {
   Create: 'create',
-  Recreate: 'recreate'
+  Recreate: 'recreate',
+  Skip: 'skip'
 } as const
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export type OutdatedPullRequestStrategy = typeof OutdatedPullRequestStrategy[keyof typeof OutdatedPullRequestStrategy]
