@@ -68,7 +68,7 @@ export class Recreate implements OutdatedPackageProcessor {
    */
   async process (outdatedPackage: OutdatedPackage): Promise<Either<FailedResult, SucceededResult>> {
     const branchName = createBranchName(outdatedPackage)
-    logger.debug(`branchName=${branchName}`)
+    logger.trace(`branchName=${branchName}`)
 
     if (this.branchFinder.findByName(branchName) !== undefined) {
       logger.info(`Skip ${outdatedPackage.name} because ${branchName} branch already exists on remote.`)
@@ -93,17 +93,16 @@ export class Recreate implements OutdatedPackageProcessor {
       }
 
       logger.info(`${outdatedPackage.name} has updated from v${outdatedPackage.currentVersion.version} to v${outdatedPackage.newVersion.version}`)
-
       await this.git.add(this.packageManager.packageFile, this.packageManager.lockFile)
       const message = this.commitMessageCreator.create(outdatedPackage)
-      logger.debug(`message=${message}`)
-
+      logger.trace(`message=${message}`)
       await this.git.commit(message)
       await this.git.push(branchName)
       const pullRequest = await this.pullRequestCreator.create({
         outdatedPackage,
         branchName
       })
+      logger.trace(`pullRequest=${JSON.stringify(pullRequest)}`)
       logger.info(`Pull request for ${outdatedPackage.name} has created. ${pullRequest.html_url}`)
       await this.closeOldPullRequests(outdatedPackage)
       return right({
@@ -120,7 +119,7 @@ export class Recreate implements OutdatedPackageProcessor {
 
   private async closeOldPullRequests (outdatedPackage: OutdatedPackage): Promise<void> {
     const pullRequests = this.pullRequestFinder.findByPackageName(outdatedPackage.name)
-    logger.debug(`pullRequests=${JSON.stringify(pullRequests)}`)
+    logger.trace(`pullRequests=${JSON.stringify(pullRequests)}`)
     await this.pullRequestsCloser.close(pullRequests)
   }
 }
