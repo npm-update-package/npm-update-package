@@ -24,7 +24,6 @@ import type { PackageUpdater } from './PackageUpdater'
 import type { SucceededResult } from './SucceededResult'
 
 // TODO: Add test
-// TODO: Split into multiple classes and functions
 export class Recreate implements OutdatedPackageProcessor {
   private readonly git: Git
   private readonly packageManager: PackageManager
