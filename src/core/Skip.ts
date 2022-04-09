@@ -58,9 +58,6 @@ export class Skip implements OutdatedPackageProcessor {
     this.pullRequestFinder = pullRequestFinder
   }
 
-  /**
-   * Don't run in parallel because it includes file operations.
-   */
   async process (outdatedPackage: OutdatedPackage): Promise<Either<FailedResult, SucceededResult>> {
     const branchName = createBranchName(outdatedPackage)
     logger.trace(`branchName=${branchName}`)
