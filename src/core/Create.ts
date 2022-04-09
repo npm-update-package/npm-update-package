@@ -11,8 +11,7 @@ import {
 import type {
   BranchFinder,
   PullRequestCreator,
-  PullRequestFinder,
-  PullRequestsCloser
+  PullRequestFinder
 } from '../github'
 import { logger } from '../logger'
 import type { PackageManager } from '../package-manager'
@@ -31,7 +30,6 @@ export class Create implements OutdatedPackageProcessor {
   private readonly branchFinder: BranchFinder
   private readonly commitMessageCreator: CommitMessageCreator
   private readonly pullRequestFinder: PullRequestFinder
-  private readonly pullRequestsCloser: PullRequestsCloser
   private readonly packageUpdater: PackageUpdater
 
   constructor ({
@@ -41,7 +39,6 @@ export class Create implements OutdatedPackageProcessor {
     branchFinder,
     commitMessageCreator,
     pullRequestFinder,
-    pullRequestsCloser,
     packageUpdater
   }: {
     git: Git
@@ -50,7 +47,6 @@ export class Create implements OutdatedPackageProcessor {
     branchFinder: BranchFinder
     commitMessageCreator: CommitMessageCreator
     pullRequestFinder: PullRequestFinder
-    pullRequestsCloser: PullRequestsCloser
     packageUpdater: PackageUpdater
   }) {
     this.git = git
@@ -59,7 +55,6 @@ export class Create implements OutdatedPackageProcessor {
     this.branchFinder = branchFinder
     this.commitMessageCreator = commitMessageCreator
     this.pullRequestFinder = pullRequestFinder
-    this.pullRequestsCloser = pullRequestsCloser
     this.packageUpdater = packageUpdater
   }
 
