@@ -104,17 +104,13 @@ export class Recreate implements OutdatedPackageProcessor {
       })
       logger.trace(`pullRequest=${JSON.stringify(pullRequest)}`)
       logger.info(`Pull request for ${outdatedPackage.name} has created. ${pullRequest.html_url}`)
-      await this.closeOldPullRequests(outdatedPackage)
+      const pullRequests = this.pullRequestFinder.findByPackageName(outdatedPackage.name)
+      logger.trace(`pullRequests=${JSON.stringify(pullRequests)}`)
+      await this.pullRequestsCloser.close(pullRequests)
       return right({
         outdatedPackage,
         created: true
       })
     })
-  }
-
-  private async closeOldPullRequests (outdatedPackage: OutdatedPackage): Promise<void> {
-    const pullRequests = this.pullRequestFinder.findByPackageName(outdatedPackage.name)
-    logger.trace(`pullRequests=${JSON.stringify(pullRequests)}`)
-    await this.pullRequestsCloser.close(pullRequests)
   }
 }
