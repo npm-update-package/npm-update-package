@@ -28,7 +28,7 @@ describe('OutdatedPackageProcessorCreator', () => {
         const options = {
           outdatedPrStrategy
         } as unknown as Options
-        const packageManagerCreator = new OutdatedPackageProcessorCreator(options)
+        const outdatedPackageProcessorCreator = new OutdatedPackageProcessorCreator(options)
         const git = {} as unknown as Git
         const packageManager = {} as unknown as PackageManager
         const pullRequestCreator = {} as unknown as PullRequestCreator
@@ -38,7 +38,7 @@ describe('OutdatedPackageProcessorCreator', () => {
         const pullRequestsCloser = {} as unknown as PullRequestsCloser
         const packageUpdater = {} as unknown as PackageUpdater
 
-        const actual = packageManagerCreator.create({
+        const actual = outdatedPackageProcessorCreator.create({
           git,
           packageManager,
           pullRequestCreator,
