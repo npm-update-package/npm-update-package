@@ -77,6 +77,7 @@ User names to assign to pull request.
 |cli|`--assignees`|
 |type|string[]|
 |required|false|
+|added version|v0.46.0|
 
 Example:
 
@@ -95,6 +96,7 @@ How many members to be assigned to assignees.
 |cli|`--assignees-sample-size`|
 |type|number|
 |required|false|
+|added version|v0.56.0|
 
 Example:
 
@@ -115,6 +117,7 @@ Commit message template.
 |type|string|
 |required|false|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
+|added version|v0.5.0|
 
 Available variables:
 
@@ -144,6 +147,7 @@ Whether to fetch release notes.
 |type|boolean|
 |required|false|
 |default|`true`|
+|added version|v0.51.0|
 
 Example:
 
@@ -163,6 +167,7 @@ Sleep time between fetching (ms).
 |type|number|
 |required|false|
 |default|`1000`|
+|added version|v0.50.0|
 
 Example:
 
@@ -181,6 +186,7 @@ Git user email.
 |cli|`--git-user-email`|
 |type|string|
 |required|false|
+|added version|v0.53.0|
 
 Example:
 
@@ -199,6 +205,7 @@ Git user name.
 |cli|`--git-user-name`|
 |type|string|
 |required|false|
+|added version|v0.53.0|
 
 Example:
 
@@ -217,6 +224,7 @@ npx npm-update-package \
 |cli|`--github-token`|
 |type|string|
 |required|true|
+|added version|v0.1.0|
 
 ### ignorePackages
 
@@ -227,6 +235,7 @@ Package names to ignore.
 |cli|`--ignore-packages`|
 |type|string[]|
 |required|false|
+|added version|v0.43.0|
 
 Example:
 
@@ -246,6 +255,7 @@ Log level to show.
 |type|string|
 |required|false|
 |default|`info`|
+|added version|v0.1.0|
 
 Allowed values:
 
@@ -277,6 +287,7 @@ What to do when outdated pull requests exist.
 |type|string|
 |required|false|
 |default|`recreate`|
+|added version|v0.58.0|
 
 Allowed values:
 
@@ -304,6 +315,7 @@ Since npm-update-package automatically determines which package manager to use, 
 |cli|`--package-manager`|
 |type|string|
 |required|false|
+|added version|v0.1.0|
 
 Allowed values:
 
@@ -330,6 +342,7 @@ GitHub host of pull request body.
 |type|string|
 |required|false|
 |default|`togithub.com`|
+|added version|v0.55.0|
 
 Example:
 
@@ -348,6 +361,7 @@ Additional notes for Pull request body.
 |cli|`--pr-body-notes`|
 |type|string|
 |required|false|
+|added version|v0.45.0|
 
 Example:
 
@@ -367,6 +381,7 @@ Pull request title template.
 |type|string|
 |required|false|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
+|added version|v0.44.0|
 
 Available variables:
 
@@ -395,6 +410,7 @@ User names to request reviews.
 |cli|`--reviewers`|
 |type|string[]|
 |required|false|
+|added version|v0.26.0|
 
 Example:
 
@@ -413,6 +429,7 @@ How many members to be assigned to reviewers.
 |cli|`--reviewers-sample-size`|
 |type|number|
 |required|false|
+|added version|v0.57.0|
 
 Example:
 
