@@ -17,7 +17,6 @@ import type { PackageUpdater } from './PackageUpdater'
 import { Recreate } from './Recreate'
 import { Skip } from './Skip'
 
-// TODO: Add test
 export class OutdatedPackageProcessorCreator {
   constructor (private readonly options: Options) {}
 
