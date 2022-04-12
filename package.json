@@ -24,7 +24,7 @@
     "log4js": "6.4.4",
     "mustache": "4.1.0",
     "node-fetch": "2.6.7",
-    "npm-check-updates": "12.5.8",
+    "npm-check-updates": "12.5.9",
     "parse-github-url": "1.0.2",
     "semver": "7.3.6",
     "sleep-promise": "9.1.0",
