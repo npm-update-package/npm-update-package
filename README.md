@@ -567,6 +567,8 @@ The following shows the process flow of npm-update-package.
 ```plantuml
 @startuml
 start
+group bin
+:Initialize options;
 group main
 :Get outdated packages;
 
@@ -583,29 +585,48 @@ if (Label does not exist) then (yes)
 else (no)
 endif
 
+:Initialize Git config;
 group OutdatedPackagesProcessor
+
 while (Package exists) is (yes)
   group OutdatedPackageProcessor
   if (Remote branch does not exist) then (yes)
-    :Create branch;
-    :Update package;
-    :Create pull request;
-    :Close old pull requests;
-    :Remove branch;
+    switch (outdatedPrStrategy)
+    case (create)
+      :Create branch;
+      :Update package;
+      :Create pull request;
+      :Remove branch;
+    case (recreate) 
+      :Create branch;
+      :Update package;
+      :Create pull request;
+      :Close old pull requests;
+      :Remove branch;
+    case (skip)
+      if (Outdated pull requests don't exist) then (yes)
+        :Create branch;
+        :Update package;
+        :Create pull request;
+        :Remove branch;
+      else (no)
+      endif
+    endswitch
   else (no)
   endif
   end group
 endwhile (no)
 
-end group
-
-end group
+end group  /' OutdatedPackagesProcessor '/
+:Show results;
+end group  /' main '/
+end group  /' bin '/
 end
 @enduml
 ```
 -->
 
-[![](http://www.plantuml.com/plantuml/svg/VL1BJiCm4DtFATuoMVG2pQO82JP8L4WSm4scJSGa3fundzjJrqsJ5iJ6dtbFypuRDHSizaAd1ns2ZoDwrmsqVcI3ZzOuumQZgz_SWRKYwlOexaGk8xZ0YEFA_2fnIrZB0uflrf807XfYKKOn-9AElsvFj7vWgri4xhqnTi4DTSjQJVCnYY3mUsIrIV79xLZGU5OCti1VdTgDrFe-i3E696hrMpM7Upv7sfxjRuElMTK7-cmxOHHd84jeYKul2dzkc1S0oUdBCjN_ZcVFcLtbsUkOzay5LrV4PJSJ8buPNfgRuZAQx7mi1UPUW5Cp-SxXKbUd7ZA3Pe2kEBGv7h6N7m00)](http://www.plantuml.com/plantuml/uml/VL1BJiCm4DtFATuoMVG2pQO82JP8L4WSm4scJSGa3fundzjJrqsJ5iJ6dtbFypuRDHSizaAd1ns2ZoDwrmsqVcI3ZzOuumQZgz_SWRKYwlOexaGk8xZ0YEFA_2fnIrZB0uflrf807XfYKKOn-9AElsvFj7vWgri4xhqnTi4DTSjQJVCnYY3mUsIrIV79xLZGU5OCti1VdTgDrFe-i3E696hrMpM7Upv7sfxjRuElMTK7-cmxOHHd84jeYKul2dzkc1S0oUdBCjN_ZcVFcLtbsUkOzay5LrV4PJSJ8buPNfgRuZAQx7mi1UPUW5Cp-SxXKbUd7ZA3Pe2kEBGv7h6N7m00)
+[![](http://www.plantuml.com/plantuml/svg/hLF1RjGm4BtxAzvjiuUgzzrBKIKg92GgAZx0cynkh3gUO4zOojUJQUo0WS25IsBFUvddzpovIsAZJ8CthmjpYJoDEBbW3k-24sUz-qRWKHo7TCpmO1L_805FqbcX3gDjd-s5PefnPpHll5zBi94mZJV2DyhTGteAQ5uexGr0eJFa4w49l3VppfsDERmbQNj46bW8fsX3ssllN1ydxsVmyqH9Yk9xUoAFZYaXi82-kYI_I1tk8raXUAKUVrEj73yuGSlXx2x5z8TizJ7RUepSKaeSZRdspXEQZ2pQQG-NLka_jlZH0L0B7t-s-tShGBewZQBXqZC-IPmNbvS5RwswQryTBvKIG54ubkgdKJkK-phMv2hi5TEZVgaQPS58MHB_NVFUSoAmxoeu_VjCwTcD9GBDkLn3tGSTXzrMsjjEDhrikza-Bx0EPTulevbNovsRcfKP-bx6JCSvJwGop0e0jxljCSRkrXoUUhuYKfgy1bj_gN-zakhgQIsQk_an3Vux)](http://www.plantuml.com/plantuml/uml/hLF1RjGm4BtxAzvjiuUgzzrBKIKg92GgAZx0cynkh3gUO4zOojUJQUo0WS25IsBFUvddzpovIsAZJ8CthmjpYJoDEBbW3k-24sUz-qRWKHo7TCpmO1L_805FqbcX3gDjd-s5PefnPpHll5zBi94mZJV2DyhTGteAQ5uexGr0eJFa4w49l3VppfsDERmbQNj46bW8fsX3ssllN1ydxsVmyqH9Yk9xUoAFZYaXi82-kYI_I1tk8raXUAKUVrEj73yuGSlXx2x5z8TizJ7RUepSKaeSZRdspXEQZ2pQQG-NLka_jlZH0L0B7t-s-tShGBewZQBXqZC-IPmNbvS5RwswQryTBvKIG54ubkgdKJkK-phMv2hi5TEZVgaQPS58MHB_NVFUSoAmxoeu_VjCwTcD9GBDkLn3tGSTXzrMsjjEDhrikza-Bx0EPTulevbNovsRcfKP-bx6JCSvJwGop0e0jxljCSRkrXoUUhuYKfgy1bj_gN-zakhgQIsQk_an3Vux)
 
 ## FAQ
 
