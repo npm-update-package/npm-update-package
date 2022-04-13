@@ -3,7 +3,6 @@ import {
   isRight
 } from 'fp-ts/lib/Either'
 import {
-  OutdatedPackageProcessorCreator,
   OutdatedPackagesProcessor,
   PackageUpdater
 } from './core'
@@ -33,6 +32,7 @@ import {
 import { logger } from './logger'
 import { Ncu } from './ncu'
 import type { Options } from './options'
+import { OutdatedPackageProcessorCreator } from './outdated-package-processor'
 import { PackageManagerCreator } from './package-manager'
 import { Terminal } from './terminal'
 

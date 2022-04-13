@@ -10,8 +10,8 @@ import {
   union,
   type TypeOf
 } from 'io-ts'
-import { OutdatedPullRequestStrategy } from '../core'
 import { LogLevel } from '../logger'
+import { OutdatedPullRequestStrategy } from '../outdated-package-processor'
 import { PackageManagerName } from '../package-manager'
 
 const Options = intersection([

@@ -3,32 +3,38 @@ import {
   right,
   type Either
 } from 'fp-ts/lib/Either'
+import type {
+  FailedResult,
+  OutdatedPackage,
+  PackageUpdater,
+  SucceededResult
+} from '../../core'
 import {
   createBranchName,
   GitTransaction,
   type CommitMessageCreator,
   type Git
-} from '../git'
+} from '../../git'
 import type {
   BranchFinder,
-  PullRequestCreator
-} from '../github'
-import { logger } from '../logger'
-import type { PackageManager } from '../package-manager'
-import type { FailedResult } from './FailedResult'
-import type { OutdatedPackage } from './OutdatedPackage'
-import { OutdatedPackageProcessor } from './OutdatedPackageProcessor'
-import type { PackageUpdater } from './PackageUpdater'
-import type { SucceededResult } from './SucceededResult'
+  PullRequestCreator,
+  PullRequestFinder,
+  PullRequestsCloser
+} from '../../github'
+import { logger } from '../../logger'
+import type { PackageManager } from '../../package-manager'
+import type { OutdatedPackageProcessor } from '../OutdatedPackageProcessor'
 
 // TODO: Add test
-export class Create implements OutdatedPackageProcessor {
+export class Recreate implements OutdatedPackageProcessor {
   private readonly git: Git
   private readonly packageManager: PackageManager
   private readonly pullRequestCreator: PullRequestCreator
   private readonly branchFinder: BranchFinder
   private readonly commitMessageCreator: CommitMessageCreator
   private readonly packageUpdater: PackageUpdater
+  private readonly pullRequestFinder: PullRequestFinder
+  private readonly pullRequestsCloser: PullRequestsCloser
 
   constructor ({
     git,
@@ -36,7 +42,9 @@ export class Create implements OutdatedPackageProcessor {
     pullRequestCreator,
     branchFinder,
     commitMessageCreator,
-    packageUpdater
+    packageUpdater,
+    pullRequestFinder,
+    pullRequestsCloser
   }: {
     git: Git
     packageManager: PackageManager
@@ -44,6 +52,8 @@ export class Create implements OutdatedPackageProcessor {
     branchFinder: BranchFinder
     commitMessageCreator: CommitMessageCreator
     packageUpdater: PackageUpdater
+    pullRequestFinder: PullRequestFinder
+    pullRequestsCloser: PullRequestsCloser
   }) {
     this.git = git
     this.packageManager = packageManager
@@ -51,6 +61,8 @@ export class Create implements OutdatedPackageProcessor {
     this.branchFinder = branchFinder
     this.commitMessageCreator = commitMessageCreator
     this.packageUpdater = packageUpdater
+    this.pullRequestFinder = pullRequestFinder
+    this.pullRequestsCloser = pullRequestsCloser
   }
 
   async process (outdatedPackage: OutdatedPackage): Promise<Either<FailedResult, SucceededResult>> {
@@ -93,6 +105,9 @@ export class Create implements OutdatedPackageProcessor {
       })
       logger.trace(`pullRequest=${JSON.stringify(pullRequest)}`)
       logger.info(`Pull request for ${outdatedPackage.name} has created. ${pullRequest.html_url}`)
+      const pullRequests = this.pullRequestFinder.findByPackageName(outdatedPackage.name)
+      logger.trace(`pullRequests=${JSON.stringify(pullRequests)}`)
+      await this.pullRequestsCloser.close(pullRequests)
       return right({
         outdatedPackage,
         created: true
