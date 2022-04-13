@@ -2,11 +2,14 @@ module.exports = {
   extends: [
     'standard-with-typescript',
     'plugin:jest/recommended',
-    'plugin:lodash/recommended'
+    // TODO: 順番が大事かも
+    'plugin:lodash/recommended',
+    'plugin:you-dont-need-lodash-underscore/compatible'
   ],
   plugins: [
     'lodash',
-    'tsdoc'
+    'tsdoc',
+    'you-dont-need-lodash-underscore'
   ],
   parserOptions: {
     project: './tsconfig.json'
