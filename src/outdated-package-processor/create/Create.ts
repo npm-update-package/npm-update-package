@@ -3,34 +3,34 @@ import {
   right,
   type Either
 } from 'fp-ts/lib/Either'
+import type {
+  FailedResult,
+  OutdatedPackage,
+  PackageUpdater,
+  SucceededResult
+} from '../../core'
 import {
   createBranchName,
   GitTransaction,
   type CommitMessageCreator,
   type Git
-} from '../git'
+} from '../../git'
 import type {
   BranchFinder,
-  PullRequestCreator,
-  PullRequestFinder
-} from '../github'
-import { logger } from '../logger'
-import type { PackageManager } from '../package-manager'
-import type { FailedResult } from './FailedResult'
-import type { OutdatedPackage } from './OutdatedPackage'
-import { OutdatedPackageProcessor } from './OutdatedPackageProcessor'
-import type { PackageUpdater } from './PackageUpdater'
-import type { SucceededResult } from './SucceededResult'
+  PullRequestCreator
+} from '../../github'
+import { logger } from '../../logger'
+import type { PackageManager } from '../../package-manager'
+import type { OutdatedPackageProcessor } from '../OutdatedPackageProcessor'
 
 // TODO: Add test
-export class Skip implements OutdatedPackageProcessor {
+export class Create implements OutdatedPackageProcessor {
   private readonly git: Git
   private readonly packageManager: PackageManager
   private readonly pullRequestCreator: PullRequestCreator
   private readonly branchFinder: BranchFinder
   private readonly commitMessageCreator: CommitMessageCreator
   private readonly packageUpdater: PackageUpdater
-  private readonly pullRequestFinder: PullRequestFinder
 
   constructor ({
     git,
@@ -38,8 +38,7 @@ export class Skip implements OutdatedPackageProcessor {
     pullRequestCreator,
     branchFinder,
     commitMessageCreator,
-    packageUpdater,
-    pullRequestFinder
+    packageUpdater
   }: {
     git: Git
     packageManager: PackageManager
@@ -47,7 +46,6 @@ export class Skip implements OutdatedPackageProcessor {
     branchFinder: BranchFinder
     commitMessageCreator: CommitMessageCreator
     packageUpdater: PackageUpdater
-    pullRequestFinder: PullRequestFinder
   }) {
     this.git = git
     this.packageManager = packageManager
@@ -55,7 +53,6 @@ export class Skip implements OutdatedPackageProcessor {
     this.branchFinder = branchFinder
     this.commitMessageCreator = commitMessageCreator
     this.packageUpdater = packageUpdater
-    this.pullRequestFinder = pullRequestFinder
   }
 
   async process (outdatedPackage: OutdatedPackage): Promise<Either<FailedResult, SucceededResult>> {
@@ -64,17 +61,6 @@ export class Skip implements OutdatedPackageProcessor {
 
     if (this.branchFinder.findByName(branchName) !== undefined) {
       logger.info(`Skip ${outdatedPackage.name} because ${branchName} branch already exists on remote.`)
-      return right({
-        outdatedPackage,
-        skipped: true
-      })
-    }
-
-    const pullRequests = this.pullRequestFinder.findByPackageName(outdatedPackage.name)
-    logger.trace(`pullRequests=${JSON.stringify(pullRequests)}`)
-
-    if (pullRequests.length > 0) {
-      logger.info(`Skip ${outdatedPackage.name} because outdated pull requests exist.`)
       return right({
         outdatedPackage,
         skipped: true

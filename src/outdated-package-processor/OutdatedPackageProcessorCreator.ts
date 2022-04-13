@@ -1,3 +1,4 @@
+import type { PackageUpdater } from '../core'
 import type {
   CommitMessageCreator,
   Git
@@ -10,12 +11,11 @@ import type {
 } from '../github'
 import type { Options } from '../options'
 import type { PackageManager } from '../package-manager'
-import { Create } from './Create'
+import { Create } from './create'
 import type { OutdatedPackageProcessor } from './OutdatedPackageProcessor'
 import { OutdatedPullRequestStrategy } from './OutdatedPullRequestStrategy'
-import type { PackageUpdater } from './PackageUpdater'
-import { Recreate } from './Recreate'
-import { Skip } from './Skip'
+import { Recreate } from './recreate'
+import { Skip } from './skip'
 
 export class OutdatedPackageProcessorCreator {
   constructor (private readonly options: Options) {}

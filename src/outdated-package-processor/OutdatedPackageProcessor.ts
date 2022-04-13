@@ -1,7 +1,9 @@
 import type { Either } from 'fp-ts/lib/Either'
-import type { FailedResult } from './FailedResult'
-import type { OutdatedPackage } from './OutdatedPackage'
-import type { SucceededResult } from './SucceededResult'
+import type {
+  FailedResult,
+  OutdatedPackage,
+  SucceededResult
+} from '../core'
 
 export interface OutdatedPackageProcessor {
   /**
