@@ -2,7 +2,6 @@ import shuffle from 'lodash/shuffle'
 import type { GitRepository } from '../../../git'
 import type { GitHub } from '../../GitHub'
 
-// TODO: Add test
 export class AssigneesAdder {
   private readonly github: GitHub
   private readonly gitRepo: GitRepository
