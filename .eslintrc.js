@@ -1,10 +1,12 @@
 module.exports = {
   extends: [
     'standard-with-typescript',
-    'plugin:jest/recommended'
+    'plugin:jest/recommended',
+    'plugin:you-dont-need-lodash-underscore/compatible'
   ],
   plugins: [
-    'eslint-plugin-tsdoc'
+    'tsdoc',
+    'you-dont-need-lodash-underscore'
   ],
   parserOptions: {
     project: './tsconfig.json'
