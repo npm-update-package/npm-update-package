@@ -1,4 +1,4 @@
-import type { PackageUpdater } from '../core/PackageUpdater'
+import type { PackageUpdater } from '../core'
 import type {
   CommitMessageCreator,
   Git
