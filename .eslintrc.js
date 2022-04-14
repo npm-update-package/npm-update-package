@@ -5,6 +5,7 @@ module.exports = {
     'plugin:you-dont-need-lodash-underscore/compatible'
   ],
   plugins: [
+    'jest',
     'lodash',
     'tsdoc',
     'you-dont-need-lodash-underscore'
