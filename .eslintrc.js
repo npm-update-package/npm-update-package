@@ -2,28 +2,31 @@ module.exports = {
   extends: [
     'standard-with-typescript',
     'plugin:jest/recommended',
+    'plugin:lodash/recommended',
     'plugin:you-dont-need-lodash-underscore/compatible'
   ],
   plugins: [
-    'jest',
-    'lodash',
-    'tsdoc',
-    'you-dont-need-lodash-underscore'
+    'tsdoc'
   ],
   parserOptions: {
     project: './tsconfig.json'
   },
   rules: {
-    // TODO: Use rules of eslint-plugin-lodash
+    // Better TSDoc
+    'tsdoc/syntax': 'warn',
+    // Sort imports alphabetically
+    'sort-imports': 'off',
     'import/order': ['error', {
       alphabetize: {
         order: 'asc',
         caseInsensitive: true
       }
     }],
-    'lodash/import-scope': 'error',
-    'no-console': 'error',
-    'sort-imports': 'off',
-    'tsdoc/syntax': 'warn'
+    // Use native API rather than Lodash
+    'lodash/prefer-lodash-chain': 'off',
+    'lodash/prefer-lodash-method': 'off',
+    'lodash/prefer-lodash-typecheck': 'off',
+    // Use logger
+    'no-console': 'error'
   }
 }
