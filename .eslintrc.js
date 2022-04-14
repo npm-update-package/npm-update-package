@@ -2,8 +2,6 @@ module.exports = {
   extends: [
     'standard-with-typescript',
     'plugin:jest/recommended',
-    // TODO: 順番が大事かも
-    'plugin:lodash/recommended',
     'plugin:you-dont-need-lodash-underscore/compatible'
   ],
   plugins: [
@@ -21,18 +19,8 @@ module.exports = {
         caseInsensitive: true
       }
     }],
+    'lodash/import-scope': 'error',
     'no-console': 'error',
-    'no-restricted-imports': [
-      'error',
-      {
-        paths: [
-          {
-            name: 'lodash',
-            message: "Please use `import foo from 'lodash/foo'` instead."
-          }
-        ]
-      }
-    ],
     'sort-imports': 'off',
     'tsdoc/syntax': 'warn'
   }
