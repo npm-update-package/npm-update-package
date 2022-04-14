@@ -14,6 +14,7 @@ module.exports = {
     project: './tsconfig.json'
   },
   rules: {
+    // TODO: Use rules of eslint-plugin-lodash
     'import/order': ['error', {
       alphabetize: {
         order: 'asc',
