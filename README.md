@@ -46,12 +46,6 @@ CLI tool for creating pull requests to update npm packages
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Usage
-
-```sh
-npx npm-update-package --github-token $GITHUB_TOKEN
-```
-
 ## Requirements
 
 - Git
@@ -62,6 +56,12 @@ npx npm-update-package --github-token $GITHUB_TOKEN
 
 - GitHub
 - GitHub Enterprise
+
+## Usage
+
+```sh
+npx npm-update-package --github-token $GITHUB_TOKEN
+```
 
 ## Options
 
