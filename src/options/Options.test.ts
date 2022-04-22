@@ -1,4 +1,5 @@
 import { LogLevel } from '../logger'
+import { OutdatedPullRequestStrategy } from '../outdated-package-processor'
 import { PackageManagerName } from '../package-manager'
 import {
   isOptions,
@@ -15,9 +16,13 @@ describe('isOptions', () => {
       commitMessage: 'test commitMessage',
       fetchReleaseNotes: true,
       fetchSleepTime: 1000,
+      gitUserEmail: 'octocat@example.com',
+      gitUserName: 'octocat',
       githubToken: 'test githubToken',
       logLevel: LogLevel.Info,
+      outdatedPrStrategy: OutdatedPullRequestStrategy.Recreate,
       packageManager: PackageManagerName.Npm,
+      prBodyGithubHost: 'github.test',
       prTitle: 'test prTitle',
       ignorePackages: ['@npm-update-package/example'],
       prBodyNotes: 'test prBodyNotes',

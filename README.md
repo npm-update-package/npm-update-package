@@ -12,25 +12,32 @@ CLI tool for creating pull requests to update npm packages
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+- [Requirements](#requirements)
+- [Supported platforms](#supported-platforms)
 - [Usage](#usage)
 - [Options](#options)
   - [assignees](#assignees)
+  - [assigneesSampleSize](#assigneessamplesize)
   - [commitMessage](#commitmessage)
   - [fetchReleaseNotes](#fetchreleasenotes)
   - [fetchSleepTime](#fetchsleeptime)
+  - [gitUserEmail](#gituseremail)
+  - [gitUserName](#gitusername)
   - [githubToken](#githubtoken)
   - [ignorePackages](#ignorepackages)
   - [logLevel](#loglevel)
+  - [outdatedPrStrategy](#outdatedprstrategy)
   - [packageManager](#packagemanager)
+  - [prBodyGithubHost](#prbodygithubhost)
   - [prBodyNotes](#prbodynotes)
   - [prTitle](#prtitle)
   - [reviewers](#reviewers)
+  - [reviewersSampleSize](#reviewerssamplesize)
 - [GitHub token](#github-token)
 - [Examples](#examples)
   - [Use token of GitHub Actions](#use-token-of-github-actions)
   - [Use token of GitHub App](#use-token-of-github-app)
   - [Use Personal access token](#use-personal-access-token)
-  - [Use Yarn](#use-yarn)
 - [Flow](#flow)
 - [FAQ](#faq)
   - [What is the purpose of npm-update-package?](#what-is-the-purpose-of-npm-update-package)
@@ -38,6 +45,17 @@ CLI tool for creating pull requests to update npm packages
 - [How to development](#how-to-development)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Requirements
+
+- Git
+- Node.js
+- npm or Yarn
+
+## Supported platforms
+
+- GitHub
+- GitHub Enterprise
 
 ## Usage
 
@@ -59,13 +77,34 @@ User names to assign to pull request.
 |cli|`--assignees`|
 |type|string[]|
 |required|false|
+|added version|v0.46.0|
 
 Example:
 
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --assignees octocat mona
+  --assignees alice bob
+```
+
+### assigneesSampleSize
+
+How many members to be assigned to assignees.
+
+|Name|Value|
+|---|---|
+|cli|`--assignees-sample-size`|
+|type|number|
+|required|false|
+|added version|v0.56.0|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --assignees alice bob \
+  --assignees-sample-size 1
 ```
 
 ### commitMessage
@@ -78,6 +117,7 @@ Commit message template.
 |type|string|
 |required|false|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
+|added version|v0.5.0|
 
 Available variables:
 
@@ -107,6 +147,7 @@ Whether to fetch release notes.
 |type|boolean|
 |required|false|
 |default|`true`|
+|added version|v0.51.0|
 
 Example:
 
@@ -126,6 +167,7 @@ Sleep time between fetching (ms).
 |type|number|
 |required|false|
 |default|`1000`|
+|added version|v0.50.0|
 
 Example:
 
@@ -133,6 +175,44 @@ Example:
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
   --fetch-sleep-time 2000
+```
+
+### gitUserEmail
+
+Git user email.
+
+|Name|Value|
+|---|---|
+|cli|`--git-user-email`|
+|type|string|
+|required|false|
+|added version|v0.53.0|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --git-user-email alice@example.com
+```
+
+### gitUserName
+
+Git user name.
+
+|Name|Value|
+|---|---|
+|cli|`--git-user-name`|
+|type|string|
+|required|false|
+|added version|v0.53.0|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --git-user-name alice
 ```
 
 ### githubToken
@@ -144,6 +224,7 @@ npx npm-update-package \
 |cli|`--github-token`|
 |type|string|
 |required|true|
+|added version|v0.1.0|
 
 ### ignorePackages
 
@@ -154,6 +235,7 @@ Package names to ignore.
 |cli|`--ignore-packages`|
 |type|string[]|
 |required|false|
+|added version|v0.43.0|
 
 Example:
 
@@ -173,6 +255,7 @@ Log level to show.
 |type|string|
 |required|false|
 |default|`info`|
+|added version|v0.1.0|
 
 Allowed values:
 
@@ -194,16 +277,45 @@ npx npm-update-package \
   --log-level debug
 ```
 
+### outdatedPrStrategy
+
+What to do when outdated pull requests exist.
+
+|Name|Value|
+|---|---|
+|cli|`--outdated-pr-strategy`|
+|type|string|
+|required|false|
+|default|`recreate`|
+|added version|v0.58.0|
+
+Allowed values:
+
+|Value|Description|
+|---|---|
+|`create`|Create new pull request.|
+|`recreate`|Close outdated pull requests and create new pull request.|
+|`skip`|Skip creating pull request.|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --outdated-pr-strategy create
+```
+
 ### packageManager
 
-Package manager of your project.
+Package manager of your project.  
+Since npm-update-package automatically determines which package manager to use, it is usually not necessary to specify this option.
 
 |Name|Value|
 |---|---|
 |cli|`--package-manager`|
 |type|string|
 |required|false|
-|default|`npm`|
+|added version|v0.1.0|
 
 Allowed values:
 
@@ -220,6 +332,26 @@ npx npm-update-package \
   --package-manager yarn
 ```
 
+### prBodyGithubHost
+
+GitHub host of pull request body.
+
+|Name|Value|
+|---|---|
+|cli|`--pr-body-github-host`|
+|type|string|
+|required|false|
+|default|`togithub.com`|
+|added version|v0.55.0|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --pr-body-github-host "github.example"
+```
+
 ### prBodyNotes
 
 Additional notes for Pull request body.
@@ -229,6 +361,7 @@ Additional notes for Pull request body.
 |cli|`--pr-body-notes`|
 |type|string|
 |required|false|
+|added version|v0.45.0|
 
 Example:
 
@@ -248,6 +381,7 @@ Pull request title template.
 |type|string|
 |required|false|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
+|added version|v0.44.0|
 
 Available variables:
 
@@ -276,13 +410,34 @@ User names to request reviews.
 |cli|`--reviewers`|
 |type|string[]|
 |required|false|
+|added version|v0.26.0|
 
 Example:
 
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --reviewers octocat mona
+  --reviewers alice bob
+```
+
+### reviewersSampleSize
+
+How many members to be assigned to reviewers.
+
+|Name|Value|
+|---|---|
+|cli|`--reviewers-sample-size`|
+|type|number|
+|required|false|
+|added version|v0.57.0|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --reviewers alice bob \
+  --reviewers-sample-size 1
 ```
 
 ## GitHub token
@@ -330,9 +485,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
       - run: |
-          git config user.name $GIT_USER_NAME
-          git config user.email $GIT_USER_EMAIL
-          npx npm-update-package --github-token $GITHUB_TOKEN
+          npx npm-update-package \
+            --github-token $GITHUB_TOKEN \
+            --git-user-name $GIT_USER_NAME \
+            --git-user-email $GIT_USER_EMAIL
         env:
           GIT_USER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           GIT_USER_NAME: github-actions[bot]
@@ -361,9 +517,10 @@ jobs:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
       - run: |
-          git config user.name $GIT_USER_NAME
-          git config user.email $GIT_USER_EMAIL
-          npx npm-update-package --github-token $GITHUB_TOKEN
+          npx npm-update-package \
+            --github-token $GITHUB_TOKEN \
+            --git-user-name $GIT_USER_NAME \
+            --git-user-email $GIT_USER_EMAIL
         env:
           # TODO: Replace with your GitHub App's email
           GIT_USER_EMAIL: 97396142+npm-update-package[bot]@users.noreply.github.com
@@ -388,9 +545,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
       - run: |
-          git config user.name $GIT_USER_NAME
-          git config user.email $GIT_USER_EMAIL
-          npx npm-update-package --github-token $GITHUB_TOKEN
+          npx npm-update-package \
+            --github-token $GITHUB_TOKEN \
+            --git-user-name $GIT_USER_NAME \
+            --git-user-email $GIT_USER_EMAIL
         env:
           # TODO: Replace with your email
           GIT_USER_EMAIL: 97961304+npm-update-package-bot@users.noreply.github.com
@@ -401,39 +559,6 @@ jobs:
 
 See working example on [example-pat](https://github.com/npm-update-package/example-pat).
 
-### Use Yarn
-
-```yaml
-name: npm-update-package
-on:
-  schedule:
-    - cron: '0 0 * * *'
-jobs:
-  npm-update-package:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-      - name: Generate token
-        id: generate_token
-        uses: tibdex/github-app-token@v1
-        with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.PRIVATE_KEY }}
-      - run: |
-          git config user.name $GIT_USER_NAME
-          git config user.email $GIT_USER_EMAIL
-          npx npm-update-package --github-token $GITHUB_TOKEN --package-manager yarn
-        env:
-          # TODO: Replace with your GitHub App's email
-          GIT_USER_EMAIL: 97396142+npm-update-package[bot]@users.noreply.github.com
-          # TODO: Replace with your GitHub App's user name
-          GIT_USER_NAME: npm-update-package[bot]
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-```
-
-See working example on [example-yarn](https://github.com/npm-update-package/example-yarn).
-
 ## Flow
 
 The following shows the process flow of npm-update-package.
@@ -442,6 +567,8 @@ The following shows the process flow of npm-update-package.
 ```plantuml
 @startuml
 start
+group bin
+:Initialize options;
 group main
 :Get outdated packages;
 
@@ -458,29 +585,48 @@ if (Label does not exist) then (yes)
 else (no)
 endif
 
+:Initialize Git config;
 group OutdatedPackagesProcessor
+
 while (Package exists) is (yes)
   group OutdatedPackageProcessor
   if (Remote branch does not exist) then (yes)
-    :Create branch;
-    :Update package;
-    :Create pull request;
-    :Close old pull requests;
-    :Remove branch;
+    switch (outdatedPrStrategy)
+    case (create)
+      :Create branch;
+      :Update package;
+      :Create pull request;
+      :Remove branch;
+    case (recreate) 
+      :Create branch;
+      :Update package;
+      :Create pull request;
+      :Close outdated pull requests;
+      :Remove branch;
+    case (skip)
+      if (Outdated pull requests don't exist) then (yes)
+        :Create branch;
+        :Update package;
+        :Create pull request;
+        :Remove branch;
+      else (no)
+      endif
+    endswitch
   else (no)
   endif
   end group
 endwhile (no)
 
-end group
-
-end group
+end group  /' OutdatedPackagesProcessor '/
+:Show results;
+end group  /' main '/
+end group  /' bin '/
 end
 @enduml
 ```
 -->
 
-[![](http://www.plantuml.com/plantuml/svg/VL1BJiCm4DtFATuoMVG2pQO82JP8L4WSm4scJSGa3fundzjJrqsJ5iJ6dtbFypuRDHSizaAd1ns2ZoDwrmsqVcI3ZzOuumQZgz_SWRKYwlOexaGk8xZ0YEFA_2fnIrZB0uflrf807XfYKKOn-9AElsvFj7vWgri4xhqnTi4DTSjQJVCnYY3mUsIrIV79xLZGU5OCti1VdTgDrFe-i3E696hrMpM7Upv7sfxjRuElMTK7-cmxOHHd84jeYKul2dzkc1S0oUdBCjN_ZcVFcLtbsUkOzay5LrV4PJSJ8buPNfgRuZAQx7mi1UPUW5Cp-SxXKbUd7ZA3Pe2kEBGv7h6N7m00)](http://www.plantuml.com/plantuml/uml/VL1BJiCm4DtFATuoMVG2pQO82JP8L4WSm4scJSGa3fundzjJrqsJ5iJ6dtbFypuRDHSizaAd1ns2ZoDwrmsqVcI3ZzOuumQZgz_SWRKYwlOexaGk8xZ0YEFA_2fnIrZB0uflrf807XfYKKOn-9AElsvFj7vWgri4xhqnTi4DTSjQJVCnYY3mUsIrIV79xLZGU5OCti1VdTgDrFe-i3E696hrMpM7Upv7sfxjRuElMTK7-cmxOHHd84jeYKul2dzkc1S0oUdBCjN_ZcVFcLtbsUkOzay5LrV4PJSJ8buPNfgRuZAQx7mi1UPUW5Cp-SxXKbUd7ZA3Pe2kEBGv7h6N7m00)
+[![](http://www.plantuml.com/plantuml/svg/hLD1Rjim4Bpp5NEpV0Xojoyf0ZGeK211Wpw0bjOM4OghagkwwUlhZIYsHAtsaej4xevsECFHNH8RPHgyULkOK-HfnC45i_iKd3ZhtKy2Z-8uf7rk3rRx3oJWIJehr66qxOizqGLYt17D1-zB2JOIfl56-4QnMqXF0SqhfQq1A7I6V28qWRVcidD7OtOVITeUaGOMmY7QqFOwEzV7oNj4-ZPHaeNnipsGHyUK45X0FroIcWgx-qXM25wX-xzOAyKFJj1oEBhJ8lenIttAifuYjvGIHsFElVE49dTcxhI5IuNwweZV4m2LyELFkV-M0gIpKoiQNcR6PubMwFGwzrkhwjetnNEb690PzalrwwWJbllQr-3AxDBJetwl1cN2I9aIxyvvxpbHILmTWlyVBBsuSV51pNwyEWSTXysAvUjorWMjIre_Br2IcVTpFlDgldXJep92ttFMDDCQoummfG7SRjQpZCsjsJttV4QaD7arjlvIVtq5rTL3APgxosCQ_2y0)](http://www.plantuml.com/plantuml/uml/hLD1Rjim4Bpp5NEpV0Xojoyf0ZGeK211Wpw0bjOM4OghagkwwUlhZIYsHAtsaej4xevsECFHNH8RPHgyULkOK-HfnC45i_iKd3ZhtKy2Z-8uf7rk3rRx3oJWIJehr66qxOizqGLYt17D1-zB2JOIfl56-4QnMqXF0SqhfQq1A7I6V28qWRVcidD7OtOVITeUaGOMmY7QqFOwEzV7oNj4-ZPHaeNnipsGHyUK45X0FroIcWgx-qXM25wX-xzOAyKFJj1oEBhJ8lenIttAifuYjvGIHsFElVE49dTcxhI5IuNwweZV4m2LyELFkV-M0gIpKoiQNcR6PubMwFGwzrkhwjetnNEb690PzalrwwWJbllQr-3AxDBJetwl1cN2I9aIxyvvxpbHILmTWlyVBBsuSV51pNwyEWSTXysAvUjorWMjIre_Br2IcVTpFlDgldXJep92ttFMDDCQoummfG7SRjQpZCsjsJttV4QaD7arjlvIVtq5rTL3APgxosCQ_2y0)
 
 ## FAQ
 

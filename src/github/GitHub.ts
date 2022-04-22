@@ -2,7 +2,7 @@ import type {
   Octokit,
   RestEndpointMethodTypes
 } from '@octokit/rest'
-import { range } from 'lodash'
+import range from 'lodash/range'
 import type { ValuesType } from 'utility-types'
 
 export type Branch = ValuesType<RestEndpointMethodTypes['repos']['listBranches']['response']['data']>

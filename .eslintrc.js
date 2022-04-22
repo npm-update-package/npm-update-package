@@ -1,23 +1,27 @@
 module.exports = {
   extends: [
     'standard-with-typescript',
-    'plugin:jest/recommended'
+    'plugin:jest/recommended',
+    'lodash'
   ],
   plugins: [
-    'eslint-plugin-tsdoc'
+    'tsdoc'
   ],
   parserOptions: {
     project: './tsconfig.json'
   },
   rules: {
+    // Better TSDoc
+    'tsdoc/syntax': 'warn',
+    // Sort imports alphabetically
+    'sort-imports': 'off',
     'import/order': ['error', {
       alphabetize: {
         order: 'asc',
         caseInsensitive: true
       }
     }],
-    'no-console': 'error',
-    'sort-imports': 'off',
-    'tsdoc/syntax': 'warn'
+    // Use logger
+    'no-console': 'error'
   }
 }

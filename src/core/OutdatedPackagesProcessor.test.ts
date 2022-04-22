@@ -3,10 +3,7 @@ import {
   right,
   type Either
 } from 'fp-ts/lib/Either'
-import {
-  createLogger,
-  LogLevel
-} from '../logger'
+import type { OutdatedPackageProcessor } from '../outdated-package-processor'
 import { DependencyType } from '../package-json'
 import {
   SemVer,
@@ -14,7 +11,6 @@ import {
 } from '../semver'
 import type { FailedResult } from './FailedResult'
 import type { OutdatedPackage } from './OutdatedPackage'
-import type { OutdatedPackageProcessor } from './OutdatedPackageProcessor'
 import { OutdatedPackagesProcessor } from './OutdatedPackagesProcessor'
 import type { SucceededResult } from './SucceededResult'
 
@@ -24,11 +20,7 @@ describe('OutdatedPackagesProcessor', () => {
     const outdatedPackageProcessor = {
       process: outdatedPackageProcessorProcessMock
     } as unknown as OutdatedPackageProcessor
-    const logger = createLogger(LogLevel.Off)
-    const outdatedPackagesProcessor = new OutdatedPackagesProcessor({
-      outdatedPackageProcessor,
-      logger
-    })
+    const outdatedPackagesProcessor = new OutdatedPackagesProcessor(outdatedPackageProcessor)
 
     afterEach(() => {
       jest.resetAllMocks()

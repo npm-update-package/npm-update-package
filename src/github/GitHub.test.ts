@@ -1,5 +1,5 @@
 import type { Octokit } from '@octokit/rest'
-import { range } from 'lodash'
+import range from 'lodash/range'
 import {
   GitHub,
   type Branch,

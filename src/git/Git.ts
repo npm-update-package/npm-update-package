@@ -32,6 +32,10 @@ export class Git {
     await this.terminal.run('git', 'checkout', ...files)
   }
 
+  async setConfig (key: string, value: string): Promise<void> {
+    await this.terminal.run('git', 'config', key, value)
+  }
+
   async switch (branchName: string): Promise<void> {
     await this.terminal.run('git', 'checkout', branchName)
   }

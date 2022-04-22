@@ -1,8 +1,4 @@
 import { GitRepository } from '../../../git'
-import {
-  createLogger,
-  LogLevel
-} from '../../../logger'
 import { isNotFoundError } from '../../errors'
 import type { GitHub } from '../../GitHub'
 import { LabelCreator } from './LabelCreator'
@@ -18,15 +14,13 @@ describe('LabelCreator', () => {
       createLabel: createLabelMock,
       fetchLabel: fetchLabelMock
     } as unknown as GitHub
-    const logger = createLogger(LogLevel.Off)
     const gitRepo = {
       owner: 'npm-update-package',
       name: 'example'
     } as unknown as GitRepository
     const labelCreator = new LabelCreator({
       github,
-      gitRepo,
-      logger
+      gitRepo
     })
 
     afterEach(() => {

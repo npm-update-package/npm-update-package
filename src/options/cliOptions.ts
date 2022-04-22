@@ -1,4 +1,5 @@
 import { LogLevel } from '../logger'
+import { OutdatedPullRequestStrategy } from '../outdated-package-processor'
 import { PackageManagerName } from '../package-manager'
 import type { CLIOption } from './CLIOption'
 import { OptionType } from './OptionType'
@@ -8,6 +9,12 @@ export const cliOptions: CLIOption[] = [
     name: 'assignees',
     description: 'User names to assign to pull request',
     type: OptionType.StringArray,
+    required: false
+  },
+  {
+    name: 'assignees-sample-size',
+    description: 'How many members to be assigned to assignees',
+    type: OptionType.Number,
     required: false
   },
   {
@@ -30,6 +37,18 @@ export const cliOptions: CLIOption[] = [
     type: OptionType.Number,
     required: false,
     default: 1000
+  },
+  {
+    name: 'git-user-email',
+    description: 'Git user email',
+    type: OptionType.String,
+    required: false
+  },
+  {
+    name: 'git-user-name',
+    description: 'Git user name',
+    type: OptionType.String,
+    required: false
   },
   {
     name: 'github-token',
@@ -60,6 +79,18 @@ export const cliOptions: CLIOption[] = [
     default: LogLevel.Info
   },
   {
+    name: 'outdated-pr-strategy',
+    description: 'What to do when outdated pull requests exist',
+    type: OptionType.String,
+    required: false,
+    choices: [
+      OutdatedPullRequestStrategy.Create,
+      OutdatedPullRequestStrategy.Recreate,
+      OutdatedPullRequestStrategy.Skip
+    ],
+    default: OutdatedPullRequestStrategy.Recreate
+  },
+  {
     name: 'package-manager',
     description: 'Package manager of your project',
     type: OptionType.String,
@@ -67,8 +98,14 @@ export const cliOptions: CLIOption[] = [
     choices: [
       PackageManagerName.Npm,
       PackageManagerName.Yarn
-    ],
-    default: PackageManagerName.Npm
+    ]
+  },
+  {
+    name: 'pr-body-github-host',
+    description: 'GitHub host of pull request body',
+    type: OptionType.String,
+    required: false,
+    default: 'togithub.com'
   },
   {
     name: 'pr-body-notes',
@@ -87,6 +124,12 @@ export const cliOptions: CLIOption[] = [
     name: 'reviewers',
     description: 'User names to request reviews',
     type: OptionType.StringArray,
+    required: false
+  },
+  {
+    name: 'reviewers-sample-size',
+    description: 'How many members to be assigned to reviewers',
+    type: OptionType.Number,
     required: false
   }
 ]

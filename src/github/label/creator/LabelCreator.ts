@@ -1,5 +1,5 @@
 import type { GitRepository } from '../../../git'
-import type { Logger } from '../../../logger'
+import { logger } from '../../../logger'
 import { isNotFoundError } from '../../errors'
 import type {
   GitHub,
@@ -10,20 +10,16 @@ import type {
 export class LabelCreator {
   private readonly github: GitHub
   private readonly gitRepo: GitRepository
-  private readonly logger: Logger
 
   constructor ({
     github,
-    gitRepo,
-    logger
+    gitRepo
   }: {
     github: GitHub
     gitRepo: GitRepository
-    logger: Logger
   }) {
     this.github = github
     this.gitRepo = gitRepo
-    this.logger = logger
   }
 
   async create ({
@@ -38,7 +34,7 @@ export class LabelCreator {
     const label = await this.fetchLabel(name)
 
     if (label !== undefined) {
-      this.logger.info(`Skip creating ${name} label because it already exists.`)
+      logger.info(`Skip creating ${name} label because it already exists.`)
       return
     }
 
@@ -47,7 +43,7 @@ export class LabelCreator {
       description,
       color
     })
-    this.logger.info(`${name} label has created.`)
+    logger.info(`${name} label has created.`)
   }
 
   private async createLabel ({
@@ -77,7 +73,7 @@ export class LabelCreator {
       })
     } catch (e) {
       if (isNotFoundError(e)) {
-        this.logger.warn(e)
+        logger.warn(e)
         return undefined
       } else {
         throw e

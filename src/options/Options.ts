@@ -11,6 +11,7 @@ import {
   type TypeOf
 } from 'io-ts'
 import { LogLevel } from '../logger'
+import { OutdatedPullRequestStrategy } from '../outdated-package-processor'
 import { PackageManagerName } from '../package-manager'
 
 const Options = intersection([
@@ -28,17 +29,27 @@ const Options = intersection([
       literal(LogLevel.Debug),
       literal(LogLevel.Trace)
     ]),
-    packageManager: union([
-      literal(PackageManagerName.Npm),
-      literal(PackageManagerName.Yarn)
+    outdatedPrStrategy: union([
+      literal(OutdatedPullRequestStrategy.Create),
+      literal(OutdatedPullRequestStrategy.Recreate),
+      literal(OutdatedPullRequestStrategy.Skip)
     ]),
+    prBodyGithubHost: string,
     prTitle: string
   }),
   partial({
     assignees: array(string),
+    assigneesSampleSize: number,
+    gitUserEmail: string,
+    gitUserName: string,
     ignorePackages: array(string),
+    packageManager: union([
+      literal(PackageManagerName.Npm),
+      literal(PackageManagerName.Yarn)
+    ]),
     prBodyNotes: string,
-    reviewers: array(string)
+    reviewers: array(string),
+    reviewersSampleSize: number
   })
 ])
 

@@ -1,18 +1,15 @@
 #!/usr/bin/env node
 
 import pkg from '../package.json'
-import { createLogger } from './logger'
+import { logger } from './logger'
 import { main } from './main'
 import { initOptions } from './options'
 
 const options = initOptions()
-const logger = createLogger(options.logLevel)
+logger.level = options.logLevel
 logger.info(`Start ${pkg.name} v${pkg.version}`)
 
-main({
-  options,
-  logger
-})
+main(options)
   .then(() => {
     logger.info(`End ${pkg.name} v${pkg.version}`)
   })

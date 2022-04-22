@@ -3,7 +3,7 @@ import type { RunOptions } from 'npm-check-updates/build/src/types'
 import { isNotUndefined } from 'type-guards'
 import type { OutdatedPackage } from '../core'
 import { readFile } from '../file'
-import type { Logger } from '../logger'
+import { logger } from '../logger'
 import type { Options } from '../options'
 import {
   DependencyType,
@@ -17,22 +17,11 @@ import { isNcuResult } from './NcuResult'
 
 // TODO: Add test
 export class Ncu {
-  private readonly options: Options
-  private readonly logger: Logger
-
-  constructor ({
-    options,
-    logger
-  }: {
-    options: Options
-    logger: Logger
-  }) {
-    this.options = options
-    this.logger = logger
-  }
+  constructor (private readonly options: Options) {}
 
   async check (): Promise<OutdatedPackage[]> {
     return await this.run({
+      packageManager: this.options.packageManager,
       jsonUpgraded: true,
       reject: this.options.ignorePackages
     })
@@ -40,6 +29,7 @@ export class Ncu {
 
   async update (outdatedPackage: OutdatedPackage): Promise<OutdatedPackage[]> {
     return await this.run({
+      packageManager: this.options.packageManager,
       jsonUpgraded: true,
       filter: outdatedPackage.name,
       upgrade: true
@@ -50,10 +40,10 @@ export class Ncu {
     // Read package.json before running ncu
     const json = await readFile('./package.json')
     const pkg = parsePackageJson(json)
-    this.logger.debug(`pkg=${JSON.stringify(pkg)}`)
+    logger.debug(`pkg=${JSON.stringify(pkg)}`)
 
     const result = await run(options)
-    this.logger.debug(`result=${JSON.stringify(result)}`)
+    logger.debug(`result=${JSON.stringify(result)}`)
 
     if (!isNcuResult(result)) {
       throw new Error('Failed to running ncu.')
