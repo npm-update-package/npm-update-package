@@ -35,7 +35,6 @@
   },
   "devDependencies": {
     "@jest/types": "27.4.2",
-    "@tsconfig/node12": "1.0.9",
     "@tsconfig/node16": "1.0.2",
     "@types/jest": "27.4.1",
     "@types/lodash": "4.14.182",
