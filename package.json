@@ -13,6 +13,9 @@
     "test": "jest"
   },
   "bin": "dist/src/bin.js",
+  "engines": {
+    "node": ">=12"
+  },
   "dependencies": {
     "@octokit/rest": "18.12.0",
     "commander": "9.2.0",
