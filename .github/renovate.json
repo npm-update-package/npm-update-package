@@ -6,11 +6,11 @@
   "packageRules": [
     {
       "matchPackageNames": ["@types/node"],
-      "allowedVersions": "<13"
+      "allowedVersions": "<17"
     },
     {
       "matchPackageNames": ["node"],
-      "allowedVersions": "<13"
+      "allowedVersions": "<17"
     }
   ]
 }
