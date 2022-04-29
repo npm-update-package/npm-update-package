@@ -1,6 +1,6 @@
 {
   "name": "npm-update-package",
-  "version": "0.58.8",
+  "version": "0.58.10",
   "description": "CLI tool for creating pull requests to update npm packages",
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
@@ -13,18 +13,21 @@
     "test": "jest"
   },
   "bin": "dist/src/bin.js",
+  "engines": {
+    "node": ">=12"
+  },
   "dependencies": {
     "@octokit/rest": "18.12.0",
     "commander": "9.2.0",
     "execa": "5.1.1",
-    "fp-ts": "2.12.0",
+    "fp-ts": "2.12.1",
     "http-status-codes": "2.2.0",
     "io-ts": "2.2.16",
     "lodash": "4.14.2",
     "log4js": "6.4.6",
     "mustache": "4.1.0",
     "node-fetch": "2.6.7",
-    "npm-check-updates": "12.5.9",
+    "npm-check-updates": "12.5.10",
     "parse-github-url": "1.0.2",
     "semver": "7.3.7",
     "sleep-promise": "9.1.0",
@@ -53,7 +56,7 @@
     "eslint-plugin-you-dont-need-lodash-underscore": "6.12.0",
     "husky": "7.0.4",
     "jest": "27.4.7",
-    "lint-staged": "12.4.0",
+    "lint-staged": "12.4.1",
     "npm-run-all": "4.1.5",
     "rimraf": "3.0.2",
     "ts-jest": "27.1.4",
