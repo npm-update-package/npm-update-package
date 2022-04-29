@@ -49,7 +49,7 @@ CLI tool for creating pull requests to update npm packages
 ## Requirements
 
 - Git
-- Node.js
+- Node.js v12 or later
 - npm or Yarn
 
 ## Supported platforms
