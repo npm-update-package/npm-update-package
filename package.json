@@ -9,10 +9,9 @@
     "prebuild": "npm run clean",
     "prepare": "husky install",
     "prepublish": "npm-run-all lint test build",
-    "start": "ts-node src/bin.ts",
     "test": "jest"
   },
-  "bin": "dist/src/bin.js",
+  "bin": "dist/src/bin/npm-update-package.js",
   "engines": {
     "node": ">=14"
   },
