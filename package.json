@@ -8,7 +8,7 @@
     "lint": "eslint '**/*.{js,ts}'",
     "prebuild": "npm run clean",
     "prepare": "husky install",
-    "prepublish": "npm-run-all lint test build",
+    "prepublishOnly": "npm-run-all lint test build",
     "test": "jest"
   },
   "bin": "dist/src/bin/npm-update-package.js",
