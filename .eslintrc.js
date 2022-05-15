@@ -1,6 +1,7 @@
 module.exports = {
   extends: [
     'standard-with-typescript',
+    'plugin:eslint-comments/recommended',
     'plugin:jest/recommended',
     'lodash'
   ],
