@@ -31,6 +31,8 @@ module.exports = {
     'unicorn/no-useless-undefined': 'off',
     // TODO: Maybe enable later
     'unicorn/prefer-module': 'off',
+    // TODO [engine:node@>=16]: Enable when the minimum supported version of Node.js becomes v16 or later.
+    'unicorn/prefer-node-protocol': 'off',
     // TODO: Maybe enable later
     'unicorn/prefer-spread': 'off',
     // TODO: Maybe enable later
