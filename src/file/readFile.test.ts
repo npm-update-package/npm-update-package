@@ -1,7 +1,7 @@
-import fs from 'node:fs'
+import fs from 'fs'
 import { readFile } from './readFile'
 
-jest.mock('node:fs', () => ({
+jest.mock('fs', () => ({
   promises: {
     readFile: jest.fn()
   }

@@ -1,4 +1,4 @@
-import { URL } from 'node:url'
+import { URL } from 'url'
 import gh from 'parse-github-url'
 
 const HOST_GITHUB = 'github.com'

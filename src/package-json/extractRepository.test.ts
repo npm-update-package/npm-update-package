@@ -1,4 +1,4 @@
-import { URL } from 'node:url'
+import { URL } from 'url'
 import { GitRepository } from '../git'
 import { extractRepository } from './extractRepository'
 import type { PackageMetadata } from './PackageMetadata'
