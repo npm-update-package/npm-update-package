@@ -71,12 +71,12 @@ export class LabelCreator {
         repo: this.gitRepo.name,
         name
       })
-    } catch (e) {
-      if (isNotFoundError(e)) {
-        logger.warn(e)
+    } catch (error) {
+      if (isNotFoundError(error)) {
+        logger.warn(error)
         return undefined
       } else {
-        throw e
+        throw error
       }
     }
   }

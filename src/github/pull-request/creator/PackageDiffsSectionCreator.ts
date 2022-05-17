@@ -23,9 +23,11 @@ export class PackageDiffsSectionCreator {
       links.push(`- [GitHub](${optimizedUrl})`)
     }
 
-    links.push(`- [npmfs](https://npmfs.com/compare/${packageName}/${currentVersion}/${newVersion})`)
-    links.push(`- [Package Diff](https://diff.intrinsic.com/${packageName}/${currentVersion}/${newVersion})`)
-    links.push(`- [Renovate Bot Package Diff](https://renovatebot.com/diffs/npm/${packageName}/${currentVersion}/${newVersion})`)
+    links.push(
+      `- [npmfs](https://npmfs.com/compare/${packageName}/${currentVersion}/${newVersion})`,
+      `- [Package Diff](https://diff.intrinsic.com/${packageName}/${currentVersion}/${newVersion})`,
+      `- [Renovate Bot Package Diff](https://renovatebot.com/diffs/npm/${packageName}/${currentVersion}/${newVersion})`
+    )
     return `## Package diffs
 
 ${links.join('\n')}`

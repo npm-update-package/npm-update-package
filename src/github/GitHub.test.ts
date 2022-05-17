@@ -9,6 +9,16 @@ import {
   type Repository
 } from './GitHub'
 
+const createBranches = (start: number, end: number): Branch[] => {
+  return range(start, end).map(num => ({
+    name: `branch ${num}`
+  } as unknown as Branch))
+}
+
+const createPullRequests = (start: number, end: number): PullRequest[] => {
+  return range(start, end).map(id => ({ id } as unknown as PullRequest))
+}
+
 describe('GitHub', () => {
   const gitDeleteRefMock = jest.fn()
   const issuesAddAssigneesMock = jest.fn()
@@ -197,11 +207,6 @@ describe('GitHub', () => {
 
   describe('fetchBranches', () => {
     it('calls octokit.repos.listBranches()', async () => {
-      const createBranches = (start: number, end: number): Branch[] => {
-        return range(start, end).map(num => ({
-          name: `branch ${num}`
-        } as unknown as Branch))
-      }
       const branchesByPage = new Map([
         [1, createBranches(1, 101)],
         [2, createBranches(101, 201)],
@@ -272,9 +277,6 @@ describe('GitHub', () => {
 
   describe('fetchPullRequests', () => {
     it('calls octokit.pulls.list()', async () => {
-      const createPullRequests = (start: number, end: number): PullRequest[] => {
-        return range(start, end).map(id => ({ id } as unknown as PullRequest))
-      }
       const pullRequestsByPage = new Map([
         [1, createPullRequests(1, 101)],
         [2, createPullRequests(101, 201)],
