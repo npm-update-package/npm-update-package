@@ -221,12 +221,7 @@ describe('GitHub', () => {
       ])
       reposListBranchesMock.mockImplementation(async ({ page }: { page: number }) => {
         const branches = branchesByPage.get(page)
-
-        if (branches !== undefined) {
-          return await Promise.resolve({ data: branches })
-        } else {
-          return await Promise.reject(new Error())
-        }
+        return await (branches !== undefined ? Promise.resolve({ data: branches }) : Promise.reject(new Error()))
       })
       const owner = 'npm-update-package'
       const repo = 'example'
@@ -291,12 +286,7 @@ describe('GitHub', () => {
       ])
       pullsListMock.mockImplementation(async ({ page }: { page: number }) => {
         const pullRequests = pullRequestsByPage.get(page)
-
-        if (pullRequests !== undefined) {
-          return await Promise.resolve({ data: pullRequests })
-        } else {
-          return await Promise.reject(new Error())
-        }
+        return await (pullRequests !== undefined ? Promise.resolve({ data: pullRequests }) : Promise.reject(new Error()))
       })
       const owner = 'npm-update-package'
       const repo = 'example'
