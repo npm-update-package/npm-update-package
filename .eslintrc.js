@@ -25,7 +25,6 @@ module.exports = {
     'unicorn/error-message': 'off',
     'unicorn/filename-case': 'off',
     'unicorn/no-array-for-each': 'off',
-    'unicorn/no-null': 'off',
     'unicorn/no-useless-undefined': 'off',
     'unicorn/prefer-module': 'off',
     // TODO [engine:node@>=16]: Enable when the minimum supported version of Node.js becomes v16 or later.
