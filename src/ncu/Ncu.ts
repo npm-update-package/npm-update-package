@@ -109,6 +109,7 @@ export class Ncu {
         }
         return outdatedPackage
       })
+      // eslint-disable-next-line unicorn/no-array-callback-reference
       .filter(isNotUndefined)
 
     if (resultEntries.length !== outdatedPackages.length) {

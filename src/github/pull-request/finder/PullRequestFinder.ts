@@ -7,7 +7,7 @@ export class PullRequestFinder {
 
   findByPackageName (packageName: string): PullRequest[] {
     return this.pullRequests
-      .filter(isPullRequestByNpmUpdatePackage)
+      .filter(pullRequest => isPullRequestByNpmUpdatePackage(pullRequest))
       .filter(({ body }) => {
         if (body === null) {
           return false

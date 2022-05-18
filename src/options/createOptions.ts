@@ -11,7 +11,7 @@ import { toCommanderOption } from './toCommanderOption'
 export const createOptions = (cliOptions: CLIOption[]): Options => {
   program.version(pkg.version)
   cliOptions
-    .map(toCommanderOption)
+    .map(option => toCommanderOption(option))
     .forEach(option => program.addOption(option))
   program.parse(process.argv)
   const options = program.opts()
