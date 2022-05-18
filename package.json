@@ -39,7 +39,7 @@
     "@types/jest": "27.4.1",
     "@types/lodash": "4.14.182",
     "@types/mustache": "4.1.2",
-    "@types/node": "16.11.32",
+    "@types/node": "14.18.18",
     "@types/node-fetch": "2.6.1",
     "@types/parse-github-url": "1.0.0",
     "@types/semver": "7.3.9",
