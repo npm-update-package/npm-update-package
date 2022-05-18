@@ -27,7 +27,7 @@ module.exports = {
     'unicorn/no-array-for-each': 'off',
     'unicorn/no-useless-undefined': 'off',
     'unicorn/prefer-module': 'off',
-    // TODO [engine:node@>=16]: Enable when the minimum supported version of Node.js becomes v16 or later.
+    // TODO [engine:node@>=16]: Enable this when the minimum supported Node.js version becomes v16 or later.
     'unicorn/prefer-node-protocol': 'off',
     'unicorn/prefer-spread': 'off',
     'unicorn/prevent-abbreviations': 'off'
