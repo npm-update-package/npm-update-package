@@ -9,6 +9,16 @@ import {
   type Repository
 } from './GitHub'
 
+const createBranches = (start: number, end: number): Branch[] => {
+  return range(start, end).map(num => ({
+    name: `branch ${num}`
+  } as unknown as Branch))
+}
+
+const createPullRequests = (start: number, end: number): PullRequest[] => {
+  return range(start, end).map(id => ({ id } as unknown as PullRequest))
+}
+
 describe('GitHub', () => {
   const gitDeleteRefMock = jest.fn()
   const issuesAddAssigneesMock = jest.fn()
@@ -197,11 +207,6 @@ describe('GitHub', () => {
 
   describe('fetchBranches', () => {
     it('calls octokit.repos.listBranches()', async () => {
-      const createBranches = (start: number, end: number): Branch[] => {
-        return range(start, end).map(num => ({
-          name: `branch ${num}`
-        } as unknown as Branch))
-      }
       const branchesByPage = new Map([
         [1, createBranches(1, 101)],
         [2, createBranches(101, 201)],
@@ -216,12 +221,7 @@ describe('GitHub', () => {
       ])
       reposListBranchesMock.mockImplementation(async ({ page }: { page: number }) => {
         const branches = branchesByPage.get(page)
-
-        if (branches !== undefined) {
-          return await Promise.resolve({ data: branches })
-        } else {
-          return await Promise.reject(new Error())
-        }
+        return await (branches !== undefined ? Promise.resolve({ data: branches }) : Promise.reject(new Error()))
       })
       const owner = 'npm-update-package'
       const repo = 'example'
@@ -272,9 +272,6 @@ describe('GitHub', () => {
 
   describe('fetchPullRequests', () => {
     it('calls octokit.pulls.list()', async () => {
-      const createPullRequests = (start: number, end: number): PullRequest[] => {
-        return range(start, end).map(id => ({ id } as unknown as PullRequest))
-      }
       const pullRequestsByPage = new Map([
         [1, createPullRequests(1, 101)],
         [2, createPullRequests(101, 201)],
@@ -289,12 +286,7 @@ describe('GitHub', () => {
       ])
       pullsListMock.mockImplementation(async ({ page }: { page: number }) => {
         const pullRequests = pullRequestsByPage.get(page)
-
-        if (pullRequests !== undefined) {
-          return await Promise.resolve({ data: pullRequests })
-        } else {
-          return await Promise.reject(new Error())
-        }
+        return await (pullRequests !== undefined ? Promise.resolve({ data: pullRequests }) : Promise.reject(new Error()))
       })
       const owner = 'npm-update-package'
       const repo = 'example'

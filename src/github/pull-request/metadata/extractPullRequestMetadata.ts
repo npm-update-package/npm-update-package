@@ -4,7 +4,7 @@ import {
 } from './PullRequestMetadata'
 
 export const extractPullRequestMetadata = (pullRequestBody: string): PullRequestMetadata | undefined => {
-  const matched = pullRequestBody.match(/<div id="npm-update-package-metadata">\s*```json\s*([\s\S]+?)\s*```\s*<\/div>/)
+  const matched = pullRequestBody.match(/<div id="npm-update-package-metadata">\s*```json\s*([\S\s]+?)\s*```\s*<\/div>/)
 
   if (matched === null) {
     return undefined

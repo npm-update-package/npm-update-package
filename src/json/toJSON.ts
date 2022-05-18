@@ -4,10 +4,5 @@ interface Options {
 
 export const toJSON = (value: unknown, options?: Options): string => {
   const pretty = options?.pretty ?? false
-
-  if (pretty) {
-    return JSON.stringify(value, null, 2)
-  } else {
-    return JSON.stringify(value)
-  }
+  return pretty ? JSON.stringify(value, undefined, 2) : JSON.stringify(value)
 }

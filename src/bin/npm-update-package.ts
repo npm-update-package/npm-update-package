@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import pkg from '../package.json'
-import { logger } from './logger'
-import { main } from './main'
-import { initOptions } from './options'
+import pkg from '../../package.json'
+import { logger } from '../logger'
+import { main } from '../main'
+import { initOptions } from '../options'
 
 const options = initOptions()
 logger.level = options.logLevel
