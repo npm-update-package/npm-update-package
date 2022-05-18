@@ -35,8 +35,6 @@ module.exports = {
     'unicorn/prefer-node-protocol': 'off',
     // TODO: Maybe enable later
     'unicorn/prefer-spread': 'off',
-    // TODO: Maybe enable later
-    'unicorn/prefer-ternary': 'off',
     'unicorn/prevent-abbreviations': 'off'
   }
 }
