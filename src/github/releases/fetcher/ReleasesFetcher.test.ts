@@ -41,17 +41,15 @@ describe('ReleasesFetcher', () => {
       ])
       sleepMock.mockResolvedValue(undefined)
       fetchMock.mockImplementation(async (url) => {
-        if (typeof url === 'string' && url.endsWith('v1.1.1')) {
-          return await Promise.resolve({
+        return await (typeof url === 'string' && url.endsWith('v1.1.1')
+          ? Promise.resolve({
             ok: false,
             status: StatusCodes.NOT_FOUND
           } as unknown as Response)
-        } else {
-          return await Promise.resolve({
+          : Promise.resolve({
             ok: true,
             status: StatusCodes.OK
-          } as unknown as Response)
-        }
+          } as unknown as Response))
       })
       const gitRepo = {
         owner: 'npm-update-package',

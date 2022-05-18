@@ -159,7 +159,10 @@ export const main = async (options: Options): Promise<void> => {
   const results = await outdatedPackagesProcessor.process(outdatedPackages)
   logger.debug(`results=${JSON.stringify(results)}`)
 
-  const succeededResults = results.filter(isRight).map(({ right }) => right)
+  const succeededResults = results
+    // eslint-disable-next-line unicorn/no-array-callback-reference
+    .filter(isRight)
+    .map(({ right }) => right)
   logger.debug(`succeededResults=${JSON.stringify(succeededResults)}`)
 
   const createdPackages = succeededResults
@@ -172,7 +175,10 @@ export const main = async (options: Options): Promise<void> => {
     .map(({ outdatedPackage }) => outdatedPackage)
   logger.debug(`skippedPackages=${JSON.stringify(skippedPackages)}`)
 
-  const failedResults = results.filter(isLeft).map(({ left }) => left)
+  const failedResults = results
+    // eslint-disable-next-line unicorn/no-array-callback-reference
+    .filter(isLeft)
+    .map(({ left }) => left)
   logger.debug(`failedResults=${JSON.stringify(failedResults)}`)
 
   const failedPackages = failedResults.map(({ outdatedPackage }) => outdatedPackage)

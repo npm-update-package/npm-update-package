@@ -50,6 +50,7 @@ export class GitRepository {
     }
 
     const {
+      protocol,
       owner,
       name
     } = result
@@ -58,7 +59,7 @@ export class GitRepository {
       return undefined
     }
 
-    const host = result.protocol === 'github:' ? HOST_GITHUB : result.host
+    const host = protocol === 'github:' ? HOST_GITHUB : result.host
 
     if (host === null || !host.includes('.')) {
       return undefined
