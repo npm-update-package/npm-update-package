@@ -24,8 +24,6 @@ module.exports = {
     'tsdoc/syntax': 'warn',
     'unicorn/error-message': 'off',
     'unicorn/filename-case': 'off',
-    // TODO: Maybe enable later
-    'unicorn/no-array-callback-reference': 'off',
     'unicorn/no-array-for-each': 'off',
     'unicorn/no-null': 'off',
     'unicorn/no-useless-undefined': 'off',
