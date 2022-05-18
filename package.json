@@ -1,6 +1,6 @@
 {
   "name": "npm-update-package",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "CLI tool for creating pull requests to update npm packages",
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
@@ -62,7 +62,7 @@
     "rimraf": "3.0.2",
     "ts-jest": "27.1.4",
     "ts-node": "10.7.0",
-    "typescript": "4.6.3",
+    "typescript": "4.6.4",
     "utility-types": "3.10.0"
   },
   "repository": {
