@@ -1,4 +1,4 @@
-import shuffle from 'lodash/shuffle'
+import sampleSize from 'lodash/sampleSize'
 import type { GitRepository } from '../../../git'
 import type { GitHub } from '../../GitHub'
 
@@ -20,17 +20,17 @@ export class AssigneesAdder {
   async add ({
     issueNumber,
     assignees,
-    sampleSize
+    size
   }: {
     issueNumber: number
     assignees: string[]
-    sampleSize?: number
+    size?: number
   }): Promise<void> {
     await this.github.addAssignees({
       owner: this.gitRepo.owner,
       repo: this.gitRepo.name,
       issueNumber,
-      assignees: sampleSize !== undefined ? shuffle(assignees).slice(0, sampleSize) : assignees
+      assignees: size !== undefined ? sampleSize(assignees, size) : assignees
     })
   }
 }
