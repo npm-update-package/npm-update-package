@@ -85,7 +85,7 @@ export class PullRequestCreator {
       await this.assigneesAdder.add({
         issueNumber: pullRequest.number,
         assignees: this.options.assignees,
-        sampleSize: this.options.assigneesSampleSize
+        size: this.options.assigneesSampleSize
       })
     }
 
@@ -93,7 +93,7 @@ export class PullRequestCreator {
       await this.reviewersAdder.add({
         pullNumber: pullRequest.number,
         reviewers: this.options.reviewers,
-        sampleSize: this.options.reviewersSampleSize
+        size: this.options.reviewersSampleSize
       })
     }
 

@@ -1,13 +1,13 @@
-import shuffle from 'lodash/shuffle'
+import sampleSize from 'lodash/sampleSize'
 import type { GitRepository } from '../../../git'
 import type { GitHub } from '../../GitHub'
 import { AssigneesAdder } from './AssigneesAdder'
 
-jest.mock('lodash/shuffle')
+jest.mock('lodash/sampleSize')
 
 describe('AssigneesAdder', () => {
   describe('add', () => {
-    const shuffleMock = jest.mocked(shuffle)
+    const sampleSizeMock = jest.mocked(sampleSize)
     const addAssigneesMock = jest.fn()
     const github = {
       addAssignees: addAssigneesMock
@@ -28,13 +28,13 @@ describe('AssigneesAdder', () => {
       jest.resetAllMocks()
     })
 
-    it('adds all assignees if sampleSize is not specified', async () => {
+    it('adds all assignees if size is not specified', async () => {
       await assigneesAdder.add({
         issueNumber,
         assignees
       })
 
-      expect(shuffleMock).not.toBeCalled()
+      expect(sampleSizeMock).not.toBeCalled()
       expect(addAssigneesMock).toBeCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
@@ -43,17 +43,17 @@ describe('AssigneesAdder', () => {
       })
     })
 
-    it('adds specified number of assignees if sampleSize is specified', async () => {
-      shuffleMock.mockReturnValue(['bob', 'alice'])
-      const sampleSize = 1
+    it('adds specified number of assignees if size is specified', async () => {
+      sampleSizeMock.mockReturnValue(['bob'])
+      const size = 1
 
       await assigneesAdder.add({
         issueNumber,
         assignees,
-        sampleSize
+        size
       })
 
-      expect(shuffleMock).toBeCalledWith(assignees)
+      expect(sampleSizeMock).toBeCalledWith(assignees, size)
       expect(addAssigneesMock).toBeCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,

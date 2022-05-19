@@ -99,12 +99,12 @@ describe('PullRequestCreator', () => {
       expect(assigneesAdderAddMock).toBeCalledWith({
         issueNumber: pullRequest.number,
         assignees: options.assignees,
-        sampleSize: options.assigneesSampleSize
+        size: options.assigneesSampleSize
       })
       expect(reviewersAdderAddMock).toBeCalledWith({
         pullNumber: pullRequest.number,
         reviewers: options.reviewers,
-        sampleSize: options.reviewersSampleSize
+        size: options.reviewersSampleSize
       })
     })
   })

@@ -1,4 +1,4 @@
-import shuffle from 'lodash/shuffle'
+import sampleSize from 'lodash/sampleSize'
 import type { GitRepository } from '../../../git'
 import type { GitHub } from '../../GitHub'
 
@@ -20,17 +20,17 @@ export class ReviewersAdder {
   async add ({
     pullNumber,
     reviewers,
-    sampleSize
+    size
   }: {
     pullNumber: number
     reviewers: string[]
-    sampleSize?: number
+    size?: number
   }): Promise<void> {
     await this.github.requestReviewers({
       owner: this.gitRepo.owner,
       repo: this.gitRepo.name,
       pullNumber,
-      reviewers: sampleSize !== undefined ? shuffle(reviewers).slice(0, sampleSize) : reviewers
+      reviewers: size !== undefined ? sampleSize(reviewers, size) : reviewers
     })
   }
 }
