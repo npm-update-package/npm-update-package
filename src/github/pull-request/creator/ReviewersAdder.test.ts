@@ -53,7 +53,7 @@ describe('ReviewersAdder', () => {
         size
       })
 
-      expect(sampleSizeMock).toBeCalledWith(reviewers)
+      expect(sampleSizeMock).toBeCalledWith(reviewers, size)
       expect(requestReviewersMock).toBeCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
