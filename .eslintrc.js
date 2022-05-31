@@ -1,3 +1,13 @@
+const sortImportsAlphabetically = {
+  'sort-imports': 'off',
+  'import/order': ['error', {
+    alphabetize: {
+      order: 'asc',
+      caseInsensitive: true
+    }
+  }]
+}
+
 module.exports = {
   extends: [
     'standard-with-typescript',
@@ -13,14 +23,8 @@ module.exports = {
     project: './tsconfig.json'
   },
   rules: {
-    'import/order': ['error', {
-      alphabetize: {
-        order: 'asc',
-        caseInsensitive: true
-      }
-    }],
+    ...sortImportsAlphabetically,
     'no-console': 'error',
-    'sort-imports': 'off',
     'tsdoc/syntax': 'warn',
     'unicorn/error-message': 'off',
     'unicorn/filename-case': 'off',
