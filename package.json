@@ -42,7 +42,7 @@
     "@types/node-fetch": "2.6.1",
     "@types/parse-github-url": "1.0.0",
     "@types/semver": "7.3.9",
-    "@typescript-eslint/eslint-plugin": "5.27.0",
+    "@typescript-eslint/eslint-plugin": "5.27.1",
     "eslint": "8.17.0",
     "eslint-config-lodash": "1.1.0",
     "eslint-config-standard-with-typescript": "21.0.1",
