@@ -41,7 +41,7 @@
     "@types/node": "14.18.21",
     "@types/node-fetch": "2.6.1",
     "@types/parse-github-url": "1.0.0",
-    "@types/semver": "7.3.9",
+    "@types/semver": "7.3.10",
     "@typescript-eslint/eslint-plugin": "5.28.0",
     "eslint": "8.17.0",
     "eslint-config-lodash": "1.1.0",
