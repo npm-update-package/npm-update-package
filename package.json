@@ -23,7 +23,7 @@
     "http-status-codes": "2.2.0",
     "io-ts": "2.2.16",
     "lodash": "4.14.2",
-    "log4js": "6.5.2",
+    "log4js": "6.6.0",
     "mustache": "4.1.0",
     "node-fetch": "2.6.7",
     "npm-check-updates": "15.0.4",
