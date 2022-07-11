@@ -34,7 +34,7 @@ module.exports = {
     // TODO [engine:node@>=16]: Enable this when the minimum supported Node.js version becomes v16 or later.
     'unicorn/prefer-node-protocol': 'off',
     'unicorn/prefer-spread': 'off',
-    'unicorn/prevent-abbreviations': 'off',
-    'unicorn/prefer-top-level-await': 'off'
+    'unicorn/prefer-top-level-await': 'off',
+    'unicorn/prevent-abbreviations': 'off'
   }
 }
