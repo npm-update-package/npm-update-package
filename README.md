@@ -68,15 +68,14 @@ npx npm-update-package --github-token $GITHUB_TOKEN
 You can customize behavior via CLI options.  
 Some options can embed variables like `{{packageName}}`(HTML-escaped) or `{{{packageName}}}`(not HTML-escaped).
 
-### assignees
+### `--assignees`
 
 User names to assign to pull request.
 
 |Name|Value|
 |---|---|
-|cli|`--assignees`|
 |type|string[]|
-|required|false|
+|required|-|
 |added version|v0.46.0|
 
 Example:
@@ -87,15 +86,14 @@ npx npm-update-package \
   --assignees alice bob
 ```
 
-### assigneesSampleSize
+### `--assignees-sample-size`
 
 How many members to be assigned to assignees.
 
 |Name|Value|
 |---|---|
-|cli|`--assignees-sample-size`|
 |type|number|
-|required|false|
+|required|-|
 |added version|v0.56.0|
 
 Example:
@@ -107,15 +105,14 @@ npx npm-update-package \
   --assignees-sample-size 1
 ```
 
-### commitMessage
+### `--commit-message`
 
 Commit message template.
 
 |Name|Value|
 |---|---|
-|cli|`--commit-message`|
 |type|string|
-|required|false|
+|required|-|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
 |added version|v0.5.0|
 
@@ -137,15 +134,14 @@ npx npm-update-package \
   --commit-message "chore({{{dependencyType}}}): {{{level}}} update {{{packageName}}} from {{{currentVersion}}} to v{{{newVersion}}}"
 ```
 
-### fetchReleaseNotes
+### `--fetch-release-notes`
 
 Whether to fetch release notes.
 
 |Name|Value|
 |---|---|
-|cli|`--fetch-release-notes`|
 |type|boolean|
-|required|false|
+|required|-|
 |default|`true`|
 |added version|v0.51.0|
 
@@ -157,15 +153,14 @@ npx npm-update-package \
   --fetch-release-notes false
 ```
 
-### fetchSleepTime
+### `--fetch-sleep-time`
 
 Sleep time between fetching (ms).
 
 |Name|Value|
 |---|---|
-|cli|`--fetch-sleep-time`|
 |type|number|
-|required|false|
+|required|-|
 |default|`1000`|
 |added version|v0.50.0|
 
@@ -177,15 +172,14 @@ npx npm-update-package \
   --fetch-sleep-time 2000
 ```
 
-### gitUserEmail
+### `--git-user-email`
 
 Git user email.
 
 |Name|Value|
 |---|---|
-|cli|`--git-user-email`|
 |type|string|
-|required|false|
+|required|-|
 |added version|v0.53.0|
 
 Example:
@@ -196,15 +190,14 @@ npx npm-update-package \
   --git-user-email alice@example.com
 ```
 
-### gitUserName
+### `--git-user-name`
 
 Git user name.
 
 |Name|Value|
 |---|---|
-|cli|`--git-user-name`|
 |type|string|
-|required|false|
+|required|-|
 |added version|v0.53.0|
 
 Example:
@@ -215,26 +208,24 @@ npx npm-update-package \
   --git-user-name alice
 ```
 
-### githubToken
+### `--github-token`
 
 [GitHub token](#github-token).
 
 |Name|Value|
 |---|---|
-|cli|`--github-token`|
 |type|string|
-|required|true|
+|required|✔️|
 |added version|v0.1.0|
 
-### ignorePackages
+### `--ignore-packages`
 
 Package names to ignore.
 
 |Name|Value|
 |---|---|
-|cli|`--ignore-packages`|
 |type|string[]|
-|required|false|
+|required|-|
 |added version|v0.43.0|
 
 Example:
@@ -245,15 +236,14 @@ npx npm-update-package \
   --ignore-packages @types/jest jest
 ```
 
-### logLevel
+### `--log-level`
 
 Log level to show.
 
 |Name|Value|
 |---|---|
-|cli|`--log-level`|
 |type|string|
-|required|false|
+|required|-|
 |default|`info`|
 |added version|v0.1.0|
 
@@ -277,15 +267,14 @@ npx npm-update-package \
   --log-level debug
 ```
 
-### outdatedPrStrategy
+### `--outdated-pr-strategy`
 
 What to do when outdated pull requests exist.
 
 |Name|Value|
 |---|---|
-|cli|`--outdated-pr-strategy`|
 |type|string|
-|required|false|
+|required|-|
 |default|`recreate`|
 |added version|v0.58.0|
 
@@ -305,16 +294,15 @@ npx npm-update-package \
   --outdated-pr-strategy create
 ```
 
-### packageManager
+### `--package-manager`
 
 Package manager of your project.  
 Since npm-update-package automatically determines which package manager to use, it is usually not necessary to specify this option.
 
 |Name|Value|
 |---|---|
-|cli|`--package-manager`|
 |type|string|
-|required|false|
+|required|-|
 |added version|v0.1.0|
 
 Allowed values:
@@ -332,15 +320,14 @@ npx npm-update-package \
   --package-manager yarn
 ```
 
-### prBodyGithubHost
+### `--pr-body-github-host`
 
 GitHub host of pull request body.
 
 |Name|Value|
 |---|---|
-|cli|`--pr-body-github-host`|
 |type|string|
-|required|false|
+|required|-|
 |default|`togithub.com`|
 |added version|v0.55.0|
 
@@ -352,15 +339,14 @@ npx npm-update-package \
   --pr-body-github-host "github.example"
 ```
 
-### prBodyNotes
+### `--pr-body-notes`
 
 Additional notes for Pull request body.
 
 |Name|Value|
 |---|---|
-|cli|`--pr-body-notes`|
 |type|string|
-|required|false|
+|required|-|
 |added version|v0.45.0|
 
 Example:
@@ -371,15 +357,14 @@ npx npm-update-package \
   --pr-body-notes "**:warning: Please see diff and release notes before merging.**"
 ```
 
-### prTitle
+### `--pr-title`
 
 Pull request title template.
 
 |Name|Value|
 |---|---|
-|cli|`--pr-title`|
 |type|string|
-|required|false|
+|required|-|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
 |added version|v0.44.0|
 
@@ -401,15 +386,14 @@ npx npm-update-package \
   --pr-title "chore({{{dependencyType}}}): {{{level}}} update {{{packageName}}} from {{{currentVersion}}} to v{{{newVersion}}}"
 ```
 
-### reviewers
+### `--reviewers`
 
 User names to request reviews.
 
 |Name|Value|
 |---|---|
-|cli|`--reviewers`|
 |type|string[]|
-|required|false|
+|required|-|
 |added version|v0.26.0|
 
 Example:
@@ -420,15 +404,14 @@ npx npm-update-package \
   --reviewers alice bob
 ```
 
-### reviewersSampleSize
+### `--reviewers-sample-size`
 
 How many members to be assigned to reviewers.
 
 |Name|Value|
 |---|---|
-|cli|`--reviewers-sample-size`|
 |type|number|
-|required|false|
+|required|-|
 |added version|v0.57.0|
 
 Example:
