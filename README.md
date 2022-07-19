@@ -19,6 +19,7 @@ CLI tool for creating pull requests to update npm packages
   - [`--assignees`](#--assignees)
   - [`--assignees-sample-size`](#--assignees-sample-size)
   - [`--commit-message`](#--commit-message)
+  - [`--dependency-types`](#--dependency-types)
   - [`--fetch-release-notes`](#--fetch-release-notes)
   - [`--fetch-sleep-time`](#--fetch-sleep-time)
   - [`--git-user-email`](#--git-user-email)
@@ -76,7 +77,6 @@ User names to assign to pull request.
 |---|---|
 |type|string[]|
 |required|-|
-|added version|v0.46.0|
 
 Example:
 
@@ -94,7 +94,6 @@ How many members to be assigned to assignees.
 |---|---|
 |type|number|
 |required|-|
-|added version|v0.56.0|
 
 Example:
 
@@ -114,7 +113,6 @@ Commit message template.
 |type|string|
 |required|-|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
-|added version|v0.5.0|
 
 Available variables:
 
@@ -124,7 +122,7 @@ Available variables:
 |`newVersion`|New package version|
 |`packageName`|Package name|
 |`level`|Semver level (`major`/`minor`/`patch`)|
-|`dependencyType`|Dependency type (`dependencies`/`devDependencies`/`peerDependencies`/`optionalDependencies`)|
+|`dependencyType`|Dependency type (`dependencies`/`devDependencies`/`peerDependencies`/`bundledDependencies`/`optionalDependencies`)|
 
 Example:
 
@@ -132,6 +130,35 @@ Example:
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
   --commit-message "chore({{{dependencyType}}}): {{{level}}} update {{{packageName}}} from {{{currentVersion}}} to v{{{newVersion}}}"
+```
+
+### `--dependency-types`
+
+Dependency types to be updated.
+
+|Name|Value|
+|---|---|
+|type|string[]|
+|required|-|
+|default|`dependencies`, `devDependencies`, `peerDependencies`, `bundledDependencies`, `optionalDependencies`|
+
+Available variables:
+
+|Variable|Description|
+|---|---|
+|`dependencies`|dependencies|
+|`devDependencies`|devDependencies|
+|`peerDependencies`|peerDependencies|
+|`bundledDependencies`|bundledDependencies|
+|`optionalDependencies`|optionalDependencies|
+
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --dependency-types dependencies devDependencies
 ```
 
 ### `--fetch-release-notes`
@@ -143,7 +170,6 @@ Whether to fetch release notes.
 |type|boolean|
 |required|-|
 |default|`true`|
-|added version|v0.51.0|
 
 Example:
 
@@ -162,7 +188,6 @@ Sleep time between fetching (ms).
 |type|number|
 |required|-|
 |default|`1000`|
-|added version|v0.50.0|
 
 Example:
 
@@ -180,7 +205,6 @@ Git user email.
 |---|---|
 |type|string|
 |required|-|
-|added version|v0.53.0|
 
 Example:
 
@@ -198,7 +222,6 @@ Git user name.
 |---|---|
 |type|string|
 |required|-|
-|added version|v0.53.0|
 
 Example:
 
@@ -216,7 +239,6 @@ npx npm-update-package \
 |---|---|
 |type|string|
 |required|✔️|
-|added version|v0.1.0|
 
 ### `--ignore-packages`
 
@@ -226,7 +248,6 @@ Package names to ignore.
 |---|---|
 |type|string[]|
 |required|-|
-|added version|v0.43.0|
 
 Example:
 
@@ -245,7 +266,6 @@ Log level to show.
 |type|string|
 |required|-|
 |default|`info`|
-|added version|v0.1.0|
 
 Allowed values:
 
@@ -276,7 +296,6 @@ What to do when outdated pull requests exist.
 |type|string|
 |required|-|
 |default|`recreate`|
-|added version|v0.58.0|
 
 Allowed values:
 
@@ -303,7 +322,6 @@ Since npm-update-package automatically determines which package manager to use, 
 |---|---|
 |type|string|
 |required|-|
-|added version|v0.1.0|
 
 Allowed values:
 
@@ -329,7 +347,6 @@ GitHub host of pull request body.
 |type|string|
 |required|-|
 |default|`togithub.com`|
-|added version|v0.55.0|
 
 Example:
 
@@ -347,7 +364,6 @@ Additional notes for Pull request body.
 |---|---|
 |type|string|
 |required|-|
-|added version|v0.45.0|
 
 Example:
 
@@ -366,7 +382,6 @@ Pull request title template.
 |type|string|
 |required|-|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
-|added version|v0.44.0|
 
 Available variables:
 
@@ -376,7 +391,7 @@ Available variables:
 |`newVersion`|New package version|
 |`packageName`|Package name|
 |`level`|Semver level (`major`/`minor`/`patch`)|
-|`dependencyType`|Dependency type (`dependencies`/`devDependencies`/`peerDependencies`/`optionalDependencies`)|
+|`dependencyType`|Dependency type (`dependencies`/`devDependencies`/`peerDependencies`/`bundledDependencies`/`optionalDependencies`)|
 
 Example:
 
@@ -394,7 +409,6 @@ User names to request reviews.
 |---|---|
 |type|string[]|
 |required|-|
-|added version|v0.26.0|
 
 Example:
 
@@ -412,7 +426,6 @@ How many members to be assigned to reviewers.
 |---|---|
 |type|number|
 |required|-|
-|added version|v0.57.0|
 
 Example:
 

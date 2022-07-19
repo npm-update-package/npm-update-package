@@ -1,5 +1,6 @@
 import { LogLevel } from '../logger'
 import { OutdatedPullRequestStrategy } from '../outdated-package-processor'
+import { DependencyType } from '../package-json'
 import { PackageManagerName } from '../package-manager'
 import { cliOptions } from './cliOptions'
 import { createOptions } from './createOptions'
@@ -18,6 +19,13 @@ describe('initOptions', () => {
   it('returns Options', () => {
     const expected: Options = {
       commitMessage: 'test commitMessage',
+      dependencyTypes: [
+        DependencyType.Dependencies,
+        DependencyType.DevDependencies,
+        DependencyType.PeerDependencies,
+        DependencyType.BundledDependencies,
+        DependencyType.OptionalDependencies
+      ],
       fetchReleaseNotes: true,
       fetchSleepTime: 1000,
       gitUserEmail: 'octocat@example.com',

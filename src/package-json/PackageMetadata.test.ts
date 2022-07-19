@@ -5,10 +5,6 @@ import {
 
 describe('isPackageMetadata', () => {
   describe('returns whether value is PackageMetadata', () => {
-    interface TestCase {
-      value: unknown
-      expected: boolean
-    }
     const metadata: PackageMetadata = {
       name: '@npm-update-package/example',
       version: '1.0.0',
@@ -21,12 +17,16 @@ describe('isPackageMetadata', () => {
       peerDependencies: {
         '@npm-update-package/example-peerDependencies': '1.0.0'
       },
+      bundledDependencies: {
+        '@npm-update-package/example-bundledDependencies': '1.0.0'
+      },
       optionalDependencies: {
         '@npm-update-package/example-optionalDependencies': '1.0.0'
       },
       repository: 'npm-update-package/example'
     }
-    const cases: TestCase[] = [
+
+    it.each([
       {
         value: metadata,
         expected: true
@@ -38,9 +38,7 @@ describe('isPackageMetadata', () => {
         },
         expected: false
       }
-    ]
-
-    it.each(cases)('value=$value', ({ value, expected }) => {
+    ])('value=$value', ({ value, expected }) => {
       const actual = isPackageMetadata(value)
 
       expect(actual).toBe(expected)

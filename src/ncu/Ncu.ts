@@ -23,8 +23,30 @@ export class Ncu {
     return await this.run({
       packageManager: this.options.packageManager,
       jsonUpgraded: true,
+      dep: this.createDepOptionValue(),
       reject: this.options.ignorePackages
     })
+  }
+
+  private createDepOptionValue (): string {
+    return this.options.dependencyTypes
+      .map((dependencyType) => {
+        switch (dependencyType) {
+          case DependencyType.Dependencies:
+            return 'prod'
+          case DependencyType.DevDependencies:
+            return 'dev'
+          case DependencyType.PeerDependencies:
+            return 'peer'
+          case DependencyType.BundledDependencies:
+            return 'bundle'
+          case DependencyType.OptionalDependencies:
+            return 'optional'
+          default:
+            throw new Error()
+        }
+      })
+      .join(',')
   }
 
   async update (outdatedPackage: OutdatedPackage): Promise<OutdatedPackage[]> {
@@ -53,6 +75,7 @@ export class Ncu {
       dependencies,
       devDependencies,
       peerDependencies,
+      bundledDependencies,
       optionalDependencies
     } = pkg
     const toCurrentVersionString = (packageName: string): string | undefined => {
@@ -62,6 +85,8 @@ export class Ncu {
         return devDependencies[packageName]
       } else if (peerDependencies?.[packageName] !== undefined) {
         return peerDependencies[packageName]
+      } else if (bundledDependencies?.[packageName] !== undefined) {
+        return bundledDependencies[packageName]
       } else if (optionalDependencies?.[packageName] !== undefined) {
         return optionalDependencies[packageName]
       }
@@ -73,6 +98,8 @@ export class Ncu {
         return DependencyType.DevDependencies
       } else if (peerDependencies?.[packageName] !== undefined) {
         return DependencyType.PeerDependencies
+      } else if (bundledDependencies?.[packageName] !== undefined) {
+        return DependencyType.BundledDependencies
       } else if (optionalDependencies?.[packageName] !== undefined) {
         return DependencyType.OptionalDependencies
       }

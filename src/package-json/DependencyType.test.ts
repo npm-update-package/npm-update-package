@@ -5,16 +5,14 @@ import {
 
 describe('isDependencyType', () => {
   describe('returns whether value is DependencyType', () => {
-    type TestCase = [unknown, boolean]
-    const cases: TestCase[] = [
+    it.each([
       [DependencyType.Dependencies, true],
       [DependencyType.DevDependencies, true],
       [DependencyType.PeerDependencies, true],
+      [DependencyType.BundledDependencies, true],
       [DependencyType.OptionalDependencies, true],
       ['unknown', false]
-    ]
-
-    it.each(cases)('value=%p', (value, expected) => {
+    ])('value=%p', (value, expected) => {
       const actual = isDependencyType(value)
 
       expect(actual).toBe(expected)

@@ -18,6 +18,7 @@ const PackageMetadata = intersection([
     dependencies: PackageMetadataDependencies,
     devDependencies: PackageMetadataDependencies,
     peerDependencies: PackageMetadataDependencies,
+    bundledDependencies: PackageMetadataDependencies,
     optionalDependencies: PackageMetadataDependencies,
     repository: union([string, PackageMetadataRepository])
   })

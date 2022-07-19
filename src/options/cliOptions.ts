@@ -1,5 +1,6 @@
 import { LogLevel } from '../logger'
 import { OutdatedPullRequestStrategy } from '../outdated-package-processor'
+import { DependencyType } from '../package-json'
 import { PackageManagerName } from '../package-manager'
 import type { CLIOption } from './CLIOption'
 import { OptionType } from './OptionType'
@@ -23,6 +24,26 @@ export const cliOptions: CLIOption[] = [
     type: OptionType.String,
     required: false,
     default: 'chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}'
+  },
+  {
+    name: 'dependency-types',
+    description: 'Dependency types to be updated',
+    type: OptionType.StringArray,
+    required: false,
+    choices: [
+      DependencyType.Dependencies,
+      DependencyType.DevDependencies,
+      DependencyType.PeerDependencies,
+      DependencyType.BundledDependencies,
+      DependencyType.OptionalDependencies
+    ],
+    default: [
+      DependencyType.Dependencies,
+      DependencyType.DevDependencies,
+      DependencyType.PeerDependencies,
+      DependencyType.BundledDependencies,
+      DependencyType.OptionalDependencies
+    ]
   },
   {
     name: 'fetch-release-notes',
