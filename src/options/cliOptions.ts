@@ -30,7 +30,6 @@ export const cliOptions: CLIOption[] = [
     description: 'Dependency types to be updated',
     type: OptionType.StringArray,
     required: false,
-    // TODO: この指定は意味ないかも
     choices: [
       DependencyType.Dependencies,
       DependencyType.DevDependencies,
