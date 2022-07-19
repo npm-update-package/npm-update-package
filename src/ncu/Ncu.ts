@@ -53,6 +53,7 @@ export class Ncu {
       dependencies,
       devDependencies,
       peerDependencies,
+      bundledDependencies,
       optionalDependencies
     } = pkg
     const toCurrentVersionString = (packageName: string): string | undefined => {
@@ -62,6 +63,8 @@ export class Ncu {
         return devDependencies[packageName]
       } else if (peerDependencies?.[packageName] !== undefined) {
         return peerDependencies[packageName]
+      } else if (bundledDependencies?.[packageName] !== undefined) {
+        return bundledDependencies[packageName]
       } else if (optionalDependencies?.[packageName] !== undefined) {
         return optionalDependencies[packageName]
       }
@@ -73,6 +76,8 @@ export class Ncu {
         return DependencyType.DevDependencies
       } else if (peerDependencies?.[packageName] !== undefined) {
         return DependencyType.PeerDependencies
+      } else if (bundledDependencies?.[packageName] !== undefined) {
+        return DependencyType.BundledDependencies
       } else if (optionalDependencies?.[packageName] !== undefined) {
         return DependencyType.OptionalDependencies
       }
