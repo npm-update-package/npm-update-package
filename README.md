@@ -143,7 +143,7 @@ Dependency types to be updated.
 |---|---|
 |type|string[]|
 |required|-|
-|default|`dependencies`, `devDependencies`, `bundledDependencies`, `optionalDependencies`|
+|default|`dependencies`, `devDependencies`, `peerDependencies`, `bundledDependencies`, `optionalDependencies`|
 
 Available variables:
 
@@ -161,7 +161,7 @@ Example:
 ```sh
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
-  --dependency-types dependencies devDependencies peerDependencies bundledDependencies optionalDependencies
+  --dependency-types dependencies devDependencies
 ```
 
 ### `--fetch-release-notes`

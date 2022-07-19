@@ -40,6 +40,7 @@ export const cliOptions: CLIOption[] = [
     default: [
       DependencyType.Dependencies,
       DependencyType.DevDependencies,
+      DependencyType.PeerDependencies,
       DependencyType.BundledDependencies,
       DependencyType.OptionalDependencies
     ]
