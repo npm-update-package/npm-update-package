@@ -23,8 +23,30 @@ export class Ncu {
     return await this.run({
       packageManager: this.options.packageManager,
       jsonUpgraded: true,
+      dep: this.createDepOptionValue(),
       reject: this.options.ignorePackages
     })
+  }
+
+  private createDepOptionValue (): string {
+    return this.options.dependencyTypes
+      .map((dependencyType) => {
+        switch (dependencyType) {
+          case DependencyType.Dependencies:
+            return 'prod'
+          case DependencyType.DevDependencies:
+            return 'dev'
+          case DependencyType.PeerDependencies:
+            return 'peer'
+          case DependencyType.BundledDependencies:
+            return 'bundle'
+          case DependencyType.OptionalDependencies:
+            return 'optional'
+          default:
+            throw new Error()
+        }
+      })
+      .join(',')
   }
 
   async update (outdatedPackage: OutdatedPackage): Promise<OutdatedPackage[]> {
