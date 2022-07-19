@@ -124,7 +124,7 @@ Available variables:
 |`newVersion`|New package version|
 |`packageName`|Package name|
 |`level`|Semver level (`major`/`minor`/`patch`)|
-|`dependencyType`|Dependency type (`dependencies`/`devDependencies`/`peerDependencies`/`optionalDependencies`)|
+|`dependencyType`|Dependency type (`dependencies`/`devDependencies`/`peerDependencies`/`bundledDependencies`/`optionalDependencies`)|
 
 Example:
 
@@ -132,6 +132,35 @@ Example:
 npx npm-update-package \
   --github-token $GITHUB_TOKEN \
   --commit-message "chore({{{dependencyType}}}): {{{level}}} update {{{packageName}}} from {{{currentVersion}}} to v{{{newVersion}}}"
+```
+
+### `--dependency-types`
+
+Dependency types to be updated.
+
+|Name|Value|
+|---|---|
+|type|string[]|
+|required|-|
+|default|`dependencies`, `devDependencies`, `bundledDependencies`, `optionalDependencies`|
+
+Available variables:
+
+|Variable|Description|
+|---|---|
+|`dependencies`|dependencies|
+|`devDependencies`|devDependencies|
+|`peerDependencies`|peerDependencies|
+|`bundledDependencies`|bundledDependencies|
+|`optionalDependencies`|optionalDependencies|
+
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token $GITHUB_TOKEN \
+  --dependency-types dependencies devDependencies peerDependencies bundledDependencies optionalDependencies
 ```
 
 ### `--fetch-release-notes`
@@ -376,7 +405,7 @@ Available variables:
 |`newVersion`|New package version|
 |`packageName`|Package name|
 |`level`|Semver level (`major`/`minor`/`patch`)|
-|`dependencyType`|Dependency type (`dependencies`/`devDependencies`/`peerDependencies`/`optionalDependencies`)|
+|`dependencyType`|Dependency type (`dependencies`/`devDependencies`/`peerDependencies`/`bundledDependencies`/`optionalDependencies`)|
 
 Example:
 
