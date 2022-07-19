@@ -12,11 +12,19 @@ import {
 } from 'io-ts'
 import { LogLevel } from '../logger'
 import { OutdatedPullRequestStrategy } from '../outdated-package-processor'
+import { DependencyType } from '../package-json'
 import { PackageManagerName } from '../package-manager'
 
 const Options = intersection([
   type({
     commitMessage: string,
+    dependencyTypes: array(union([
+      literal(DependencyType.Dependencies),
+      literal(DependencyType.DevDependencies),
+      literal(DependencyType.PeerDependencies),
+      literal(DependencyType.BundledDependencies),
+      literal(DependencyType.OptionalDependencies)
+    ])),
     fetchReleaseNotes: boolean,
     fetchSleepTime: number,
     githubToken: string,
