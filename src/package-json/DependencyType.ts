@@ -2,6 +2,7 @@ export const DependencyType = {
   Dependencies: 'dependencies',
   DevDependencies: 'devDependencies',
   PeerDependencies: 'peerDependencies',
+  BundledDependencies: 'bundledDependencies',
   OptionalDependencies: 'optionalDependencies'
 } as const
 // eslint-disable-next-line @typescript-eslint/no-redeclare
