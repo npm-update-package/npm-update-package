@@ -136,7 +136,7 @@ npx npm-update-package \
 
 Dependency types to be updated.
 
-|Value|Description|
+|Name|Value|
 |---|---|
 |type|string[]|
 |required|-|
@@ -144,7 +144,7 @@ Dependency types to be updated.
 
 Allowed values:
 
-|Variable|Description|
+|Value|Description|
 |---|---|
 |`dependencies`|dependencies|
 |`devDependencies`|devDependencies|
