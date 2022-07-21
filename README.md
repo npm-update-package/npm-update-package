@@ -1,5 +1,4 @@
 [![npm version](https://badge.fury.io/js/npm-update-package.svg)](https://badge.fury.io/js/npm-update-package)
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![eslint](https://github.com/npm-update-package/npm-update-package/actions/workflows/eslint.yml/badge.svg)](https://github.com/npm-update-package/npm-update-package/actions/workflows/eslint.yml)
 [![test](https://github.com/npm-update-package/npm-update-package/actions/workflows/test.yml/badge.svg)](https://github.com/npm-update-package/npm-update-package/actions/workflows/test.yml)
 
