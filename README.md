@@ -136,13 +136,13 @@ npx npm-update-package \
 
 Dependency types to be updated.
 
-|Name|Value|
+|Value|Description|
 |---|---|
 |type|string[]|
 |required|-|
 |default|`dependencies`, `devDependencies`, `peerDependencies`, `bundledDependencies`, `optionalDependencies`|
 
-Available variables:
+Allowed values:
 
 |Variable|Description|
 |---|---|
