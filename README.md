@@ -142,9 +142,9 @@ Dependency types to be updated.
 |required|-|
 |default|`dependencies`, `devDependencies`, `peerDependencies`, `bundledDependencies`, `optionalDependencies`|
 
-Available variables:
+Allowed values:
 
-|Variable|Description|
+|Value|Description|
 |---|---|
 |`dependencies`|dependencies|
 |`devDependencies`|devDependencies|
