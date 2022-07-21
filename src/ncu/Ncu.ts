@@ -1,5 +1,7 @@
-import { run } from 'npm-check-updates'
-import type { RunOptions } from 'npm-check-updates/build/src/types'
+import {
+  run,
+  type RunOptions
+} from 'npm-check-updates'
 import { isNotUndefined } from 'type-guards'
 import type { OutdatedPackage } from '../core'
 import { readFile } from '../file'
