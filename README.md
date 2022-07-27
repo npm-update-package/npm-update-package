@@ -32,11 +32,11 @@ CLI tool for creating pull requests to update npm packages
   - [`--reviewers`](#--reviewers)
   - [`--reviewers-sample-size`](#--reviewers-sample-size)
 - [GitHub token](#github-token)
-- [Examples](#examples)
+- [How to run on GitHub Actions](#how-to-run-on-github-actions)
   - [Use token of GitHub Actions](#use-token-of-github-actions)
   - [Use token of GitHub App](#use-token-of-github-app)
   - [Use Personal access token](#use-personal-access-token)
-- [Flow](#flow)
+- [Architecture](#architecture)
 - [FAQ](#faq)
   - [What is the purpose of npm-update-package?](#what-is-the-purpose-of-npm-update-package)
   - [What should I do if conflicts occurred in the pull request?](#what-should-i-do-if-conflicts-occurred-in-the-pull-request)
@@ -58,7 +58,7 @@ CLI tool for creating pull requests to update npm packages
 ## Usage
 
 ```sh
-npx npm-update-package --github-token $GITHUB_TOKEN
+npx npm-update-package --github-token <github-token>
 ```
 
 ## Options
@@ -79,7 +79,7 @@ Example:
 
 ```sh
 npx npm-update-package \
-  --github-token $GITHUB_TOKEN \
+  --github-token <github-token> \
   --assignees alice bob
 ```
 
@@ -96,7 +96,7 @@ Example:
 
 ```sh
 npx npm-update-package \
-  --github-token $GITHUB_TOKEN \
+  --github-token <github-token> \
   --assignees alice bob \
   --assignees-sample-size 1
 ```
@@ -125,7 +125,7 @@ Example:
 
 ```sh
 npx npm-update-package \
-  --github-token $GITHUB_TOKEN \
+  --github-token <github-token> \
   --commit-message "chore({{{dependencyType}}}): {{{level}}} update {{{packageName}}} from {{{currentVersion}}} to v{{{newVersion}}}"
 ```
 
@@ -154,7 +154,7 @@ Example:
 
 ```sh
 npx npm-update-package \
-  --github-token $GITHUB_TOKEN \
+  --github-token <github-token> \
   --dependency-types dependencies devDependencies
 ```
 
@@ -172,7 +172,7 @@ Example:
 
 ```sh
 npx npm-update-package \
-  --github-token $GITHUB_TOKEN \
+  --github-token <github-token> \
   --fetch-release-notes false
 ```
 
@@ -190,7 +190,7 @@ Example:
 
 ```sh
 npx npm-update-package \
-  --github-token $GITHUB_TOKEN \
+  --github-token <github-token> \
   --fetch-sleep-time 2000
 ```
 
@@ -207,7 +207,7 @@ Example:
 
 ```sh
 npx npm-update-package \
-  --github-token $GITHUB_TOKEN \
+  --github-token <github-token> \
   --git-user-email alice@example.com
 ```
 
@@ -224,7 +224,7 @@ Example:
 
 ```sh
 npx npm-update-package \
-  --github-token $GITHUB_TOKEN \
+  --github-token <github-token> \
   --git-user-name alice
 ```
 
@@ -250,7 +250,7 @@ Example:
 
 ```sh
 npx npm-update-package \
-  --github-token $GITHUB_TOKEN \
+  --github-token <github-token> \
   --ignore-packages @types/jest jest
 ```
 
@@ -280,7 +280,7 @@ Example:
 
 ```sh
 npx npm-update-package \
-  --github-token $GITHUB_TOKEN \
+  --github-token <github-token> \
   --log-level debug
 ```
 
@@ -306,7 +306,7 @@ Example:
 
 ```sh
 npx npm-update-package \
-  --github-token $GITHUB_TOKEN \
+  --github-token <github-token> \
   --outdated-pr-strategy create
 ```
 
@@ -331,7 +331,7 @@ Example:
 
 ```sh
 npx npm-update-package \
-  --github-token $GITHUB_TOKEN \
+  --github-token <github-token> \
   --package-manager yarn
 ```
 
@@ -349,7 +349,7 @@ Example:
 
 ```sh
 npx npm-update-package \
-  --github-token $GITHUB_TOKEN \
+  --github-token <github-token> \
   --pr-body-github-host "github.example"
 ```
 
@@ -366,7 +366,7 @@ Example:
 
 ```sh
 npx npm-update-package \
-  --github-token $GITHUB_TOKEN \
+  --github-token <github-token> \
   --pr-body-notes "**:warning: Please see diff and release notes before merging.**"
 ```
 
@@ -394,7 +394,7 @@ Example:
 
 ```sh
 npx npm-update-package \
-  --github-token $GITHUB_TOKEN \
+  --github-token <github-token> \
   --pr-title "chore({{{dependencyType}}}): {{{level}}} update {{{packageName}}} from {{{currentVersion}}} to v{{{newVersion}}}"
 ```
 
@@ -411,7 +411,7 @@ Example:
 
 ```sh
 npx npm-update-package \
-  --github-token $GITHUB_TOKEN \
+  --github-token <github-token> \
   --reviewers alice bob
 ```
 
@@ -428,7 +428,7 @@ Example:
 
 ```sh
 npx npm-update-package \
-  --github-token $GITHUB_TOKEN \
+  --github-token <github-token> \
   --reviewers alice bob \
   --reviewers-sample-size 1
 ```
@@ -462,7 +462,7 @@ We recommend using GitHub App for the following reasons.
 
 Creating a GitHub App may be tedious, but you only have to do it once the first time.
 
-## Examples
+## How to run on GitHub Actions
 
 ### Use token of GitHub Actions
 
@@ -552,7 +552,7 @@ jobs:
 
 See working example on [example-pat](https://github.com/npm-update-package/example-pat).
 
-## Flow
+## Architecture
 
 The following shows the process flow of npm-update-package.
 
