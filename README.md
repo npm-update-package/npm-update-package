@@ -552,7 +552,7 @@ jobs:
 
 See working example on [example-pat](https://github.com/npm-update-package/example-pat).
 
-## Flow
+## Architecture
 
 The following shows the process flow of npm-update-package.
 
