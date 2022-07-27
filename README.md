@@ -36,7 +36,7 @@ CLI tool for creating pull requests to update npm packages
   - [Use token of GitHub Actions](#use-token-of-github-actions)
   - [Use token of GitHub App](#use-token-of-github-app)
   - [Use Personal access token](#use-personal-access-token)
-- [Flow](#flow)
+- [Architecture](#architecture)
 - [FAQ](#faq)
   - [What is the purpose of npm-update-package?](#what-is-the-purpose-of-npm-update-package)
   - [What should I do if conflicts occurred in the pull request?](#what-should-i-do-if-conflicts-occurred-in-the-pull-request)
