@@ -462,7 +462,7 @@ We recommend using GitHub App for the following reasons.
 
 Creating a GitHub App may be tedious, but you only have to do it once the first time.
 
-## Examples
+## How to run on GitHub Actions
 
 ### Use token of GitHub Actions
 
