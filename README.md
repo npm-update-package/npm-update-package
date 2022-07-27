@@ -32,7 +32,7 @@ CLI tool for creating pull requests to update npm packages
   - [`--reviewers`](#--reviewers)
   - [`--reviewers-sample-size`](#--reviewers-sample-size)
 - [GitHub token](#github-token)
-- [Examples](#examples)
+- [How to run on GitHub Actions](#how-to-run-on-github-actions)
   - [Use token of GitHub Actions](#use-token-of-github-actions)
   - [Use token of GitHub App](#use-token-of-github-app)
   - [Use Personal access token](#use-personal-access-token)
