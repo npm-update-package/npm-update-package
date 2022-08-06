@@ -7,6 +7,12 @@ import { OptionType } from './OptionType'
 
 export const cliOptions: CLIOption[] = [
   {
+    name: 'additional-labels',
+    description: 'Labels other than `npm-update-package` to add to pull request',
+    type: OptionType.StringArray,
+    required: false
+  },
+  {
     name: 'assignees',
     description: 'User names to assign to pull request',
     type: OptionType.StringArray,

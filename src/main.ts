@@ -17,6 +17,7 @@ import {
   BranchFinder,
   createGitHub,
   GitHubUrlOptimizer,
+  LabelsAdder,
   LabelCreator,
   PackageDiffsSectionCreator,
   PullRequestBodyCreator,
@@ -113,6 +114,11 @@ export const main = async (options: Options): Promise<void> => {
     packageDiffsSectionCreator,
     releaseNotesSectionCreator
   })
+  const labelsAdder = new LabelsAdder({
+    options,
+    github,
+    gitRepo
+  })
   const assigneesAdder = new AssigneesAdder({
     github,
     gitRepo
@@ -128,6 +134,7 @@ export const main = async (options: Options): Promise<void> => {
     githubRepo,
     pullRequestTitleCreator,
     pullRequestBodyCreator,
+    labelsAdder,
     assigneesAdder,
     reviewersAdder
   })

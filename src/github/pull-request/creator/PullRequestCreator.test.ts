@@ -6,6 +6,7 @@ import type {
   Repository as GitHubRepository
 } from '../../GitHub'
 import type { AssigneesAdder } from './AssigneesAdder'
+import type { LabelsAdder } from './LabelsAdder'
 import type { PullRequestBodyCreator } from './PullRequestBodyCreator'
 import { PullRequestCreator } from './PullRequestCreator'
 import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
@@ -17,6 +18,7 @@ describe('PullRequestCreator', () => {
     const pullRequestTitleCreatorCreateMock = jest.fn()
     const githubAddLabelsMock = jest.fn()
     const githubCreatePullRequestMock = jest.fn()
+    const labelsAdderAddMock = jest.fn()
     const assigneesAdderAddMock = jest.fn()
     const reviewersAdderAddMock = jest.fn()
     const github = {
@@ -36,6 +38,9 @@ describe('PullRequestCreator', () => {
     const pullRequestTitleCreator = {
       create: pullRequestTitleCreatorCreateMock
     } as unknown as PullRequestTitleCreator
+    const labelsAdder = {
+      add: labelsAdderAddMock
+    } as unknown as LabelsAdder
     const assigneesAdder = {
       add: assigneesAdderAddMock
     } as unknown as AssigneesAdder
@@ -43,6 +48,7 @@ describe('PullRequestCreator', () => {
       add: reviewersAdderAddMock
     } as unknown as ReviewersAdder
     const options = {
+      additionalLabels: ['bot', 'dependencies'],
       assignees: ['alice', 'bob'],
       assigneesSampleSize: 1,
       reviewers: ['carol', 'dave'],
@@ -55,6 +61,7 @@ describe('PullRequestCreator', () => {
       githubRepo,
       pullRequestTitleCreator,
       pullRequestBodyCreator,
+      labelsAdder,
       assigneesAdder,
       reviewersAdder
     })
@@ -90,12 +97,7 @@ describe('PullRequestCreator', () => {
         title,
         body
       })
-      expect(githubAddLabelsMock).toBeCalledWith({
-        owner: gitRepo.owner,
-        repo: gitRepo.name,
-        issueNumber: pullRequest.number,
-        labels: ['npm-update-package']
-      })
+      expect(labelsAdderAddMock).toBeCalledWith(pullRequest.number)
       expect(assigneesAdderAddMock).toBeCalledWith({
         issueNumber: pullRequest.number,
         assignees: options.assignees,

@@ -14,6 +14,7 @@ describe('isOptions', () => {
       expected: boolean
     }
     const options: Options = {
+      additionalLabels: ['bot', 'dependencies'],
       commitMessage: 'test commitMessage',
       dependencyTypes: [
         DependencyType.Dependencies,

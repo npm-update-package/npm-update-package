@@ -46,6 +46,7 @@ const Options = intersection([
     prTitle: string
   }),
   partial({
+    additionalLabels: array(string),
     assignees: array(string),
     assigneesSampleSize: number,
     gitUserEmail: string,

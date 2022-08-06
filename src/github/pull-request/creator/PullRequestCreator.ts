@@ -8,6 +8,7 @@ import type {
   Repository as GitHubRepository
 } from '../../GitHub'
 import type { AssigneesAdder } from './AssigneesAdder'
+import type { LabelsAdder } from './LabelsAdder'
 import type { PullRequestBodyCreator } from './PullRequestBodyCreator'
 import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
 import type { ReviewersAdder } from './ReviewersAdder'
@@ -19,6 +20,7 @@ export class PullRequestCreator {
   private readonly githubRepo: GitHubRepository
   private readonly pullRequestTitleCreator: PullRequestTitleCreator
   private readonly pullRequestBodyCreator: PullRequestBodyCreator
+  private readonly labelsAdder: LabelsAdder
   private readonly assigneesAdder: AssigneesAdder
   private readonly reviewersAdder: ReviewersAdder
 
@@ -29,6 +31,7 @@ export class PullRequestCreator {
     githubRepo,
     pullRequestTitleCreator,
     pullRequestBodyCreator,
+    labelsAdder,
     assigneesAdder,
     reviewersAdder
   }: {
@@ -38,6 +41,7 @@ export class PullRequestCreator {
     githubRepo: GitHubRepository
     pullRequestTitleCreator: PullRequestTitleCreator
     pullRequestBodyCreator: PullRequestBodyCreator
+    labelsAdder: LabelsAdder
     assigneesAdder: AssigneesAdder
     reviewersAdder: ReviewersAdder
   }) {
@@ -47,6 +51,7 @@ export class PullRequestCreator {
     this.githubRepo = githubRepo
     this.pullRequestTitleCreator = pullRequestTitleCreator
     this.pullRequestBodyCreator = pullRequestBodyCreator
+    this.labelsAdder = labelsAdder
     this.assigneesAdder = assigneesAdder
     this.reviewersAdder = reviewersAdder
   }
@@ -74,12 +79,7 @@ export class PullRequestCreator {
     })
     logger.debug(`pullRequest=${JSON.stringify(pullRequest)}`)
 
-    await this.github.addLabels({
-      owner: this.gitRepo.owner,
-      repo: this.gitRepo.name,
-      issueNumber: pullRequest.number,
-      labels: ['npm-update-package']
-    })
+    await this.labelsAdder.add(pullRequest.number)
 
     if (this.options.assignees !== undefined) {
       await this.assigneesAdder.add({
