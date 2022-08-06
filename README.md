@@ -13,6 +13,7 @@ CLI tool for creating pull requests to update npm packages
 - [Supported platforms](#supported-platforms)
 - [Usage](#usage)
 - [Options](#options)
+  - [`--additional-labels`](#--additional-labels)
   - [`--assignees`](#--assignees)
   - [`--assignees-sample-size`](#--assignees-sample-size)
   - [`--commit-message`](#--commit-message)
