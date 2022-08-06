@@ -29,6 +29,7 @@ describe('LabelsAdder', () => {
         github,
         gitRepo
       })
+
       await labelsAdder.add(issueNumber)
 
       expect(addLabelsMock).toBeCalledWith({
@@ -46,6 +47,7 @@ describe('LabelsAdder', () => {
         github,
         gitRepo
       })
+
       await labelsAdder.add(issueNumber)
 
       expect(addLabelsMock).toBeCalledWith({
