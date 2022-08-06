@@ -18,6 +18,9 @@ describe('createOptions', () => {
   beforeEach(() => {
     process.argv = [
       ...argv.slice(0, 2),
+      '--additional-labels',
+      'bot',
+      'dependencies',
       '--assignees',
       'alice',
       'bob',
@@ -72,6 +75,7 @@ describe('createOptions', () => {
     const actual = createOptions(cliOptions)
 
     const expected: Options = {
+      additionalLabels: ['bot', 'dependencies'],
       assignees: ['alice', 'bob'],
       assigneesSampleSize: 1,
       commitMessage: 'chore({{{dependencyType}}}): {{{level}}} update {{{packageName}}} from {{{currentVersion}}} to v{{{newVersion}}}',

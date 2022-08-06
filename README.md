@@ -66,6 +66,23 @@ npx npm-update-package --github-token <github-token>
 You can customize behavior via CLI options.  
 Some options can embed variables like `{{packageName}}`(HTML-escaped) or `{{{packageName}}}`(not HTML-escaped).
 
+### `--additional-labels`
+
+Labels other than `npm-update-package` to add to pull request.
+
+|Name|Value|
+|---|---|
+|type|string[]|
+|required|-|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token <github-token> \
+  --additional-labels bot dependencies
+```
+
 ### `--assignees`
 
 User names to assign to pull request.
