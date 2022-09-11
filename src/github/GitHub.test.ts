@@ -72,7 +72,7 @@ describe('GitHub', () => {
         assignees
       })
 
-      expect(issuesAddAssigneesMock).toBeCalledWith({
+      expect(issuesAddAssigneesMock).toHaveBeenCalledWith({
         owner,
         repo,
         issue_number: issueNumber,
@@ -95,7 +95,7 @@ describe('GitHub', () => {
         labels
       })
 
-      expect(issuesAddLabelsMock).toBeCalledWith({
+      expect(issuesAddLabelsMock).toHaveBeenCalledWith({
         owner,
         repo,
         issue_number: issueNumber,
@@ -116,7 +116,7 @@ describe('GitHub', () => {
         pullNumber
       })
 
-      expect(pullsUpdateMock).toBeCalledWith({
+      expect(pullsUpdateMock).toHaveBeenCalledWith({
         owner,
         repo,
         pull_number: pullNumber,
@@ -141,7 +141,7 @@ describe('GitHub', () => {
         color
       })
 
-      expect(issuesCreateLabelMock).toBeCalledWith({
+      expect(issuesCreateLabelMock).toHaveBeenCalledWith({
         owner,
         repo,
         name,
@@ -174,7 +174,7 @@ describe('GitHub', () => {
       })
 
       expect(actual).toBe(expected)
-      expect(pullsCreateMock).toBeCalledWith({
+      expect(pullsCreateMock).toHaveBeenCalledWith({
         owner,
         repo,
         base: baseBranch,
@@ -197,7 +197,7 @@ describe('GitHub', () => {
         branch
       })
 
-      expect(gitDeleteRefMock).toBeCalledWith({
+      expect(gitDeleteRefMock).toHaveBeenCalledWith({
         owner,
         repo,
         ref: `heads/${branch}`
@@ -233,9 +233,9 @@ describe('GitHub', () => {
 
       expect.assertions(2 + 10)
       expect(actual).toEqual(Array.from(branchesByPage.values()).flat())
-      expect(reposListBranchesMock).toBeCalledTimes(10)
+      expect(reposListBranchesMock).toHaveBeenCalledTimes(10)
       Array.from(branchesByPage.keys()).forEach(page => {
-        expect(reposListBranchesMock).toBeCalledWith({
+        expect(reposListBranchesMock).toHaveBeenCalledWith({
           owner,
           repo,
           per_page: 100,
@@ -262,7 +262,7 @@ describe('GitHub', () => {
       })
 
       expect(actual).toBe(expected)
-      expect(issuesGetLabelMock).toBeCalledWith({
+      expect(issuesGetLabelMock).toHaveBeenCalledWith({
         owner,
         repo,
         name
@@ -298,9 +298,9 @@ describe('GitHub', () => {
 
       expect.assertions(2 + 10)
       expect(actual).toEqual(Array.from(pullRequestsByPage.values()).flat())
-      expect(pullsListMock).toBeCalledTimes(10)
+      expect(pullsListMock).toHaveBeenCalledTimes(10)
       Array.from(pullRequestsByPage.keys()).forEach(page => {
-        expect(pullsListMock).toBeCalledWith({
+        expect(pullsListMock).toHaveBeenCalledWith({
           owner,
           repo,
           per_page: 100,
@@ -325,7 +325,7 @@ describe('GitHub', () => {
       })
 
       expect(actual).toBe(expected)
-      expect(reposGetMock).toBeCalledWith({
+      expect(reposGetMock).toHaveBeenCalledWith({
         owner,
         repo
       })
@@ -346,7 +346,7 @@ describe('GitHub', () => {
         reviewers
       })
 
-      expect(pullsRequestReviewersMock).toBeCalledWith({
+      expect(pullsRequestReviewersMock).toHaveBeenCalledWith({
         owner,
         repo,
         pull_number: pullNumber,

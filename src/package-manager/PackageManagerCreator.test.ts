@@ -30,7 +30,7 @@ describe('PackageManagerCreator', () => {
         const actual = await packageManagerCreator.create(terminal)
 
         expect(actual).toBeInstanceOf(expected)
-        expect(detectPackageManagerMock).not.toBeCalled()
+        expect(detectPackageManagerMock).not.toHaveBeenCalled()
       })
     })
 
@@ -46,7 +46,7 @@ describe('PackageManagerCreator', () => {
         const actual = await packageManagerCreator.create(terminal)
 
         expect(actual).toBeInstanceOf(expected)
-        expect(detectPackageManagerMock).toBeCalledWith()
+        expect(detectPackageManagerMock).toHaveBeenCalledWith()
       })
     })
   })

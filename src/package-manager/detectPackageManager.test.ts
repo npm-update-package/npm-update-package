@@ -17,8 +17,8 @@ describe('detectPackageManager', () => {
     const actual = await detectPackageManager()
 
     expect(actual).toBe(PackageManagerName.Npm)
-    expect(canReadWriteMock).toBeCalledTimes(1)
-    expect(canReadWriteMock).toBeCalledWith('package-lock.json')
+    expect(canReadWriteMock).toHaveBeenCalledTimes(1)
+    expect(canReadWriteMock).toHaveBeenCalledWith('package-lock.json')
   })
 
   it('returns PackageManagerName.Yarn if package-lock.json does not exist and yarn.lock exists', async () => {
@@ -27,9 +27,9 @@ describe('detectPackageManager', () => {
     const actual = await detectPackageManager()
 
     expect(actual).toBe(PackageManagerName.Yarn)
-    expect(canReadWriteMock).toBeCalledTimes(2)
-    expect(canReadWriteMock).toBeCalledWith('package-lock.json')
-    expect(canReadWriteMock).toBeCalledWith('yarn.lock')
+    expect(canReadWriteMock).toHaveBeenCalledTimes(2)
+    expect(canReadWriteMock).toHaveBeenCalledWith('package-lock.json')
+    expect(canReadWriteMock).toHaveBeenCalledWith('yarn.lock')
   })
 
   it('throws error if no lock file exists', async () => {
@@ -37,8 +37,8 @@ describe('detectPackageManager', () => {
 
     await expect(async () => await detectPackageManager()).rejects.toThrow(Error)
 
-    expect(canReadWriteMock).toBeCalledTimes(2)
-    expect(canReadWriteMock).toBeCalledWith('package-lock.json')
-    expect(canReadWriteMock).toBeCalledWith('yarn.lock')
+    expect(canReadWriteMock).toHaveBeenCalledTimes(2)
+    expect(canReadWriteMock).toHaveBeenCalledWith('package-lock.json')
+    expect(canReadWriteMock).toHaveBeenCalledWith('yarn.lock')
   })
 })

@@ -82,10 +82,10 @@ describe('OutdatedPackagesProcessor', () => {
         skippedResult,
         failedResult
       ])
-      expect(outdatedPackageProcessorProcessMock).toBeCalledTimes(3)
-      expect(outdatedPackageProcessorProcessMock).toBeCalledWith(packageToBeCreated)
-      expect(outdatedPackageProcessorProcessMock).toBeCalledWith(packageToBeSkipped)
-      expect(outdatedPackageProcessorProcessMock).toBeCalledWith(packageToBeFailed)
+      expect(outdatedPackageProcessorProcessMock).toHaveBeenCalledTimes(3)
+      expect(outdatedPackageProcessorProcessMock).toHaveBeenCalledWith(packageToBeCreated)
+      expect(outdatedPackageProcessorProcessMock).toHaveBeenCalledWith(packageToBeSkipped)
+      expect(outdatedPackageProcessorProcessMock).toHaveBeenCalledWith(packageToBeFailed)
     })
   })
 })

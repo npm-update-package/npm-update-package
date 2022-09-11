@@ -22,6 +22,6 @@ describe('readFile', () => {
     const actual = await readFile(path)
 
     expect(actual).toBe(expected)
-    expect(readFileMock).toBeCalledWith(path, 'utf8')
+    expect(readFileMock).toHaveBeenCalledWith(path, 'utf8')
   })
 })

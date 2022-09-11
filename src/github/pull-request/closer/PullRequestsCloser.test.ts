@@ -25,9 +25,9 @@ describe('PullRequestsCloser', () => {
 
       await pullRequestsCloser.close(pullRequests)
 
-      expect(pullRequestCloserCloseMock).toBeCalledTimes(2)
-      expect(pullRequestCloserCloseMock).toBeCalledWith(pullRequest1)
-      expect(pullRequestCloserCloseMock).toBeCalledWith(pullRequest2)
+      expect(pullRequestCloserCloseMock).toHaveBeenCalledTimes(2)
+      expect(pullRequestCloserCloseMock).toHaveBeenCalledWith(pullRequest1)
+      expect(pullRequestCloserCloseMock).toHaveBeenCalledWith(pullRequest2)
     })
   })
 })

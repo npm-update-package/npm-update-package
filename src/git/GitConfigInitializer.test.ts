@@ -24,7 +24,7 @@ describe('GitConfigInitializer', () => {
 
       await gitConfigInitializer.initialize()
 
-      expect(setConfigMock).toBeCalledWith('user.name', options.gitUserName)
+      expect(setConfigMock).toHaveBeenCalledWith('user.name', options.gitUserName)
     })
 
     it('sets git user email if options.gitUserEmail exists', async () => {
@@ -38,7 +38,7 @@ describe('GitConfigInitializer', () => {
 
       await gitConfigInitializer.initialize()
 
-      expect(setConfigMock).toBeCalledWith('user.email', options.gitUserEmail)
+      expect(setConfigMock).toHaveBeenCalledWith('user.email', options.gitUserEmail)
     })
   })
 })

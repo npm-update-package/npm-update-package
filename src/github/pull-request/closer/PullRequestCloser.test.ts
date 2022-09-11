@@ -36,12 +36,12 @@ describe('PullRequestCloser', () => {
 
       await pullRequestCreator.close(pullRequest)
 
-      expect(githubClosePullRequestMock).toBeCalledWith({
+      expect(githubClosePullRequestMock).toHaveBeenCalledWith({
         owner: pullRequest.base.repo.owner.login,
         repo: pullRequest.base.repo.name,
         pullNumber: pullRequest.number
       })
-      expect(githubDeleteBranchMock).toBeCalledWith({
+      expect(githubDeleteBranchMock).toHaveBeenCalledWith({
         owner: pullRequest.base.repo.owner.login,
         repo: pullRequest.base.repo.name,
         branch: pullRequest.head.ref

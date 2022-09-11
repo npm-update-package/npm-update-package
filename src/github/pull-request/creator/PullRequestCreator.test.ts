@@ -87,9 +87,9 @@ describe('PullRequestCreator', () => {
         branchName
       })
 
-      expect(pullRequestTitleCreatorCreateMock).toBeCalledWith(outdatedPackage)
-      expect(pullRequestBodyCreatorCreateMock).toBeCalledWith(outdatedPackage)
-      expect(githubCreatePullRequestMock).toBeCalledWith({
+      expect(pullRequestTitleCreatorCreateMock).toHaveBeenCalledWith(outdatedPackage)
+      expect(pullRequestBodyCreatorCreateMock).toHaveBeenCalledWith(outdatedPackage)
+      expect(githubCreatePullRequestMock).toHaveBeenCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
         baseBranch: githubRepo.default_branch,
@@ -97,13 +97,13 @@ describe('PullRequestCreator', () => {
         title,
         body
       })
-      expect(labelsAdderAddMock).toBeCalledWith(pullRequest.number)
-      expect(assigneesAdderAddMock).toBeCalledWith({
+      expect(labelsAdderAddMock).toHaveBeenCalledWith(pullRequest.number)
+      expect(assigneesAdderAddMock).toHaveBeenCalledWith({
         issueNumber: pullRequest.number,
         assignees: options.assignees,
         size: options.assigneesSampleSize
       })
-      expect(reviewersAdderAddMock).toBeCalledWith({
+      expect(reviewersAdderAddMock).toHaveBeenCalledWith({
         pullNumber: pullRequest.number,
         reviewers: options.reviewers,
         size: options.reviewersSampleSize

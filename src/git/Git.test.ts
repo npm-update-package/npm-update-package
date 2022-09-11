@@ -21,7 +21,7 @@ describe('Git', () => {
 
       await git.add(...files)
 
-      expect(terminalRunMock).toBeCalledWith('git', 'add', ...files)
+      expect(terminalRunMock).toHaveBeenCalledWith('git', 'add', ...files)
     })
   })
 
@@ -31,7 +31,7 @@ describe('Git', () => {
 
       await git.commit(message)
 
-      expect(terminalRunMock).toBeCalledWith('git', 'commit', '--message', message)
+      expect(terminalRunMock).toHaveBeenCalledWith('git', 'commit', '--message', message)
     })
   })
 
@@ -41,7 +41,7 @@ describe('Git', () => {
 
       await git.createBranch(branchName)
 
-      expect(terminalRunMock).toBeCalledWith('git', 'checkout', '-b', branchName)
+      expect(terminalRunMock).toHaveBeenCalledWith('git', 'checkout', '-b', branchName)
     })
   })
 
@@ -53,7 +53,7 @@ describe('Git', () => {
       const actual = await git.getRemoteUrl()
 
       expect(actual).toBe(expected)
-      expect(terminalRunMock).toBeCalledWith('git', 'remote', 'get-url', '--push', 'origin')
+      expect(terminalRunMock).toHaveBeenCalledWith('git', 'remote', 'get-url', '--push', 'origin')
     })
   })
 
@@ -63,7 +63,7 @@ describe('Git', () => {
 
       await git.push(branchName)
 
-      expect(terminalRunMock).toBeCalledWith('git', 'push', 'origin', branchName)
+      expect(terminalRunMock).toHaveBeenCalledWith('git', 'push', 'origin', branchName)
     })
   })
 
@@ -73,7 +73,7 @@ describe('Git', () => {
 
       await git.removeBranch(branchName)
 
-      expect(terminalRunMock).toBeCalledWith('git', 'branch', '-D', branchName)
+      expect(terminalRunMock).toHaveBeenCalledWith('git', 'branch', '-D', branchName)
     })
   })
 
@@ -86,7 +86,7 @@ describe('Git', () => {
 
       await git.restore(...files)
 
-      expect(terminalRunMock).toBeCalledWith('git', 'checkout', ...files)
+      expect(terminalRunMock).toHaveBeenCalledWith('git', 'checkout', ...files)
     })
   })
 
@@ -97,7 +97,7 @@ describe('Git', () => {
 
       await git.setConfig(key, value)
 
-      expect(terminalRunMock).toBeCalledWith('git', 'config', key, value)
+      expect(terminalRunMock).toHaveBeenCalledWith('git', 'config', key, value)
     })
   })
 
@@ -107,7 +107,7 @@ describe('Git', () => {
 
       await git.switch(branchName)
 
-      expect(terminalRunMock).toBeCalledWith('git', 'checkout', branchName)
+      expect(terminalRunMock).toHaveBeenCalledWith('git', 'checkout', branchName)
     })
   })
 })

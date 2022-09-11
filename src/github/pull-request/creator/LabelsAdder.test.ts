@@ -32,7 +32,7 @@ describe('LabelsAdder', () => {
 
       await labelsAdder.add(issueNumber)
 
-      expect(addLabelsMock).toBeCalledWith({
+      expect(addLabelsMock).toHaveBeenCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
         issueNumber,
@@ -50,7 +50,7 @@ describe('LabelsAdder', () => {
 
       await labelsAdder.add(issueNumber)
 
-      expect(addLabelsMock).toBeCalledWith({
+      expect(addLabelsMock).toHaveBeenCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
         issueNumber,
