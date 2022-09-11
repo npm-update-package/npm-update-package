@@ -39,8 +39,8 @@ describe('PackageUpdater', () => {
 
       await packageUpdater.update(outdatedPackage)
 
-      expect(ncuUpdateMock).toBeCalledWith(outdatedPackage)
-      expect(packageManagerInstallMock).toBeCalledWith()
+      expect(ncuUpdateMock).toHaveBeenCalledWith(outdatedPackage)
+      expect(packageManagerInstallMock).toHaveBeenCalledWith()
     })
 
     it('throws error if failed to install package', async () => {
@@ -48,8 +48,8 @@ describe('PackageUpdater', () => {
 
       await expect(async () => await packageUpdater.update(outdatedPackage)).rejects.toThrow(Error)
 
-      expect(ncuUpdateMock).toBeCalledWith(outdatedPackage)
-      expect(packageManagerInstallMock).not.toBeCalled()
+      expect(ncuUpdateMock).toHaveBeenCalledWith(outdatedPackage)
+      expect(packageManagerInstallMock).not.toHaveBeenCalled()
     })
   })
 })

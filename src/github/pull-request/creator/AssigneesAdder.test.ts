@@ -34,8 +34,8 @@ describe('AssigneesAdder', () => {
         assignees
       })
 
-      expect(sampleSizeMock).not.toBeCalled()
-      expect(addAssigneesMock).toBeCalledWith({
+      expect(sampleSizeMock).not.toHaveBeenCalled()
+      expect(addAssigneesMock).toHaveBeenCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
         issueNumber,
@@ -53,8 +53,8 @@ describe('AssigneesAdder', () => {
         size
       })
 
-      expect(sampleSizeMock).toBeCalledWith(assignees, size)
-      expect(addAssigneesMock).toBeCalledWith({
+      expect(sampleSizeMock).toHaveBeenCalledWith(assignees, size)
+      expect(addAssigneesMock).toHaveBeenCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
         issueNumber,

@@ -38,13 +38,13 @@ describe('LabelCreator', () => {
         color: 'A00F21'
       })
 
-      expect(fetchLabelMock).toBeCalledWith({
+      expect(fetchLabelMock).toHaveBeenCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
         name: 'npm-update-package'
       })
-      expect(isNotFoundErrorMock).not.toBeCalled()
-      expect(createLabelMock).not.toBeCalled()
+      expect(isNotFoundErrorMock).not.toHaveBeenCalled()
+      expect(createLabelMock).not.toHaveBeenCalled()
     })
 
     it('creates label if it does not exist', async () => {
@@ -58,13 +58,13 @@ describe('LabelCreator', () => {
         color: 'A00F21'
       })
 
-      expect(fetchLabelMock).toBeCalledWith({
+      expect(fetchLabelMock).toHaveBeenCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
         name: 'npm-update-package'
       })
-      expect(isNotFoundErrorMock).toBeCalledWith(error)
-      expect(createLabelMock).toBeCalledWith({
+      expect(isNotFoundErrorMock).toHaveBeenCalledWith(error)
+      expect(createLabelMock).toHaveBeenCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
         name: 'npm-update-package',
@@ -84,13 +84,13 @@ describe('LabelCreator', () => {
         color: 'A00F21'
       })).rejects.toThrow(error)
 
-      expect(fetchLabelMock).toBeCalledWith({
+      expect(fetchLabelMock).toHaveBeenCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
         name: 'npm-update-package'
       })
-      expect(isNotFoundErrorMock).toBeCalledWith(error)
-      expect(createLabelMock).not.toBeCalled()
+      expect(isNotFoundErrorMock).toHaveBeenCalledWith(error)
+      expect(createLabelMock).not.toHaveBeenCalled()
     })
   })
 })

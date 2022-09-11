@@ -34,8 +34,8 @@ describe('ReviewersAdder', () => {
         reviewers
       })
 
-      expect(sampleSizeMock).not.toBeCalled()
-      expect(requestReviewersMock).toBeCalledWith({
+      expect(sampleSizeMock).not.toHaveBeenCalled()
+      expect(requestReviewersMock).toHaveBeenCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
         pullNumber,
@@ -53,8 +53,8 @@ describe('ReviewersAdder', () => {
         size
       })
 
-      expect(sampleSizeMock).toBeCalledWith(reviewers, size)
-      expect(requestReviewersMock).toBeCalledWith({
+      expect(sampleSizeMock).toHaveBeenCalledWith(reviewers, size)
+      expect(requestReviewersMock).toHaveBeenCalledWith({
         owner: gitRepo.owner,
         repo: gitRepo.name,
         pullNumber,

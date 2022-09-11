@@ -31,7 +31,7 @@ describe('Yarn', () => {
         const actual = await yarn.getVersions(packageName)
 
         expect(actual).toEqual(expected)
-        expect(terminalRunMock).toBeCalledWith('yarn', 'info', packageName, 'versions', '--json')
+        expect(terminalRunMock).toHaveBeenCalledWith('yarn', 'info', packageName, 'versions', '--json')
       })
 
       it('throws error if stdout is invalid', async () => {
@@ -39,7 +39,7 @@ describe('Yarn', () => {
 
         await expect(async () => await yarn.getVersions(packageName)).rejects.toThrow(Error)
 
-        expect(terminalRunMock).toBeCalledWith('yarn', 'info', packageName, 'versions', '--json')
+        expect(terminalRunMock).toHaveBeenCalledWith('yarn', 'info', packageName, 'versions', '--json')
       })
     })
   })
@@ -48,7 +48,7 @@ describe('Yarn', () => {
     it('calls `yarn install`', async () => {
       await yarn.install()
 
-      expect(terminalRunMock).toBeCalledWith('yarn', 'install')
+      expect(terminalRunMock).toHaveBeenCalledWith('yarn', 'install')
     })
   })
 })

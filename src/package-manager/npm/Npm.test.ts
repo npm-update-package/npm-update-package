@@ -26,7 +26,7 @@ describe('Npm', () => {
         const actual = await npm.getVersions(packageName)
 
         expect(actual).toEqual(expected)
-        expect(terminalRunMock).toBeCalledWith('npm', 'info', packageName, 'versions', '--json')
+        expect(terminalRunMock).toHaveBeenCalledWith('npm', 'info', packageName, 'versions', '--json')
       })
 
       it('throws error if stdout is invalid', async () => {
@@ -34,7 +34,7 @@ describe('Npm', () => {
 
         await expect(async () => await npm.getVersions(packageName)).rejects.toThrow(Error)
 
-        expect(terminalRunMock).toBeCalledWith('npm', 'info', packageName, 'versions', '--json')
+        expect(terminalRunMock).toHaveBeenCalledWith('npm', 'info', packageName, 'versions', '--json')
       })
     })
   })
@@ -43,7 +43,7 @@ describe('Npm', () => {
     it('calls `npm install', async () => {
       await npm.install()
 
-      expect(terminalRunMock).toBeCalledWith('npm', 'install')
+      expect(terminalRunMock).toHaveBeenCalledWith('npm', 'install')
     })
   })
 })

@@ -45,6 +45,6 @@ describe('initOptions', () => {
     const actual = initOptions()
 
     expect(actual).toBe(expected)
-    expect(createOptionsMock).toBeCalledWith(cliOptions)
+    expect(createOptionsMock).toHaveBeenCalledWith(cliOptions)
   })
 })

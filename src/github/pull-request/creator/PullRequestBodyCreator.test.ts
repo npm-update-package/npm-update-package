@@ -256,20 +256,20 @@ describe('PullRequestBodyCreator', () => {
 
         expect.assertions(11)
         expect(actual).toBe(expected)
-        expect(readFileMock).toBeCalledWith('node_modules/@npm-update-package/example/package.json')
-        expect(parsePackageJsonMock).toBeCalledWith(packageJson)
-        expect(extractRepositoryMock).toBeCalledWith(packageMetadata)
-        expect(createOutdatedPackagesTableMock).toBeCalledWith(outdatedPackage)
-        expect(packageDiffsSectionCreatorCreateMock).toBeCalledWith({
+        expect(readFileMock).toHaveBeenCalledWith('node_modules/@npm-update-package/example/package.json')
+        expect(parsePackageJsonMock).toHaveBeenCalledWith(packageJson)
+        expect(extractRepositoryMock).toHaveBeenCalledWith(packageMetadata)
+        expect(createOutdatedPackagesTableMock).toHaveBeenCalledWith(outdatedPackage)
+        expect(packageDiffsSectionCreatorCreateMock).toHaveBeenCalledWith({
           outdatedPackage,
           gitRepo
         })
-        expect(createMetadataSectionMock).toBeCalledWith(outdatedPackage)
-        expect(createFooterMock).toBeCalledWith()
+        expect(createMetadataSectionMock).toHaveBeenCalledWith(outdatedPackage)
+        expect(createFooterMock).toHaveBeenCalledWith()
 
         if (options.fetchReleaseNotes && gitRepo?.isGitHub === true) {
           // eslint-disable-next-line jest/no-conditional-expect
-          expect(releasesFetcherFetchMock).toBeCalledWith({
+          expect(releasesFetcherFetchMock).toHaveBeenCalledWith({
             gitRepo,
             packageName: outdatedPackage.name,
             from: outdatedPackage.currentVersion,
@@ -278,24 +278,24 @@ describe('PullRequestBodyCreator', () => {
 
           if (releases.length > 0) {
             // eslint-disable-next-line jest/no-conditional-expect
-            expect(releaseNotesSectionCreatorCreateMock).toBeCalledWith(releases)
+            expect(releaseNotesSectionCreatorCreateMock).toHaveBeenCalledWith(releases)
           } else {
             // eslint-disable-next-line jest/no-conditional-expect
-            expect(releaseNotesSectionCreatorCreateMock).not.toBeCalled()
+            expect(releaseNotesSectionCreatorCreateMock).not.toHaveBeenCalled()
           }
         } else {
           // eslint-disable-next-line jest/no-conditional-expect
-          expect(releasesFetcherFetchMock).not.toBeCalled()
+          expect(releasesFetcherFetchMock).not.toHaveBeenCalled()
           // eslint-disable-next-line jest/no-conditional-expect
-          expect(releaseNotesSectionCreatorCreateMock).not.toBeCalled()
+          expect(releaseNotesSectionCreatorCreateMock).not.toHaveBeenCalled()
         }
 
         if (options.prBodyNotes !== undefined) {
           // eslint-disable-next-line jest/no-conditional-expect
-          expect(createNotesSectionMock).toBeCalledWith(options.prBodyNotes)
+          expect(createNotesSectionMock).toHaveBeenCalledWith(options.prBodyNotes)
         } else {
           // eslint-disable-next-line jest/no-conditional-expect
-          expect(createNotesSectionMock).not.toBeCalled()
+          expect(createNotesSectionMock).not.toHaveBeenCalled()
         }
       })
     })
