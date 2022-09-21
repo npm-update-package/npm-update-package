@@ -32,7 +32,6 @@
     "type-guards": "0.15.0"
   },
   "devDependencies": {
-    "@jest/types": "29.0.3",
     "@tsconfig/node14": "1.0.3",
     "@types/jest": "29.0.3",
     "@types/lodash": "4.14.185",
