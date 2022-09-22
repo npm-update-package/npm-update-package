@@ -1,7 +1,5 @@
-import {
-  isDependencyType,
-  DependencyType
-} from './DependencyType'
+import { describe, expect, it } from '@jest/globals'
+import { isDependencyType, DependencyType } from './DependencyType'
 
 describe('isDependencyType', () => {
   describe('returns whether value is DependencyType', () => {

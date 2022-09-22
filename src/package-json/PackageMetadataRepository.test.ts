@@ -1,7 +1,6 @@
-import {
-  isPackageMetadataRepository,
-  type PackageMetadataRepository
-} from './PackageMetadataRepository'
+import { describe, expect, it } from '@jest/globals'
+import { isPackageMetadataRepository } from './PackageMetadataRepository'
+import type { PackageMetadataRepository } from './PackageMetadataRepository'
 
 describe('isPackageMetadataRepository', () => {
   describe('returns whether value is PackageMetadataRepository', () => {
