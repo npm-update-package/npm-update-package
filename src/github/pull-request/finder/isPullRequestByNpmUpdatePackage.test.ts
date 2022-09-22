@@ -1,3 +1,4 @@
+import { describe, expect, it } from '@jest/globals'
 import type { PullRequest } from '../../GitHub'
 import { isPullRequestByNpmUpdatePackage } from './isPullRequestByNpmUpdatePackage'
 
