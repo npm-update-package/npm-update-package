@@ -1,6 +1,7 @@
+import { afterEach, describe, expect, it, jest } from '@jest/globals'
 import { GitRepository } from '../../../git'
 import { isNotFoundError } from '../../errors'
-import type { GitHub } from '../../GitHub'
+import type { GitHub, Label } from '../../GitHub'
 import { LabelCreator } from './LabelCreator'
 
 jest.mock('../../errors')
@@ -8,8 +9,8 @@ jest.mock('../../errors')
 describe('LabelCreator', () => {
   describe('create', () => {
     const isNotFoundErrorMock = jest.mocked(isNotFoundError)
-    const createLabelMock = jest.fn()
-    const fetchLabelMock = jest.fn()
+    const createLabelMock = jest.fn<GitHub['createLabel']>()
+    const fetchLabelMock = jest.fn<GitHub['fetchLabel']>()
     const github = {
       createLabel: createLabelMock,
       fetchLabel: fetchLabelMock
@@ -28,9 +29,10 @@ describe('LabelCreator', () => {
     })
 
     it('does not create label if it already exists', async () => {
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       fetchLabelMock.mockResolvedValue({
         name: 'npm-update-package'
-      })
+      } as Label)
 
       await labelCreator.create({
         name: 'npm-update-package',
