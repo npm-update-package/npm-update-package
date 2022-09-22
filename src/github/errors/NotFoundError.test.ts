@@ -1,3 +1,4 @@
+import { describe, expect, it } from '@jest/globals'
 import { RequestError } from '@octokit/request-error'
 import type { RequestOptions } from '@octokit/types'
 import { StatusCodes } from 'http-status-codes'
