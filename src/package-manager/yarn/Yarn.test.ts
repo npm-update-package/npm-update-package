@@ -1,5 +1,4 @@
 import { afterEach, describe, expect, it, jest } from '@jest/globals'
-import type { ExecaReturnValue } from 'execa'
 import type { Terminal } from '../../terminal'
 import { Yarn } from './Yarn'
 
@@ -29,7 +28,7 @@ describe('Yarn', () => {
             type: 'inspect',
             data: expected
           })
-        } as ExecaReturnValue<string>)
+        } as Awaited<ReturnType<typeof terminalRunMock>>)
 
         const actual = await yarn.getVersions(packageName)
 
@@ -39,7 +38,7 @@ describe('Yarn', () => {
 
       it('throws error if stdout is invalid', async () => {
         // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify({}) } as ExecaReturnValue<string>)
+        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify({}) } as Awaited<ReturnType<typeof terminalRunMock>>)
 
         await expect(async () => await yarn.getVersions(packageName)).rejects.toThrow(Error)
 
