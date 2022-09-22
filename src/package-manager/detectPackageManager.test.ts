@@ -1,3 +1,4 @@
+import { afterEach, describe, expect, it, jest } from '@jest/globals'
 import { canReadWrite } from '../file'
 import { detectPackageManager } from './detectPackageManager'
 import { PackageManagerName } from './PackageManagerName'
