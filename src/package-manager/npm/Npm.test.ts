@@ -1,8 +1,10 @@
+import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import type { ExecaReturnValue } from 'execa'
 import type { Terminal } from '../../terminal'
 import { Npm } from './Npm'
 
 describe('Npm', () => {
-  const terminalRunMock = jest.fn()
+  const terminalRunMock = jest.fn<Terminal['run']>()
   const terminal = {
     run: terminalRunMock
   } as unknown as Terminal
@@ -21,7 +23,8 @@ describe('Npm', () => {
           '1.0.0',
           '2.0.0'
         ]
-        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify(expected) })
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify(expected) } as ExecaReturnValue<string>)
 
         const actual = await npm.getVersions(packageName)
 
@@ -30,7 +33,8 @@ describe('Npm', () => {
       })
 
       it('throws error if stdout is invalid', async () => {
-        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify({}) })
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify({}) } as ExecaReturnValue<string>)
 
         await expect(async () => await npm.getVersions(packageName)).rejects.toThrow(Error)
 
