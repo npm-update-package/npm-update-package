@@ -1,13 +1,11 @@
-import type {
-  GitHub,
-  PullRequest
-} from '../../GitHub'
+import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import { GitHub, PullRequest } from '../../GitHub'
 import { PullRequestCloser } from './PullRequestCloser'
 
 describe('PullRequestCloser', () => {
   describe('close', () => {
-    const githubClosePullRequestMock = jest.fn()
-    const githubDeleteBranchMock = jest.fn()
+    const githubClosePullRequestMock = jest.fn<GitHub['closePullRequest']>()
+    const githubDeleteBranchMock = jest.fn<GitHub['deleteBranch']>()
     const github = {
       closePullRequest: githubClosePullRequestMock,
       deleteBranch: githubDeleteBranchMock

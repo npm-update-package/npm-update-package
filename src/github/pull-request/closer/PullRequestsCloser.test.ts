@@ -1,10 +1,11 @@
+import { afterEach, describe, expect, it, jest } from '@jest/globals'
 import type { PullRequest } from '../../GitHub'
 import type { PullRequestCloser } from './PullRequestCloser'
 import { PullRequestsCloser } from './PullRequestsCloser'
 
 describe('PullRequestsCloser', () => {
   describe('close', () => {
-    const pullRequestCloserCloseMock = jest.fn()
+    const pullRequestCloserCloseMock = jest.fn<PullRequestCloser['close']>()
     const pullRequestCloser = {
       close: pullRequestCloserCloseMock
     } as unknown as PullRequestCloser
