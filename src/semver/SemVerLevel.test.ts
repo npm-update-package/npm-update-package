@@ -1,7 +1,5 @@
-import {
-  isSemVerLevel,
-  SemVerLevel
-} from './SemVerLevel'
+import { describe, expect, it } from '@jest/globals'
+import { isSemVerLevel, SemVerLevel } from './SemVerLevel'
 
 describe('isSemVerLevel', () => {
   describe('returns whether value is SemVerLevel', () => {
