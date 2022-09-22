@@ -1,7 +1,6 @@
-import {
-  isNcuResult,
-  type NcuResult
-} from './NcuResult'
+import { describe, expect, it } from '@jest/globals'
+import { isNcuResult } from './NcuResult'
+import type { NcuResult } from './NcuResult'
 
 describe('isNcuResult', () => {
   describe('returns whether value is NcuResult', () => {
