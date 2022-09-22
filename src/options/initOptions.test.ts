@@ -1,3 +1,4 @@
+import { afterEach, describe, expect, it, jest } from '@jest/globals'
 import { LogLevel } from '../logger'
 import { OutdatedPullRequestStrategy } from '../outdated-package-processor'
 import { DependencyType } from '../package-json'

@@ -1,13 +1,12 @@
+import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { LogLevel } from '../logger'
 import { OutdatedPullRequestStrategy } from '../outdated-package-processor'
 import { DependencyType } from '../package-json'
 import { PackageManagerName } from '../package-manager'
 import { cliOptions } from './cliOptions'
 import { createOptions } from './createOptions'
-import {
-  isOptions,
-  type Options
-} from './Options'
+import { isOptions } from './Options'
+import type { Options } from './Options'
 
 jest.mock('./Options')
 

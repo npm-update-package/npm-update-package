@@ -1,3 +1,4 @@
+import { describe, expect, it } from '@jest/globals'
 import type { CLIOption } from './CLIOption'
 import { OptionType } from './OptionType'
 import { toCommanderOption } from './toCommanderOption'
