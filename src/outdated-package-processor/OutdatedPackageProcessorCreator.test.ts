@@ -1,14 +1,7 @@
+import { describe, expect, it } from '@jest/globals'
 import type { PackageUpdater } from '../core'
-import type {
-  CommitMessageCreator,
-  Git
-} from '../git'
-import type {
-  BranchFinder,
-  PullRequestCreator,
-  PullRequestFinder,
-  PullRequestsCloser
-} from '../github'
+import type { CommitMessageCreator, Git } from '../git'
+import type { BranchFinder, PullRequestCreator, PullRequestFinder, PullRequestsCloser } from '../github'
 import type { Options } from '../options'
 import type { PackageManager } from '../package-manager'
 import { Create } from './create'
