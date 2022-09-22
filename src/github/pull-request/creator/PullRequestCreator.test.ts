@@ -1,10 +1,8 @@
+import { afterEach, describe, expect, it, jest } from '@jest/globals'
 import type { OutdatedPackage } from '../../../core'
 import type { GitRepository } from '../../../git'
 import type { Options } from '../../../options'
-import type {
-  GitHub,
-  Repository as GitHubRepository
-} from '../../GitHub'
+import { GitHub, Repository as GitHubRepository } from '../../GitHub'
 import type { AssigneesAdder } from './AssigneesAdder'
 import type { LabelsAdder } from './LabelsAdder'
 import type { PullRequestBodyCreator } from './PullRequestBodyCreator'
@@ -14,13 +12,13 @@ import type { ReviewersAdder } from './ReviewersAdder'
 
 describe('PullRequestCreator', () => {
   describe('create', () => {
-    const pullRequestBodyCreatorCreateMock = jest.fn()
-    const pullRequestTitleCreatorCreateMock = jest.fn()
-    const githubAddLabelsMock = jest.fn()
-    const githubCreatePullRequestMock = jest.fn()
-    const labelsAdderAddMock = jest.fn()
-    const assigneesAdderAddMock = jest.fn()
-    const reviewersAdderAddMock = jest.fn()
+    const pullRequestBodyCreatorCreateMock = jest.fn<PullRequestBodyCreator['create']>()
+    const pullRequestTitleCreatorCreateMock = jest.fn<PullRequestTitleCreator['create']>()
+    const githubAddLabelsMock = jest.fn<GitHub['addLabels']>()
+    const githubCreatePullRequestMock = jest.fn<GitHub['createPullRequest']>()
+    const labelsAdderAddMock = jest.fn<LabelsAdder['add']>()
+    const assigneesAdderAddMock = jest.fn<AssigneesAdder['add']>()
+    const reviewersAdderAddMock = jest.fn<ReviewersAdder['add']>()
     const github = {
       addLabels: githubAddLabelsMock,
       createPullRequest: githubCreatePullRequestMock
@@ -75,9 +73,10 @@ describe('PullRequestCreator', () => {
       pullRequestTitleCreatorCreateMock.mockReturnValue(title)
       const body = 'pull request body'
       pullRequestBodyCreatorCreateMock.mockResolvedValue(body)
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const pullRequest = {
         number: 1
-      }
+      } as Awaited<ReturnType<typeof githubCreatePullRequestMock>>
       githubCreatePullRequestMock.mockResolvedValue(pullRequest)
       const outdatedPackage = {} as unknown as OutdatedPackage
       const branchName = 'branch name'

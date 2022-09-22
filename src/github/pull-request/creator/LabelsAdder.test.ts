@@ -1,3 +1,4 @@
+import { afterEach, describe, expect, it, jest } from '@jest/globals'
 import type { GitRepository } from '../../../git'
 import type { Options } from '../../../options'
 import type { GitHub } from '../../GitHub'
@@ -5,7 +6,7 @@ import { LabelsAdder } from './LabelsAdder'
 
 describe('LabelsAdder', () => {
   describe('add', () => {
-    const addLabelsMock = jest.fn()
+    const addLabelsMock = jest.fn<GitHub['addLabels']>()
     const github = {
       addLabels: addLabelsMock
     } as unknown as GitHub

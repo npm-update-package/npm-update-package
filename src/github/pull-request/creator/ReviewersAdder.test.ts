@@ -1,3 +1,4 @@
+import { afterEach, describe, expect, it, jest } from '@jest/globals'
 import sampleSize from 'lodash/sampleSize'
 import type { GitRepository } from '../../../git'
 import type { GitHub } from '../../GitHub'
@@ -8,7 +9,7 @@ jest.mock('lodash/sampleSize')
 describe('ReviewersAdder', () => {
   describe('add', () => {
     const sampleSizeMock = jest.mocked(sampleSize)
-    const requestReviewersMock = jest.fn()
+    const requestReviewersMock = jest.fn<GitHub['requestReviewers']>()
     const github = {
       requestReviewers: requestReviewersMock
     } as unknown as GitHub

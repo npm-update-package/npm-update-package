@@ -1,18 +1,12 @@
+import { afterEach, describe, expect, it, jest } from '@jest/globals'
 import type { OutdatedPackage } from '../../../core'
 import { readFile } from '../../../file'
 import { GitRepository } from '../../../git'
 import type { ReleasesFetcher } from '../../../github'
 import type { Options } from '../../../options'
-import {
-  DependencyType,
-  extractRepository,
-  parsePackageJson,
-  type PackageMetadata
-} from '../../../package-json'
-import {
-  SemVer,
-  SemVerLevel
-} from '../../../semver'
+import { DependencyType, extractRepository, parsePackageJson } from '../../../package-json'
+import type { PackageMetadata } from '../../../package-json'
+import { SemVer, SemVerLevel } from '../../../semver'
 import type { Release } from '../../releases'
 import { createFooter } from './createFooter'
 import { createMetadataSection } from './createMetadataSection'
@@ -38,15 +32,15 @@ describe('PullRequestBodyCreator', () => {
     const createNotesSectionMock = jest.mocked(createNotesSection)
     const createMetadataSectionMock = jest.mocked(createMetadataSection)
     const createFooterMock = jest.mocked(createFooter)
-    const releasesFetcherFetchMock = jest.fn()
+    const releasesFetcherFetchMock = jest.fn<ReleasesFetcher['fetch']>()
     const releasesFetcher = {
       fetch: releasesFetcherFetchMock
     } as unknown as ReleasesFetcher
-    const packageDiffsSectionCreatorCreateMock = jest.fn()
+    const packageDiffsSectionCreatorCreateMock = jest.fn<PackageDiffsSectionCreator['create']>()
     const packageDiffsSectionCreator = {
       create: packageDiffsSectionCreatorCreateMock
     } as unknown as PackageDiffsSectionCreator
-    const releaseNotesSectionCreatorCreateMock = jest.fn()
+    const releaseNotesSectionCreatorCreateMock = jest.fn<ReleaseNotesSectionCreator['create']>()
     const releaseNotesSectionCreator = {
       create: releaseNotesSectionCreatorCreateMock
     } as unknown as ReleaseNotesSectionCreator
