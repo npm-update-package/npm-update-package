@@ -158,7 +158,7 @@ describe('PullRequestBodyCreator', () => {
               tag: 'v2.0.0',
               url: 'https://github.com/npm-update-package/example/releases/tag/v2.0.0'
             }
-          ] as Release[],
+          ],
           releaseNotesSection: '<release-notes>',
           expected: `This PR updates these packages:
 
