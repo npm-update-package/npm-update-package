@@ -74,10 +74,9 @@ describe('PullRequestCreator', () => {
       pullRequestTitleCreatorCreateMock.mockReturnValue(title)
       const body = 'pull request body'
       pullRequestBodyCreatorCreateMock.mockResolvedValue(body)
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const pullRequest = {
         number: 1
-      } as CreatedPullRequest
+      } as unknown as CreatedPullRequest
       githubCreatePullRequestMock.mockResolvedValue(pullRequest)
       const outdatedPackage = {} as unknown as OutdatedPackage
       const branchName = 'branch name'
