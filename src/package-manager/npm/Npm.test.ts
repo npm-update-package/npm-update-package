@@ -23,8 +23,7 @@ describe('Npm', () => {
           '1.0.0',
           '2.0.0'
         ]
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify(expected) } as ExecaReturnValue)
+        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify(expected) } as unknown as ExecaReturnValue)
 
         const actual = await npm.getVersions(packageName)
 
@@ -33,8 +32,7 @@ describe('Npm', () => {
       })
 
       it('throws error if stdout is invalid', async () => {
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify({}) } as ExecaReturnValue)
+        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify({}) } as unknown as ExecaReturnValue)
 
         await expect(async () => await npm.getVersions(packageName)).rejects.toThrow(Error)
 
