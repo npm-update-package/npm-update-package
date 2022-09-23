@@ -151,8 +151,7 @@ describe('GitHub', () => {
       const expected = {
         id: 1
       } as unknown as CreatedPullRequest
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      pullsCreateMock.mockResolvedValue({ data: expected } as Awaited<ReturnType<typeof pullsCreateMock>>)
+      pullsCreateMock.mockResolvedValue({ data: expected } as unknown as Awaited<ReturnType<typeof pullsCreateMock>>)
       const owner = 'npm-update-package'
       const repo = 'example'
       const baseBranch = 'master'
@@ -246,8 +245,7 @@ describe('GitHub', () => {
       const expected = {
         id: 1
       } as unknown as Label
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      issuesGetLabelMock.mockResolvedValue({ data: expected } as Awaited<ReturnType<typeof issuesGetLabelMock>>)
+      issuesGetLabelMock.mockResolvedValue({ data: expected } as unknown as Awaited<ReturnType<typeof issuesGetLabelMock>>)
       const owner = 'npm-update-package'
       const repo = 'example'
       const name = 'test label'
@@ -312,8 +310,7 @@ describe('GitHub', () => {
       const expected = {
         id: 1
       } as unknown as Repository
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      reposGetMock.mockResolvedValue({ data: expected } as Awaited<ReturnType<typeof reposGetMock>>)
+      reposGetMock.mockResolvedValue({ data: expected } as unknown as Awaited<ReturnType<typeof reposGetMock>>)
       const owner = 'npm-update-package'
       const repo = 'example'
 
