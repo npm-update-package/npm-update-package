@@ -1,13 +1,8 @@
+import { afterEach, describe, expect, it, jest } from '@jest/globals'
 import type { Octokit } from '@octokit/rest'
 import range from 'lodash/range'
-import {
-  GitHub,
-  type Branch,
-  type CreatedPullRequest,
-  type Label,
-  type PullRequest,
-  type Repository
-} from './GitHub'
+import { GitHub } from './GitHub'
+import type { Branch, CreatedPullRequest, Label, PullRequest, Repository } from './GitHub'
 
 const createBranches = (start: number, end: number): Branch[] => {
   return range(start, end).map(num => ({
@@ -20,17 +15,17 @@ const createPullRequests = (start: number, end: number): PullRequest[] => {
 }
 
 describe('GitHub', () => {
-  const gitDeleteRefMock = jest.fn()
-  const issuesAddAssigneesMock = jest.fn()
-  const issuesAddLabelsMock = jest.fn()
-  const issuesCreateLabelMock = jest.fn()
-  const issuesGetLabelMock = jest.fn()
-  const pullsCreateMock = jest.fn()
-  const pullsListMock = jest.fn()
-  const pullsRequestReviewersMock = jest.fn()
-  const pullsUpdateMock = jest.fn()
-  const reposGetMock = jest.fn()
-  const reposListBranchesMock = jest.fn()
+  const gitDeleteRefMock = jest.fn<Octokit['git']['deleteRef']>()
+  const issuesAddAssigneesMock = jest.fn<Octokit['issues']['addAssignees']>()
+  const issuesAddLabelsMock = jest.fn<Octokit['issues']['addLabels']>()
+  const issuesCreateLabelMock = jest.fn<Octokit['issues']['createLabel']>()
+  const issuesGetLabelMock = jest.fn<Octokit['issues']['getLabel']>()
+  const pullsCreateMock = jest.fn<Octokit['pulls']['create']>()
+  const pullsListMock = jest.fn<Octokit['pulls']['list']>()
+  const pullsRequestReviewersMock = jest.fn<Octokit['pulls']['requestReviewers']>()
+  const pullsUpdateMock = jest.fn<Octokit['pulls']['update']>()
+  const reposGetMock = jest.fn<Octokit['repos']['get']>()
+  const reposListBranchesMock = jest.fn<Octokit['repos']['listBranches']>()
   const octokit = {
     git: {
       deleteRef: gitDeleteRefMock
@@ -156,7 +151,8 @@ describe('GitHub', () => {
       const expected = {
         id: 1
       } as unknown as CreatedPullRequest
-      pullsCreateMock.mockResolvedValue({ data: expected })
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      pullsCreateMock.mockResolvedValue({ data: expected } as Awaited<ReturnType<typeof pullsCreateMock>>)
       const owner = 'npm-update-package'
       const repo = 'example'
       const baseBranch = 'master'
@@ -219,10 +215,10 @@ describe('GitHub', () => {
         [9, createBranches(801, 901)],
         [10, []]
       ])
-      reposListBranchesMock.mockImplementation(async ({ page }: { page: number }) => {
-        const branches = branchesByPage.get(page)
+      reposListBranchesMock.mockImplementation((async (params) => {
+        const branches = params?.page !== undefined ? branchesByPage.get(params.page) : undefined
         return await (branches !== undefined ? Promise.resolve({ data: branches }) : Promise.reject(new Error()))
-      })
+      }) as Octokit['repos']['listBranches'])
       const owner = 'npm-update-package'
       const repo = 'example'
 
@@ -250,7 +246,8 @@ describe('GitHub', () => {
       const expected = {
         id: 1
       } as unknown as Label
-      issuesGetLabelMock.mockResolvedValue({ data: expected })
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      issuesGetLabelMock.mockResolvedValue({ data: expected } as Awaited<ReturnType<typeof issuesGetLabelMock>>)
       const owner = 'npm-update-package'
       const repo = 'example'
       const name = 'test label'
@@ -284,10 +281,10 @@ describe('GitHub', () => {
         [9, createPullRequests(801, 901)],
         [10, []]
       ])
-      pullsListMock.mockImplementation(async ({ page }: { page: number }) => {
-        const pullRequests = pullRequestsByPage.get(page)
+      pullsListMock.mockImplementation((async (params) => {
+        const pullRequests = params?.page !== undefined ? pullRequestsByPage.get(params.page) : undefined
         return await (pullRequests !== undefined ? Promise.resolve({ data: pullRequests }) : Promise.reject(new Error()))
-      })
+      }) as Octokit['pulls']['list'])
       const owner = 'npm-update-package'
       const repo = 'example'
 
@@ -315,7 +312,8 @@ describe('GitHub', () => {
       const expected = {
         id: 1
       } as unknown as Repository
-      reposGetMock.mockResolvedValue({ data: expected })
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      reposGetMock.mockResolvedValue({ data: expected } as Awaited<ReturnType<typeof reposGetMock>>)
       const owner = 'npm-update-package'
       const repo = 'example'
 
