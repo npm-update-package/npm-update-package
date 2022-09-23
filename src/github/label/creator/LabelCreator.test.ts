@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, jest } from '@jest/globals'
 import { GitRepository } from '../../../git'
 import { isNotFoundError } from '../../errors'
-import type { GitHub } from '../../GitHub'
+import type { GitHub, Label } from '../../GitHub'
 import { LabelCreator } from './LabelCreator'
 
 jest.mock('../../errors')
@@ -32,7 +32,7 @@ describe('LabelCreator', () => {
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       fetchLabelMock.mockResolvedValue({
         name: 'npm-update-package'
-      } as Awaited<ReturnType<typeof fetchLabelMock>>)
+      } as Label)
 
       await labelCreator.create({
         name: 'npm-update-package',
