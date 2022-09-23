@@ -23,13 +23,12 @@ describe('Yarn', () => {
           '1.0.0',
           '2.0.0'
         ]
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         terminalRunMock.mockResolvedValue({
           stdout: JSON.stringify({
             type: 'inspect',
             data: expected
           })
-        } as ExecaReturnValue)
+        } as unknown as ExecaReturnValue)
 
         const actual = await yarn.getVersions(packageName)
 
@@ -38,8 +37,7 @@ describe('Yarn', () => {
       })
 
       it('throws error if stdout is invalid', async () => {
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify({}) } as ExecaReturnValue)
+        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify({}) } as unknown as ExecaReturnValue)
 
         await expect(async () => await yarn.getVersions(packageName)).rejects.toThrow(Error)
 
