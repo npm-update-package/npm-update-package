@@ -3,6 +3,7 @@ import type { OutdatedPackage } from '../../../core'
 import type { GitRepository } from '../../../git'
 import type { Options } from '../../../options'
 import { GitHub, Repository as GitHubRepository } from '../../GitHub'
+import type { CreatedPullRequest } from '../../GitHub'
 import type { AssigneesAdder } from './AssigneesAdder'
 import type { LabelsAdder } from './LabelsAdder'
 import type { PullRequestBodyCreator } from './PullRequestBodyCreator'
@@ -76,7 +77,7 @@ describe('PullRequestCreator', () => {
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const pullRequest = {
         number: 1
-      } as Awaited<ReturnType<typeof githubCreatePullRequestMock>>
+      } as CreatedPullRequest
       githubCreatePullRequestMock.mockResolvedValue(pullRequest)
       const outdatedPackage = {} as unknown as OutdatedPackage
       const branchName = 'branch name'
