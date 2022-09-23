@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import type { ExecaReturnValue } from 'execa'
 import type { Terminal } from '../terminal'
 import { Git } from './Git'
 
@@ -50,7 +51,7 @@ describe('Git', () => {
     it('calls `git remote get-url --push origin`', async () => {
       const expected = 'https://github.com/npm-update-package/example.git'
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      terminalRunMock.mockResolvedValue({ stdout: expected } as Awaited<ReturnType<typeof terminalRunMock>>)
+      terminalRunMock.mockResolvedValue({ stdout: expected } as ExecaReturnValue)
 
       const actual = await git.getRemoteUrl()
 
