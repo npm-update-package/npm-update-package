@@ -29,10 +29,9 @@ describe('LabelCreator', () => {
     })
 
     it('does not create label if it already exists', async () => {
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       fetchLabelMock.mockResolvedValue({
         name: 'npm-update-package'
-      } as Label)
+      } as unknown as Label)
 
       await labelCreator.create({
         name: 'npm-update-package',
