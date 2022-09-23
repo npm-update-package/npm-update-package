@@ -1,10 +1,11 @@
+import { afterEach, describe, expect, it, jest } from '@jest/globals'
 import type { Options } from '../options'
 import type { Git } from './Git'
 import { GitConfigInitializer } from './GitConfigInitializer'
 
 describe('GitConfigInitializer', () => {
   describe('initialize', () => {
-    const setConfigMock = jest.fn()
+    const setConfigMock = jest.fn<Git['setConfig']>()
     const git = {
       setConfig: setConfigMock
     } as unknown as Git

@@ -1,10 +1,11 @@
+import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals'
 import type { Release } from '../../releases'
 import type { GitHubUrlOptimizer } from './GitHubUrlOptimizer'
 import { ReleaseNotesSectionCreator } from './ReleaseNotesSectionCreator'
 
 describe('ReleaseNotesSectionCreator', () => {
   describe('create', () => {
-    const optimizeMock = jest.fn()
+    const optimizeMock = jest.fn<GitHubUrlOptimizer['optimize']>()
     const gitHubUrlOptimizer = {
       optimize: optimizeMock
     } as unknown as GitHubUrlOptimizer
@@ -12,7 +13,7 @@ describe('ReleaseNotesSectionCreator', () => {
 
     beforeEach(() => {
       optimizeMock.mockImplementation((url) => {
-        const newUrl = new URL(url)
+        const newUrl = new URL(typeof url === 'string' ? url : url.toString())
         newUrl.host = 'github.test'
         return newUrl
       })

@@ -1,6 +1,6 @@
+import { afterEach, describe, expect, it, jest } from '@jest/globals'
 import { StatusCodes } from 'http-status-codes'
 import fetch from 'node-fetch'
-import type { Response } from 'node-fetch'
 import sleep from 'sleep-promise'
 import { GitRepository } from '../../../git'
 import type { Options } from '../../../options'
@@ -15,7 +15,7 @@ describe('ReleasesFetcher', () => {
   describe('fetch', () => {
     const fetchMock = jest.mocked(fetch)
     const sleepMock = jest.mocked(sleep)
-    const getVersionsMock = jest.fn()
+    const getVersionsMock = jest.fn<PackageManager['getVersions']>()
     const options = {
       fetchSleepTime: 1000
     } as unknown as Options
@@ -40,17 +40,17 @@ describe('ReleasesFetcher', () => {
         '2.1.0'
       ])
       sleepMock.mockResolvedValue(undefined)
-      fetchMock.mockImplementation(async (url) => {
-        return await (typeof url === 'string' && url.endsWith('v1.1.1')
-          ? Promise.resolve({
+      fetchMock.mockImplementation((async (url) => {
+        return typeof url === 'string' && url.endsWith('v1.1.1')
+          ? await Promise.resolve({
             ok: false,
             status: StatusCodes.NOT_FOUND
-          } as unknown as Response)
-          : Promise.resolve({
+          })
+          : await Promise.resolve({
             ok: true,
             status: StatusCodes.OK
-          } as unknown as Response))
-      })
+          })
+      }) as typeof fetch)
       const gitRepo = {
         owner: 'npm-update-package',
         name: 'example',

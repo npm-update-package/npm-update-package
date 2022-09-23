@@ -1,3 +1,4 @@
+import { describe, expect, it } from '@jest/globals'
 import app from '../../../../package.json'
 import { createFooter } from './createFooter'
 

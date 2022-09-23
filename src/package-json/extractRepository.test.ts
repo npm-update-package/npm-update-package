@@ -1,4 +1,5 @@
 import { URL } from 'url'
+import { describe, expect, it } from '@jest/globals'
 import { GitRepository } from '../git'
 import { extractRepository } from './extractRepository'
 import type { PackageMetadata } from './PackageMetadata'

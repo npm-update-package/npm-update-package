@@ -1,11 +1,10 @@
+import { describe, expect, it } from '@jest/globals'
 import { LogLevel } from '../logger'
 import { OutdatedPullRequestStrategy } from '../outdated-package-processor'
 import { DependencyType } from '../package-json'
 import { PackageManagerName } from '../package-manager'
-import {
-  isOptions,
-  type Options
-} from './Options'
+import { isOptions } from './Options'
+import type { Options } from './Options'
 
 describe('isOptions', () => {
   describe('returns whether value is Options', () => {

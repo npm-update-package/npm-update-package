@@ -1,9 +1,7 @@
+import { describe, expect, it } from '@jest/globals'
 import type { OutdatedPackage } from '../core'
 import { DependencyType } from '../package-json'
-import {
-  SemVer,
-  SemVerLevel
-} from '../semver'
+import { SemVer, SemVerLevel } from '../semver'
 import { createBranchName } from './createBranchName'
 
 describe('createBranchName', () => {

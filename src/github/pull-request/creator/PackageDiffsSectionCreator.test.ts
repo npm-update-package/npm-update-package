@@ -1,16 +1,14 @@
+import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals'
 import type { OutdatedPackage } from '../../../core'
 import { GitRepository } from '../../../git'
 import { DependencyType } from '../../../package-json'
-import {
-  SemVer,
-  SemVerLevel
-} from '../../../semver'
+import { SemVer, SemVerLevel } from '../../../semver'
 import type { GitHubUrlOptimizer } from './GitHubUrlOptimizer'
 import { PackageDiffsSectionCreator } from './PackageDiffsSectionCreator'
 
 describe('PackageDiffsSectionCreator', () => {
   describe('create', () => {
-    const optimizeMock = jest.fn()
+    const optimizeMock = jest.fn<GitHubUrlOptimizer['optimize']>()
     const gitHubUrlOptimizer = {
       optimize: optimizeMock
     } as unknown as GitHubUrlOptimizer
@@ -18,7 +16,7 @@ describe('PackageDiffsSectionCreator', () => {
 
     beforeEach(() => {
       optimizeMock.mockImplementation((url) => {
-        const newUrl = new URL(url)
+        const newUrl = new URL(typeof url === 'string' ? url : url.toString())
         newUrl.host = 'github.test'
         return newUrl
       })

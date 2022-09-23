@@ -1,7 +1,6 @@
-import {
-  isNpmVersions,
-  type NpmVersions
-} from './NpmVersions'
+import { describe, expect, it } from '@jest/globals'
+import { isNpmVersions } from './NpmVersions'
+import type { NpmVersions } from './NpmVersions'
 
 describe('isNpmVersions', () => {
   describe('returns whether value is NpmVersions', () => {

@@ -1,7 +1,6 @@
-import {
-  isPackageMetadataDependencies,
-  type PackageMetadataDependencies
-} from './PackageMetadataDependencies'
+import { describe, expect, it } from '@jest/globals'
+import { isPackageMetadataDependencies } from './PackageMetadataDependencies'
+import type { PackageMetadataDependencies } from './PackageMetadataDependencies'
 
 describe('isPackageMetadataDependencies', () => {
   describe('returns whether value is PackageMetadataDependencies', () => {

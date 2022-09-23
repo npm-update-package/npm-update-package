@@ -1,8 +1,10 @@
+import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import type { ExecaReturnValue } from 'execa'
 import type { Terminal } from '../../terminal'
 import { Yarn } from './Yarn'
 
 describe('Yarn', () => {
-  const terminalRunMock = jest.fn()
+  const terminalRunMock = jest.fn<Terminal['run']>()
   const terminal = {
     run: terminalRunMock
   } as unknown as Terminal
@@ -26,7 +28,7 @@ describe('Yarn', () => {
             type: 'inspect',
             data: expected
           })
-        })
+        } as unknown as ExecaReturnValue)
 
         const actual = await yarn.getVersions(packageName)
 
@@ -35,7 +37,7 @@ describe('Yarn', () => {
       })
 
       it('throws error if stdout is invalid', async () => {
-        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify({}) })
+        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify({}) } as unknown as ExecaReturnValue)
 
         await expect(async () => await yarn.getVersions(packageName)).rejects.toThrow(Error)
 

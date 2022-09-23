@@ -1,7 +1,6 @@
-import {
-  isYarnVersions,
-  type YarnVersions
-} from './YarnVersions'
+import { describe, expect, it } from '@jest/globals'
+import { isYarnVersions } from './YarnVersions'
+import type { YarnVersions } from './YarnVersions'
 
 describe('isYarnVersions', () => {
   describe('returns whether value is YarnVersions', () => {

@@ -1,3 +1,4 @@
+import { describe, expect, it } from '@jest/globals'
 import { InvalidArgumentError } from 'commander'
 import { parseNumberOption } from './parseNumberOption'
 

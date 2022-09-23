@@ -1,20 +1,18 @@
+import { afterEach, describe, expect, it, jest } from '@jest/globals'
 import type { Ncu } from '../ncu'
 import { DependencyType } from '../package-json'
 import type { PackageManager } from '../package-manager'
-import {
-  SemVer,
-  SemVerLevel
-} from '../semver'
+import { SemVer, SemVerLevel } from '../semver'
 import { OutdatedPackage } from './OutdatedPackage'
 import { PackageUpdater } from './PackageUpdater'
 
 describe('PackageUpdater', () => {
   describe('update', () => {
-    const packageManagerInstallMock = jest.fn()
+    const packageManagerInstallMock = jest.fn<PackageManager['install']>()
     const packageManager = {
       install: packageManagerInstallMock
     } as unknown as PackageManager
-    const ncuUpdateMock = jest.fn()
+    const ncuUpdateMock = jest.fn<Ncu['update']>()
     const ncu = {
       update: ncuUpdateMock
     } as unknown as Ncu

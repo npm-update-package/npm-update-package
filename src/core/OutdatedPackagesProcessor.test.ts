@@ -1,14 +1,9 @@
-import {
-  left,
-  right,
-  type Either
-} from 'fp-ts/lib/Either'
+import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import { left, right } from 'fp-ts/lib/Either'
+import type { Either } from 'fp-ts/lib/Either'
 import type { OutdatedPackageProcessor } from '../outdated-package-processor'
 import { DependencyType } from '../package-json'
-import {
-  SemVer,
-  SemVerLevel
-} from '../semver'
+import { SemVer, SemVerLevel } from '../semver'
 import type { FailedResult } from './FailedResult'
 import type { OutdatedPackage } from './OutdatedPackage'
 import { OutdatedPackagesProcessor } from './OutdatedPackagesProcessor'
@@ -16,7 +11,7 @@ import type { SucceededResult } from './SucceededResult'
 
 describe('OutdatedPackagesProcessor', () => {
   describe('process', () => {
-    const outdatedPackageProcessorProcessMock = jest.fn()
+    const outdatedPackageProcessorProcessMock = jest.fn<OutdatedPackageProcessor['process']>()
     const outdatedPackageProcessor = {
       process: outdatedPackageProcessorProcessMock
     } as unknown as OutdatedPackageProcessor
@@ -60,7 +55,7 @@ describe('OutdatedPackagesProcessor', () => {
         outdatedPackage: packageToBeFailed,
         error: new Error('Failed to update package')
       })
-      outdatedPackageProcessorProcessMock.mockImplementation((outdatedPackage: OutdatedPackage) => {
+      outdatedPackageProcessorProcessMock.mockImplementation(async (outdatedPackage: OutdatedPackage) => {
         switch (outdatedPackage.name) {
           case packageToBeCreated.name:
             return createdResult
@@ -68,6 +63,8 @@ describe('OutdatedPackagesProcessor', () => {
             return skippedResult
           case packageToBeFailed.name:
             return failedResult
+          default:
+            throw new Error()
         }
       })
 

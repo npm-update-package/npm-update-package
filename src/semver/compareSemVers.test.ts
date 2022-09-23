@@ -1,3 +1,4 @@
+import { describe, expect, it } from '@jest/globals'
 import { compareSemVers } from './compareSemVers'
 import { SemVer } from './SemVer'
 import { SemVerLevel } from './SemVerLevel'
