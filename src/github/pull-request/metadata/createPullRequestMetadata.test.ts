@@ -1,8 +1,15 @@
-import { describe, expect, it } from '@jest/globals'
+import {
+  describe,
+  expect,
+  it
+} from '@jest/globals'
 import pkg from '../../../../package.json'
 import type { OutdatedPackage } from '../../../core'
 import { DependencyType } from '../../../package-json'
-import { SemVer, SemVerLevel } from '../../../semver'
+import {
+  SemVer,
+  SemVerLevel
+} from '../../../semver'
 import { createPullRequestMetadata } from './createPullRequestMetadata'
 
 describe('createPullRequestMetadata', () => {

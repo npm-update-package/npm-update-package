@@ -1,8 +1,17 @@
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import {
+  afterEach,
+  describe,
+  expect,
+  it,
+  jest
+} from '@jest/globals'
 import type { Ncu } from '../ncu'
 import { DependencyType } from '../package-json'
 import type { PackageManager } from '../package-manager'
-import { SemVer, SemVerLevel } from '../semver'
+import {
+  SemVer,
+  SemVerLevel
+} from '../semver'
 import { OutdatedPackage } from './OutdatedPackage'
 import { PackageUpdater } from './PackageUpdater'
 

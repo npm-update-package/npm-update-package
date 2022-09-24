@@ -1,4 +1,10 @@
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import {
+  afterEach,
+  describe,
+  expect,
+  it,
+  jest
+} from '@jest/globals'
 import type { PullRequest } from '../../GitHub'
 import type { PullRequestCloser } from './PullRequestCloser'
 import { PullRequestsCloser } from './PullRequestsCloser'

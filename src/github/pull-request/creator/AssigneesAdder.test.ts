@@ -1,4 +1,10 @@
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import {
+  afterEach,
+  describe,
+  expect,
+  it,
+  jest
+} from '@jest/globals'
 import sampleSize from 'lodash/sampleSize'
 import type { GitRepository } from '../../../git'
 import type { GitHub } from '../../GitHub'

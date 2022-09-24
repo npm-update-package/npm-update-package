@@ -1,5 +1,11 @@
 import fs from 'fs'
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import {
+  afterEach,
+  describe,
+  expect,
+  it,
+  jest
+} from '@jest/globals'
 import { readFile } from './readFile'
 
 jest.mock('fs', () => ({

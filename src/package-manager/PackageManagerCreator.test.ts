@@ -1,4 +1,10 @@
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import {
+  afterEach,
+  describe,
+  expect,
+  it,
+  jest
+} from '@jest/globals'
 import type { Options } from '../options'
 import { Terminal } from '../terminal'
 import { detectPackageManager } from './detectPackageManager'

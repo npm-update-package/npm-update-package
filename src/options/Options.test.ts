@@ -1,4 +1,8 @@
-import { describe, expect, it } from '@jest/globals'
+import {
+  describe,
+  expect,
+  it
+} from '@jest/globals'
 import { LogLevel } from '../logger'
 import { OutdatedPullRequestStrategy } from '../outdated-package-processor'
 import { DependencyType } from '../package-json'

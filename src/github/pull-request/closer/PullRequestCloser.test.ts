@@ -1,5 +1,14 @@
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
-import { GitHub, PullRequest } from '../../GitHub'
+import {
+  afterEach,
+  describe,
+  expect,
+  it,
+  jest
+} from '@jest/globals'
+import {
+  GitHub,
+  PullRequest
+} from '../../GitHub'
 import { PullRequestCloser } from './PullRequestCloser'
 
 describe('PullRequestCloser', () => {

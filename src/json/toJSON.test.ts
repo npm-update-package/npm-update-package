@@ -1,4 +1,8 @@
-import { describe, expect, it } from '@jest/globals'
+import {
+  describe,
+  expect,
+  it
+} from '@jest/globals'
 import { toJSON } from './toJSON'
 
 describe('toJSON', () => {

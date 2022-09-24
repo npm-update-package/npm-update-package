@@ -1,8 +1,18 @@
-import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals'
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  jest
+} from '@jest/globals'
 import type { OutdatedPackage } from '../../../core'
 import { GitRepository } from '../../../git'
 import { DependencyType } from '../../../package-json'
-import { SemVer, SemVerLevel } from '../../../semver'
+import {
+  SemVer,
+  SemVerLevel
+} from '../../../semver'
 import type { GitHubUrlOptimizer } from './GitHubUrlOptimizer'
 import { PackageDiffsSectionCreator } from './PackageDiffsSectionCreator'
 

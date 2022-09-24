@@ -1,8 +1,17 @@
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import {
+  afterEach,
+  describe,
+  expect,
+  it,
+  jest
+} from '@jest/globals'
 import type { OutdatedPackage } from '../../../core'
 import type { GitRepository } from '../../../git'
 import type { Options } from '../../../options'
-import { GitHub, Repository as GitHubRepository } from '../../GitHub'
+import {
+  GitHub,
+  Repository as GitHubRepository
+} from '../../GitHub'
 import type { CreatedPullRequest } from '../../GitHub'
 import type { AssigneesAdder } from './AssigneesAdder'
 import type { LabelsAdder } from './LabelsAdder'

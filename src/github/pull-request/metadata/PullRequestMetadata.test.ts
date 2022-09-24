@@ -1,4 +1,8 @@
-import { describe, expect, it } from '@jest/globals'
+import {
+  describe,
+  expect,
+  it
+} from '@jest/globals'
 import { SemVerLevel } from '../../../semver'
 import { isPullRequestMetadata } from './PullRequestMetadata'
 import type { PullRequestMetadata } from './PullRequestMetadata'

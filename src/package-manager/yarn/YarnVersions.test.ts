@@ -1,4 +1,8 @@
-import { describe, expect, it } from '@jest/globals'
+import {
+  describe,
+  expect,
+  it
+} from '@jest/globals'
 import { isYarnVersions } from './YarnVersions'
 import type { YarnVersions } from './YarnVersions'
 

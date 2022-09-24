@@ -1,12 +1,25 @@
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import {
+  afterEach,
+  describe,
+  expect,
+  it,
+  jest
+} from '@jest/globals'
 import type { OutdatedPackage } from '../../../core'
 import { readFile } from '../../../file'
 import { GitRepository } from '../../../git'
 import type { ReleasesFetcher } from '../../../github'
 import type { Options } from '../../../options'
-import { DependencyType, extractRepository, parsePackageJson } from '../../../package-json'
+import {
+  DependencyType,
+  extractRepository,
+  parsePackageJson
+} from '../../../package-json'
 import type { PackageMetadata } from '../../../package-json'
-import { SemVer, SemVerLevel } from '../../../semver'
+import {
+  SemVer,
+  SemVerLevel
+} from '../../../semver'
 import type { Release } from '../../releases'
 import { createFooter } from './createFooter'
 import { createMetadataSection } from './createMetadataSection'

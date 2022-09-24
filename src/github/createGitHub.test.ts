@@ -1,4 +1,8 @@
-import { describe, expect, it } from '@jest/globals'
+import {
+  describe,
+  expect,
+  it
+} from '@jest/globals'
 import { createGitHub } from './createGitHub'
 import { GitHub } from './GitHub'
 

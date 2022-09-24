@@ -1,5 +1,9 @@
 import { URL } from 'url'
-import { describe, expect, it } from '@jest/globals'
+import {
+  describe,
+  expect,
+  it
+} from '@jest/globals'
 import type { Options } from '../../../options'
 import { GitHubUrlOptimizer } from './GitHubUrlOptimizer'
 

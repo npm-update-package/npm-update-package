@@ -1,5 +1,12 @@
-import { describe, expect, it } from '@jest/globals'
-import { isOutdatedPullRequestStrategy, OutdatedPullRequestStrategy } from './OutdatedPullRequestStrategy'
+import {
+  describe,
+  expect,
+  it
+} from '@jest/globals'
+import {
+  isOutdatedPullRequestStrategy,
+  OutdatedPullRequestStrategy
+} from './OutdatedPullRequestStrategy'
 
 describe('isOutdatedPullRequestStrategy', () => {
   describe('returns whether value is OutdatedPullRequestStrategy', () => {

@@ -1,9 +1,21 @@
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
-import { left, right } from 'fp-ts/lib/Either'
+import {
+  afterEach,
+  describe,
+  expect,
+  it,
+  jest
+} from '@jest/globals'
+import {
+  left,
+  right
+} from 'fp-ts/lib/Either'
 import type { Either } from 'fp-ts/lib/Either'
 import type { OutdatedPackageProcessor } from '../outdated-package-processor'
 import { DependencyType } from '../package-json'
-import { SemVer, SemVerLevel } from '../semver'
+import {
+  SemVer,
+  SemVerLevel
+} from '../semver'
 import type { FailedResult } from './FailedResult'
 import type { OutdatedPackage } from './OutdatedPackage'
 import { OutdatedPackagesProcessor } from './OutdatedPackagesProcessor'

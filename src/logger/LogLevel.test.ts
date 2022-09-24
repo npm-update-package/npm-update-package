@@ -1,5 +1,12 @@
-import { describe, expect, it } from '@jest/globals'
-import { isLogLevel, LogLevel } from './LogLevel'
+import {
+  describe,
+  expect,
+  it
+} from '@jest/globals'
+import {
+  isLogLevel,
+  LogLevel
+} from './LogLevel'
 
 describe('isLogLevel', () => {
   describe('returns whether value is LogLevel', () => {

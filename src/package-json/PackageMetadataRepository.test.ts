@@ -1,4 +1,8 @@
-import { describe, expect, it } from '@jest/globals'
+import {
+  describe,
+  expect,
+  it
+} from '@jest/globals'
 import { isPackageMetadataRepository } from './PackageMetadataRepository'
 import type { PackageMetadataRepository } from './PackageMetadataRepository'
 

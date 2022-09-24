@@ -1,4 +1,8 @@
-import { describe, expect, it } from '@jest/globals'
+import {
+  describe,
+  expect,
+  it
+} from '@jest/globals'
 import { isNcuResult } from './NcuResult'
 import type { NcuResult } from './NcuResult'
 

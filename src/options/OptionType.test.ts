@@ -1,5 +1,12 @@
-import { describe, expect, it } from '@jest/globals'
-import { isOptionType, OptionType } from './OptionType'
+import {
+  describe,
+  expect,
+  it
+} from '@jest/globals'
+import {
+  isOptionType,
+  OptionType
+} from './OptionType'
 
 describe('isOptionType', () => {
   describe('returns whether value is OptionType', () => {
