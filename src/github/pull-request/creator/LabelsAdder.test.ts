@@ -1,4 +1,10 @@
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import {
+  afterEach,
+  describe,
+  expect,
+  it,
+  jest
+} from '@jest/globals'
 import type { GitRepository } from '../../../git'
 import type { Options } from '../../../options'
 import type { GitHub } from '../../GitHub'

@@ -1,4 +1,10 @@
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import {
+  afterEach,
+  describe,
+  expect,
+  it,
+  jest
+} from '@jest/globals'
 import { StatusCodes } from 'http-status-codes'
 import fetch from 'node-fetch'
 import sleep from 'sleep-promise'

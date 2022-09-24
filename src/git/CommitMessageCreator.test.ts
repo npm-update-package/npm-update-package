@@ -1,6 +1,13 @@
-import { describe, expect, it } from '@jest/globals'
+import {
+  describe,
+  expect,
+  it
+} from '@jest/globals'
 import { DependencyType } from '../package-json'
-import { SemVer, SemVerLevel } from '../semver'
+import {
+  SemVer,
+  SemVerLevel
+} from '../semver'
 import { CommitMessageCreator } from './CommitMessageCreator'
 
 describe('CommitMessageCreator', () => {

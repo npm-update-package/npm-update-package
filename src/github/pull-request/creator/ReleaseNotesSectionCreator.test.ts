@@ -1,4 +1,11 @@
-import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals'
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  jest
+} from '@jest/globals'
 import type { Release } from '../../releases'
 import type { GitHubUrlOptimizer } from './GitHubUrlOptimizer'
 import { ReleaseNotesSectionCreator } from './ReleaseNotesSectionCreator'

@@ -1,5 +1,12 @@
-import { describe, expect, it } from '@jest/globals'
-import { isPackageManagerName, PackageManagerName } from './PackageManagerName'
+import {
+  describe,
+  expect,
+  it
+} from '@jest/globals'
+import {
+  isPackageManagerName,
+  PackageManagerName
+} from './PackageManagerName'
 
 describe('isPackageManagerName', () => {
   describe('returns whether value is PackageManagerName', () => {

@@ -1,7 +1,16 @@
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import {
+  afterEach,
+  describe,
+  expect,
+  it,
+  jest
+} from '@jest/globals'
 import { GitRepository } from '../../../git'
 import { isNotFoundError } from '../../errors'
-import type { GitHub, Label } from '../../GitHub'
+import type {
+  GitHub,
+  Label
+} from '../../GitHub'
 import { LabelCreator } from './LabelCreator'
 
 jest.mock('../../errors')

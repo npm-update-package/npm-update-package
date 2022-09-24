@@ -1,8 +1,20 @@
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import {
+  afterEach,
+  describe,
+  expect,
+  it,
+  jest
+} from '@jest/globals'
 import type { Octokit } from '@octokit/rest'
 import range from 'lodash/range'
 import { GitHub } from './GitHub'
-import type { Branch, CreatedPullRequest, Label, PullRequest, Repository } from './GitHub'
+import type {
+  Branch,
+  CreatedPullRequest,
+  Label,
+  PullRequest,
+  Repository
+} from './GitHub'
 
 const createBranches = (start: number, end: number): Branch[] => {
   return range(start, end).map(num => ({
