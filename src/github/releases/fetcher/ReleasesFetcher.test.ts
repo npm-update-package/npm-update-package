@@ -7,15 +7,15 @@ import {
 } from '@jest/globals'
 import { StatusCodes } from 'http-status-codes'
 import fetch from 'node-fetch'
-import sleep from 'sleep-promise'
 import { GitRepository } from '../../../git'
 import type { Options } from '../../../options'
 import type { PackageManager } from '../../../package-manager'
 import { SemVer } from '../../../semver'
+import { sleep } from '../../../util'
 import { ReleasesFetcher } from './ReleasesFetcher'
 
 jest.mock('node-fetch')
-jest.mock('sleep-promise')
+jest.mock('../../../util')
 
 describe('ReleasesFetcher', () => {
   describe('fetch', () => {

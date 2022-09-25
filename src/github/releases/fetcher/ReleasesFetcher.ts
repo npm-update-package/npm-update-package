@@ -5,11 +5,11 @@ import {
   lte,
   valid
 } from 'semver'
-import sleep from 'sleep-promise'
 import type { GitRepository } from '../../../git'
 import type { Options } from '../../../options'
 import type { PackageManager } from '../../../package-manager'
 import type { SemVer } from '../../../semver'
+import { sleep } from '../../../util'
 import type { Release } from '../Release'
 
 // TODO: Split into multiple classes and functions
