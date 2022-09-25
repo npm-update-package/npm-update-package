@@ -1,3 +1,4 @@
+// TODO [engine:node@>=18]: Replace with global fetch and remove node-fetch from dependencies when the minimum supported Node.js version becomes v18 or later.
 import fetch from 'node-fetch'
 import {
   gte,
