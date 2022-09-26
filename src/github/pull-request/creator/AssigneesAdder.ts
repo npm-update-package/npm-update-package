@@ -1,5 +1,5 @@
-import sampleSize from 'lodash/sampleSize'
 import type { GitRepository } from '../../../git'
+import { sampleSize } from '../../../util'
 import type { GitHub } from '../../GitHub'
 
 export class AssigneesAdder {

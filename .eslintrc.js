@@ -30,8 +30,7 @@ module.exports = {
     'standard-with-typescript',
     'plugin:unicorn/recommended',
     'plugin:eslint-comments/recommended',
-    'plugin:jest/recommended',
-    'lodash'
+    'plugin:jest/recommended'
   ],
   plugins: [
     'import-newlines',
