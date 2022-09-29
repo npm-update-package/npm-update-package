@@ -12,8 +12,8 @@ describe('GitHubUrlOptimizer', () => {
     describe('returns optimized URL', () => {
       const options = {
         prBodyGithubHost: 'github.test'
-      } as unknown as Options
-      const gitHubUrlOptimizer = new GitHubUrlOptimizer(options)
+      }
+      const gitHubUrlOptimizer = new GitHubUrlOptimizer(options as Options)
 
       it.each([
         ['https://github.com/foo/', new URL('https://github.test/foo/')],
