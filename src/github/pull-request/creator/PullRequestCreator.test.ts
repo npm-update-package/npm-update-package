@@ -61,9 +61,9 @@ describe('PullRequestCreator', () => {
       assigneesSampleSize: 1,
       reviewers: ['carol', 'dave'],
       reviewersSampleSize: 1
-    } as unknown as Options
+    }
     const pullRequestCreator = new PullRequestCreator({
-      options,
+      options: options as Options,
       github,
       gitRepo,
       githubRepo,

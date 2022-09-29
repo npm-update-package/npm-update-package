@@ -24,12 +24,12 @@ describe('ReleasesFetcher', () => {
     const getVersionsMock = jest.fn<PackageManager['getVersions']>()
     const options = {
       fetchSleepTime: 1000
-    } as unknown as Options
+    }
     const packageManager = {
       getVersions: getVersionsMock
     } as unknown as PackageManager
     const releasesFetcher = new ReleasesFetcher({
-      options,
+      options: options as Options,
       packageManager
     })
 

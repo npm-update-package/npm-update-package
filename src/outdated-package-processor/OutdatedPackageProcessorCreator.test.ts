@@ -32,8 +32,8 @@ describe('OutdatedPackageProcessorCreator', () => {
       ])('outdatedPrStrategy=%p', async (outdatedPrStrategy, expected) => {
         const options = {
           outdatedPrStrategy
-        } as unknown as Options
-        const outdatedPackageProcessorCreator = new OutdatedPackageProcessorCreator(options)
+        }
+        const outdatedPackageProcessorCreator = new OutdatedPackageProcessorCreator(options as Options)
         const git = {} as unknown as Git
         const packageManager = {} as unknown as PackageManager
         const pullRequestCreator = {} as unknown as PullRequestCreator

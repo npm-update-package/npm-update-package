@@ -23,9 +23,9 @@ describe('GitConfigInitializer', () => {
     it('sets git user name if options.gitUserName exists', async () => {
       const options = {
         gitUserName: 'octocat'
-      } as unknown as Options
+      }
       const gitConfigInitializer = new GitConfigInitializer({
-        options,
+        options: options as Options,
         git
       })
 
@@ -37,9 +37,9 @@ describe('GitConfigInitializer', () => {
     it('sets git user email if options.gitUserEmail exists', async () => {
       const options = {
         gitUserEmail: 'octocat@example.com'
-      } as unknown as Options
+      }
       const gitConfigInitializer = new GitConfigInitializer({
-        options,
+        options: options as Options,
         git
       })
 

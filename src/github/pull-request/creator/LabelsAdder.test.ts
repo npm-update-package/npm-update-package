@@ -30,9 +30,9 @@ describe('LabelsAdder', () => {
     it('adds `npm-update-package` and additional labels if additionalLabels option exists', async () => {
       const options = {
         additionalLabels: ['bot', 'dependencies']
-      } as unknown as Options
+      }
       const labelsAdder = new LabelsAdder({
-        options,
+        options: options as Options,
         github,
         gitRepo
       })
@@ -48,9 +48,9 @@ describe('LabelsAdder', () => {
     })
 
     it('adds only `npm-update-package` label if additionalLabels option does not exist', async () => {
-      const options = {} as unknown as Options
+      const options = {}
       const labelsAdder = new LabelsAdder({
-        options,
+        options: options as Options,
         github,
         gitRepo
       })

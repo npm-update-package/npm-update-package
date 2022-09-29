@@ -31,8 +31,8 @@ describe('PackageManagerCreator', () => {
       ])('packageManager=%p', async (packageManager, expected) => {
         const options = {
           packageManager
-        } as unknown as Options
-        const packageManagerCreator = new PackageManagerCreator(options)
+        }
+        const packageManagerCreator = new PackageManagerCreator(options as Options)
 
         const actual = await packageManagerCreator.create(terminal)
 
@@ -47,8 +47,8 @@ describe('PackageManagerCreator', () => {
         [PackageManagerName.Yarn, Yarn]
       ])('packageManager=%p', async (packageManager, expected) => {
         detectPackageManagerMock.mockResolvedValue(packageManager)
-        const options = {} as unknown as Options
-        const packageManagerCreator = new PackageManagerCreator(options)
+        const options = {}
+        const packageManagerCreator = new PackageManagerCreator(options as Options)
 
         const actual = await packageManagerCreator.create(terminal)
 
