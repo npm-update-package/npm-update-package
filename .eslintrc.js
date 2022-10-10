@@ -8,7 +8,8 @@ const unicornRules = {
   'unicorn/prefer-node-protocol': 'off',
   'unicorn/prefer-spread': 'off',
   'unicorn/prefer-top-level-await': 'off',
-  'unicorn/prevent-abbreviations': 'off'
+  'unicorn/prevent-abbreviations': 'off',
+  'unicorn/switch-case-braces': ['error', 'avoid']
 }
 
 const importRules = {
@@ -27,14 +28,11 @@ const importRules = {
 
 module.exports = {
   extends: [
-    'standard-with-typescript',
-    'plugin:unicorn/recommended',
-    'plugin:eslint-comments/recommended',
+    '@eslint-recommended/eslint-config-typescript',
     'plugin:jest/recommended'
   ],
   plugins: [
-    'import-newlines',
-    'tsdoc'
+    'import-newlines'
   ],
   parserOptions: {
     project: './tsconfig.json'
@@ -42,7 +40,6 @@ module.exports = {
   rules: {
     ...unicornRules,
     ...importRules,
-    'no-console': 'error',
-    'tsdoc/syntax': 'warn'
+    'no-console': 'error'
   }
 }
