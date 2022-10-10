@@ -31,6 +31,7 @@
     "type-guards": "0.15.0"
   },
   "devDependencies": {
+    "@eslint-recommended/eslint-config-typescript": "1.2.0",
     "@tsconfig/node14": "1.0.3",
     "@types/mustache": "4.2.1",
     "@types/node": "14.18.31",
