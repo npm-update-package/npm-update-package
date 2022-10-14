@@ -3,10 +3,14 @@ on: [pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # https://nodejs.org/en/about/releases/
+        node-version: ['14', '16', '18']
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
       with:
-        node-version-file: '.nvmrc'
+        node-version: ${{ matrix.node-version }}
     - run: npm ci
     - run: npm run build
