@@ -1,4 +1,7 @@
 [![npm version](https://badge.fury.io/js/npm-update-package.svg)](https://badge.fury.io/js/npm-update-package)
+[![build](https://github.com/npm-update-package/npm-update-package/actions/workflows/build.yml/badge.svg)](https://github.com/npm-update-package/npm-update-package/actions/workflows/build.yml)
+[![lint](https://github.com/npm-update-package/npm-update-package/actions/workflows/lint.yml/badge.svg)](https://github.com/npm-update-package/npm-update-package/actions/workflows/lint.yml)
+[![test](https://github.com/npm-update-package/npm-update-package/actions/workflows/test.yml/badge.svg)](https://github.com/npm-update-package/npm-update-package/actions/workflows/test.yml)
 
 # npm-update-package
 
