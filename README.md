@@ -481,8 +481,6 @@ We recommend using GitHub App for the following reasons.
 - Personal access token relies on personal account.
 - When you use the Personal access token, the author of pull requests will be the user who issued the token.
 
-Creating a GitHub App may be tedious, but you only have to do it once the first time.
-
 ## How to run on GitHub Actions
 
 ### Use token of GitHub Actions
