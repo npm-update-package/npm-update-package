@@ -61,6 +61,8 @@ CLI tool for creating pull requests to update npm packages
 
 ## Usage
 
+The simplest use of npm-update-package is just run the following command:
+
 ```sh
 npx npm-update-package --github-token <github-token>
 ```
