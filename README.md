@@ -139,7 +139,7 @@ Available variables:
 |`currentVersion`|Current package version|
 |`newVersion`|New package version|
 |`packageName`|Package name|
-|`level`|Semver level(`major`/`minor`/`patch`)|
+|`level`|Semver level (`major`/`minor`/`patch`)|
 |`dependencyType`|Dependency type (`dependencies`/`devDependencies`/`peerDependencies`/`bundledDependencies`/`optionalDependencies`)|
 
 Example:
