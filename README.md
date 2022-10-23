@@ -345,8 +345,8 @@ Allowed values:
 
 |Value|Description|
 |---|---|
-|`npm`|npm|
-|`yarn`|Yarn|
+|`npm`|Use npm|
+|`yarn`|Use Yarn|
 
 Example:
 
@@ -460,7 +460,7 @@ GitHub token is required to run npm-update-package.
 Available tokens and permissions required for each token are as follows.
 
 - [GitHub Actions](https://docs.github.com/en/actions/security-guides/automatic-token-authentication)
-- [GitHub App](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps)
+- [GitHub App](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps) (recommended)
   - Contents: Read & write
   - Metadata: Read-only
   - Pull requests: Read & write
@@ -480,8 +480,6 @@ We recommend using GitHub App for the following reasons.
 - When you use the token of GitHub Actions, the job will not trigger other actions.
 - Personal access token relies on personal account.
 - When you use the Personal access token, the author of pull requests will be the user who issued the token.
-
-Creating a GitHub App may be tedious, but you only have to do it once the first time.
 
 ## How to run on GitHub Actions
 
