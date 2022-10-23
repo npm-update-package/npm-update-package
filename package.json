@@ -19,7 +19,7 @@
     "array-shuffle": "2.0.0",
     "commander": "9.4.1",
     "execa": "5.1.1",
-    "fp-ts": "2.13.1",
+    "fp-ts": "2.12.3",
     "http-status-codes": "2.2.0",
     "io-ts": "2.2.19",
     "log4js": "6.7.0",
