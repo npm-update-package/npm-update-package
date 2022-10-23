@@ -460,7 +460,7 @@ GitHub token is required to run npm-update-package.
 Available tokens and permissions required for each token are as follows.
 
 - [GitHub Actions](https://docs.github.com/en/actions/security-guides/automatic-token-authentication)
-- [GitHub App](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps)
+- [GitHub App](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps) (recommended)
   - Contents: Read & write
   - Metadata: Read-only
   - Pull requests: Read & write
