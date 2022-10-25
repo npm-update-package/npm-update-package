@@ -1,6 +1,6 @@
 {
   "name": "npm-update-package",
-  "version": "1.4.28",
+  "version": "1.4.30",
   "description": "CLI tool for creating pull requests to update npm packages",
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
@@ -25,7 +25,7 @@
     "log4js": "6.7.0",
     "mustache": "4.2.0",
     "node-fetch": "2.6.7",
-    "npm-check-updates": "16.3.15",
+    "npm-check-updates": "16.3.11",
     "parse-github-url": "1.0.2",
     "semver": "7.3.8",
     "type-guards": "0.15.0"
@@ -38,7 +38,7 @@
     "@types/node-fetch": "2.6.2",
     "@types/parse-github-url": "1.0.0",
     "@types/semver": "7.3.12",
-    "@typescript-eslint/eslint-plugin": "5.40.1",
+    "@typescript-eslint/eslint-plugin": "5.41.0",
     "eslint": "8.26.0",
     "eslint-config-standard-with-typescript": "23.0.0",
     "eslint-plugin-eslint-comments": "3.2.0",
