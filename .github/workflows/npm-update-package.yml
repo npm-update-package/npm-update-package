@@ -1,0 +1,26 @@
+name: npm-update-package
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  npm-update-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+      - run: |
+          npx npm-update-package \
+            --git-user-email 97396142+npm-update-package[bot]@users.noreply.github.com \
+            --git-user-name npm-update-package[bot] \
+            --github-token $GITHUB_TOKEN
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
