@@ -5,12 +5,8 @@
   "labels": ["renovate"],
   "packageRules": [
     {
-      "matchPackageNames": ["@types/node"],
-      "allowedVersions": "<15"
-    },
-    {
-      "matchPackageNames": ["node"],
-      "allowedVersions": "<15"
+      "matchManagers": ["npm"],
+      "enabled": false
     }
   ]
 }
