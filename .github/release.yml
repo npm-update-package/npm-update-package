@@ -12,6 +12,7 @@ changelog:
     - title: "Dependency updates"
       labels:
         - "dependencies"
+        - "npm-update-package"
         - "renovate"
     - title: "Documentation"
       labels:
