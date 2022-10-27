@@ -25,6 +25,7 @@ const Options = intersection([
       literal(DependencyType.BundledDependencies),
       literal(DependencyType.OptionalDependencies)
     ])),
+    draftPr: boolean,
     fetchReleaseNotes: boolean,
     fetchSleepTime: number,
     githubToken: string,

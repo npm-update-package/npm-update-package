@@ -37,6 +37,8 @@ describe('createOptions', () => {
       '--dependency-types',
       'dependencies',
       'devDependencies',
+      '--draft-pr',
+      'true',
       '--fetch-release-notes',
       'false',
       '--fetch-sleep-time',
@@ -89,6 +91,7 @@ describe('createOptions', () => {
         DependencyType.Dependencies,
         DependencyType.DevDependencies
       ],
+      draftPr: true,
       fetchReleaseNotes: false,
       fetchSleepTime: 2000,
       gitUserEmail: 'alice@example.com',

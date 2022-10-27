@@ -33,6 +33,7 @@ describe('initOptions', () => {
         DependencyType.BundledDependencies,
         DependencyType.OptionalDependencies
       ],
+      draftPr: true,
       fetchReleaseNotes: true,
       fetchSleepTime: 1000,
       gitUserEmail: 'octocat@example.com',

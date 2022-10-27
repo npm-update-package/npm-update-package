@@ -181,6 +181,24 @@ npx npm-update-package \
   --dependency-types dependencies devDependencies
 ```
 
+### `--draft-pr`
+
+Whether to create pull request as draft.
+
+|Name|Value|
+|---|---|
+|type|boolean|
+|required|-|
+|default|`false`|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token <github-token> \
+  --draft-pr true
+```
+
 ### `--fetch-release-notes`
 
 Whether to fetch release notes.

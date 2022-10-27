@@ -52,6 +52,13 @@ export const cliOptions: CLIOption[] = [
     ]
   },
   {
+    name: 'draft-pr',
+    description: 'Whether to create pull request as draft',
+    type: OptionType.Boolean,
+    required: false,
+    default: false
+  },
+  {
     name: 'fetch-release-notes',
     description: 'Whether to fetch release notes',
     type: OptionType.Boolean,
