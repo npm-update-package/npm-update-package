@@ -355,7 +355,7 @@ npx npm-update-package \
 ### `--package-manager`
 
 Package manager of your project.  
-Since npm-update-package automatically determines which package manager to use, it is usually not necessary to specify this option.
+Since npm-update-package automatically determines which package manager to use, it is usually not necessary to use this option.
 
 |Name|Value|
 |---|---|
