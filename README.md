@@ -21,6 +21,7 @@ CLI tool for creating pull requests to update npm packages
   - [`--assignees-sample-size`](#--assignees-sample-size)
   - [`--commit-message`](#--commit-message)
   - [`--dependency-types`](#--dependency-types)
+  - [`--draft-pr`](#--draft-pr)
   - [`--fetch-release-notes`](#--fetch-release-notes)
   - [`--fetch-sleep-time`](#--fetch-sleep-time)
   - [`--git-user-email`](#--git-user-email)
