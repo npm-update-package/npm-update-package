@@ -21,6 +21,7 @@ CLI tool for creating pull requests to update npm packages
   - [`--assignees-sample-size`](#--assignees-sample-size)
   - [`--commit-message`](#--commit-message)
   - [`--dependency-types`](#--dependency-types)
+  - [`--draft-pr`](#--draft-pr)
   - [`--fetch-release-notes`](#--fetch-release-notes)
   - [`--fetch-sleep-time`](#--fetch-sleep-time)
   - [`--git-user-email`](#--git-user-email)
@@ -179,6 +180,24 @@ Example:
 npx npm-update-package \
   --github-token <github-token> \
   --dependency-types dependencies devDependencies
+```
+
+### `--draft-pr`
+
+Whether to create pull request as draft.
+
+|Name|Value|
+|---|---|
+|type|boolean|
+|required|-|
+|default|`false`|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token <github-token> \
+  --draft-pr true
 ```
 
 ### `--fetch-release-notes`

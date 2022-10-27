@@ -75,7 +75,8 @@ export class PullRequestCreator {
       baseBranch: this.githubRepo.default_branch,
       headBranch: branchName,
       title,
-      body
+      body,
+      draft: this.options.draftPr
     })
     logger.debug(`pullRequest=${JSON.stringify(pullRequest)}`)
 
