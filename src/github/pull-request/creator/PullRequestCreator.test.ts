@@ -59,6 +59,7 @@ describe('PullRequestCreator', () => {
       additionalLabels: ['bot', 'dependencies'],
       assignees: ['alice', 'bob'],
       assigneesSampleSize: 1,
+      draftPr: true,
       reviewers: ['carol', 'dave'],
       reviewersSampleSize: 1
     }
@@ -103,7 +104,8 @@ describe('PullRequestCreator', () => {
         baseBranch: githubRepo.default_branch,
         headBranch: branchName,
         title,
-        body
+        body,
+        draft: options.draftPr
       })
       expect(labelsAdderAddMock).toHaveBeenCalledWith(pullRequest.number)
       expect(assigneesAdderAddMock).toHaveBeenCalledWith({
