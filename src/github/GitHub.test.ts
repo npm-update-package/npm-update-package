@@ -170,6 +170,7 @@ describe('GitHub', () => {
       const headBranch = 'develop'
       const title = 'test title'
       const body = 'test body'
+      const draft = true
 
       const actual = await github.createPullRequest({
         owner,
@@ -177,7 +178,8 @@ describe('GitHub', () => {
         baseBranch,
         headBranch,
         title,
-        body
+        body,
+        draft
       })
 
       expect(actual).toBe(expected)
@@ -187,7 +189,8 @@ describe('GitHub', () => {
         base: baseBranch,
         head: headBranch,
         title,
-        body
+        body,
+        draft
       })
     })
   })

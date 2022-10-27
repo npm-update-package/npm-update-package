@@ -97,7 +97,8 @@ export class GitHub {
     baseBranch,
     headBranch,
     title,
-    body
+    body,
+    draft
   }: {
     owner: string
     repo: string
@@ -105,6 +106,7 @@ export class GitHub {
     headBranch: string
     title: string
     body: string
+    draft?: boolean
   }): Promise<CreatedPullRequest> {
     const { data } = await this.octokit.pulls.create({
       owner,
@@ -112,7 +114,8 @@ export class GitHub {
       base: baseBranch,
       head: headBranch,
       title,
-      body
+      body,
+      draft
     })
     return data
   }
