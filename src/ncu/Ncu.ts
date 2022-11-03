@@ -51,7 +51,7 @@ export class Ncu {
     logger.debug(`result=${JSON.stringify(result)}`)
 
     if (!isNcuResult(result)) {
-      throw new Error('Failed to running ncu.')
+      throw new Error(`npm-check-updates has outputted unexpected result. result=${JSON.stringify(result)}`)
     }
 
     const {
@@ -128,7 +128,7 @@ export class Ncu {
     logger.trace(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
 
     if (resultEntries.length !== outdatedPackages.length) {
-      throw new Error('Failed to running ncu.')
+      throw new Error(`Failed to running npm-check-updates. resultEntries=${JSON.stringify(resultEntries)} outdatedPackages=${JSON.stringify(outdatedPackages)}`)
     }
 
     return outdatedPackages
