@@ -54,13 +54,10 @@ export class Ncu {
       throw new Error(`npm-check-updates has outputted unexpected result. result=${JSON.stringify(result)}`)
     }
 
-    const {
-      dependencies,
-      devDependencies,
-      peerDependencies,
-      bundledDependencies,
-      optionalDependencies
-    } = pkg
+    const resultEntries = Object.entries(result)
+    logger.trace(`resultEntries=${JSON.stringify(resultEntries)}`)
+
+    const { dependencies, devDependencies, peerDependencies, bundledDependencies, optionalDependencies } = pkg
     const toCurrentVersionString = (packageName: string): string | undefined => {
       if (dependencies?.[packageName] !== undefined) {
         return dependencies[packageName]
@@ -87,7 +84,7 @@ export class Ncu {
         return DependencyType.OptionalDependencies
       }
     }
-    const resultEntries = Object.entries(result)
+
     const outdatedPackages: OutdatedPackage[] = resultEntries
       .map(([name, newVersionString]) => {
         const currentVersionString = toCurrentVersionString(name)
