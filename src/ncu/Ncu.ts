@@ -46,6 +46,7 @@ export class Ncu {
     const pkg = await readPackageJson('./package.json')
     logger.trace(`pkg=${JSON.stringify(pkg)}`)
 
+    // Run npm-check-updates
     const result = await run(options)
     logger.debug(`result=${JSON.stringify(result)}`)
 
