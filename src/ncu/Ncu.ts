@@ -4,51 +4,33 @@ import {
 } from 'npm-check-updates'
 import { isNotUndefined } from 'type-guards'
 import type { OutdatedPackage } from '../core'
-import { readFile } from '../file'
 import { logger } from '../logger'
 import type { Options } from '../options'
 import {
   DependencyType,
-  parsePackageJson
+  readPackageJson
 } from '../package-json'
 import {
   compareSemVers,
   SemVer
 } from '../semver'
+import { createDepOptionValue } from './createDepOptionValue'
 import { isNcuResult } from './NcuResult'
 
 // TODO: Add test
+// TODO: Rename to NpmCheckUpdates
 export class Ncu {
   constructor (private readonly options: Options) {}
 
   async check (): Promise<OutdatedPackage[]> {
+    const dep = createDepOptionValue(this.options.dependencyTypes)
+    logger.trace(`dep=${dep}`)
     return await this.run({
       packageManager: this.options.packageManager,
       jsonUpgraded: true,
-      dep: this.createDepOptionValue(),
+      dep,
       reject: this.options.ignorePackages
     })
-  }
-
-  private createDepOptionValue (): string {
-    return this.options.dependencyTypes
-      .map((dependencyType) => {
-        switch (dependencyType) {
-          case DependencyType.Dependencies:
-            return 'prod'
-          case DependencyType.DevDependencies:
-            return 'dev'
-          case DependencyType.PeerDependencies:
-            return 'peer'
-          case DependencyType.BundledDependencies:
-            return 'bundle'
-          case DependencyType.OptionalDependencies:
-            return 'optional'
-          default:
-            throw new Error()
-        }
-      })
-      .join(',')
   }
 
   async update (outdatedPackage: OutdatedPackage): Promise<OutdatedPackage[]> {
@@ -61,25 +43,22 @@ export class Ncu {
   }
 
   private async run (options: RunOptions): Promise<OutdatedPackage[]> {
-    // Read package.json before running ncu
-    const json = await readFile('./package.json')
-    const pkg = parsePackageJson(json)
-    logger.debug(`pkg=${JSON.stringify(pkg)}`)
+    // Read package.json before running npm-check-updates
+    const pkg = await readPackageJson('./package.json')
+    logger.trace(`pkg=${JSON.stringify(pkg)}`)
 
+    // Run npm-check-updates
     const result = await run(options)
-    logger.debug(`result=${JSON.stringify(result)}`)
+    logger.trace(`result=${JSON.stringify(result)}`)
 
     if (!isNcuResult(result)) {
-      throw new Error('Failed to running ncu.')
+      throw new Error(`npm-check-updates has outputted unexpected result. result=${JSON.stringify(result)}`)
     }
 
-    const {
-      dependencies,
-      devDependencies,
-      peerDependencies,
-      bundledDependencies,
-      optionalDependencies
-    } = pkg
+    const resultEntries = Object.entries(result)
+    logger.trace(`resultEntries=${JSON.stringify(resultEntries)}`)
+
+    const { dependencies, devDependencies, peerDependencies, bundledDependencies, optionalDependencies } = pkg
     const toCurrentVersionString = (packageName: string): string | undefined => {
       if (dependencies?.[packageName] !== undefined) {
         return dependencies[packageName]
@@ -106,16 +85,18 @@ export class Ncu {
         return DependencyType.OptionalDependencies
       }
     }
-    const resultEntries = Object.entries(result)
+
     const outdatedPackages: OutdatedPackage[] = resultEntries
       .map(([name, newVersionString]) => {
         const currentVersionString = toCurrentVersionString(name)
+        logger.trace(`currentVersionString=${String(currentVersionString)}`)
 
         if (currentVersionString === undefined) {
           return undefined
         }
 
         const dependencyType = toDependencyType(name)
+        logger.trace(`currentVersionString=${String(dependencyType)}`)
 
         if (dependencyType === undefined) {
           return undefined
@@ -124,6 +105,7 @@ export class Ncu {
         const currentVersion = SemVer.of(currentVersionString)
         const newVersion = SemVer.of(newVersionString)
         const level = compareSemVers(currentVersion, newVersion)
+        logger.trace(`level=${String(level)}`)
 
         if (level === undefined) {
           return undefined
@@ -136,13 +118,15 @@ export class Ncu {
           level,
           dependencyType
         }
+        logger.trace(`outdatedPackage=${JSON.stringify(outdatedPackage)}`)
         return outdatedPackage
       })
       // eslint-disable-next-line unicorn/no-array-callback-reference
       .filter(isNotUndefined)
+    logger.trace(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
 
     if (resultEntries.length !== outdatedPackages.length) {
-      throw new Error('Failed to running ncu.')
+      throw new Error(`Failed to running npm-check-updates. result=${JSON.stringify(result)}`)
     }
 
     return outdatedPackages
