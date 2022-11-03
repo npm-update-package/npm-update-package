@@ -18,8 +18,7 @@ import { createDepOptionValue } from './createDepOptionValue'
 import { isNcuResult } from './NcuResult'
 
 // TODO: Add test
-// TODO: Rename to NpmCheckUpdates
-export class Ncu {
+export class NpmCheckUpdates {
   constructor (private readonly options: Options) {}
 
   async check (): Promise<OutdatedPackage[]> {

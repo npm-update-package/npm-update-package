@@ -1,17 +1,17 @@
-import type { Ncu } from '../ncu'
+import type { NpmCheckUpdates } from '../ncu'
 import type { PackageManager } from '../package-manager'
 import type { OutdatedPackage } from './OutdatedPackage'
 
 export class PackageUpdater {
   private readonly packageManager: PackageManager
-  private readonly ncu: Ncu
+  private readonly ncu: NpmCheckUpdates
 
   constructor ({
     packageManager,
     ncu
   }: {
     packageManager: PackageManager
-    ncu: Ncu
+    ncu: NpmCheckUpdates
   }) {
     this.packageManager = packageManager
     this.ncu = ncu

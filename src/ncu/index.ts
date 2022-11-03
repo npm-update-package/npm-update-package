@@ -1,1 +1,1 @@
-export * from './Ncu'
+export * from './NpmCheckUpdates'
