@@ -4,12 +4,11 @@ import {
 } from 'npm-check-updates'
 import { isNotUndefined } from 'type-guards'
 import type { OutdatedPackage } from '../core'
-import { readFile } from '../file'
 import { logger } from '../logger'
 import type { Options } from '../options'
 import {
   DependencyType,
-  parsePackageJson
+  readPackageJson
 } from '../package-json'
 import {
   compareSemVers,
@@ -44,9 +43,8 @@ export class Ncu {
 
   private async run (options: RunOptions): Promise<OutdatedPackage[]> {
     // Read package.json before running ncu
-    const json = await readFile('./package.json')
-    const pkg = parsePackageJson(json)
-    logger.debug(`pkg=${JSON.stringify(pkg)}`)
+    const pkg = await readPackageJson('./package.json')
+    logger.trace(`pkg=${JSON.stringify(pkg)}`)
 
     const result = await run(options)
     logger.debug(`result=${JSON.stringify(result)}`)
