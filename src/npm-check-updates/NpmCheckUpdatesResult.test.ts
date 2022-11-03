@@ -3,31 +3,31 @@ import {
   expect,
   it
 } from '@jest/globals'
-import { isNcuResult } from './NcuResult'
-import type { NcuResult } from './NcuResult'
+import { isNpmCheckUpdatesResult } from './NpmCheckUpdatesResult'
+import type { NpmCheckUpdatesResult } from './NpmCheckUpdatesResult'
 
-describe('isNcuResult', () => {
-  describe('returns whether value is NcuResult', () => {
+describe('isNpmCheckUpdatesResult', () => {
+  describe('returns whether value is NpmCheckUpdatesResult', () => {
     interface TestCase {
       value: unknown
       expected: boolean
     }
-    const ncuResult: NcuResult = {
+    const result: NpmCheckUpdatesResult = {
       '@npm-update-package/example': '1.0.0'
     }
     const cases: TestCase[] = [
       {
-        value: ncuResult,
+        value: result,
         expected: true
       },
       {
-        value: [ncuResult],
+        value: [result],
         expected: false
       }
     ]
 
     it.each(cases)('value=$value', ({ value, expected }) => {
-      const actual = isNcuResult(value)
+      const actual = isNpmCheckUpdatesResult(value)
 
       expect(actual).toBe(expected)
     })

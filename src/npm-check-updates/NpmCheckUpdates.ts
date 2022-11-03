@@ -15,11 +15,10 @@ import {
   SemVer
 } from '../semver'
 import { createDepOptionValue } from './createDepOptionValue'
-import { isNcuResult } from './NcuResult'
+import { isNpmCheckUpdatesResult } from './NpmCheckUpdatesResult'
 
 // TODO: Add test
-// TODO: Rename to NpmCheckUpdates
-export class Ncu {
+export class NpmCheckUpdates {
   constructor (private readonly options: Options) {}
 
   async check (): Promise<OutdatedPackage[]> {
@@ -51,7 +50,7 @@ export class Ncu {
     const result = await run(options)
     logger.trace(`result=${JSON.stringify(result)}`)
 
-    if (!isNcuResult(result)) {
+    if (!isNpmCheckUpdatesResult(result)) {
       throw new Error(`npm-check-updates has outputted unexpected result. result=${JSON.stringify(result)}`)
     }
 

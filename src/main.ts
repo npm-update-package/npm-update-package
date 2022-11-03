@@ -31,7 +31,7 @@ import {
   ReviewersAdder
 } from './github'
 import { logger } from './logger'
-import { Ncu } from './ncu'
+import { NpmCheckUpdates } from './npm-check-updates'
 import type { Options } from './options'
 import { OutdatedPackageProcessorCreator } from './outdated-package-processor'
 import { PackageManagerCreator } from './package-manager'
@@ -44,7 +44,7 @@ export const main = async (options: Options): Promise<void> => {
     githubToken: options.githubToken !== '' ? '***' : ''
   })}`)
 
-  const ncu = new Ncu(options)
+  const ncu = new NpmCheckUpdates(options)
   const outdatedPackages = await ncu.check()
   logger.debug(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
 

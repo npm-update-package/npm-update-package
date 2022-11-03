@@ -5,7 +5,7 @@ import {
   it,
   jest
 } from '@jest/globals'
-import type { Ncu } from '../ncu'
+import type { NpmCheckUpdates } from '../npm-check-updates'
 import { DependencyType } from '../package-json'
 import type { PackageManager } from '../package-manager'
 import {
@@ -21,10 +21,10 @@ describe('PackageUpdater', () => {
     const packageManager = {
       install: packageManagerInstallMock
     } as unknown as PackageManager
-    const ncuUpdateMock = jest.fn<Ncu['update']>()
+    const ncuUpdateMock = jest.fn<NpmCheckUpdates['update']>()
     const ncu = {
       update: ncuUpdateMock
-    } as unknown as Ncu
+    } as unknown as NpmCheckUpdates
     const packageUpdater = new PackageUpdater({
       packageManager,
       ncu
