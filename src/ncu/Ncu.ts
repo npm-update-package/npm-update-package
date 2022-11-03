@@ -18,6 +18,7 @@ import { createDepOptionValue } from './createDepOptionValue'
 import { isNcuResult } from './NcuResult'
 
 // TODO: Add test
+// TODO: Rename to NpmCheckUpdates
 export class Ncu {
   constructor (private readonly options: Options) {}
 
