@@ -95,7 +95,7 @@ export class NpmCheckUpdates {
         }
 
         const dependencyType = toDependencyType(name)
-        logger.trace(`currentVersionString=${String(dependencyType)}`)
+        logger.trace(`dependencyType=${String(dependencyType)}`)
 
         if (dependencyType === undefined) {
           return undefined
