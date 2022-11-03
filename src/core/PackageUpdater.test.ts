@@ -5,7 +5,7 @@ import {
   it,
   jest
 } from '@jest/globals'
-import type { NpmCheckUpdates } from '../ncu'
+import type { NpmCheckUpdates } from '../npm-check-updates'
 import { DependencyType } from '../package-json'
 import type { PackageManager } from '../package-manager'
 import {

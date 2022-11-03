@@ -31,7 +31,7 @@ import {
   ReviewersAdder
 } from './github'
 import { logger } from './logger'
-import { NpmCheckUpdates } from './ncu'
+import { NpmCheckUpdates } from './npm-check-updates'
 import type { Options } from './options'
 import { OutdatedPackageProcessorCreator } from './outdated-package-processor'
 import { PackageManagerCreator } from './package-manager'

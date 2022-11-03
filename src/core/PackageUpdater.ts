@@ -1,4 +1,4 @@
-import type { NpmCheckUpdates } from '../ncu'
+import type { NpmCheckUpdates } from '../npm-check-updates'
 import type { PackageManager } from '../package-manager'
 import type { OutdatedPackage } from './OutdatedPackage'
 
