@@ -48,7 +48,7 @@ export class Ncu {
 
     // Run npm-check-updates
     const result = await run(options)
-    logger.debug(`result=${JSON.stringify(result)}`)
+    logger.trace(`result=${JSON.stringify(result)}`)
 
     if (!isNcuResult(result)) {
       throw new Error(`npm-check-updates has outputted unexpected result. result=${JSON.stringify(result)}`)
