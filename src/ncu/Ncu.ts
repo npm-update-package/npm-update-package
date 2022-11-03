@@ -33,27 +33,6 @@ export class Ncu {
     })
   }
 
-  private createDepOptionValue (): string {
-    return this.options.dependencyTypes
-      .map((dependencyType) => {
-        switch (dependencyType) {
-          case DependencyType.Dependencies:
-            return 'prod'
-          case DependencyType.DevDependencies:
-            return 'dev'
-          case DependencyType.PeerDependencies:
-            return 'peer'
-          case DependencyType.BundledDependencies:
-            return 'bundle'
-          case DependencyType.OptionalDependencies:
-            return 'optional'
-          default:
-            throw new Error()
-        }
-      })
-      .join(',')
-  }
-
   async update (outdatedPackage: OutdatedPackage): Promise<OutdatedPackage[]> {
     return await this.run({
       packageManager: this.options.packageManager,
