@@ -125,7 +125,7 @@ export class Ncu {
     logger.trace(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
 
     if (resultEntries.length !== outdatedPackages.length) {
-      throw new Error(`Failed to running npm-check-updates. resultEntries=${JSON.stringify(resultEntries)} outdatedPackages=${JSON.stringify(outdatedPackages)}`)
+      throw new Error(`Failed to running npm-check-updates. result=${JSON.stringify(result)}`)
     }
 
     return outdatedPackages
