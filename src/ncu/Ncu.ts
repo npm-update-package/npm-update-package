@@ -15,6 +15,7 @@ import {
   compareSemVers,
   SemVer
 } from '../semver'
+import { createDepOptionValue } from './createDepOptionValue'
 import { isNcuResult } from './NcuResult'
 
 // TODO: Add test
@@ -22,10 +23,12 @@ export class Ncu {
   constructor (private readonly options: Options) {}
 
   async check (): Promise<OutdatedPackage[]> {
+    const dep = createDepOptionValue(this.options.dependencyTypes)
+    logger.trace(`dep=${dep}`)
     return await this.run({
       packageManager: this.options.packageManager,
       jsonUpgraded: true,
-      dep: this.createDepOptionValue(),
+      dep,
       reject: this.options.ignorePackages
     })
   }
