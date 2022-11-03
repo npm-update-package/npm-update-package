@@ -110,12 +110,14 @@ export class Ncu {
     const outdatedPackages: OutdatedPackage[] = resultEntries
       .map(([name, newVersionString]) => {
         const currentVersionString = toCurrentVersionString(name)
+        logger.trace(`currentVersionString=${String(currentVersionString)}`)
 
         if (currentVersionString === undefined) {
           return undefined
         }
 
         const dependencyType = toDependencyType(name)
+        logger.trace(`currentVersionString=${String(dependencyType)}`)
 
         if (dependencyType === undefined) {
           return undefined
@@ -124,6 +126,7 @@ export class Ncu {
         const currentVersion = SemVer.of(currentVersionString)
         const newVersion = SemVer.of(newVersionString)
         const level = compareSemVers(currentVersion, newVersion)
+        logger.trace(`level=${String(level)}`)
 
         if (level === undefined) {
           return undefined
@@ -136,10 +139,12 @@ export class Ncu {
           level,
           dependencyType
         }
+        logger.trace(`outdatedPackage=${JSON.stringify(outdatedPackage)}`)
         return outdatedPackage
       })
       // eslint-disable-next-line unicorn/no-array-callback-reference
       .filter(isNotUndefined)
+    logger.trace(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
 
     if (resultEntries.length !== outdatedPackages.length) {
       throw new Error('Failed to running ncu.')
