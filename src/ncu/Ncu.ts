@@ -42,7 +42,7 @@ export class Ncu {
   }
 
   private async run (options: RunOptions): Promise<OutdatedPackage[]> {
-    // Read package.json before running ncu
+    // Read package.json before running npm-check-updates
     const pkg = await readPackageJson('./package.json')
     logger.trace(`pkg=${JSON.stringify(pkg)}`)
 
