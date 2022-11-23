@@ -41,7 +41,7 @@ import { Terminal } from './terminal'
 export const main = async (options: Options): Promise<void> => {
   logger.debug(`options=${JSON.stringify({
     ...options,
-    githubToken: options.githubToken !== '' ? '***' : ''
+    githubToken: options.githubToken === '' ? '' : '***'
   })}`)
 
   const ncu = new NpmCheckUpdates(options)

@@ -30,7 +30,7 @@ export class ReviewersAdder {
       owner: this.gitRepo.owner,
       repo: this.gitRepo.name,
       pullNumber,
-      reviewers: size !== undefined ? sampleSize(reviewers, size) : reviewers
+      reviewers: size === undefined ? reviewers : sampleSize(reviewers, size)
     })
   }
 }

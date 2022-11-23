@@ -24,7 +24,7 @@ export class LabelsAdder {
   }
 
   async add (issueNumber: number): Promise<void> {
-    const labels = this.options.additionalLabels !== undefined ? [...DEFAULT_LABELS, ...this.options.additionalLabels] : DEFAULT_LABELS
+    const labels = this.options.additionalLabels === undefined ? DEFAULT_LABELS : [...DEFAULT_LABELS, ...this.options.additionalLabels]
     await this.github.addLabels({
       owner: this.gitRepo.owner,
       repo: this.gitRepo.name,

@@ -30,7 +30,7 @@ export class AssigneesAdder {
       owner: this.gitRepo.owner,
       repo: this.gitRepo.name,
       issueNumber,
-      assignees: size !== undefined ? sampleSize(assignees, size) : assignees
+      assignees: size === undefined ? assignees : sampleSize(assignees, size)
     })
   }
 }
