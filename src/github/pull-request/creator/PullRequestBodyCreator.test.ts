@@ -297,12 +297,12 @@ describe('PullRequestBodyCreator', () => {
           expect(releaseNotesSectionCreatorCreateMock).not.toHaveBeenCalled()
         }
 
-        if (options.prBodyNotes !== undefined) {
-          // eslint-disable-next-line jest/no-conditional-expect
-          expect(createNotesSectionMock).toHaveBeenCalledWith(options.prBodyNotes)
-        } else {
+        if (options.prBodyNotes === undefined) {
           // eslint-disable-next-line jest/no-conditional-expect
           expect(createNotesSectionMock).not.toHaveBeenCalled()
+        } else {
+          // eslint-disable-next-line jest/no-conditional-expect
+          expect(createNotesSectionMock).toHaveBeenCalledWith(options.prBodyNotes)
         }
       })
     })
