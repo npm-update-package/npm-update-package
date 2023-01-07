@@ -88,7 +88,7 @@ describe('LabelCreator', () => {
       fetchLabelMock.mockRejectedValue(error)
       isNotFoundErrorMock.mockReturnValue(false)
 
-      await expect(async () => await labelCreator.create({
+      await expect(labelCreator.create({
         name: 'npm-update-package',
         description: 'Created by npm-update-package',
         color: 'A00F21'
