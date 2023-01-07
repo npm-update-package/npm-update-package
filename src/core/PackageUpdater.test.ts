@@ -53,7 +53,7 @@ describe('PackageUpdater', () => {
     it('throws error if failed to install package', async () => {
       ncuUpdateMock.mockResolvedValue([])
 
-      await expect(async () => await packageUpdater.update(outdatedPackage)).rejects.toThrow(Error)
+      await expect(packageUpdater.update(outdatedPackage)).rejects.toThrow(Error)
 
       expect(ncuUpdateMock).toHaveBeenCalledWith(outdatedPackage)
       expect(packageManagerInstallMock).not.toHaveBeenCalled()
