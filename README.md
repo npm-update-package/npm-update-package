@@ -68,6 +68,12 @@ The simplest use of npm-update-package is just run the following command:
 npx npm-update-package --github-token <github-token>
 ```
 
+Alternatively, you can use a specific version as follows:
+
+```sh
+npx npm-update-package@1 --github-token <github-token>
+```
+
 ## Options
 
 You can customize behavior via CLI options.  
