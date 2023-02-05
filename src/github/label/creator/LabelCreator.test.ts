@@ -5,7 +5,7 @@ import {
   it,
   jest
 } from '@jest/globals'
-import { GitRepository } from '../../../git'
+import type { GitRepository } from '../../../git'
 import { isNotFoundError } from '../../errors'
 import type {
   GitHub,
