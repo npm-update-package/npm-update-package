@@ -1,4 +1,4 @@
-import { Release } from '../../releases'
+import type { Release } from '../../releases'
 import type { GitHubUrlOptimizer } from './GitHubUrlOptimizer'
 
 export class ReleaseNotesSectionCreator {

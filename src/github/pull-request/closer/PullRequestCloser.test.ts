@@ -5,7 +5,7 @@ import {
   it,
   jest
 } from '@jest/globals'
-import {
+import type {
   GitHub,
   PullRequest
 } from '../../GitHub'

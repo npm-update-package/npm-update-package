@@ -12,7 +12,7 @@ import {
   SemVer,
   SemVerLevel
 } from '../semver'
-import { OutdatedPackage } from './OutdatedPackage'
+import type { OutdatedPackage } from './OutdatedPackage'
 import { PackageUpdater } from './PackageUpdater'
 
 describe('PackageUpdater', () => {
