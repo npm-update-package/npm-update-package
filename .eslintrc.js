@@ -6,6 +6,9 @@ module.exports = {
   parserOptions: {
     project: './tsconfig.json'
   },
+  plugins: [
+    'sonarjs'
+  ],
   rules: {
     'no-console': 'error'
   }
