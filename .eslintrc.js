@@ -20,6 +20,7 @@ module.exports = {
     'sonarjs/no-nested-switch': 'error',
     'sonarjs/no-nested-template-literals': 'error',
     'sonarjs/no-redundant-boolean': 'error',
-    'sonarjs/no-redundant-jump': 'error'
+    'sonarjs/no-redundant-jump': 'error',
+    'sonarjs/no-small-switch': 'error'
   }
 }
