@@ -19,6 +19,7 @@ module.exports = {
     'sonarjs/no-ignored-return': 'error',
     'sonarjs/no-nested-switch': 'error',
     'sonarjs/no-nested-template-literals': 'error',
-    'sonarjs/no-redundant-boolean': 'error'
+    'sonarjs/no-redundant-boolean': 'error',
+    'sonarjs/no-redundant-jump': 'error'
   }
 }
