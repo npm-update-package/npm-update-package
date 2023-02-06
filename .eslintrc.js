@@ -12,6 +12,7 @@ module.exports = {
   rules: {
     'no-console': 'error',
     'sonarjs/max-switch-cases': 'error',
-    'sonarjs/no-collapsible-if': 'error'
+    'sonarjs/no-collapsible-if': 'error',
+    'sonarjs/no-element-overwrite': 'error'
   }
 }
