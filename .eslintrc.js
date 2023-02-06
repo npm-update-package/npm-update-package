@@ -27,6 +27,7 @@ module.exports = {
     'sonarjs/no-useless-catch': 'error',
     'sonarjs/non-existent-operator': 'error',
     'sonarjs/prefer-immediate-return': 'error',
-    'sonarjs/prefer-object-literal': 'error'
+    'sonarjs/prefer-object-literal': 'error',
+    'sonarjs/prefer-single-boolean-return': 'error'
   }
 }
