@@ -26,6 +26,7 @@ module.exports = {
     'sonarjs/no-nested-template-literals': 'error',
     'sonarjs/no-redundant-boolean': 'error',
     'sonarjs/no-redundant-jump': 'error',
+    'sonarjs/no-same-line-conditional': 'error',
     'sonarjs/no-small-switch': 'error',
     'sonarjs/no-unused-collection': 'error',
     'sonarjs/no-use-of-empty-return-value': 'error',
