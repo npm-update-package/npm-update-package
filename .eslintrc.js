@@ -23,6 +23,7 @@ module.exports = {
     'sonarjs/no-redundant-jump': 'error',
     'sonarjs/no-small-switch': 'error',
     'sonarjs/no-unused-collection': 'error',
-    'sonarjs/no-use-of-empty-return-value': 'error'
+    'sonarjs/no-use-of-empty-return-value': 'error',
+    'sonarjs/no-useless-catch': 'error'
   }
 }
