@@ -10,6 +10,7 @@ module.exports = {
     'sonarjs'
   ],
   rules: {
-    'no-console': 'error'
+    'no-console': 'error',
+    'sonarjs/max-switch-cases': 'error'
   }
 }
