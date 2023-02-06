@@ -26,6 +26,7 @@ module.exports = {
     'sonarjs/no-use-of-empty-return-value': 'error',
     'sonarjs/no-useless-catch': 'error',
     'sonarjs/non-existent-operator': 'error',
-    'sonarjs/prefer-immediate-return': 'error'
+    'sonarjs/prefer-immediate-return': 'error',
+    'sonarjs/prefer-object-literal': 'error'
   }
 }
