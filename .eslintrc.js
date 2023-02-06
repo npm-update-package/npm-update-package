@@ -16,6 +16,7 @@ module.exports = {
     'sonarjs/no-element-overwrite': 'error',
     'sonarjs/no-empty-collection': 'error',
     'sonarjs/no-extra-arguments': 'error',
-    'sonarjs/no-ignored-return': 'error'
+    'sonarjs/no-ignored-return': 'error',
+    'sonarjs/no-nested-switch': 'error'
   }
 }
