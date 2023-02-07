@@ -10,6 +10,7 @@ import {
   DependencyType,
   readPackageJson
 } from '../package-json'
+import type { PackageMetadata } from '../package-json'
 import {
   compareSemVers,
   SemVer
@@ -41,8 +42,6 @@ export class NpmCheckUpdates {
     })
   }
 
-  // TODO: Refactoring
-  // eslint-disable-next-line sonarjs/cognitive-complexity
   private async run (options: RunOptions): Promise<OutdatedPackage[]> {
     // Read package.json before running npm-check-updates
     const pkg = await readPackageJson('./package.json')
@@ -59,44 +58,16 @@ export class NpmCheckUpdates {
     const resultEntries = Object.entries(result)
     logger.trace(`resultEntries=${JSON.stringify(resultEntries)}`)
 
-    const { dependencies, devDependencies, peerDependencies, bundledDependencies, optionalDependencies } = pkg
-    const toCurrentVersionString = (packageName: string): string | undefined => {
-      if (dependencies?.[packageName] !== undefined) {
-        return dependencies[packageName]
-      } else if (devDependencies?.[packageName] !== undefined) {
-        return devDependencies[packageName]
-      } else if (peerDependencies?.[packageName] !== undefined) {
-        return peerDependencies[packageName]
-      } else if (bundledDependencies?.[packageName] !== undefined) {
-        return bundledDependencies[packageName]
-      } else if (optionalDependencies?.[packageName] !== undefined) {
-        return optionalDependencies[packageName]
-      }
-    }
-    const toDependencyType = (packageName: string): DependencyType | undefined => {
-      if (dependencies?.[packageName] !== undefined) {
-        return DependencyType.Dependencies
-      } else if (devDependencies?.[packageName] !== undefined) {
-        return DependencyType.DevDependencies
-      } else if (peerDependencies?.[packageName] !== undefined) {
-        return DependencyType.PeerDependencies
-      } else if (bundledDependencies?.[packageName] !== undefined) {
-        return DependencyType.BundledDependencies
-      } else if (optionalDependencies?.[packageName] !== undefined) {
-        return DependencyType.OptionalDependencies
-      }
-    }
-
     const outdatedPackages: OutdatedPackage[] = resultEntries
       .map(([name, newVersionString]) => {
-        const currentVersionString = toCurrentVersionString(name)
+        const currentVersionString = this.extractCurrentVersionString(pkg, name)
         logger.trace(`currentVersionString=${String(currentVersionString)}`)
 
         if (currentVersionString === undefined) {
           return undefined
         }
 
-        const dependencyType = toDependencyType(name)
+        const dependencyType = this.extractDependencyType(pkg, name)
         logger.trace(`dependencyType=${String(dependencyType)}`)
 
         if (dependencyType === undefined) {
@@ -131,5 +102,37 @@ export class NpmCheckUpdates {
     }
 
     return outdatedPackages
+  }
+
+  private extractCurrentVersionString (pkg: PackageMetadata, packageName: string): string | undefined {
+    const { dependencies, devDependencies, peerDependencies, bundledDependencies, optionalDependencies } = pkg
+
+    if (dependencies?.[packageName] !== undefined) {
+      return dependencies[packageName]
+    } else if (devDependencies?.[packageName] !== undefined) {
+      return devDependencies[packageName]
+    } else if (peerDependencies?.[packageName] !== undefined) {
+      return peerDependencies[packageName]
+    } else if (bundledDependencies?.[packageName] !== undefined) {
+      return bundledDependencies[packageName]
+    } else if (optionalDependencies?.[packageName] !== undefined) {
+      return optionalDependencies[packageName]
+    }
+  }
+
+  private extractDependencyType (pkg: PackageMetadata, packageName: string): DependencyType | undefined {
+    const { dependencies, devDependencies, peerDependencies, bundledDependencies, optionalDependencies } = pkg
+
+    if (dependencies?.[packageName] !== undefined) {
+      return DependencyType.Dependencies
+    } else if (devDependencies?.[packageName] !== undefined) {
+      return DependencyType.DevDependencies
+    } else if (peerDependencies?.[packageName] !== undefined) {
+      return DependencyType.PeerDependencies
+    } else if (bundledDependencies?.[packageName] !== undefined) {
+      return DependencyType.BundledDependencies
+    } else if (optionalDependencies?.[packageName] !== undefined) {
+      return DependencyType.OptionalDependencies
+    }
   }
 }
