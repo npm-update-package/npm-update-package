@@ -41,6 +41,8 @@ export class NpmCheckUpdates {
     })
   }
 
+  // TODO: Refactoring
+  // eslint-disable-next-line sonarjs/cognitive-complexity
   private async run (options: RunOptions): Promise<OutdatedPackage[]> {
     // Read package.json before running npm-check-updates
     const pkg = await readPackageJson('./package.json')
