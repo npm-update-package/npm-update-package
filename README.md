@@ -3,7 +3,7 @@
 [![lint](https://github.com/npm-update-package/npm-update-package/actions/workflows/lint.yml/badge.svg)](https://github.com/npm-update-package/npm-update-package/actions/workflows/lint.yml)
 [![test](https://github.com/npm-update-package/npm-update-package/actions/workflows/test.yml/badge.svg)](https://github.com/npm-update-package/npm-update-package/actions/workflows/test.yml)
 
-<h1 align="center">npm-update-package</h1>
+# npm-update-package
 
 CLI tool for creating pull requests to update npm packages
 
