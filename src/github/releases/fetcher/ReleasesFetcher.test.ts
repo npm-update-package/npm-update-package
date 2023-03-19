@@ -7,7 +7,7 @@ import {
 } from '@jest/globals'
 import { StatusCodes } from 'http-status-codes'
 import fetch from 'node-fetch'
-import { GitRepository } from '../../../git'
+import type { GitRepository } from '../../../git'
 import type { Options } from '../../../options'
 import type { PackageManager } from '../../../package-manager'
 import { SemVer } from '../../../semver'

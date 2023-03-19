@@ -3,7 +3,7 @@
 [![lint](https://github.com/npm-update-package/npm-update-package/actions/workflows/lint.yml/badge.svg)](https://github.com/npm-update-package/npm-update-package/actions/workflows/lint.yml)
 [![test](https://github.com/npm-update-package/npm-update-package/actions/workflows/test.yml/badge.svg)](https://github.com/npm-update-package/npm-update-package/actions/workflows/test.yml)
 
-<h1 align="center">npm-update-package</h1>
+# npm-update-package
 
 CLI tool for creating pull requests to update npm packages
 
@@ -66,6 +66,12 @@ The simplest use of npm-update-package is just run the following command:
 
 ```sh
 npx npm-update-package --github-token <github-token>
+```
+
+Alternatively, you can use a specific version as follows:
+
+```sh
+npx npm-update-package@1 --github-token <github-token>
 ```
 
 ## Options

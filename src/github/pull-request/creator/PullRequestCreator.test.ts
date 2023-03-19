@@ -8,11 +8,11 @@ import {
 import type { OutdatedPackage } from '../../../core'
 import type { GitRepository } from '../../../git'
 import type { Options } from '../../../options'
-import {
+import type {
   GitHub,
-  Repository as GitHubRepository
+  Repository as GitHubRepository,
+  CreatedPullRequest
 } from '../../GitHub'
-import type { CreatedPullRequest } from '../../GitHub'
 import type { AssigneesAdder } from './AssigneesAdder'
 import type { LabelsAdder } from './LabelsAdder'
 import type { PullRequestBodyCreator } from './PullRequestBodyCreator'
