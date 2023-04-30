@@ -233,6 +233,7 @@ export class GitHub {
     reviewers: string[]
   }): Promise<void> {
     type Params = RestEndpointMethodTypes['pulls']['requestReviewers']['parameters']
+    // For some reason, some argument types are `never`, so type assertions are used.
     const params: Params = {
       owner: owner as never,
       repo: repo as never,
