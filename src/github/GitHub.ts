@@ -232,11 +232,14 @@ export class GitHub {
     pullNumber: number
     reviewers: string[]
   }): Promise<void> {
-    await this.octokit.pulls.requestReviewers({
-      owner,
-      repo,
-      pull_number: pullNumber,
-      reviewers
-    })
+    type Params = RestEndpointMethodTypes['pulls']['requestReviewers']['parameters']
+    // For some reason, some argument types are `never`, so type assertions are used.
+    const params: Params = {
+      owner: owner as never,
+      repo: repo as never,
+      pull_number: pullNumber as never,
+      reviewers: reviewers as never
+    }
+    await this.octokit.pulls.requestReviewers(params)
   }
 }
