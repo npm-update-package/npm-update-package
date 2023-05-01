@@ -18,7 +18,7 @@ jobs:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
       - run: |
-          npx --package=npm-update-package \
+          npx ts-node src/bin/npm-update-package.ts \
             --git-user-email 97396142+npm-update-package[bot]@users.noreply.github.com \
             --git-user-name npm-update-package[bot] \
             --github-token $GITHUB_TOKEN
