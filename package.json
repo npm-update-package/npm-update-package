@@ -19,7 +19,7 @@
     "@octokit/rest": "19.0.7",
     "array-shuffle": "2.0.0",
     "commander": "10.0.1",
-    "execa": "5.1.1",
+    "execa": "7.1.1",
     "fp-ts": "2.14.0",
     "http-status-codes": "2.2.0",
     "io-ts": "2.2.20",
