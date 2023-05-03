@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'node:fs'
 import {
   afterEach,
   describe,
@@ -8,7 +8,7 @@ import {
 } from '@jest/globals'
 import { readFile } from './readFile'
 
-jest.mock('fs', () => ({
+jest.mock('node:fs', () => ({
   promises: {
     readFile: jest.fn<typeof fs.promises.readFile>()
   }
