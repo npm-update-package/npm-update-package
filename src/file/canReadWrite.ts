@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'node:fs'
 
 // TODO: Add test
 export const canReadWrite = async (path: string): Promise<boolean> => {
