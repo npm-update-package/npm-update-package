@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@npm-update-package/eslint-config-typescript": "2.0.0",
-    "@tsconfig/node16": "1.0.3",
+    "@tsconfig/node16": "1.0.4",
     "@types/mustache": "4.2.2",
     "@types/node": "16.18.25",
     "@types/node-fetch": "2.6.3",
