@@ -16,7 +16,7 @@
     "node": ">=16"
   },
   "dependencies": {
-    "@octokit/rest": "19.0.7",
+    "@octokit/rest": "19.0.8",
     "array-shuffle": "2.0.0",
     "commander": "10.0.1",
     "execa": "5.1.1",
