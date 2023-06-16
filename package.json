@@ -28,7 +28,7 @@
     "node-fetch": "2.6.7",
     "npm-check-updates": "16.3.11",
     "parse-github-url": "1.0.2",
-    "semver": "7.5.1",
+    "semver": "7.5.2",
     "type-guards": "0.15.0"
   },
   "devDependencies": {
