@@ -35,7 +35,7 @@
     "@npm-update-package/eslint-config-typescript": "2.0.0",
     "@tsconfig/node16": "16.1.0",
     "@types/mustache": "4.2.2",
-    "@types/node": "16.18.25",
+    "@types/node": "20.5.8",
     "@types/node-fetch": "2.6.4",
     "@types/parse-github-url": "1.0.0",
     "@types/semver": "7.5.1",
