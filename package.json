@@ -13,7 +13,7 @@
   },
   "bin": "dist/src/bin/npm-update-package.js",
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "dependencies": {
     "@octokit/rest": "19.0.13",
