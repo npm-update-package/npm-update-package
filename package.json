@@ -25,7 +25,7 @@
     "io-ts": "2.2.20",
     "log4js": "6.9.1",
     "mustache": "4.2.0",
-    "node-fetch": "2.6.13",
+    "node-fetch": "2.7.0",
     "npm-check-updates": "16.3.11",
     "parse-github-url": "1.0.2",
     "semver": "7.5.4",
