@@ -58,7 +58,7 @@ describe('LabelCreator', () => {
     })
 
     it('creates label if it does not exist', async () => {
-      const error = new Error()
+      const error = new Error('error')
       fetchLabelMock.mockRejectedValue(error)
       isNotFoundErrorMock.mockReturnValue(true)
 
@@ -84,7 +84,7 @@ describe('LabelCreator', () => {
     })
 
     it('throws error if it occurred when fetching label', async () => {
-      const error = new Error()
+      const error = new Error('error')
       fetchLabelMock.mockRejectedValue(error)
       isNotFoundErrorMock.mockReturnValue(false)
 

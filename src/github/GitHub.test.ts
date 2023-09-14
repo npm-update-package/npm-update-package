@@ -231,7 +231,7 @@ describe('GitHub', () => {
       ])
       reposListBranchesMock.mockImplementation((async (params) => {
         const branches = params?.page === undefined ? undefined : branchesByPage.get(params.page)
-        return await (branches === undefined ? Promise.reject(new Error()) : Promise.resolve({ data: branches }))
+        return await (branches === undefined ? Promise.reject(new Error('error')) : Promise.resolve({ data: branches }))
       }) as Octokit['repos']['listBranches'])
       const owner = 'npm-update-package'
       const repo = 'example'
@@ -296,7 +296,7 @@ describe('GitHub', () => {
       ])
       pullsListMock.mockImplementation((async (params) => {
         const pullRequests = params?.page === undefined ? undefined : pullRequestsByPage.get(params.page)
-        return await (pullRequests === undefined ? Promise.reject(new Error()) : Promise.resolve({ data: pullRequests }))
+        return await (pullRequests === undefined ? Promise.reject(new Error('error')) : Promise.resolve({ data: pullRequests }))
       }) as Octokit['pulls']['list'])
       const owner = 'npm-update-package'
       const repo = 'example'
