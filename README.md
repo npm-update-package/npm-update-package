@@ -534,8 +534,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-See working example on [example-github-actions](https://github.com/npm-update-package/example-github-actions).
-
 ### Use token of GitHub App
 
 ```yaml
@@ -568,8 +566,6 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 ```
 
-See working example on [example-github-app](https://github.com/npm-update-package/example-github-app).
-
 ### Use Personal access token
 
 ```yaml
@@ -595,8 +591,6 @@ jobs:
           GIT_USER_NAME: npm-update-package-bot
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 ```
-
-See working example on [example-pat](https://github.com/npm-update-package/example-pat).
 
 ## Architecture
 
