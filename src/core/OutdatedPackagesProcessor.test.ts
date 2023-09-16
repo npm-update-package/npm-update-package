@@ -76,7 +76,7 @@ describe('OutdatedPackagesProcessor', () => {
           case packageToBeFailed.name:
             return failedResult
           default:
-            throw new Error()
+            throw new Error('error')
         }
       })
 
