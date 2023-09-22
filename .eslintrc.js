@@ -1,6 +1,7 @@
+// eslint-disable-next-line unicorn/prefer-module
 module.exports = {
   extends: [
-    '@npm-update-package/eslint-config-typescript',
+    '@munierujp/eslint-config-typescript',
     'plugin:jest/recommended'
   ],
   parserOptions: {

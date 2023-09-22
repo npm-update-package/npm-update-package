@@ -13,6 +13,7 @@ main(options)
   .then(() => {
     logger.info(`End ${pkg.name} v${pkg.version}`)
   })
+  // eslint-disable-next-line unicorn/prefer-top-level-await
   .catch((error: unknown) => {
     logger.fatal(error)
     throw error
