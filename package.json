@@ -37,7 +37,7 @@
     "@types/mustache": "4.2.2",
     "@types/node": "18.17.15",
     "@types/node-fetch": "2.6.5",
-    "@types/parse-github-url": "1.0.0",
+    "@types/parse-github-url": "1.0.1",
     "@types/semver": "7.5.2",
     "eslint": "8.50.0",
     "eslint-plugin-jest": "27.4.0",
