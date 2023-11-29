@@ -19,6 +19,7 @@ jest.mock('node:fs', () => ({
 }))
 
 describe('canReadWrite', () => {
+  const path = 'package.json'
   const accessMock = jest.mocked(fs.promises.access)
 
   afterEach(() => {
@@ -27,21 +28,15 @@ describe('canReadWrite', () => {
 
   it('returns true if the file is able to access.', async () => {
     accessMock.mockResolvedValue()
-    const path = 'package.json'
 
-    const actual = await canReadWrite(path)
-
-    expect(actual).toBe(true)
+    await expect(canReadWrite(path)).resolves.toBe(true)
     expect(accessMock).toHaveBeenCalledWith(path, fs.constants.R_OK | fs.constants.W_OK)
   })
 
   it('returns false if the file is not able to access.', async () => {
     accessMock.mockRejectedValue(new Error('error'))
-    const path = 'package.json'
 
-    const actual = await canReadWrite(path)
-
-    expect(actual).toBe(false)
+    await expect(canReadWrite(path)).resolves.toBe(false)
     expect(accessMock).toHaveBeenCalledWith(path, fs.constants.R_OK | fs.constants.W_OK)
   })
 })
