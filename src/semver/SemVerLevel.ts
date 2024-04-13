@@ -6,4 +6,5 @@ export const SemVerLevel = {
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export type SemVerLevel = typeof SemVerLevel[keyof typeof SemVerLevel]
 const semVerLevels = Object.values(SemVerLevel)
+// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 export const isSemVerLevel = (value: any): value is SemVerLevel => semVerLevels.includes(value)

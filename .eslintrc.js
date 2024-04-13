@@ -9,5 +9,12 @@ module.exports = {
   },
   rules: {
     'no-console': 'error'
-  }
+  },
+  overrides: [
+    // https://typescript-eslint.io/troubleshooting/#i-get-errors-telling-me-eslint-was-configured-to-run--however-that-tsconfig-does-not--none-of-those-tsconfigs-include-this-file
+    {
+      files: ['./**/*.js'],
+      extends: ['plugin:@typescript-eslint/disable-type-checked']
+    }
+  ]
 }
