@@ -61,7 +61,11 @@ export class GitRepository {
 
     const host = protocol === 'github:' ? HOST_GITHUB : result.host
 
-    if (host === null || !host.includes('.')) {
+    if (host === null) {
+      return undefined
+    }
+
+    if (!host.includes('.')) {
       return undefined
     }
 
