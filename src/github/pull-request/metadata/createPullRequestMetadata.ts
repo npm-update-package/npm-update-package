@@ -1,4 +1,3 @@
-
 import pkg from '../../../../package.json'
 import type { OutdatedPackage } from '../../../core'
 import type { PullRequestMetadata } from './PullRequestMetadata'
