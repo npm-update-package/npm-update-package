@@ -6,4 +6,5 @@ export const OutdatedPullRequestStrategy = {
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export type OutdatedPullRequestStrategy = typeof OutdatedPullRequestStrategy[keyof typeof OutdatedPullRequestStrategy]
 const outdatedPullRequestStrategies = Object.values(OutdatedPullRequestStrategy)
+// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 export const isOutdatedPullRequestStrategy = (value: any): value is OutdatedPullRequestStrategy => outdatedPullRequestStrategies.includes(value)
