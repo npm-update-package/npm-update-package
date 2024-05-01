@@ -27,8 +27,7 @@ const esmConfig: JestConfigWithTsJest = {
 const coverageConfig: JestConfigWithTsJest = {
   collectCoverage: true,
   collectCoverageFrom: [
-    'src/**/*.ts',
-    '!src/**/index.ts'
+    'src/**/*.ts'
   ]
 }
 
