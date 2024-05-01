@@ -25,7 +25,9 @@ const config = {
         './**/*.cjs',
         './**/*.mjs'
       ],
-      extends: ['plugin:@typescript-eslint/disable-type-checked']
+      extends: [
+        'plugin:@typescript-eslint/disable-type-checked'
+      ]
     }
   ]
 }
