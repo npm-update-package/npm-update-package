@@ -37,8 +37,7 @@ const coverageConfig: JestConfigWithTsJest = {
  */
 const config: JestConfigWithTsJest = {
   ...esmConfig,
-  ...coverageConfig,
-  preset: 'ts-jest'
+  ...coverageConfig
 
 }
 
