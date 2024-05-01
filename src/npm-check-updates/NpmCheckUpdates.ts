@@ -3,20 +3,16 @@ import {
   type RunOptions
 } from 'npm-check-updates'
 import { isNotUndefined } from 'type-guards'
-import type { OutdatedPackage } from '../core'
-import { logger } from '../logger'
-import type { Options } from '../options'
-import {
-  DependencyType,
-  readPackageJson
-} from '../package-json'
-import type { PackageMetadata } from '../package-json'
-import {
-  compareSemVers,
-  SemVer
-} from '../semver'
-import { createDepOptionValue } from './createDepOptionValue'
-import { isNpmCheckUpdatesResult } from './NpmCheckUpdatesResult'
+import type { OutdatedPackage } from '../core/OutdatedPackage.js'
+import { logger } from '../logger/logger.js'
+import type { Options } from '../options/Options.js'
+import { DependencyType } from '../package-json/DependencyType.js'
+import type { PackageMetadata } from '../package-json/PackageMetadata.js'
+import { readPackageJson } from '../package-json/readPackageJson.js'
+import { compareSemVers } from '../semver/compareSemVers.js'
+import { SemVer } from '../semver/SemVer.js'
+import { createDepOptionValue } from './createDepOptionValue.js'
+import { isNpmCheckUpdatesResult } from './NpmCheckUpdatesResult.js'
 
 // TODO: Add test
 export class NpmCheckUpdates {

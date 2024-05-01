@@ -1,9 +1,9 @@
-import type { Either } from 'fp-ts/lib/Either'
-import { logger } from '../logger'
-import type { OutdatedPackageProcessor } from '../outdated-package-processor'
-import type { FailedResult } from './FailedResult'
-import type { OutdatedPackage } from './OutdatedPackage'
-import type { SucceededResult } from './SucceededResult'
+import type { Either } from 'fp-ts/lib/Either.js'
+import { logger } from '../logger/logger.js'
+import type { OutdatedPackageProcessor } from '../outdated-package-processor/OutdatedPackageProcessor.js'
+import type { FailedResult } from './FailedResult.js'
+import type { OutdatedPackage } from './OutdatedPackage.js'
+import type { SucceededResult } from './SucceededResult.js'
 
 export class OutdatedPackagesProcessor {
   constructor (private readonly outdatedPackageProcessor: OutdatedPackageProcessor) {}

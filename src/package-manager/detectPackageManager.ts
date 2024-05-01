@@ -1,5 +1,5 @@
-import { canReadWrite } from '../file'
-import { PackageManagerName } from './PackageManagerName'
+import { canReadWrite } from '../file/canReadWrite.js'
+import { PackageManagerName } from './PackageManagerName.js'
 
 export const detectPackageManager = async (): Promise<PackageManagerName> => {
   if (await canReadWrite('package-lock.json')) {

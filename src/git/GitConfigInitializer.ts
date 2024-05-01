@@ -1,5 +1,5 @@
-import type { Options } from '../options'
-import type { Git } from './Git'
+import type { Options } from '../options/Options.js'
+import type { Git } from './Git.js'
 
 export class GitConfigInitializer {
   private readonly options: Options

@@ -1,6 +1,6 @@
-import type { PullRequest } from '../../GitHub'
-import { extractPullRequestMetadata } from '../metadata'
-import { isPullRequestByNpmUpdatePackage } from './isPullRequestByNpmUpdatePackage'
+import type { PullRequest } from '../../GitHub.js'
+import { extractPullRequestMetadata } from '../metadata/extractPullRequestMetadata.js'
+import { isPullRequestByNpmUpdatePackage } from './isPullRequestByNpmUpdatePackage.js'
 
 export class PullRequestFinder {
   constructor (private readonly pullRequests: PullRequest[]) {}

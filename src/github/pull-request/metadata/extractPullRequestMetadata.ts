@@ -1,7 +1,5 @@
-import {
-  isPullRequestMetadata,
-  type PullRequestMetadata
-} from './PullRequestMetadata'
+import type { PullRequestMetadata } from './PullRequestMetadata.js'
+import { isPullRequestMetadata } from './PullRequestMetadata.js'
 
 export const extractPullRequestMetadata = (pullRequestBody: string): PullRequestMetadata | undefined => {
   const matched = pullRequestBody.match(/<div id="npm-update-package-metadata">\s*```json\s*([\S\s]+?)\s*```\s*<\/div>/)

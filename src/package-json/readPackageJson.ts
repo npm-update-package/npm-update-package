@@ -1,6 +1,6 @@
-import { readFile } from '../file'
-import type { PackageMetadata } from './PackageMetadata'
-import { parsePackageJson } from './parsePackageJson'
+import { readFile } from '../file/readFile.js'
+import type { PackageMetadata } from './PackageMetadata.js'
+import { parsePackageJson } from './parsePackageJson.js'
 
 // TODO: Add test
 export const readPackageJson = async (path: string): Promise<PackageMetadata> => {

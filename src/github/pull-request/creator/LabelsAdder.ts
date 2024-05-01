@@ -1,6 +1,6 @@
-import type { GitRepository } from '../../../git'
-import type { Options } from '../../../options'
-import type { GitHub } from '../../GitHub'
+import type { GitRepository } from '../../../git/GitRepository.js'
+import type { Options } from '../../../options/Options.js'
+import type { GitHub } from '../../GitHub.js'
 
 const DEFAULT_LABELS = ['npm-update-package']
 

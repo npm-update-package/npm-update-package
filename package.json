@@ -2,6 +2,7 @@
   "name": "npm-update-package",
   "version": "3.0.22",
   "description": "CLI tool for creating pull requests to update npm packages",
+  "type": "module",
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "clean": "rimraf dist",

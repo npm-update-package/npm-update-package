@@ -3,12 +3,10 @@ import {
   expect,
   it
 } from '@jest/globals'
-import { DependencyType } from '../../../package-json'
-import {
-  SemVer,
-  SemVerLevel
-} from '../../../semver'
-import { PullRequestTitleCreator } from './PullRequestTitleCreator'
+import { DependencyType } from '../../../package-json/DependencyType.js'
+import { SemVer } from '../../../semver/SemVer.js'
+import { SemVerLevel } from '../../../semver/SemVerLevel.js'
+import { PullRequestTitleCreator } from './PullRequestTitleCreator.js'
 
 describe('PullRequestTitleCreator', () => {
   describe('create', () => {

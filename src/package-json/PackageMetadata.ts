@@ -6,8 +6,8 @@ import {
   union,
   type TypeOf
 } from 'io-ts'
-import { PackageMetadataDependencies } from './PackageMetadataDependencies'
-import { PackageMetadataRepository } from './PackageMetadataRepository'
+import { PackageMetadataDependencies } from './PackageMetadataDependencies.js'
+import { PackageMetadataRepository } from './PackageMetadataRepository.js'
 
 const PackageMetadata = intersection([
   type({

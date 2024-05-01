@@ -1,8 +1,8 @@
 import { Option } from 'commander'
-import type { CLIOption } from './CLIOption'
-import { OptionType } from './OptionType'
-import { parseBooleanOption } from './parseBooleanOption'
-import { parseNumberOption } from './parseNumberOption'
+import type { CLIOption } from './CLIOption.js'
+import { OptionType } from './OptionType.js'
+import { parseBooleanOption } from './parseBooleanOption.js'
+import { parseNumberOption } from './parseNumberOption.js'
 
 export const toCommanderOption = (cliOption: CLIOption): Option => {
   const argument = createArgumentString(cliOption)

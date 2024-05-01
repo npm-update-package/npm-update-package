@@ -1,6 +1,6 @@
-import { logger } from '../../../logger'
-import type { PullRequest } from '../../GitHub'
-import type { PullRequestCloser } from './PullRequestCloser'
+import { logger } from '../../../logger/logger.js'
+import type { PullRequest } from '../../GitHub.js'
+import type { PullRequestCloser } from './PullRequestCloser.js'
 
 export class PullRequestsCloser {
   constructor (private readonly pullRequestCloser: PullRequestCloser) {}

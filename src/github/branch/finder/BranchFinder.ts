@@ -1,4 +1,4 @@
-import type { Branch } from '../../GitHub'
+import type { Branch } from '../../GitHub.js'
 
 export class BranchFinder {
   constructor (private readonly branches: Branch[]) {}

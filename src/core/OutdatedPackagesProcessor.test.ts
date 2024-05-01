@@ -8,18 +8,16 @@ import {
 import {
   left,
   right
-} from 'fp-ts/lib/Either'
-import type { Either } from 'fp-ts/lib/Either'
-import type { OutdatedPackageProcessor } from '../outdated-package-processor'
-import { DependencyType } from '../package-json'
-import {
-  SemVer,
-  SemVerLevel
-} from '../semver'
-import type { FailedResult } from './FailedResult'
-import type { OutdatedPackage } from './OutdatedPackage'
-import { OutdatedPackagesProcessor } from './OutdatedPackagesProcessor'
-import type { SucceededResult } from './SucceededResult'
+} from 'fp-ts/lib/Either.js'
+import type { Either } from 'fp-ts/lib/Either.js'
+import type { OutdatedPackageProcessor } from '../outdated-package-processor/OutdatedPackageProcessor.js'
+import { DependencyType } from '../package-json/DependencyType.js'
+import { SemVer } from '../semver/SemVer.js'
+import { SemVerLevel } from '../semver/SemVerLevel.js'
+import type { FailedResult } from './FailedResult.js'
+import type { OutdatedPackage } from './OutdatedPackage.js'
+import { OutdatedPackagesProcessor } from './OutdatedPackagesProcessor.js'
+import type { SucceededResult } from './SucceededResult.js'
 
 describe('OutdatedPackagesProcessor', () => {
   describe('process', () => {

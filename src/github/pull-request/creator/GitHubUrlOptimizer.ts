@@ -1,5 +1,5 @@
 import { URL } from 'node:url'
-import type { Options } from '../../../options'
+import type { Options } from '../../../options/Options.js'
 
 export class GitHubUrlOptimizer {
   constructor (private readonly options: Options) {}

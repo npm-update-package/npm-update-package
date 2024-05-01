@@ -1,6 +1,6 @@
-import type { GitRepository } from '../../../git'
-import { sampleSize } from '../../../util'
-import type { GitHub } from '../../GitHub'
+import type { GitRepository } from '../../../git/GitRepository.js'
+import { sampleSize } from '../../../util/sampleSize.js'
+import type { GitHub } from '../../GitHub.js'
 
 export class AssigneesAdder {
   private readonly github: GitHub

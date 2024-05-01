@@ -1,18 +1,16 @@
-import type { OutdatedPackage } from '../../../core'
-import { readFile } from '../../../file'
-import type { GitRepository } from '../../../git'
-import type { Options } from '../../../options'
-import {
-  extractRepository,
-  parsePackageJson
-} from '../../../package-json'
-import type { ReleasesFetcher } from '../../releases'
-import { createFooter } from './createFooter'
-import { createMetadataSection } from './createMetadataSection'
-import { createNotesSection } from './createNotesSection'
-import { createOutdatedPackagesTable } from './createOutdatedPackagesTable'
-import type { PackageDiffsSectionCreator } from './PackageDiffsSectionCreator'
-import type { ReleaseNotesSectionCreator } from './ReleaseNotesSectionCreator'
+import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
+import { readFile } from '../../../file/readFile.js'
+import type { GitRepository } from '../../../git/GitRepository.js'
+import type { Options } from '../../../options/Options.js'
+import { extractRepository } from '../../../package-json/extractRepository.js'
+import { parsePackageJson } from '../../../package-json/parsePackageJson.js'
+import type { ReleasesFetcher } from '../../releases/fetcher/ReleasesFetcher.js'
+import { createFooter } from './createFooter.js'
+import { createMetadataSection } from './createMetadataSection.js'
+import { createNotesSection } from './createNotesSection.js'
+import { createOutdatedPackagesTable } from './createOutdatedPackagesTable.js'
+import type { PackageDiffsSectionCreator } from './PackageDiffsSectionCreator.js'
+import type { ReleaseNotesSectionCreator } from './ReleaseNotesSectionCreator.js'
 
 // TODO: Split into multiple classes and functions
 export class PullRequestBodyCreator {

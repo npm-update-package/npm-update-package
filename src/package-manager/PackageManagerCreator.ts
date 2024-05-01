@@ -1,11 +1,11 @@
-import { logger } from '../logger'
-import type { Options } from '../options'
-import type { Terminal } from '../terminal'
-import { detectPackageManager } from './detectPackageManager'
-import { Npm } from './npm'
-import type { PackageManager } from './PackageManager'
-import { PackageManagerName } from './PackageManagerName'
-import { Yarn } from './yarn'
+import { logger } from '../logger/logger.js'
+import type { Options } from '../options/Options.js'
+import type { Terminal } from '../terminal/Terminal.js'
+import { detectPackageManager } from './detectPackageManager.js'
+import { Npm } from './npm/Npm.js'
+import type { PackageManager } from './PackageManager.js'
+import { PackageManagerName } from './PackageManagerName.js'
+import { Yarn } from './yarn/Yarn.js'
 
 export class PackageManagerCreator {
   constructor (private readonly options: Options) {}

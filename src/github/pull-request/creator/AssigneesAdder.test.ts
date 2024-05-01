@@ -5,12 +5,12 @@ import {
   it,
   jest
 } from '@jest/globals'
-import type { GitRepository } from '../../../git'
-import { sampleSize } from '../../../util'
-import type { GitHub } from '../../GitHub'
-import { AssigneesAdder } from './AssigneesAdder'
+import type { GitRepository } from '../../../git/GitRepository.js'
+import { sampleSize } from '../../../util/sampleSize.js'
+import type { GitHub } from '../../GitHub.js'
+import { AssigneesAdder } from './AssigneesAdder.js'
 
-jest.mock('../../../util')
+jest.mock('../../../util/sampleSize.js')
 
 describe('AssigneesAdder', () => {
   describe('add', () => {

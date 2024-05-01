@@ -1,7 +1,7 @@
 import type {
   GitHub,
   PullRequest
-} from '../../GitHub'
+} from '../../GitHub.js'
 
 export class PullRequestCloser {
   constructor (private readonly github: GitHub) {}
