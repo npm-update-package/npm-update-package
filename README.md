@@ -206,24 +206,6 @@ npx npm-update-package \
   --draft-pr true
 ```
 
-### `--fetch-release-notes`
-
-Whether to fetch release notes.
-
-|Name|Value|
-|---|---|
-|type|boolean|
-|required|-|
-|default|`true`|
-
-Example:
-
-```sh
-npx npm-update-package \
-  --github-token <github-token> \
-  --fetch-release-notes false
-```
-
 ### `--fetch-interval`
 
 Sleep time between fetching (ms).
@@ -240,6 +222,24 @@ Example:
 npx npm-update-package \
   --github-token <github-token> \
   --fetch-interval 2000
+```
+
+### `--fetch-release-notes`
+
+Whether to fetch release notes.
+
+|Name|Value|
+|---|---|
+|type|boolean|
+|required|-|
+|default|`true`|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token <github-token> \
+  --fetch-release-notes false
 ```
 
 ### `--git-user-email`

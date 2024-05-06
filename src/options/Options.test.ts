@@ -27,8 +27,8 @@ describe('isOptions', () => {
         DependencyType.OptionalDependencies
       ],
       draftPr: true,
-      fetchReleaseNotes: true,
       fetchInterval: 1000,
+      fetchReleaseNotes: true,
       gitUserEmail: 'octocat@example.com',
       gitUserName: 'octocat',
       githubToken: 'test githubToken',

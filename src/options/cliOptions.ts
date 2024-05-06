@@ -59,18 +59,18 @@ export const cliOptions: CLIOption[] = [
     default: false
   },
   {
-    name: 'fetch-release-notes',
-    description: 'Whether to fetch release notes',
-    type: OptionType.Boolean,
-    required: false,
-    default: true
-  },
-  {
     name: 'fetch-interval',
     description: 'Sleep time between fetching (ms)',
     type: OptionType.Number,
     required: false,
     default: 1000
+  },
+  {
+    name: 'fetch-release-notes',
+    description: 'Whether to fetch release notes',
+    type: OptionType.Boolean,
+    required: false,
+    default: true
   },
   {
     name: 'git-user-email',
