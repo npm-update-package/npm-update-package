@@ -5,36 +5,33 @@ import {
   it,
   jest
 } from '@jest/globals'
-import type { OutdatedPackage } from '../../../core'
-import { readFile } from '../../../file'
-import { GitRepository } from '../../../git'
-import type { ReleasesFetcher } from '../../../github'
-import type { Options } from '../../../options'
-import {
-  DependencyType,
-  extractRepository,
-  parsePackageJson
-} from '../../../package-json'
-import type { PackageMetadata } from '../../../package-json'
-import {
-  SemVer,
-  SemVerLevel
-} from '../../../semver'
-import type { Release } from '../../releases'
-import { createFooter } from './createFooter'
-import { createMetadataSection } from './createMetadataSection'
-import { createNotesSection } from './createNotesSection'
-import { createOutdatedPackagesTable } from './createOutdatedPackagesTable'
-import type { PackageDiffsSectionCreator } from './PackageDiffsSectionCreator'
-import { PullRequestBodyCreator } from './PullRequestBodyCreator'
-import type { ReleaseNotesSectionCreator } from './ReleaseNotesSectionCreator'
+import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
+import { readFile } from '../../../file/readFile.js'
+import { GitRepository } from '../../../git/GitRepository.js'
+import type { Options } from '../../../options/Options.js'
+import { DependencyType } from '../../../package-json/DependencyType.js'
+import { extractRepository } from '../../../package-json/extractRepository.js'
+import type { PackageMetadata } from '../../../package-json/PackageMetadata.js'
+import { parsePackageJson } from '../../../package-json/parsePackageJson.js'
+import { SemVer } from '../../../semver/SemVer.js'
+import { SemVerLevel } from '../../../semver/SemVerLevel.js'
+import type { ReleasesFetcher } from '../../releases/fetcher/ReleasesFetcher.js'
+import type { Release } from '../../releases/Release.js'
+import { createFooter } from './createFooter.js'
+import { createMetadataSection } from './createMetadataSection.js'
+import { createNotesSection } from './createNotesSection.js'
+import { createOutdatedPackagesTable } from './createOutdatedPackagesTable.js'
+import type { PackageDiffsSectionCreator } from './PackageDiffsSectionCreator.js'
+import { PullRequestBodyCreator } from './PullRequestBodyCreator.js'
+import type { ReleaseNotesSectionCreator } from './ReleaseNotesSectionCreator.js'
 
-jest.mock('../../../file')
-jest.mock('../../../package-json')
-jest.mock('./createFooter')
-jest.mock('./createMetadataSection')
-jest.mock('./createNotesSection')
-jest.mock('./createOutdatedPackagesTable')
+jest.mock('../../../file/readFile.js')
+jest.mock('../../../package-json/extractRepository.js')
+jest.mock('../../../package-json/parsePackageJson.js')
+jest.mock('./createFooter.js')
+jest.mock('./createMetadataSection.js')
+jest.mock('./createNotesSection.js')
+jest.mock('./createOutdatedPackagesTable.js')
 
 describe('PullRequestBodyCreator', () => {
   describe('create', () => {

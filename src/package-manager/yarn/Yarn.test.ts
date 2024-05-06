@@ -6,8 +6,8 @@ import {
   jest
 } from '@jest/globals'
 import type { ExecaReturnValue } from 'execa'
-import type { Terminal } from '../../terminal'
-import { Yarn } from './Yarn'
+import type { Terminal } from '../../terminal/Terminal.js'
+import { Yarn } from './Yarn.js'
 
 describe('Yarn', () => {
   const terminalRunMock = jest.fn<Terminal['run']>()

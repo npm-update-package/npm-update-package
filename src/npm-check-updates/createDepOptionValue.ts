@@ -1,5 +1,5 @@
-import type { DependencyType } from '../package-json'
-import { toDependency } from './toDependency'
+import type { DependencyType } from '../package-json/DependencyType.js'
+import { toDependency } from './toDependency.js'
 
 // TODO: Add test
 export const createDepOptionValue = (dependencyTypes: DependencyType[]): string => {

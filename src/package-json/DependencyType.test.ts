@@ -6,7 +6,7 @@ import {
 import {
   isDependencyType,
   DependencyType
-} from './DependencyType'
+} from './DependencyType.js'
 
 describe('isDependencyType', () => {
   describe('returns whether value is DependencyType', () => {

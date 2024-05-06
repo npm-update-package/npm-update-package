@@ -3,7 +3,7 @@ import type {
   RestEndpointMethodTypes
 } from '@octokit/rest'
 import type { ValuesType } from 'utility-types'
-import { range } from '../util'
+import { range } from '../util/range.js'
 
 export type Branch = ValuesType<RestEndpointMethodTypes['repos']['listBranches']['response']['data']>
 export type CreatedPullRequest = RestEndpointMethodTypes['pulls']['create']['response']['data']

@@ -3,8 +3,8 @@ import {
   expect,
   it
 } from '@jest/globals'
-import type { Branch } from '../../GitHub'
-import { BranchFinder } from './BranchFinder'
+import type { Branch } from '../../GitHub.js'
+import { BranchFinder } from './BranchFinder.js'
 
 describe('BranchFinder', () => {
   describe('findByName', () => {

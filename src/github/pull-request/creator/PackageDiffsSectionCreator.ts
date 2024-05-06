@@ -1,6 +1,6 @@
-import type { OutdatedPackage } from '../../../core'
-import type { GitRepository } from '../../../git'
-import type { GitHubUrlOptimizer } from './GitHubUrlOptimizer'
+import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
+import type { GitRepository } from '../../../git/GitRepository.js'
+import type { GitHubUrlOptimizer } from './GitHubUrlOptimizer.js'
 
 export class PackageDiffsSectionCreator {
   constructor (private readonly gitHubUrlOptimizer: GitHubUrlOptimizer) {}

@@ -4,13 +4,11 @@ import {
   it
 } from '@jest/globals'
 import app from '../../../../package.json'
-import type { OutdatedPackage } from '../../../core'
-import { DependencyType } from '../../../package-json'
-import {
-  SemVer,
-  SemVerLevel
-} from '../../../semver'
-import { createMetadataSection } from './createMetadataSection'
+import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
+import { DependencyType } from '../../../package-json/DependencyType.js'
+import { SemVer } from '../../../semver/SemVer.js'
+import { SemVerLevel } from '../../../semver/SemVerLevel.js'
+import { createMetadataSection } from './createMetadataSection.js'
 
 describe('createMetadataSection', () => {
   it('returns metadata section', () => {

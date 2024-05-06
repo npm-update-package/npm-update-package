@@ -5,10 +5,10 @@ import {
   it,
   jest
 } from '@jest/globals'
-import type { GitRepository } from '../../../git'
-import type { Options } from '../../../options'
-import type { GitHub } from '../../GitHub'
-import { LabelsAdder } from './LabelsAdder'
+import type { GitRepository } from '../../../git/GitRepository.js'
+import type { Options } from '../../../options/Options.js'
+import type { GitHub } from '../../GitHub.js'
+import { LabelsAdder } from './LabelsAdder.js'
 
 describe('LabelsAdder', () => {
   describe('add', () => {

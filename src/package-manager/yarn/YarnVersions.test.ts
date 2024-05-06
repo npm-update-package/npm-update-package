@@ -3,8 +3,8 @@ import {
   expect,
   it
 } from '@jest/globals'
-import { isYarnVersions } from './YarnVersions'
-import type { YarnVersions } from './YarnVersions'
+import { isYarnVersions } from './YarnVersions.js'
+import type { YarnVersions } from './YarnVersions.js'
 
 describe('isYarnVersions', () => {
   describe('returns whether value is YarnVersions', () => {

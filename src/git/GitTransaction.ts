@@ -1,5 +1,5 @@
-import { logger } from '../logger'
-import type { Git } from './Git'
+import { logger } from '../logger/logger.js'
+import type { Git } from './Git.js'
 
 // TODO: Add test
 export class GitTransaction {

@@ -1,6 +1,6 @@
-import type { Terminal } from '../../terminal'
-import type { PackageManager } from '../PackageManager'
-import { isYarnVersions } from './YarnVersions'
+import type { Terminal } from '../../terminal/Terminal.js'
+import type { PackageManager } from '../PackageManager.js'
+import { isYarnVersions } from './YarnVersions.js'
 
 export class Yarn implements PackageManager {
   readonly packageFile = 'package.json'

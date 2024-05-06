@@ -1,5 +1,5 @@
-import { createOctokit } from './createOctokit'
-import { GitHub } from './GitHub'
+import { createOctokit } from './createOctokit.js'
+import { GitHub } from './GitHub.js'
 
 export const createGitHub = ({
   host,

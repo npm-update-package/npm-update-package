@@ -1,5 +1,5 @@
-import { render } from 'mustache'
-import type { OutdatedPackage } from '../core'
+import mustache from 'mustache'
+import type { OutdatedPackage } from '../core/OutdatedPackage.js'
 
 export class CommitMessageCreator {
   constructor (private readonly template: string) {}
@@ -10,7 +10,7 @@ export class CommitMessageCreator {
     const newVersion = outdatedPackage.newVersion.version
     const level = outdatedPackage.level
     const dependencyType = outdatedPackage.dependencyType
-    return render(this.template, {
+    return mustache.render(this.template, {
       packageName,
       currentVersion,
       newVersion,

@@ -3,7 +3,7 @@ import {
   expect,
   it
 } from '@jest/globals'
-import { toJSON } from './toJSON'
+import { toJSON } from './toJSON.js'
 
 describe('toJSON', () => {
   describe('returns JSON string', () => {

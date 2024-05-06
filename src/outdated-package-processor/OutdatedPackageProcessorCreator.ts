@@ -1,21 +1,17 @@
-import type { PackageUpdater } from '../core'
-import type {
-  CommitMessageCreator,
-  Git
-} from '../git'
-import type {
-  BranchFinder,
-  PullRequestCreator,
-  PullRequestFinder,
-  PullRequestsCloser
-} from '../github'
-import type { Options } from '../options'
-import type { PackageManager } from '../package-manager'
-import { Create } from './create'
-import type { OutdatedPackageProcessor } from './OutdatedPackageProcessor'
-import { OutdatedPullRequestStrategy } from './OutdatedPullRequestStrategy'
-import { Recreate } from './recreate'
-import { Skip } from './skip'
+import type { PackageUpdater } from '../core/PackageUpdater.js'
+import type { CommitMessageCreator } from '../git/CommitMessageCreator.js'
+import type { Git } from '../git/Git.js'
+import type { BranchFinder } from '../github/branch/finder/BranchFinder.js'
+import type { PullRequestsCloser } from '../github/pull-request/closer/PullRequestsCloser.js'
+import type { PullRequestCreator } from '../github/pull-request/creator/PullRequestCreator.js'
+import type { PullRequestFinder } from '../github/pull-request/finder/PullRequestFinder.js'
+import type { Options } from '../options/Options.js'
+import type { PackageManager } from '../package-manager/PackageManager.js'
+import { Create } from './create/Create.js'
+import type { OutdatedPackageProcessor } from './OutdatedPackageProcessor.js'
+import { OutdatedPullRequestStrategy } from './OutdatedPullRequestStrategy.js'
+import { Recreate } from './recreate/Recreate.js'
+import { Skip } from './skip/Skip.js'
 
 export class OutdatedPackageProcessorCreator {
   constructor (private readonly options: Options) {}

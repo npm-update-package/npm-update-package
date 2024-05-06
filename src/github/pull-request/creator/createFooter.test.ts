@@ -4,7 +4,7 @@ import {
   it
 } from '@jest/globals'
 import app from '../../../../package.json'
-import { createFooter } from './createFooter'
+import { createFooter } from './createFooter.js'
 
 describe('createFooter', () => {
   it('returns footer', () => {

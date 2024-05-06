@@ -4,7 +4,7 @@ import {
   it
 } from '@jest/globals'
 import { InvalidArgumentError } from 'commander'
-import { parseBooleanOption } from './parseBooleanOption'
+import { parseBooleanOption } from './parseBooleanOption.js'
 
 describe('parseBooleanOption', () => {
   describe('returns boolean if value is valid', () => {

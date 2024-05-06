@@ -5,20 +5,20 @@ import {
   it,
   jest
 } from '@jest/globals'
-import type { OutdatedPackage } from '../../../core'
-import type { GitRepository } from '../../../git'
-import type { Options } from '../../../options'
-import type {
-  GitHub,
-  Repository as GitHubRepository,
-  CreatedPullRequest
-} from '../../GitHub'
-import type { AssigneesAdder } from './AssigneesAdder'
-import type { LabelsAdder } from './LabelsAdder'
-import type { PullRequestBodyCreator } from './PullRequestBodyCreator'
-import { PullRequestCreator } from './PullRequestCreator'
-import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
-import type { ReviewersAdder } from './ReviewersAdder'
+import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
+import type { GitRepository } from '../../../git/GitRepository.js'
+import type { Options } from '../../../options/Options.js'
+import {
+  type GitHub,
+  type Repository as GitHubRepository,
+  type CreatedPullRequest
+} from '../../GitHub.js'
+import type { AssigneesAdder } from './AssigneesAdder.js'
+import type { LabelsAdder } from './LabelsAdder.js'
+import type { PullRequestBodyCreator } from './PullRequestBodyCreator.js'
+import { PullRequestCreator } from './PullRequestCreator.js'
+import type { PullRequestTitleCreator } from './PullRequestTitleCreator.js'
+import type { ReviewersAdder } from './ReviewersAdder.js'
 
 describe('PullRequestCreator', () => {
   describe('create', () => {

@@ -1,4 +1,4 @@
-import type { Terminal } from '../terminal'
+import type { Terminal } from '../terminal/Terminal.js'
 
 export class Git {
   constructor (private readonly terminal: Terminal) {}

@@ -4,12 +4,12 @@ import {
   lte,
   valid
 } from 'semver'
-import type { GitRepository } from '../../../git'
-import type { Options } from '../../../options'
-import type { PackageManager } from '../../../package-manager'
-import type { SemVer } from '../../../semver'
-import { sleep } from '../../../util'
-import type { Release } from '../Release'
+import type { GitRepository } from '../../../git/GitRepository.js'
+import type { Options } from '../../../options/Options.js'
+import type { PackageManager } from '../../../package-manager/PackageManager.js'
+import type { SemVer } from '../../../semver/SemVer.js'
+import { sleep } from '../../../util/sleep.js'
+import type { Release } from '../Release.js'
 
 // TODO: Split into multiple classes and functions
 export class ReleasesFetcher {

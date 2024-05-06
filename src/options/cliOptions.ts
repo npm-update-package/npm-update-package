@@ -1,9 +1,9 @@
-import { LogLevel } from '../logger'
-import { OutdatedPullRequestStrategy } from '../outdated-package-processor'
-import { DependencyType } from '../package-json'
-import { PackageManagerName } from '../package-manager'
-import type { CLIOption } from './CLIOption'
-import { OptionType } from './OptionType'
+import { LogLevel } from '../logger/LogLevel.js'
+import { OutdatedPullRequestStrategy } from '../outdated-package-processor/OutdatedPullRequestStrategy.js'
+import { DependencyType } from '../package-json/DependencyType.js'
+import { PackageManagerName } from '../package-manager/PackageManagerName.js'
+import type { CLIOption } from './CLIOption.js'
+import { OptionType } from './OptionType.js'
 
 export const cliOptions: CLIOption[] = [
   {

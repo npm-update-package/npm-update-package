@@ -5,9 +5,9 @@ import {
   it,
   jest
 } from '@jest/globals'
-import type { Options } from '../options'
-import type { Git } from './Git'
-import { GitConfigInitializer } from './GitConfigInitializer'
+import type { Options } from '../options/Options.js'
+import type { Git } from './Git.js'
+import { GitConfigInitializer } from './GitConfigInitializer.js'
 
 describe('GitConfigInitializer', () => {
   describe('initialize', () => {

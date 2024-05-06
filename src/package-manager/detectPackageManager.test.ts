@@ -5,11 +5,11 @@ import {
   it,
   jest
 } from '@jest/globals'
-import { canReadWrite } from '../file'
-import { detectPackageManager } from './detectPackageManager'
-import { PackageManagerName } from './PackageManagerName'
+import { canReadWrite } from '../file/canReadWrite.js'
+import { detectPackageManager } from './detectPackageManager.js'
+import { PackageManagerName } from './PackageManagerName.js'
 
-jest.mock('../file')
+jest.mock('../file/canReadWrite.js')
 
 describe('detectPackageManager', () => {
   const canReadWriteMock = jest.mocked(canReadWrite)

@@ -6,7 +6,7 @@ import {
   union,
   type TypeOf
 } from 'io-ts'
-import { SemVerLevel } from '../../../semver'
+import { SemVerLevel } from '../../../semver/SemVerLevel.js'
 
 const PullRequestMetadata = type({
   version: string,

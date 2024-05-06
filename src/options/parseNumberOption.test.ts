@@ -4,7 +4,7 @@ import {
   it
 } from '@jest/globals'
 import { InvalidArgumentError } from 'commander'
-import { parseNumberOption } from './parseNumberOption'
+import { parseNumberOption } from './parseNumberOption.js'
 
 describe('parseNumberOption', () => {
   describe('returns number if value is valid', () => {

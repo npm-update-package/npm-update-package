@@ -1,6 +1,6 @@
-import type { OutdatedPackage } from '../../../core'
-import { toJSON } from '../../../json'
-import { createPullRequestMetadata } from '../metadata'
+import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
+import { toJSON } from '../../../json/toJSON.js'
+import { createPullRequestMetadata } from '../metadata/createPullRequestMetadata.js'
 
 export const createMetadataSection = (outdatedPackage: OutdatedPackage): string => {
   const metadata = createPullRequestMetadata([outdatedPackage])

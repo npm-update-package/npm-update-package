@@ -5,9 +5,9 @@ import {
   it,
   jest
 } from '@jest/globals'
-import type { PullRequest } from '../../GitHub'
-import type { PullRequestCloser } from './PullRequestCloser'
-import { PullRequestsCloser } from './PullRequestsCloser'
+import type { PullRequest } from '../../GitHub.js'
+import type { PullRequestCloser } from './PullRequestCloser.js'
+import { PullRequestsCloser } from './PullRequestsCloser.js'
 
 describe('PullRequestsCloser', () => {
   describe('close', () => {

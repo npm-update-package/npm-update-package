@@ -3,8 +3,8 @@ import {
   expect,
   it
 } from '@jest/globals'
-import { isPackageMetadataRepository } from './PackageMetadataRepository'
-import type { PackageMetadataRepository } from './PackageMetadataRepository'
+import { isPackageMetadataRepository } from './PackageMetadataRepository.js'
+import type { PackageMetadataRepository } from './PackageMetadataRepository.js'
 
 describe('isPackageMetadataRepository', () => {
   describe('returns whether value is PackageMetadataRepository', () => {

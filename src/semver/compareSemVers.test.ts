@@ -3,9 +3,9 @@ import {
   expect,
   it
 } from '@jest/globals'
-import { compareSemVers } from './compareSemVers'
-import { SemVer } from './SemVer'
-import { SemVerLevel } from './SemVerLevel'
+import { compareSemVers } from './compareSemVers.js'
+import { SemVer } from './SemVer.js'
+import { SemVerLevel } from './SemVerLevel.js'
 
 describe('compareSemVers', () => {
   describe('returns SemVerLevel if both versions are different', () => {
