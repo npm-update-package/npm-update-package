@@ -10,7 +10,7 @@
     "postversion": "npm run syncVersion",
     "prebuild": "npm run clean",
     "prepublishOnly": "npm-run-all lint test build",
-    "syncVersion": "npx tsx scripts/syncVersion.ts",
+    "syncVersion": "tsx scripts/syncVersion.ts",
     "test": "jest"
   },
   "bin": "dist/src/bin/npm-update-package.js",
