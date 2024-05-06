@@ -3,7 +3,7 @@ import {
   expect,
   it
 } from '@jest/globals'
-import app from '../../../../package.json'
+import * as app from '../../../app.js'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
 import { DependencyType } from '../../../package-json/DependencyType.js'
 import { SemVer } from '../../../semver/SemVer.js'

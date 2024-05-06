@@ -1,12 +1,12 @@
 import { program } from 'commander'
-import pkg from '../../package.json'
+import * as app from '../app.js'
 import type { CLIOption } from './CLIOption.js'
 import type { Options } from './Options.js'
 import { isOptions } from './Options.js'
 import { toCommanderOption } from './toCommanderOption.js'
 
 export const createOptions = (cliOptions: CLIOption[]): Options => {
-  program.version(pkg.version)
+  program.version(app.version)
   cliOptions
     .map(option => toCommanderOption(option))
     .forEach(option => program.addOption(option))
