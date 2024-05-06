@@ -26,8 +26,8 @@ const Options = intersection([
       literal(DependencyType.OptionalDependencies)
     ])),
     draftPr: boolean,
+    fetchInterval: number,
     fetchReleaseNotes: boolean,
-    fetchSleepTime: number,
     githubToken: string,
     logLevel: union([
       literal(LogLevel.Off),

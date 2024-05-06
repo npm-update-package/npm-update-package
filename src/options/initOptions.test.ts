@@ -34,8 +34,8 @@ describe('initOptions', () => {
         DependencyType.OptionalDependencies
       ],
       draftPr: true,
+      fetchInterval: 1000,
       fetchReleaseNotes: true,
-      fetchSleepTime: 1000,
       gitUserEmail: 'octocat@example.com',
       gitUserName: 'octocat',
       githubToken: 'test githubToken',
