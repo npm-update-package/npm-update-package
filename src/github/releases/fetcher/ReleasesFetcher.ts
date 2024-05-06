@@ -79,7 +79,7 @@ export class ReleasesFetcher {
 
     for (const [i, tag] of tags.entries()) {
       if (i > 0) {
-        await sleep(this.options.fetchSleepTime)
+        await sleep(this.options.fetchInterval)
       }
 
       const release = await this.fetchReleaseByTag({
