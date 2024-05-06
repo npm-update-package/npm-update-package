@@ -3,7 +3,7 @@ import {
   expect,
   it
 } from '@jest/globals'
-import { extractPullRequestMetadata } from './extractPullRequestMetadata'
+import { extractPullRequestMetadata } from './extractPullRequestMetadata.js'
 
 describe('extractPullRequestMetadata', () => {
   it('returns PullRequestMetadata if body contains metadata', () => {

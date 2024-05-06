@@ -4,7 +4,7 @@ import {
   expect,
   it
 } from '@jest/globals'
-import { GitRepository } from './GitRepository'
+import { GitRepository } from './GitRepository.js'
 
 describe('GitRepository', () => {
   describe('of', () => {

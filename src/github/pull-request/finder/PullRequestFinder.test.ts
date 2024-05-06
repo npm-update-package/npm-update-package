@@ -3,8 +3,8 @@ import {
   expect,
   it
 } from '@jest/globals'
-import type { PullRequest } from '../../GitHub'
-import { PullRequestFinder } from './PullRequestFinder'
+import type { PullRequest } from '../../GitHub.js'
+import { PullRequestFinder } from './PullRequestFinder.js'
 
 describe('PullRequestFinder', () => {
   describe('findByPackageName', () => {

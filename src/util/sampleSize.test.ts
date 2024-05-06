@@ -6,7 +6,7 @@ import {
   jest
 } from '@jest/globals'
 import shuffle from 'array-shuffle'
-import { sampleSize } from './sampleSize'
+import { sampleSize } from './sampleSize.js'
 
 jest.mock('array-shuffle')
 

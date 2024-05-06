@@ -6,7 +6,7 @@ import {
   it,
   jest
 } from '@jest/globals'
-import { canReadWrite } from './canReadWrite'
+import { canReadWrite } from './canReadWrite.js'
 
 jest.mock('node:fs', () => ({
   constants: {

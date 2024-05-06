@@ -6,7 +6,7 @@ import {
 import { RequestError } from '@octokit/request-error'
 import type { RequestOptions } from '@octokit/types'
 import { StatusCodes } from 'http-status-codes'
-import { isNotFoundError } from './NotFoundError'
+import { isNotFoundError } from './NotFoundError.js'
 
 describe('isNotFoundError', () => {
   describe('returns whether value is NotFoundError', () => {

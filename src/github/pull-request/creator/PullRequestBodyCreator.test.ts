@@ -8,7 +8,7 @@ import {
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
 import { readFile } from '../../../file/readFile.js'
 import { GitRepository } from '../../../git/GitRepository.js'
-import type { ReleasesFetcher } from '../../../github/releases/fetcher/ReleasesFetcher.js'
+import type { ReleasesFetcher } from "../../releases/fetcher/ReleasesFetcher.js"
 import type { Options } from '../../../options/Options.js'
 import { DependencyType } from '../../../package-json/DependencyType.js'
 import { extractRepository } from '../../../package-json/extractRepository.js'

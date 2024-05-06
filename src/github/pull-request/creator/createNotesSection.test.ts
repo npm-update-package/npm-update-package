@@ -3,7 +3,7 @@ import {
   expect,
   it
 } from '@jest/globals'
-import { createNotesSection } from './createNotesSection'
+import { createNotesSection } from './createNotesSection.js'
 
 describe('createNotesSection', () => {
   it('returns Notes section', () => {

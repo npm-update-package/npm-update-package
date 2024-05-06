@@ -3,8 +3,8 @@ import {
   expect,
   it
 } from '@jest/globals'
-import { isNpmCheckUpdatesResult } from './NpmCheckUpdatesResult'
-import type { NpmCheckUpdatesResult } from './NpmCheckUpdatesResult'
+import { isNpmCheckUpdatesResult } from './NpmCheckUpdatesResult.js'
+import type { NpmCheckUpdatesResult } from './NpmCheckUpdatesResult.js'
 
 describe('isNpmCheckUpdatesResult', () => {
   describe('returns whether value is NpmCheckUpdatesResult', () => {
