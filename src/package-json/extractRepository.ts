@@ -1,5 +1,5 @@
-import { GitRepository } from '../git'
-import type { PackageMetadata } from './PackageMetadata'
+import { GitRepository } from '../git/GitRepository.js'
+import type { PackageMetadata } from './PackageMetadata.js'
 
 export const extractRepository = (pkg: PackageMetadata): GitRepository | undefined => {
   const { repository } = pkg

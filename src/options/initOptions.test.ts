@@ -5,14 +5,14 @@ import {
   it,
   jest
 } from '@jest/globals'
-import { LogLevel } from '../logger'
-import { OutdatedPullRequestStrategy } from '../outdated-package-processor'
-import { DependencyType } from '../package-json'
-import { PackageManagerName } from '../package-manager'
-import { cliOptions } from './cliOptions'
-import { createOptions } from './createOptions'
-import { initOptions } from './initOptions'
-import type { Options } from './Options'
+import { LogLevel } from '../logger/LogLevel.js'
+import { OutdatedPullRequestStrategy } from '../outdated-package-processor/OutdatedPullRequestStrategy.js'
+import { DependencyType } from '../package-json/DependencyType.js'
+import { PackageManagerName } from '../package-manager/PackageManagerName.js'
+import { cliOptions } from './cliOptions.js'
+import { createOptions } from './createOptions.js'
+import { initOptions } from './initOptions.js'
+import type { Options } from './Options.js'
 
 jest.mock('./createOptions')
 

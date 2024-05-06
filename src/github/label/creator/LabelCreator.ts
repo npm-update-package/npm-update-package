@@ -1,10 +1,10 @@
-import type { GitRepository } from '../../../git'
-import { logger } from '../../../logger'
-import { isNotFoundError } from '../../errors'
+import type { GitRepository } from '../../../git/GitRepository.js'
+import { logger } from '../../../logger/logger.js'
+import { isNotFoundError } from '../../errors/NotFoundError.js'
 import type {
-  GitHub,
-  Label
-} from '../../GitHub'
+  Label,
+  GitHub
+} from '../../GitHub.js'
 
 // TODO: Split into multiple classes and functions
 export class LabelCreator {

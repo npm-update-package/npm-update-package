@@ -5,13 +5,13 @@ import {
   it,
   jest
 } from '@jest/globals'
-import type { Options } from '../options'
-import { Terminal } from '../terminal'
-import { detectPackageManager } from './detectPackageManager'
-import { Npm } from './npm'
-import { PackageManagerCreator } from './PackageManagerCreator'
-import { PackageManagerName } from './PackageManagerName'
-import { Yarn } from './yarn'
+import type { Options } from '../options/Options.js'
+import { Terminal } from '../terminal/Terminal.js'
+import { detectPackageManager } from './detectPackageManager.js'
+import { Npm } from './npm/Npm.js'
+import { PackageManagerCreator } from './PackageManagerCreator.js'
+import { PackageManagerName } from './PackageManagerName.js'
+import { Yarn } from './yarn/Yarn.js'
 
 jest.mock('./detectPackageManager')
 

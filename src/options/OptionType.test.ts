@@ -6,7 +6,7 @@ import {
 import {
   isOptionType,
   OptionType
-} from './OptionType'
+} from './OptionType.js'
 
 describe('isOptionType', () => {
   describe('returns whether value is OptionType', () => {

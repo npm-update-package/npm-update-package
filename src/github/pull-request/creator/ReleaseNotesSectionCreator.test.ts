@@ -6,9 +6,9 @@ import {
   it,
   jest
 } from '@jest/globals'
-import type { Release } from '../../releases'
-import type { GitHubUrlOptimizer } from './GitHubUrlOptimizer'
-import { ReleaseNotesSectionCreator } from './ReleaseNotesSectionCreator'
+import type { Release } from '../../releases/Release.js'
+import type { GitHubUrlOptimizer } from './GitHubUrlOptimizer.js'
+import { ReleaseNotesSectionCreator } from './ReleaseNotesSectionCreator.js'
 
 describe('ReleaseNotesSectionCreator', () => {
   describe('create', () => {

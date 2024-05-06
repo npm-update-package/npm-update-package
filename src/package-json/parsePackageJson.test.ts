@@ -3,8 +3,8 @@ import {
   expect,
   it
 } from '@jest/globals'
-import type { PackageMetadata } from './PackageMetadata'
-import { parsePackageJson } from './parsePackageJson'
+import type { PackageMetadata } from './PackageMetadata.js'
+import { parsePackageJson } from './parsePackageJson.js'
 
 describe('parsePackageJson', () => {
   const metadata: PackageMetadata = {

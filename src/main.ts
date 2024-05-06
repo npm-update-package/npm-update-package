@@ -1,41 +1,35 @@
 import {
   isLeft,
   isRight
-} from 'fp-ts/lib/Either'
-import {
-  OutdatedPackagesProcessor,
-  PackageUpdater
-} from './core'
-import {
-  CommitMessageCreator,
-  Git,
-  GitConfigInitializer,
-  GitRepository
-} from './git'
-import {
-  AssigneesAdder,
-  BranchFinder,
-  createGitHub,
-  GitHubUrlOptimizer,
-  LabelsAdder,
-  LabelCreator,
-  PackageDiffsSectionCreator,
-  PullRequestBodyCreator,
-  PullRequestCloser,
-  PullRequestCreator,
-  PullRequestFinder,
-  PullRequestsCloser,
-  PullRequestTitleCreator,
-  ReleaseNotesSectionCreator,
-  ReleasesFetcher,
-  ReviewersAdder
-} from './github'
-import { logger } from './logger'
-import { NpmCheckUpdates } from './npm-check-updates'
-import type { Options } from './options'
-import { OutdatedPackageProcessorCreator } from './outdated-package-processor'
-import { PackageManagerCreator } from './package-manager'
-import { Terminal } from './terminal'
+} from 'fp-ts/lib/Either.js'
+import { OutdatedPackagesProcessor } from './core/OutdatedPackagesProcessor.js'
+import { PackageUpdater } from './core/PackageUpdater.js'
+import { CommitMessageCreator } from './git/CommitMessageCreator.js'
+import { Git } from './git/Git.js'
+import { GitConfigInitializer } from './git/GitConfigInitializer.js'
+import { GitRepository } from './git/GitRepository.js'
+import { BranchFinder } from './github/branch/finder/BranchFinder.js'
+import { createGitHub } from './github/createGitHub.js'
+import { LabelCreator } from './github/label/creator/LabelCreator.js'
+import { PullRequestCloser } from './github/pull-request/closer/PullRequestCloser.js'
+import { PullRequestsCloser } from './github/pull-request/closer/PullRequestsCloser.js'
+import { AssigneesAdder } from './github/pull-request/creator/AssigneesAdder.js'
+import { GitHubUrlOptimizer } from './github/pull-request/creator/GitHubUrlOptimizer.js'
+import { LabelsAdder } from './github/pull-request/creator/LabelsAdder.js'
+import { PackageDiffsSectionCreator } from './github/pull-request/creator/PackageDiffsSectionCreator.js'
+import { PullRequestBodyCreator } from './github/pull-request/creator/PullRequestBodyCreator.js'
+import { PullRequestCreator } from './github/pull-request/creator/PullRequestCreator.js'
+import { PullRequestTitleCreator } from './github/pull-request/creator/PullRequestTitleCreator.js'
+import { ReleaseNotesSectionCreator } from './github/pull-request/creator/ReleaseNotesSectionCreator.js'
+import { ReviewersAdder } from './github/pull-request/creator/ReviewersAdder.js'
+import { PullRequestFinder } from './github/pull-request/finder/PullRequestFinder.js'
+import { ReleasesFetcher } from './github/releases/fetcher/ReleasesFetcher.js'
+import { logger } from './logger/logger.js'
+import { NpmCheckUpdates } from './npm-check-updates/NpmCheckUpdates.js'
+import type { Options } from './options/Options.js'
+import { OutdatedPackageProcessorCreator } from './outdated-package-processor/OutdatedPackageProcessorCreator.js'
+import { PackageManagerCreator } from './package-manager/PackageManagerCreator.js'
+import { Terminal } from './terminal/Terminal.js'
 
 // TODO: Add test
 export const main = async (options: Options): Promise<void> => {

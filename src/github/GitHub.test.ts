@@ -6,15 +6,15 @@ import {
   jest
 } from '@jest/globals'
 import type { Octokit } from '@octokit/rest'
-import { range } from '../util'
-import { GitHub } from './GitHub'
+import { range } from '../util/range.js'
 import type {
   Branch,
   CreatedPullRequest,
   Label,
   PullRequest,
   Repository
-} from './GitHub'
+} from './GitHub.js'
+import { GitHub } from './GitHub.js'
 
 const createBranches = (start: number, end: number): Branch[] => {
   return Array.from(range(start, end)).map(num => ({

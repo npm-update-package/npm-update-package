@@ -1,7 +1,5 @@
-import {
-  isPackageMetadata,
-  type PackageMetadata
-} from './PackageMetadata'
+import type { PackageMetadata } from './PackageMetadata.js'
+import { isPackageMetadata } from './PackageMetadata.js'
 
 export const parsePackageJson = (json: string): PackageMetadata => {
   const parsed: unknown = JSON.parse(json)

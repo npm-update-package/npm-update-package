@@ -3,9 +3,9 @@ import {
   expect,
   it
 } from '@jest/globals'
-import { SemVerLevel } from '../../../semver'
-import { isPullRequestMetadata } from './PullRequestMetadata'
-import type { PullRequestMetadata } from './PullRequestMetadata'
+import { SemVerLevel } from '../../../semver/SemVerLevel.js'
+import { isPullRequestMetadata } from './PullRequestMetadata.js'
+import type { PullRequestMetadata } from './PullRequestMetadata.js'
 
 describe('isPullRequestMetadata', () => {
   describe('returns whether value is PullRequestMetadata', () => {

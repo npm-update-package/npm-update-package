@@ -1,5 +1,0 @@
-export * from './npm'
-export * from './PackageManager'
-export * from './PackageManagerCreator'
-export * from './PackageManagerName'
-export * from './yarn'

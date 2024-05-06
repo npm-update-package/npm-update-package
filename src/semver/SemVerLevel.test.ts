@@ -6,7 +6,7 @@ import {
 import {
   isSemVerLevel,
   SemVerLevel
-} from './SemVerLevel'
+} from './SemVerLevel.js'
 
 describe('isSemVerLevel', () => {
   describe('returns whether value is SemVerLevel', () => {

@@ -3,12 +3,12 @@ import {
   expect,
   it
 } from '@jest/globals'
-import { LogLevel } from '../logger'
-import { OutdatedPullRequestStrategy } from '../outdated-package-processor'
-import { DependencyType } from '../package-json'
-import { PackageManagerName } from '../package-manager'
-import { isOptions } from './Options'
-import type { Options } from './Options'
+import { LogLevel } from '../logger/LogLevel.js'
+import { OutdatedPullRequestStrategy } from '../outdated-package-processor/OutdatedPullRequestStrategy.js'
+import { DependencyType } from '../package-json/DependencyType.js'
+import { PackageManagerName } from '../package-manager/PackageManagerName.js'
+import { isOptions } from './Options.js'
+import type { Options } from './Options.js'
 
 describe('isOptions', () => {
   describe('returns whether value is Options', () => {

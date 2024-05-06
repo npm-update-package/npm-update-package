@@ -8,8 +8,8 @@ import {
 import type {
   GitHub,
   PullRequest
-} from '../../GitHub'
-import { PullRequestCloser } from './PullRequestCloser'
+} from '../../GitHub.js'
+import { PullRequestCloser } from './PullRequestCloser.js'
 
 describe('PullRequestCloser', () => {
   describe('close', () => {

@@ -3,9 +3,9 @@ import {
   expect,
   it
 } from '@jest/globals'
-import type { CLIOption } from './CLIOption'
-import { OptionType } from './OptionType'
-import { toCommanderOption } from './toCommanderOption'
+import type { CLIOption } from './CLIOption.js'
+import { OptionType } from './OptionType.js'
+import { toCommanderOption } from './toCommanderOption.js'
 
 describe('toCommanderOption', () => {
   describe('returns Commander Option', () => {

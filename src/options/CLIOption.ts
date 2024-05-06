@@ -1,4 +1,4 @@
-import type { OptionType } from './OptionType'
+import type { OptionType } from './OptionType.js'
 
 interface OptionBase {
   name: string

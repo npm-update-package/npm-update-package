@@ -6,7 +6,7 @@ import {
   it,
   jest
 } from '@jest/globals'
-import { readFile } from './readFile'
+import { readFile } from './readFile.js'
 
 jest.mock('node:fs', () => ({
   promises: {

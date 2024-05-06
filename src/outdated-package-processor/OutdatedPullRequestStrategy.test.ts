@@ -6,7 +6,7 @@ import {
 import {
   isOutdatedPullRequestStrategy,
   OutdatedPullRequestStrategy
-} from './OutdatedPullRequestStrategy'
+} from './OutdatedPullRequestStrategy.js'
 
 describe('isOutdatedPullRequestStrategy', () => {
   describe('returns whether value is OutdatedPullRequestStrategy', () => {

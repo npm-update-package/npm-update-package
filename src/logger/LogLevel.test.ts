@@ -6,7 +6,7 @@ import {
 import {
   isLogLevel,
   LogLevel
-} from './LogLevel'
+} from './LogLevel.js'
 
 describe('isLogLevel', () => {
   describe('returns whether value is LogLevel', () => {

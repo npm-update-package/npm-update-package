@@ -5,15 +5,13 @@ import {
   it,
   jest
 } from '@jest/globals'
-import type { NpmCheckUpdates } from '../npm-check-updates'
-import { DependencyType } from '../package-json'
-import type { PackageManager } from '../package-manager'
-import {
-  SemVer,
-  SemVerLevel
-} from '../semver'
-import type { OutdatedPackage } from './OutdatedPackage'
-import { PackageUpdater } from './PackageUpdater'
+import type { NpmCheckUpdates } from '../npm-check-updates/NpmCheckUpdates.js'
+import { DependencyType } from '../package-json/DependencyType.js'
+import type { PackageManager } from '../package-manager/PackageManager.js'
+import { SemVer } from '../semver/SemVer.js'
+import { SemVerLevel } from '../semver/SemVerLevel.js'
+import type { OutdatedPackage } from './OutdatedPackage.js'
+import { PackageUpdater } from './PackageUpdater.js'
 
 describe('PackageUpdater', () => {
   describe('update', () => {

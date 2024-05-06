@@ -4,9 +4,9 @@ import {
   expect,
   it
 } from '@jest/globals'
-import { GitRepository } from '../git'
-import { extractRepository } from './extractRepository'
-import type { PackageMetadata } from './PackageMetadata'
+import { GitRepository } from '../git/GitRepository.js'
+import { extractRepository } from './extractRepository.js'
+import type { PackageMetadata } from './PackageMetadata.js'
 
 describe('extractRepository', () => {
   describe('returns GitRepository instance if repository exists', () => {

@@ -4,8 +4,8 @@ import {
   expect,
   it
 } from '@jest/globals'
-import type { Options } from '../../../options'
-import { GitHubUrlOptimizer } from './GitHubUrlOptimizer'
+import type { Options } from '../../../options/Options.js'
+import { GitHubUrlOptimizer } from './GitHubUrlOptimizer.js'
 
 describe('GitHubUrlOptimizer', () => {
   describe('optimize', () => {

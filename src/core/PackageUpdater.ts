@@ -1,6 +1,6 @@
-import type { NpmCheckUpdates } from '../npm-check-updates'
-import type { PackageManager } from '../package-manager'
-import type { OutdatedPackage } from './OutdatedPackage'
+import type { NpmCheckUpdates } from '../npm-check-updates/NpmCheckUpdates.js'
+import type { PackageManager } from '../package-manager/PackageManager.js'
+import type { OutdatedPackage } from './OutdatedPackage.js'
 
 export class PackageUpdater {
   private readonly packageManager: PackageManager

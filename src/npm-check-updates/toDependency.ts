@@ -1,5 +1,5 @@
-import { DependencyType } from '../package-json'
-import { Dependency } from './Dependency'
+import { DependencyType } from '../package-json/DependencyType.js'
+import { Dependency } from './Dependency.js'
 
 // TODO: Add test
 export const toDependency = (dependencyType: DependencyType): Dependency => {

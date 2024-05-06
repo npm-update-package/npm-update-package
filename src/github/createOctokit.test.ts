@@ -4,7 +4,7 @@ import {
   it
 } from '@jest/globals'
 import { Octokit } from '@octokit/rest'
-import { createOctokit } from './createOctokit'
+import { createOctokit } from './createOctokit.js'
 
 describe('createOctokit', () => {
   describe('returns new Octokit instance', () => {

@@ -1,5 +1,5 @@
-import type { Release } from '../../releases'
-import type { GitHubUrlOptimizer } from './GitHubUrlOptimizer'
+import type { Release } from '../../releases/Release.js'
+import type { GitHubUrlOptimizer } from './GitHubUrlOptimizer.js'
 
 export class ReleaseNotesSectionCreator {
   constructor (private readonly gitHubUrlOptimizer: GitHubUrlOptimizer) {}

@@ -3,7 +3,7 @@ import {
   expect,
   it
 } from '@jest/globals'
-import { SemVer } from './SemVer'
+import { SemVer } from './SemVer.js'
 
 describe('SemVer', () => {
   describe('of', () => {

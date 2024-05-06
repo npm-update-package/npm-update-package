@@ -1,18 +1,17 @@
-import type { OutdatedPackage } from '../../../core'
-import type { GitRepository } from '../../../git'
-import { logger } from '../../../logger'
-import type { Options } from '../../../options'
+import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
+import type { GitRepository } from '../../../git/GitRepository.js'
+import { logger } from '../../../logger/logger.js'
+import type { Options } from '../../../options/Options.js'
 import type {
   CreatedPullRequest,
   GitHub,
   Repository as GitHubRepository
-} from '../../GitHub'
-import type { AssigneesAdder } from './AssigneesAdder'
-import type { LabelsAdder } from './LabelsAdder'
-import type { PullRequestBodyCreator } from './PullRequestBodyCreator'
-import type { PullRequestTitleCreator } from './PullRequestTitleCreator'
-import type { ReviewersAdder } from './ReviewersAdder'
-
+} from '../../GitHub.js'
+import type { AssigneesAdder } from './AssigneesAdder.js'
+import type { LabelsAdder } from './LabelsAdder.js'
+import type { PullRequestBodyCreator } from './PullRequestBodyCreator.js'
+import type { PullRequestTitleCreator } from './PullRequestTitleCreator.js'
+import type { ReviewersAdder } from './ReviewersAdder.js'
 export class PullRequestCreator {
   private readonly options: Options
   private readonly github: GitHub

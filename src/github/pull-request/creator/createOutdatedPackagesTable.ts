@@ -1,4 +1,4 @@
-import type { OutdatedPackage } from '../../../core'
+import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
 
 export const createOutdatedPackagesTable = (outdatedPackage: OutdatedPackage): string => {
   const packageName = outdatedPackage.name

@@ -5,15 +5,15 @@ import {
   it,
   jest
 } from '@jest/globals'
-import type { GitRepository } from '../../../git'
-import { isNotFoundError } from '../../errors'
+import type { GitRepository } from '../../../git/GitRepository.js'
+import { isNotFoundError } from '../../errors/NotFoundError.js'
 import type {
   GitHub,
   Label
-} from '../../GitHub'
-import { LabelCreator } from './LabelCreator'
+} from '../../GitHub.js'
+import { LabelCreator } from './LabelCreator.js'
 
-jest.mock('../../errors')
+jest.mock('../../errors/NotFoundError.js')
 
 describe('LabelCreator', () => {
   describe('create', () => {

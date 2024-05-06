@@ -2,26 +2,20 @@ import {
   left,
   right,
   type Either
-} from 'fp-ts/lib/Either'
-import type {
-  FailedResult,
-  OutdatedPackage,
-  PackageUpdater,
-  SucceededResult
-} from '../../core'
-import {
-  createBranchName,
-  GitTransaction,
-  type CommitMessageCreator,
-  type Git
-} from '../../git'
-import type {
-  BranchFinder,
-  PullRequestCreator
-} from '../../github'
-import { logger } from '../../logger'
-import type { PackageManager } from '../../package-manager'
-import type { OutdatedPackageProcessor } from '../OutdatedPackageProcessor'
+} from 'fp-ts/lib/Either.js'
+import type { FailedResult } from '../../core/FailedResult.js'
+import type { OutdatedPackage } from '../../core/OutdatedPackage.js'
+import type { PackageUpdater } from '../../core/PackageUpdater.js'
+import type { SucceededResult } from '../../core/SucceededResult.js'
+import type { CommitMessageCreator } from '../../git/CommitMessageCreator.js'
+import { createBranchName } from '../../git/createBranchName.js'
+import type { Git } from '../../git/Git.js'
+import { GitTransaction } from '../../git/GitTransaction.js'
+import type { BranchFinder } from '../../github/branch/finder/BranchFinder.js'
+import type { PullRequestCreator } from '../../github/pull-request/creator/PullRequestCreator.js'
+import { logger } from '../../logger/logger.js'
+import type { PackageManager } from '../../package-manager/PackageManager.js'
+import type { OutdatedPackageProcessor } from '../OutdatedPackageProcessor.js'
 
 // TODO: Add test
 export class Create implements OutdatedPackageProcessor {

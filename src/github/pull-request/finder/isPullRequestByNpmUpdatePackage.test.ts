@@ -3,8 +3,8 @@ import {
   expect,
   it
 } from '@jest/globals'
-import type { PullRequest } from '../../GitHub'
-import { isPullRequestByNpmUpdatePackage } from './isPullRequestByNpmUpdatePackage'
+import type { PullRequest } from '../../GitHub.js'
+import { isPullRequestByNpmUpdatePackage } from './isPullRequestByNpmUpdatePackage.js'
 
 describe('isPullRequestByNpmUpdatePackage', () => {
   describe('returns whether pull request is by npm-update-package', () => {

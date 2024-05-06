@@ -1,18 +1,21 @@
 {
   "name": "npm-update-package",
-  "version": "3.0.22",
+  "version": "4.0.0-2",
   "description": "CLI tool for creating pull requests to update npm packages",
+  "type": "module",
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "clean": "rimraf dist",
-    "lint": "eslint '**/*.{js,ts}'",
+    "lint": "eslint '**/*.{js,mjs,cjs,ts,mts,cts}'",
+    "postversion": "npm run syncVersion",
     "prebuild": "npm run clean",
     "prepublishOnly": "npm-run-all lint test build",
+    "syncVersion": "tsx scripts/syncVersion.ts",
     "test": "jest"
   },
-  "bin": "dist/src/bin/npm-update-package.js",
+  "bin": "dist/bin/npm-update-package.js",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "dependencies": {
     "@octokit/rest": "20.1.1",
@@ -32,9 +35,9 @@
   },
   "devDependencies": {
     "@munierujp/eslint-config-typescript": "43.0.0",
-    "@tsconfig/node18": "18.2.4",
+    "@tsconfig/node20": "20.1.4",
     "@types/mustache": "4.2.5",
-    "@types/node": "18.17.15",
+    "@types/node": "20.12.7",
     "@types/node-fetch": "2.6.11",
     "@types/parse-github-url": "1.0.3",
     "@types/semver": "7.5.8",
@@ -44,7 +47,7 @@
     "npm-run-all": "4.1.5",
     "rimraf": "5.0.5",
     "ts-jest": "29.1.2",
-    "ts-node": "10.9.2",
+    "tsx": "4.9.3",
     "typescript": "5.4.5",
     "utility-types": "3.11.0"
   },

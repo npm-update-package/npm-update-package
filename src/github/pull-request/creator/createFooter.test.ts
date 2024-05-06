@@ -3,8 +3,8 @@ import {
   expect,
   it
 } from '@jest/globals'
-import app from '../../../../package.json'
-import { createFooter } from './createFooter'
+import * as app from '../../../../src/app.js'
+import { createFooter } from './createFooter.js'
 
 describe('createFooter', () => {
   it('returns footer', () => {

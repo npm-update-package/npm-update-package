@@ -3,14 +3,12 @@ import {
   expect,
   it
 } from '@jest/globals'
-import pkg from '../../../../package.json'
-import type { OutdatedPackage } from '../../../core'
-import { DependencyType } from '../../../package-json'
-import {
-  SemVer,
-  SemVerLevel
-} from '../../../semver'
-import { createPullRequestMetadata } from './createPullRequestMetadata'
+import * as app from '../../../app.js'
+import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
+import { DependencyType } from '../../../package-json/DependencyType.js'
+import { SemVer } from '../../../semver/SemVer.js'
+import { SemVerLevel } from '../../../semver/SemVerLevel.js'
+import { createPullRequestMetadata } from './createPullRequestMetadata.js'
 
 describe('createPullRequestMetadata', () => {
   it('returns PullRequestMetadata', () => {
@@ -27,7 +25,7 @@ describe('createPullRequestMetadata', () => {
     const actual = createPullRequestMetadata(outdatedPackages)
 
     expect(actual).toEqual({
-      version: pkg.version,
+      version: app.version,
       packages: [
         {
           name: '@npm-update-package/example',

@@ -3,8 +3,8 @@ import {
   expect,
   it
 } from '@jest/globals'
-import { createGitHub } from './createGitHub'
-import { GitHub } from './GitHub'
+import { createGitHub } from './createGitHub.js'
+import { GitHub } from './GitHub.js'
 
 describe('createGitHub', () => {
   it('returns new GitHub instance', () => {

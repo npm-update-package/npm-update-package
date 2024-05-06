@@ -6,7 +6,7 @@ import {
 import {
   isPackageManagerName,
   PackageManagerName
-} from './PackageManagerName'
+} from './PackageManagerName.js'
 
 describe('isPackageManagerName', () => {
   describe('returns whether value is PackageManagerName', () => {
