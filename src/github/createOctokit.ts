@@ -1,5 +1,5 @@
 import { Octokit } from '@octokit/rest'
-import pkg from '../../package.json'
+import * as app from '../app.js'
 
 export const createOctokit = ({
   host,
@@ -8,7 +8,7 @@ export const createOctokit = ({
   host: string
   token?: string
 }): Octokit => {
-  const userAgent = `${pkg.name}/${pkg.version}`
+  const userAgent = `${app.name}/${app.version}`
 
   if (token === undefined) {
     return new Octokit({
