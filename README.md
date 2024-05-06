@@ -22,8 +22,8 @@ CLI tool for creating pull requests to update npm packages
   - [`--commit-message`](#--commit-message)
   - [`--dependency-types`](#--dependency-types)
   - [`--draft-pr`](#--draft-pr)
+  - [`--fetch-interval`](#--fetch-interval)
   - [`--fetch-release-notes`](#--fetch-release-notes)
-  - [`--fetch-sleep-time`](#--fetch-sleep-time)
   - [`--git-user-email`](#--git-user-email)
   - [`--git-user-name`](#--git-user-name)
   - [`--github-token`](#--github-token)
@@ -206,6 +206,24 @@ npx npm-update-package \
   --draft-pr true
 ```
 
+### `--fetch-interval`
+
+Sleep time between fetching (ms).
+
+|Name|Value|
+|---|---|
+|type|number|
+|required|-|
+|default|`1000`|
+
+Example:
+
+```sh
+npx npm-update-package \
+  --github-token <github-token> \
+  --fetch-interval 2000
+```
+
 ### `--fetch-release-notes`
 
 Whether to fetch release notes.
@@ -222,24 +240,6 @@ Example:
 npx npm-update-package \
   --github-token <github-token> \
   --fetch-release-notes false
-```
-
-### `--fetch-sleep-time`
-
-Sleep time between fetching (ms).
-
-|Name|Value|
-|---|---|
-|type|number|
-|required|-|
-|default|`1000`|
-
-Example:
-
-```sh
-npx npm-update-package \
-  --github-token <github-token> \
-  --fetch-sleep-time 2000
 ```
 
 ### `--git-user-email`

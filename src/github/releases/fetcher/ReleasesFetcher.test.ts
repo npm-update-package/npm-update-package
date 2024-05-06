@@ -23,7 +23,7 @@ describe('ReleasesFetcher', () => {
     const sleepMock = jest.mocked(sleep)
     const getVersionsMock = jest.fn<PackageManager['getVersions']>()
     const options = {
-      fetchSleepTime: 1000
+      fetchInterval: 1000
     }
     const packageManager = {
       getVersions: getVersionsMock
@@ -83,7 +83,7 @@ describe('ReleasesFetcher', () => {
       ])
       expect(getVersionsMock).toHaveBeenCalledWith('@npm-update-package/example')
       expect(sleepMock).toHaveBeenCalledTimes(2)
-      expect(sleepMock).toHaveBeenCalledWith(options.fetchSleepTime)
+      expect(sleepMock).toHaveBeenCalledWith(options.fetchInterval)
       expect(fetchMock).toHaveBeenCalledTimes(3)
       expect(fetchMock).toHaveBeenCalledWith('https://github.com/npm-update-package/example/releases/tag/v1.1.0')
       expect(fetchMock).toHaveBeenCalledWith('https://github.com/npm-update-package/example/releases/tag/v1.1.1')
