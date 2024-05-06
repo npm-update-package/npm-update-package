@@ -66,7 +66,7 @@ export const cliOptions: CLIOption[] = [
     default: true
   },
   {
-    name: 'fetch-sleep-time',
+    name: 'fetch-interval',
     description: 'Sleep time between fetching (ms)',
     type: OptionType.Number,
     required: false,

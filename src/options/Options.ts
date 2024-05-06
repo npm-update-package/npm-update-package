@@ -27,7 +27,7 @@ const Options = intersection([
     ])),
     draftPr: boolean,
     fetchReleaseNotes: boolean,
-    fetchSleepTime: number,
+    fetchInterval: number,
     githubToken: string,
     logLevel: union([
       literal(LogLevel.Off),

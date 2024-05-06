@@ -28,7 +28,7 @@ describe('isOptions', () => {
       ],
       draftPr: true,
       fetchReleaseNotes: true,
-      fetchSleepTime: 1000,
+      fetchInterval: 1000,
       gitUserEmail: 'octocat@example.com',
       gitUserName: 'octocat',
       githubToken: 'test githubToken',

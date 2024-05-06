@@ -23,7 +23,7 @@ CLI tool for creating pull requests to update npm packages
   - [`--dependency-types`](#--dependency-types)
   - [`--draft-pr`](#--draft-pr)
   - [`--fetch-release-notes`](#--fetch-release-notes)
-  - [`--fetch-sleep-time`](#--fetch-sleep-time)
+  - [`--fetch-interval`](#--fetch-interval)
   - [`--git-user-email`](#--git-user-email)
   - [`--git-user-name`](#--git-user-name)
   - [`--github-token`](#--github-token)
@@ -224,7 +224,7 @@ npx npm-update-package \
   --fetch-release-notes false
 ```
 
-### `--fetch-sleep-time`
+### `--fetch-interval`
 
 Sleep time between fetching (ms).
 
@@ -239,7 +239,7 @@ Example:
 ```sh
 npx npm-update-package \
   --github-token <github-token> \
-  --fetch-sleep-time 2000
+  --fetch-interval 2000
 ```
 
 ### `--git-user-email`
