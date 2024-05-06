@@ -15,7 +15,7 @@
   },
   "bin": "dist/bin/npm-update-package.js",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "dependencies": {
     "@octokit/rest": "20.1.0",
