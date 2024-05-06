@@ -13,7 +13,7 @@
     "syncVersion": "tsx scripts/syncVersion.ts",
     "test": "jest"
   },
-  "bin": "dist/src/bin/npm-update-package.js",
+  "bin": "dist/bin/npm-update-package.js",
   "engines": {
     "node": ">=18"
   },
