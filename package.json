@@ -7,7 +7,6 @@
     "build": "tsc --project tsconfig.build.json",
     "clean": "rimraf dist",
     "lint": "eslint '**/*.{js,mjs,cjs,ts,mts,cts}'",
-    "postversion": "npm run syncVersion",
     "prebuild": "npm run clean",
     "prepublishOnly": "npm-run-all lint test build",
     "syncVersion": "tsx scripts/syncVersion.ts",
