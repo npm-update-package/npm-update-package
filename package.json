@@ -9,7 +9,6 @@
     "lint": "eslint '**/*.{js,mjs,cjs,ts,mts,cts}'",
     "prebuild": "npm run clean",
     "prepublishOnly": "npm-run-all lint test build",
-    "syncVersion": "tsx scripts/syncVersion.ts",
     "test": "jest"
   },
   "bin": "dist/bin/npm-update-package.js",
