@@ -9,7 +9,7 @@ type ID = Parameters<ReturnType<typeof createRequire>>[0]
  * @example
  * ```ts
  * const requirePackageJSON = createRequirePackageJSON(import.meta.url)
- * const pkg = requirePackageJSON('path/to/package.json')
+ * const packageJSON = requirePackageJSON('path/to/package.json')
  * ```
  */
 export const createRequirePackageJSON = (path: Path): (id: ID) => PackageMetadata => {
