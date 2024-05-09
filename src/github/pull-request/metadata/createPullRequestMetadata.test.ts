@@ -3,12 +3,15 @@ import {
   expect,
   it
 } from '@jest/globals'
-import pkg from '../../../../package.json' with { type: 'json' }
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
 import { DependencyType } from '../../../package-json/DependencyType.js'
 import { SemVer } from '../../../semver/SemVer.js'
 import { SemVerLevel } from '../../../semver/SemVerLevel.js'
+import { createRequirePackageJSON } from '../../../util/createRequirePackageJSON.js'
 import { createPullRequestMetadata } from './createPullRequestMetadata.js'
+
+const requirePackageJSON = createRequirePackageJSON(import.meta.url)
+const pkg = requirePackageJSON('../../../../package.json')
 
 describe('createPullRequestMetadata', () => {
   it('returns PullRequestMetadata', () => {

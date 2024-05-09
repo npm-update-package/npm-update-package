@@ -1,9 +1,12 @@
 import { program } from 'commander'
-import pkg from '../../package.json' with { type: 'json' }
+import { createRequirePackageJSON } from '../util/createRequirePackageJSON.js'
 import type { CLIOption } from './CLIOption.js'
 import type { Options } from './Options.js'
 import { isOptions } from './Options.js'
 import { toCommanderOption } from './toCommanderOption.js'
+
+const requirePackageJSON = createRequirePackageJSON(import.meta.url)
+const pkg = requirePackageJSON('../../package.json')
 
 export const createOptions = (cliOptions: CLIOption[]): Options => {
   program.version(pkg.version)

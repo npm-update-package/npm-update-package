@@ -3,8 +3,11 @@ import {
   expect,
   it
 } from '@jest/globals'
-import pkg from '../../../../package.json' with { type: 'json' }
+import { createRequirePackageJSON } from '../../../util/createRequirePackageJSON.js'
 import { createFooter } from './createFooter.js'
+
+const requirePackageJSON = createRequirePackageJSON(import.meta.url)
+const pkg = requirePackageJSON('../../../../package.json')
 
 describe('createFooter', () => {
   it('returns footer', () => {
