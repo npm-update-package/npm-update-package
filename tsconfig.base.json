@@ -1,6 +1,7 @@
 {
   "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
+    "module": "NodeNext",
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true
   }
