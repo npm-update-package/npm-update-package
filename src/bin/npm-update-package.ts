@@ -1,12 +1,9 @@
 #!/usr/bin/env node
 
+import pkg from '../../package.json' with { type: 'json' }
 import { logger } from '../logger/logger.js'
 import { main } from '../main.js'
 import { initOptions } from '../options/initOptions.js'
-import { createRequirePackageJSON } from '../util/createRequirePackageJSON.js'
-
-const requirePackageJSON = createRequirePackageJSON(import.meta.url)
-const pkg = requirePackageJSON('../../package.json')
 
 try {
   const options = initOptions()

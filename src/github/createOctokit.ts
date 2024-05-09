@@ -1,8 +1,5 @@
 import { Octokit } from '@octokit/rest'
-import { createRequirePackageJSON } from '../util/createRequirePackageJSON.js'
-
-const requirePackageJSON = createRequirePackageJSON(import.meta.url)
-const pkg = requirePackageJSON('../../package.json')
+import pkg from '../../package.json' with { type: 'json' }
 
 export const createOctokit = ({
   host,
