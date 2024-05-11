@@ -71,7 +71,7 @@ npx npm-update-package --github-token <github-token>
 Alternatively, you can use a specific version as follows:
 
 ```sh
-npx npm-update-package@1 --github-token <github-token>
+npx npm-update-package@4 --github-token <github-token>
 ```
 
 ## Options
