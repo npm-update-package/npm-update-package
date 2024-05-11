@@ -1,6 +1,6 @@
 {
   "name": "npm-update-package",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "CLI tool for creating pull requests to update npm packages",
   "type": "module",
   "scripts": {
@@ -47,7 +47,7 @@
     "npm-run-all": "4.1.5",
     "rimraf": "5.0.6",
     "ts-jest": "29.1.2",
-    "tsx": "4.9.3",
+    "tsx": "4.9.4",
     "typescript": "5.4.5",
     "utility-types": "3.11.0"
   },
