@@ -6,7 +6,6 @@ import {
   jest
 } from '@jest/globals'
 import { StatusCodes } from 'http-status-codes'
-import fetch from 'node-fetch'
 import type { GitRepository } from '../../../git/GitRepository.js'
 import type { Options } from '../../../options/Options.js'
 import type { PackageManager } from '../../../package-manager/PackageManager.js'
@@ -14,12 +13,11 @@ import { SemVer } from '../../../semver/SemVer.js'
 import { sleep } from '../../../util/sleep.js'
 import { ReleasesFetcher } from './ReleasesFetcher.js'
 
-jest.mock('node-fetch')
 jest.mock('../../../util/sleep.js')
 
 describe('ReleasesFetcher', () => {
   describe('fetch', () => {
-    const fetchMock = jest.mocked(fetch)
+    const fetchSpy = jest.spyOn(global, 'fetch')
     const sleepMock = jest.mocked(sleep)
     const getVersionsMock = jest.fn<PackageManager['getVersions']>()
     const options = {
@@ -46,7 +44,7 @@ describe('ReleasesFetcher', () => {
         '2.1.0'
       ])
       sleepMock.mockResolvedValue(undefined)
-      fetchMock.mockImplementation((async (url) => {
+      fetchSpy.mockImplementation((async (url) => {
         return typeof url === 'string' && url.endsWith('v1.1.1')
           ? await Promise.resolve({
             ok: false,
@@ -84,10 +82,10 @@ describe('ReleasesFetcher', () => {
       expect(getVersionsMock).toHaveBeenCalledWith('@npm-update-package/example')
       expect(sleepMock).toHaveBeenCalledTimes(2)
       expect(sleepMock).toHaveBeenCalledWith(options.fetchInterval)
-      expect(fetchMock).toHaveBeenCalledTimes(3)
-      expect(fetchMock).toHaveBeenCalledWith('https://github.com/npm-update-package/example/releases/tag/v1.1.0')
-      expect(fetchMock).toHaveBeenCalledWith('https://github.com/npm-update-package/example/releases/tag/v1.1.1')
-      expect(fetchMock).toHaveBeenCalledWith('https://github.com/npm-update-package/example/releases/tag/v2.0.0')
+      expect(fetchSpy).toHaveBeenCalledTimes(3)
+      expect(fetchSpy).toHaveBeenCalledWith('https://github.com/npm-update-package/example/releases/tag/v1.1.0')
+      expect(fetchSpy).toHaveBeenCalledWith('https://github.com/npm-update-package/example/releases/tag/v1.1.1')
+      expect(fetchSpy).toHaveBeenCalledWith('https://github.com/npm-update-package/example/releases/tag/v2.0.0')
     })
   })
 })
