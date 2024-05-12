@@ -9,7 +9,8 @@
 const config = {
   extends: [
     '@munierujp/eslint-config-typescript',
-    'plugin:jest/recommended'
+    'plugin:jest/recommended',
+    'lodash'
   ],
   parserOptions: {
     project: './tsconfig.json'
