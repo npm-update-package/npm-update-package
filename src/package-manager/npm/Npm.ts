@@ -12,7 +12,7 @@ export class Npm implements PackageManager {
    * @see https://docs.npmjs.com/cli/v8/commands/npm-view
    */
   async getVersions (packageName: string): Promise<string[]> {
-    const { stdout } = await this.terminal.run('npm', 'info', packageName, 'versions', '--json')
+    const stdout = await this.terminal.run('npm', 'info', packageName, 'versions', '--json')
     const versions: unknown = JSON.parse(stdout)
 
     if (!isNpmVersions(versions)) {

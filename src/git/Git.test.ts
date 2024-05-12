@@ -5,7 +5,6 @@ import {
   it,
   jest
 } from '@jest/globals'
-import type { ExecaReturnValue } from 'execa'
 import type { Terminal } from '../terminal/Terminal.js'
 import { Git } from './Git.js'
 
@@ -56,7 +55,7 @@ describe('Git', () => {
   describe('getRemoteUrl', () => {
     it('calls `git remote get-url --push origin`', async () => {
       const expected = 'https://github.com/npm-update-package/example.git'
-      terminalRunMock.mockResolvedValue({ stdout: expected } as unknown as ExecaReturnValue)
+      terminalRunMock.mockResolvedValue(expected)
 
       const actual = await git.getRemoteUrl()
 
