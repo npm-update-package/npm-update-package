@@ -6,7 +6,7 @@ import {
   jest
 } from '@jest/globals'
 import type { Octokit } from '@octokit/rest'
-import { range } from '../util/range.js'
+import range from 'lodash/range.js'
 import type {
   Branch,
   CreatedPullRequest,
@@ -17,13 +17,13 @@ import type {
 import { GitHub } from './GitHub.js'
 
 const createBranches = (start: number, end: number): Branch[] => {
-  return Array.from(range(start, end)).map(num => ({
+  return range(start, end).map(num => ({
     name: `branch ${num}`
   } as unknown as Branch))
 }
 
 const createPullRequests = (start: number, end: number): PullRequest[] => {
-  return Array.from(range(start, end)).map(id => ({ id } as unknown as PullRequest))
+  return range(start, end).map(id => ({ id } as unknown as PullRequest))
 }
 
 describe('GitHub', () => {

@@ -2,8 +2,8 @@ import type {
   Octokit,
   RestEndpointMethodTypes
 } from '@octokit/rest'
+import range from 'lodash/range.js'
 import type { ValuesType } from 'utility-types'
-import { range } from '../util/range.js'
 
 export type Branch = ValuesType<RestEndpointMethodTypes['repos']['listBranches']['response']['data']>
 export type CreatedPullRequest = RestEndpointMethodTypes['pulls']['create']['response']['data']
