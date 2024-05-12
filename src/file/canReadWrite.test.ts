@@ -1,3 +1,5 @@
+// TODO: Replace Jest with Node.js's test runner
+
 import fs from 'node:fs'
 import {
   afterEach,
