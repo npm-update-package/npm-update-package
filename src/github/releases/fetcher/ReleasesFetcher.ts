@@ -1,3 +1,4 @@
+import { setTimeout } from 'node:timers/promises'
 import {
   gte,
   lte,
@@ -7,7 +8,6 @@ import type { GitRepository } from '../../../git/GitRepository.js'
 import type { Options } from '../../../options/Options.js'
 import type { PackageManager } from '../../../package-manager/PackageManager.js'
 import type { SemVer } from '../../../semver/SemVer.js'
-import { sleep } from '../../../util/sleep.js'
 import type { Release } from '../Release.js'
 
 // TODO: Split into multiple classes and functions
@@ -78,7 +78,7 @@ export class ReleasesFetcher {
 
     for (const [i, tag] of tags.entries()) {
       if (i > 0) {
-        await sleep(this.options.fetchInterval)
+        await setTimeout(this.options.fetchInterval)
       }
 
       const release = await this.fetchReleaseByTag({
