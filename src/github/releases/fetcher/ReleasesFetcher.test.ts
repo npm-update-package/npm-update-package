@@ -1,3 +1,4 @@
+import { setTimeout } from 'node:timers/promises'
 import {
   afterEach,
   describe,
@@ -10,15 +11,14 @@ import type { GitRepository } from '../../../git/GitRepository.js'
 import type { Options } from '../../../options/Options.js'
 import type { PackageManager } from '../../../package-manager/PackageManager.js'
 import { SemVer } from '../../../semver/SemVer.js'
-import { sleep } from '../../../util/sleep.js'
 import { ReleasesFetcher } from './ReleasesFetcher.js'
 
-jest.mock('../../../util/sleep.js')
+jest.mock('node:timers/promises')
 
 describe('ReleasesFetcher', () => {
   describe('fetch', () => {
     const fetchSpy = jest.spyOn(global, 'fetch')
-    const sleepMock = jest.mocked(sleep)
+    const setTimeoutMock = jest.mocked(setTimeout)
     const getVersionsMock = jest.fn<PackageManager['getVersions']>()
     const options = {
       fetchInterval: 1000
@@ -43,7 +43,7 @@ describe('ReleasesFetcher', () => {
         '2.0.0',
         '2.1.0'
       ])
-      sleepMock.mockResolvedValue(undefined)
+      setTimeoutMock.mockResolvedValue(undefined)
       fetchSpy.mockImplementation((async (url) => {
         return typeof url === 'string' && url.endsWith('v1.1.1')
           ? await Promise.resolve({
@@ -80,8 +80,8 @@ describe('ReleasesFetcher', () => {
         }
       ])
       expect(getVersionsMock).toHaveBeenCalledWith('@npm-update-package/example')
-      expect(sleepMock).toHaveBeenCalledTimes(2)
-      expect(sleepMock).toHaveBeenCalledWith(options.fetchInterval)
+      expect(setTimeoutMock).toHaveBeenCalledTimes(2)
+      expect(setTimeoutMock).toHaveBeenCalledWith(options.fetchInterval)
       expect(fetchSpy).toHaveBeenCalledTimes(3)
       expect(fetchSpy).toHaveBeenCalledWith('https://github.com/npm-update-package/example/releases/tag/v1.1.0')
       expect(fetchSpy).toHaveBeenCalledWith('https://github.com/npm-update-package/example/releases/tag/v1.1.1')
