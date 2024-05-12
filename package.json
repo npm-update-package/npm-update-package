@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "@octokit/rest": "20.1.1",
-    "array-shuffle": "2.0.0",
     "commander": "12.0.0",
     "execa": "5.1.1",
     "fp-ts": "2.16.5",
