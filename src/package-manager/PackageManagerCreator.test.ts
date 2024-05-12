@@ -6,7 +6,7 @@ import {
   jest
 } from '@jest/globals'
 import type { Options } from '../options/Options.js'
-import { Terminal } from '../terminal/Terminal.js'
+import type { Terminal } from '../terminal/Terminal.js'
 import { detectPackageManager } from './detectPackageManager.js'
 import { Npm } from './npm/Npm.js'
 import { PackageManagerCreator } from './PackageManagerCreator.js'
@@ -18,7 +18,7 @@ jest.mock('./detectPackageManager')
 describe('PackageManagerCreator', () => {
   describe('create', () => {
     const detectPackageManagerMock = jest.mocked(detectPackageManager)
-    const terminal = new Terminal()
+    const terminal = {} as unknown as Terminal
 
     afterEach(() => {
       jest.resetAllMocks()
