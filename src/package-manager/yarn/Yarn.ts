@@ -12,8 +12,8 @@ export class Yarn implements PackageManager {
    * @see https://classic.yarnpkg.com/en/docs/cli/info
    */
   async getVersions (packageName: string): Promise<string[]> {
-    const { stdout } = await this.terminal.run('yarn', 'info', packageName, 'versions', '--json')
-    const versions: unknown = JSON.parse(stdout)
+    const output = await this.terminal.run('yarn', 'info', packageName, 'versions', '--json')
+    const versions: unknown = JSON.parse(output)
 
     if (!isYarnVersions(versions)) {
       throw new Error(`Failed to parse versions. versions=${JSON.stringify(versions)}`)

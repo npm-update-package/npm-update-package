@@ -5,7 +5,6 @@ import {
   it,
   jest
 } from '@jest/globals'
-import type { ExecaReturnValue } from 'execa'
 import type { Terminal } from '../../terminal/Terminal.js'
 import { Npm } from './Npm.js'
 
@@ -29,7 +28,7 @@ describe('Npm', () => {
           '1.0.0',
           '2.0.0'
         ]
-        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify(expected) } as unknown as ExecaReturnValue)
+        terminalRunMock.mockResolvedValue(JSON.stringify(expected))
 
         const actual = await npm.getVersions(packageName)
 
@@ -38,7 +37,7 @@ describe('Npm', () => {
       })
 
       it('throws error if stdout is invalid', async () => {
-        terminalRunMock.mockResolvedValue({ stdout: JSON.stringify({}) } as unknown as ExecaReturnValue)
+        terminalRunMock.mockResolvedValue(JSON.stringify({}))
 
         await expect(async () => await npm.getVersions(packageName)).rejects.toThrow(Error)
 
