@@ -16,8 +16,8 @@ export class Git {
   }
 
   async getRemoteUrl (): Promise<string> {
-    const { stdout } = await this.terminal.run('git', 'remote', 'get-url', '--push', 'origin')
-    return stdout.trim()
+    const output = await this.terminal.run('git', 'remote', 'get-url', '--push', 'origin')
+    return output.trim()
   }
 
   async push (branchName: string): Promise<void> {
