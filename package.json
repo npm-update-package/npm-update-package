@@ -33,7 +33,7 @@
     "type-guards": "0.15.0"
   },
   "devDependencies": {
-    "@munierujp/eslint-config-typescript": "44.0.0",
+    "@munierujp/eslint-config-typescript": "46.0.0",
     "@tsconfig/node20": "20.1.4",
     "@types/lodash": "4.17.1",
     "@types/mustache": "4.2.5",
