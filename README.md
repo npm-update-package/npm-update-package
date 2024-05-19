@@ -13,7 +13,7 @@ CLI tool for creating pull requests to update npm packages
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Requirements](#requirements)
-- [Supported platforms](#supported-platforms)
+- [Supported Platforms](#supported-platforms)
 - [Usage](#usage)
 - [Options](#options)
   - [`--additional-labels`](#--additional-labels)
@@ -36,16 +36,16 @@ CLI tool for creating pull requests to update npm packages
   - [`--pr-title`](#--pr-title)
   - [`--reviewers`](#--reviewers)
   - [`--reviewers-sample-size`](#--reviewers-sample-size)
-- [GitHub token](#github-token)
-- [How to run on GitHub Actions](#how-to-run-on-github-actions)
-  - [Use token of GitHub Actions](#use-token-of-github-actions)
-  - [Use token of GitHub App](#use-token-of-github-app)
-  - [Use Personal access token](#use-personal-access-token)
+- [GitHub Token](#github-token)
+- [How to Run on GitHub Actions](#how-to-run-on-github-actions)
+  - [Use Token of GitHub Actions](#use-token-of-github-actions)
+  - [Use Token of GitHub App](#use-token-of-github-app)
+  - [Use Personal Access Token](#use-personal-access-token)
 - [Architecture](#architecture)
 - [FAQ](#faq)
-  - [What is the purpose of npm-update-package?](#what-is-the-purpose-of-npm-update-package)
-  - [What should I do if conflicts occurred in the pull request?](#what-should-i-do-if-conflicts-occurred-in-the-pull-request)
-- [How to development](#how-to-development)
+  - [What Is the Purpose of npm-update-package?](#what-is-the-purpose-of-npm-update-package)
+  - [What Should I Do if Conflicts Occurred in the Pull Request?](#what-should-i-do-if-conflicts-occurred-in-the-pull-request)
+- [How to Development](#how-to-development)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
