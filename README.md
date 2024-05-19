@@ -55,7 +55,7 @@ CLI tool for creating pull requests to update npm packages
 - npm or Yarn
 - Git
 
-## Supported platforms
+## Supported Platforms
 
 - GitHub
 - GitHub Enterprise
@@ -481,7 +481,7 @@ npx npm-update-package \
   --reviewers-sample-size 1
 ```
 
-## GitHub token
+## GitHub Token
 
 GitHub token is required to run npm-update-package.  
 Available tokens and permissions required for each token are as follows.
@@ -508,9 +508,9 @@ We recommend using GitHub App for the following reasons.
 - Personal access token relies on personal account.
 - When you use the Personal access token, the author of pull requests will be the user who issued the token.
 
-## How to run on GitHub Actions
+## How to Run on GitHub Actions
 
-### Use token of GitHub Actions
+### Use Token of GitHub Actions
 
 ```yaml
 name: npm-update-package
@@ -534,7 +534,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-### Use token of GitHub App
+### Use Token of GitHub App
 
 ```yaml
 name: npm-update-package
@@ -566,7 +566,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 ```
 
-### Use Personal access token
+### Use Personal Access Token
 
 ```yaml
 name: npm-update-package
@@ -663,14 +663,14 @@ end
 
 ## FAQ
 
-### What is the purpose of npm-update-package?
+### What Is the Purpose of npm-update-package?
 
 npm-update-package can be used in environments where Renovate cannot be used for some reason.
 
-### What should I do if conflicts occurred in the pull request?
+### What Should I Do if Conflicts Occurred in the Pull Request?
 
 If you have difficulty resolving it manually, close the pull request and run npm-update-package again.
 
-## How to development
+## How to Development
 
 See [Wiki](https://github.com/npm-update-package/npm-update-package/wiki).
