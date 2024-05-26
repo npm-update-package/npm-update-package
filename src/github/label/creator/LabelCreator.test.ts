@@ -1,12 +1,8 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
-  afterEach,
   describe,
-  expect,
-  it,
-  jest
-} from '@jest/globals'
+  it
+} from 'node:test'
 import type { GitRepository } from '../../../git/GitRepository.js'
 import { isNotFoundError } from '../../errors/NotFoundError.js'
 import type {
@@ -15,34 +11,29 @@ import type {
 } from '../../GitHub.js'
 import { LabelCreator } from './LabelCreator.js'
 
-jest.mock('../../errors/NotFoundError.js')
-
-describe('LabelCreator', () => {
-  describe('create', () => {
-    const isNotFoundErrorMock = jest.mocked(isNotFoundError)
-    const createLabelMock = jest.fn<GitHub['createLabel']>()
-    const fetchLabelMock = jest.fn<GitHub['fetchLabel']>()
-    const github = {
-      createLabel: createLabelMock,
-      fetchLabel: fetchLabelMock
-    } as unknown as GitHub
+await describe('LabelCreator', async () => {
+  await describe('create', async () => {
     const gitRepo = {
       owner: 'npm-update-package',
       name: 'example'
     } as unknown as GitRepository
-    const labelCreator = new LabelCreator({
-      github,
-      gitRepo
-    })
 
-    afterEach(() => {
-      jest.resetAllMocks()
-    })
-
-    it('does not create label if it already exists', async () => {
-      fetchLabelMock.mockResolvedValue({
+    // TODO: Activate when mock.module can use.
+    await it.skip('does not create label if it already exists', async ({ mock }) => {
+      const isNotFoundErrorMock = mock.fn(isNotFoundError)
+      const createLabelMock = mock.fn<GitHub['createLabel']>()
+      const fetchLabelMock = mock.fn<GitHub['fetchLabel']>()
+      const github = {
+        createLabel: createLabelMock,
+        fetchLabel: fetchLabelMock
+      } as unknown as GitHub
+      const labelCreator = new LabelCreator({
+        github,
+        gitRepo
+      })
+      fetchLabelMock.mock.mockImplementation(async () => await Promise.resolve({
         name: 'npm-update-package'
-      } as unknown as Label)
+      } as unknown as Label))
 
       await labelCreator.create({
         name: 'npm-update-package',
@@ -50,19 +41,38 @@ describe('LabelCreator', () => {
         color: 'A00F21'
       })
 
-      expect(fetchLabelMock).toHaveBeenCalledWith({
-        owner: gitRepo.owner,
-        repo: gitRepo.name,
-        name: 'npm-update-package'
-      })
-      expect(isNotFoundErrorMock).not.toHaveBeenCalled()
-      expect(createLabelMock).not.toHaveBeenCalled()
+      assert.strictEqual(fetchLabelMock.mock.callCount(), 1)
+      assert.deepStrictEqual(fetchLabelMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner: gitRepo.owner,
+            repo: gitRepo.name,
+            name: 'npm-update-package'
+          }
+        ]
+      ])
+      assert.strictEqual(isNotFoundErrorMock.mock.callCount(), 0)
+      assert.deepStrictEqual(isNotFoundErrorMock.mock.calls.map(call => call.arguments), [])
+      assert.strictEqual(createLabelMock.mock.callCount(), 0)
+      assert.deepStrictEqual(createLabelMock.mock.calls.map(call => call.arguments), [])
     })
 
-    it('creates label if it does not exist', async () => {
+    // TODO: Activate when mock.module can use.
+    await it.skip('creates label if it does not exist', async ({ mock }) => {
+      const isNotFoundErrorMock = mock.fn(isNotFoundError)
+      const createLabelMock = mock.fn<GitHub['createLabel']>()
+      const fetchLabelMock = mock.fn<GitHub['fetchLabel']>()
+      const github = {
+        createLabel: createLabelMock,
+        fetchLabel: fetchLabelMock
+      } as unknown as GitHub
+      const labelCreator = new LabelCreator({
+        github,
+        gitRepo
+      })
       const error = new Error('error')
-      fetchLabelMock.mockRejectedValue(error)
-      isNotFoundErrorMock.mockReturnValue(true)
+      fetchLabelMock.mock.mockImplementation(async () => await Promise.reject(error))
+      isNotFoundErrorMock.mock.mockImplementation(async () => await Promise.resolve(true))
 
       await labelCreator.create({
         name: 'npm-update-package',
@@ -70,39 +80,75 @@ describe('LabelCreator', () => {
         color: 'A00F21'
       })
 
-      expect(fetchLabelMock).toHaveBeenCalledWith({
-        owner: gitRepo.owner,
-        repo: gitRepo.name,
-        name: 'npm-update-package'
-      })
-      expect(isNotFoundErrorMock).toHaveBeenCalledWith(error)
-      expect(createLabelMock).toHaveBeenCalledWith({
-        owner: gitRepo.owner,
-        repo: gitRepo.name,
-        name: 'npm-update-package',
-        description: 'Created by npm-update-package',
-        color: 'A00F21'
-      })
+      assert.strictEqual(fetchLabelMock.mock.callCount(), 1)
+      assert.deepStrictEqual(fetchLabelMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner: gitRepo.owner,
+            repo: gitRepo.name,
+            name: 'npm-update-package'
+          }
+        ]
+      ])
+      assert.strictEqual(isNotFoundErrorMock.mock.callCount(), 1)
+      assert.deepStrictEqual(isNotFoundErrorMock.mock.calls.map(call => call.arguments), [
+        [error]
+      ])
+      assert.strictEqual(createLabelMock.mock.callCount(), 1)
+      assert.deepStrictEqual(createLabelMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner: gitRepo.owner,
+            repo: gitRepo.name,
+            name: 'npm-update-package',
+            description: 'Created by npm-update-package',
+            color: 'A00F21'
+          }
+        ]
+      ])
     })
 
-    it('throws error if it occurred when fetching label', async () => {
-      const error = new Error('error')
-      fetchLabelMock.mockRejectedValue(error)
-      isNotFoundErrorMock.mockReturnValue(false)
-
-      await expect(labelCreator.create({
-        name: 'npm-update-package',
-        description: 'Created by npm-update-package',
-        color: 'A00F21'
-      })).rejects.toThrow(error)
-
-      expect(fetchLabelMock).toHaveBeenCalledWith({
-        owner: gitRepo.owner,
-        repo: gitRepo.name,
-        name: 'npm-update-package'
+    // TODO: Activate when mock.module can use.
+    await it.skip('throws error if it occurred when fetching label', async ({ mock }) => {
+      const isNotFoundErrorMock = mock.fn(isNotFoundError)
+      const createLabelMock = mock.fn<GitHub['createLabel']>()
+      const fetchLabelMock = mock.fn<GitHub['fetchLabel']>()
+      const github = {
+        createLabel: createLabelMock,
+        fetchLabel: fetchLabelMock
+      } as unknown as GitHub
+      const labelCreator = new LabelCreator({
+        github,
+        gitRepo
       })
-      expect(isNotFoundErrorMock).toHaveBeenCalledWith(error)
-      expect(createLabelMock).not.toHaveBeenCalled()
+      const error = new Error('error')
+      fetchLabelMock.mock.mockImplementation(async () => await Promise.reject(error))
+      isNotFoundErrorMock.mock.mockImplementation(async () => await Promise.resolve(false))
+
+      assert.throws(async () => {
+        await labelCreator.create({
+          name: 'npm-update-package',
+          description: 'Created by npm-update-package',
+          color: 'A00F21'
+        })
+      }, error)
+
+      assert.strictEqual(fetchLabelMock.mock.callCount(), 1)
+      assert.deepStrictEqual(fetchLabelMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner: gitRepo.owner,
+            repo: gitRepo.name,
+            name: 'npm-update-package'
+          }
+        ]
+      ])
+      assert.strictEqual(isNotFoundErrorMock.mock.callCount(), 1)
+      assert.deepStrictEqual(isNotFoundErrorMock.mock.calls.map(call => call.arguments), [
+        [error]
+      ])
+      assert.strictEqual(createLabelMock.mock.callCount(), 0)
+      assert.deepStrictEqual(createLabelMock.mock.calls.map(call => call.arguments), [])
     })
   })
 })

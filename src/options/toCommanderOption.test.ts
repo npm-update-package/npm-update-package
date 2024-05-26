@@ -1,17 +1,16 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import type { CLIOption } from './CLIOption.js'
 import { OptionType } from './OptionType.js'
 import { toCommanderOption } from './toCommanderOption.js'
 
-describe('toCommanderOption', () => {
-  describe('returns Commander Option', () => {
-    interface TestCase {
+await describe('toCommanderOption', async () => {
+  await describe('returns Commander Option', async () => {
+    const { each } = await import('test-each')
+    const inputs: Array<{
       cliOption: CLIOption
       expected: {
         name: string
@@ -25,8 +24,7 @@ describe('toCommanderOption', () => {
         defaultValue?: boolean | number | string | string[]
         argChoices?: string[]
       }
-    }
-    const cases: TestCase[] = [
+    }> = [
       // required boolean
       {
         cliOption: {
@@ -206,20 +204,21 @@ describe('toCommanderOption', () => {
         }
       }
     ]
+    each(inputs, ({ title }, { cliOption, expected }) => {
+      void it(title, () => {
+        const actual = toCommanderOption(cliOption)
 
-    it.each(cases)('cliOption=$cliOption', ({ cliOption, expected }) => {
-      const actual = toCommanderOption(cliOption)
-
-      expect(actual.name()).toBe(expected.name)
-      expect(actual.flags).toBe(expected.flags)
-      expect(actual.description).toBe(expected.description)
-      expect(actual.required).toBe(expected.required)
-      expect(actual.optional).toBe(expected.optional)
-      expect(actual.variadic).toBe(expected.variadic)
-      expect(actual.short).toBe(expected.short)
-      expect(actual.long).toBe(expected.long)
-      expect(actual.defaultValue).toEqual(expected.defaultValue)
-      expect(actual.argChoices).toEqual(expected.argChoices)
+        assert.strictEqual(actual.name(), expected.name)
+        assert.strictEqual(actual.flags, expected.flags)
+        assert.strictEqual(actual.description, expected.description)
+        assert.strictEqual(actual.required, expected.required)
+        assert.strictEqual(actual.optional, expected.optional)
+        assert.strictEqual(actual.variadic, expected.variadic)
+        assert.strictEqual(actual.short, expected.short)
+        assert.strictEqual(actual.long, expected.long)
+        assert.deepStrictEqual(actual.defaultValue, expected.defaultValue)
+        assert.deepStrictEqual(actual.argChoices, expected.argChoices)
+      })
     })
   })
 })

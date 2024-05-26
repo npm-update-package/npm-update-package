@@ -1,23 +1,15 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
-  afterEach,
   describe,
-  expect,
-  it,
-  jest
-} from '@jest/globals'
+  it
+} from 'node:test'
 import type { GitRepository } from '../../../git/GitRepository.js'
 import type { Options } from '../../../options/Options.js'
 import type { GitHub } from '../../GitHub.js'
 import { LabelsAdder } from './LabelsAdder.js'
 
-describe('LabelsAdder', () => {
-  describe('add', () => {
-    const addLabelsMock = jest.fn<GitHub['addLabels']>()
-    const github = {
-      addLabels: addLabelsMock
-    } as unknown as GitHub
+await describe('LabelsAdder', async () => {
+  await describe('add', async () => {
     const gitRepo = {
       owner: 'npm-update-package',
       name: 'example',
@@ -25,46 +17,58 @@ describe('LabelsAdder', () => {
     } as unknown as GitRepository
     const issueNumber = 1
 
-    afterEach(() => {
-      jest.resetAllMocks()
-    })
-
-    it('adds `npm-update-package` and additional labels if additionalLabels option exists', async () => {
+    await it('adds `npm-update-package` and additional labels if additionalLabels option exists', async ({ mock }) => {
+      const addLabelsMock = mock.fn<GitHub['addLabels']>()
+      const github = {
+        addLabels: addLabelsMock
+      } as unknown as GitHub
       const options = {
         additionalLabels: ['bot', 'dependencies']
-      }
+      } as unknown as Options
       const labelsAdder = new LabelsAdder({
-        options: options as Options,
+        options,
         github,
         gitRepo
       })
 
       await labelsAdder.add(issueNumber)
 
-      expect(addLabelsMock).toHaveBeenCalledWith({
-        owner: gitRepo.owner,
-        repo: gitRepo.name,
-        issueNumber,
-        labels: ['npm-update-package', 'bot', 'dependencies']
-      })
+      assert.deepStrictEqual(addLabelsMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner: gitRepo.owner,
+            repo: gitRepo.name,
+            issueNumber,
+            labels: ['npm-update-package', 'bot', 'dependencies']
+          }
+        ]
+      ])
     })
 
-    it('adds only `npm-update-package` label if additionalLabels option does not exist', async () => {
-      const options = {}
+    await it('adds only `npm-update-package` label if additionalLabels option does not exist', async ({ mock }) => {
+      const addLabelsMock = mock.fn<GitHub['addLabels']>()
+      const github = {
+        addLabels: addLabelsMock
+      } as unknown as GitHub
+      const options = {} as unknown as Options
       const labelsAdder = new LabelsAdder({
-        options: options as Options,
+        options,
         github,
         gitRepo
       })
 
       await labelsAdder.add(issueNumber)
 
-      expect(addLabelsMock).toHaveBeenCalledWith({
-        owner: gitRepo.owner,
-        repo: gitRepo.name,
-        issueNumber,
-        labels: ['npm-update-package']
-      })
+      assert.deepStrictEqual(addLabelsMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner: gitRepo.owner,
+            repo: gitRepo.name,
+            issueNumber,
+            labels: ['npm-update-package']
+          }
+        ]
+      ])
     })
   })
 })

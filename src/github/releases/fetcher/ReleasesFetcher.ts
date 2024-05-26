@@ -1,4 +1,4 @@
-import { setTimeout } from 'node:timers/promises'
+import timers from 'node:timers/promises'
 import {
   gte,
   lte,
@@ -78,7 +78,7 @@ export class ReleasesFetcher {
 
     for (const [i, tag] of tags.entries()) {
       if (i > 0) {
-        await setTimeout(this.options.fetchInterval)
+        await timers.setTimeout(this.options.fetchInterval)
       }
 
       const release = await this.fetchReleaseByTag({

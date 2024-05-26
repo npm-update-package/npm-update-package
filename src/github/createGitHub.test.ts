@@ -1,23 +1,18 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import { createGitHub } from './createGitHub.js'
 import { GitHub } from './GitHub.js'
 
-describe('createGitHub', () => {
-  it('returns new GitHub instance', () => {
-    const host = 'github.com'
-    const token = 'token'
-
+await describe('createGitHub', async () => {
+  await it('returns new GitHub instance', () => {
     const actual = createGitHub({
-      host,
-      token
+      host: 'github.com',
+      token: 'token'
     })
 
-    expect(actual).toBeInstanceOf(GitHub)
+    assert.ok(actual instanceof GitHub)
   })
 })

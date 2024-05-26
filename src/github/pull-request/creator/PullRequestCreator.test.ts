@@ -1,12 +1,8 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
-  afterEach,
   describe,
-  expect,
-  it,
-  jest
-} from '@jest/globals'
+  it
+} from 'node:test'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
 import type { GitRepository } from '../../../git/GitRepository.js'
 import type { Options } from '../../../options/Options.js'
@@ -22,74 +18,69 @@ import { PullRequestCreator } from './PullRequestCreator.js'
 import type { PullRequestTitleCreator } from './PullRequestTitleCreator.js'
 import type { ReviewersAdder } from './ReviewersAdder.js'
 
-describe('PullRequestCreator', () => {
-  describe('create', () => {
-    const pullRequestBodyCreatorCreateMock = jest.fn<PullRequestBodyCreator['create']>()
-    const pullRequestTitleCreatorCreateMock = jest.fn<PullRequestTitleCreator['create']>()
-    const githubAddLabelsMock = jest.fn<GitHub['addLabels']>()
-    const githubCreatePullRequestMock = jest.fn<GitHub['createPullRequest']>()
-    const labelsAdderAddMock = jest.fn<LabelsAdder['add']>()
-    const assigneesAdderAddMock = jest.fn<AssigneesAdder['add']>()
-    const reviewersAdderAddMock = jest.fn<ReviewersAdder['add']>()
-    const github = {
-      addLabels: githubAddLabelsMock,
-      createPullRequest: githubCreatePullRequestMock
-    } as unknown as GitHub
-    const gitRepo = {
-      owner: 'repository owner',
-      name: 'repository name'
-    } as unknown as GitRepository
-    const githubRepo = {
-      default_branch: 'master'
-    } as unknown as GitHubRepository
-    const pullRequestBodyCreator = {
-      create: pullRequestBodyCreatorCreateMock
-    } as unknown as PullRequestBodyCreator
-    const pullRequestTitleCreator = {
-      create: pullRequestTitleCreatorCreateMock
-    } as unknown as PullRequestTitleCreator
-    const labelsAdder = {
-      add: labelsAdderAddMock
-    } as unknown as LabelsAdder
-    const assigneesAdder = {
-      add: assigneesAdderAddMock
-    } as unknown as AssigneesAdder
-    const reviewersAdder = {
-      add: reviewersAdderAddMock
-    } as unknown as ReviewersAdder
-    const options = {
-      additionalLabels: ['bot', 'dependencies'],
-      assignees: ['alice', 'bob'],
-      assigneesSampleSize: 1,
-      draftPr: true,
-      reviewers: ['carol', 'dave'],
-      reviewersSampleSize: 1
-    }
-    const pullRequestCreator = new PullRequestCreator({
-      options: options as Options,
-      github,
-      gitRepo,
-      githubRepo,
-      pullRequestTitleCreator,
-      pullRequestBodyCreator,
-      labelsAdder,
-      assigneesAdder,
-      reviewersAdder
-    })
-
-    afterEach(() => {
-      jest.resetAllMocks()
-    })
-
-    it('creates pull request', async () => {
+await describe('PullRequestCreator', async () => {
+  await describe('create', async () => {
+    await it('creates pull request', async ({ mock }) => {
+      const pullRequestBodyCreatorCreateMock = mock.fn<PullRequestBodyCreator['create']>()
+      const pullRequestTitleCreatorCreateMock = mock.fn<PullRequestTitleCreator['create']>()
+      const githubAddLabelsMock = mock.fn<GitHub['addLabels']>()
+      const githubCreatePullRequestMock = mock.fn<GitHub['createPullRequest']>()
+      const labelsAdderAddMock = mock.fn<LabelsAdder['add']>()
+      const assigneesAdderAddMock = mock.fn<AssigneesAdder['add']>()
+      const reviewersAdderAddMock = mock.fn<ReviewersAdder['add']>()
+      const github = {
+        addLabels: githubAddLabelsMock,
+        createPullRequest: githubCreatePullRequestMock
+      } as unknown as GitHub
+      const gitRepo = {
+        owner: 'repository owner',
+        name: 'repository name'
+      } as unknown as GitRepository
+      const githubRepo = {
+        default_branch: 'master'
+      } as unknown as GitHubRepository
+      const pullRequestBodyCreator = {
+        create: pullRequestBodyCreatorCreateMock
+      } as unknown as PullRequestBodyCreator
+      const pullRequestTitleCreator = {
+        create: pullRequestTitleCreatorCreateMock
+      } as unknown as PullRequestTitleCreator
+      const labelsAdder = {
+        add: labelsAdderAddMock
+      } as unknown as LabelsAdder
+      const assigneesAdder = {
+        add: assigneesAdderAddMock
+      } as unknown as AssigneesAdder
+      const reviewersAdder = {
+        add: reviewersAdderAddMock
+      } as unknown as ReviewersAdder
+      const options = {
+        additionalLabels: ['bot', 'dependencies'],
+        assignees: ['alice', 'bob'],
+        assigneesSampleSize: 1,
+        draftPr: true,
+        reviewers: ['carol', 'dave'],
+        reviewersSampleSize: 1
+      } as unknown as Options
+      const pullRequestCreator = new PullRequestCreator({
+        options,
+        github,
+        gitRepo,
+        githubRepo,
+        pullRequestTitleCreator,
+        pullRequestBodyCreator,
+        labelsAdder,
+        assigneesAdder,
+        reviewersAdder
+      })
       const title = 'pull request title'
-      pullRequestTitleCreatorCreateMock.mockReturnValue(title)
+      pullRequestTitleCreatorCreateMock.mock.mockImplementation(() => title)
       const body = 'pull request body'
-      pullRequestBodyCreatorCreateMock.mockResolvedValue(body)
+      pullRequestBodyCreatorCreateMock.mock.mockImplementation(async () => await Promise.resolve(body))
       const pullRequest = {
         number: 1
       } as unknown as CreatedPullRequest
-      githubCreatePullRequestMock.mockResolvedValue(pullRequest)
+      githubCreatePullRequestMock.mock.mockImplementation(async () => await Promise.resolve(pullRequest))
       const outdatedPackage = {} as unknown as OutdatedPackage
       const branchName = 'branch name'
 
@@ -98,28 +89,52 @@ describe('PullRequestCreator', () => {
         branchName
       })
 
-      expect(pullRequestTitleCreatorCreateMock).toHaveBeenCalledWith(outdatedPackage)
-      expect(pullRequestBodyCreatorCreateMock).toHaveBeenCalledWith(outdatedPackage)
-      expect(githubCreatePullRequestMock).toHaveBeenCalledWith({
-        owner: gitRepo.owner,
-        repo: gitRepo.name,
-        baseBranch: githubRepo.default_branch,
-        headBranch: branchName,
-        title,
-        body,
-        draft: options.draftPr
-      })
-      expect(labelsAdderAddMock).toHaveBeenCalledWith(pullRequest.number)
-      expect(assigneesAdderAddMock).toHaveBeenCalledWith({
-        issueNumber: pullRequest.number,
-        assignees: options.assignees,
-        size: options.assigneesSampleSize
-      })
-      expect(reviewersAdderAddMock).toHaveBeenCalledWith({
-        pullNumber: pullRequest.number,
-        reviewers: options.reviewers,
-        size: options.reviewersSampleSize
-      })
+      assert.strictEqual(pullRequestTitleCreatorCreateMock.mock.callCount(), 1)
+      assert.deepStrictEqual(pullRequestTitleCreatorCreateMock.mock.calls.map(call => call.arguments), [
+        [outdatedPackage]
+      ])
+      assert.strictEqual(pullRequestBodyCreatorCreateMock.mock.callCount(), 1)
+      assert.deepStrictEqual(pullRequestBodyCreatorCreateMock.mock.calls.map(call => call.arguments), [
+        [outdatedPackage]
+      ])
+      assert.strictEqual(githubCreatePullRequestMock.mock.callCount(), 1)
+      assert.deepStrictEqual(githubCreatePullRequestMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner: gitRepo.owner,
+            repo: gitRepo.name,
+            baseBranch: githubRepo.default_branch,
+            headBranch: branchName,
+            title,
+            body,
+            draft: options.draftPr
+          }
+        ]
+      ])
+      assert.strictEqual(labelsAdderAddMock.mock.callCount(), 1)
+      assert.deepStrictEqual(labelsAdderAddMock.mock.calls.map(call => call.arguments), [
+        [pullRequest.number]
+      ])
+      assert.strictEqual(assigneesAdderAddMock.mock.callCount(), 1)
+      assert.deepStrictEqual(assigneesAdderAddMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            issueNumber: pullRequest.number,
+            assignees: options.assignees,
+            size: options.assigneesSampleSize
+          }
+        ]
+      ])
+      assert.strictEqual(reviewersAdderAddMock.mock.callCount(), 1)
+      assert.deepStrictEqual(reviewersAdderAddMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            pullNumber: pullRequest.number,
+            reviewers: options.reviewers,
+            size: options.reviewersSampleSize
+          }
+        ]
+      ])
     })
   })
 })

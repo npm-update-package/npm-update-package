@@ -1,13 +1,10 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
   afterEach,
   beforeEach,
   describe,
-  expect,
-  it,
-  jest
-} from '@jest/globals'
+  it
+} from 'node:test'
 import { LogLevel } from '../logger/LogLevel.js'
 import { OutdatedPullRequestStrategy } from '../outdated-package-processor/OutdatedPullRequestStrategy.js'
 import { DependencyType } from '../package-json/DependencyType.js'
@@ -17,10 +14,7 @@ import { createOptions } from './createOptions.js'
 import type { Options } from './Options.js'
 import { isOptions } from './Options.js'
 
-jest.mock('./Options')
-
-describe('createOptions', () => {
-  const isOptionsMock = jest.mocked(isOptions)
+await describe('createOptions', async () => {
   const { argv } = process
 
   beforeEach(() => {
@@ -75,12 +69,14 @@ describe('createOptions', () => {
   })
 
   afterEach(() => {
-    jest.resetAllMocks()
     process.argv = argv
   })
 
-  it('returns Options if it is valid', () => {
-    isOptionsMock.mockReturnValue(true)
+  // TODO: Activate when mock.module can use.
+  await it.skip('returns Options if it is valid', ({ mock }) => {
+    const isOptionsMock = mock.fn(isOptions)
+    // eslint-disable-next-line lodash/prefer-constant
+    isOptionsMock.mock.mockImplementation(() => true)
 
     const actual = createOptions(cliOptions)
 
@@ -109,12 +105,15 @@ describe('createOptions', () => {
       reviewers: ['alice', 'bob'],
       reviewersSampleSize: 1
     }
-    expect(actual).toEqual(expected)
+    assert.deepStrictEqual(actual, expected)
   })
 
-  it('throws error if Options is invalid', () => {
-    isOptionsMock.mockReturnValue(false)
+  // TODO: Activate when mock.module can use.
+  await it.skip('throws error if Options is invalid', ({ mock }) => {
+    const isOptionsMock = mock.fn(isOptions)
+    // eslint-disable-next-line lodash/prefer-constant
+    isOptionsMock.mock.mockImplementation(() => false)
 
-    expect(() => createOptions(cliOptions)).toThrow(Error)
+    assert.throws(() => createOptions(cliOptions), Error)
   })
 })

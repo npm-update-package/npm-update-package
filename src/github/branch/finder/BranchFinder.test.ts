@@ -1,31 +1,29 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import type { Branch } from '../../GitHub.js'
 import { BranchFinder } from './BranchFinder.js'
 
-describe('BranchFinder', () => {
-  describe('findByName', () => {
+await describe('BranchFinder', async () => {
+  await describe('findByName', async () => {
     const branch = {
-      name: 'foo'
+      name: 'main'
     } as unknown as Branch
-    const branches = [branch]
+    const branches: Branch[] = [branch]
     const branchFinder = new BranchFinder(branches)
 
-    it('returns branch if exists', () => {
-      const actual = branchFinder.findByName('foo')
+    await it('returns branch if exists', () => {
+      const actual = branchFinder.findByName('main')
 
-      expect(actual).toBe(branch)
+      assert.strictEqual(actual, branch)
     })
 
-    it('returns undefined if branch does not exist', () => {
-      const actual = branchFinder.findByName('bar')
+    await it('returns undefined if branch does not exist', () => {
+      const actual = branchFinder.findByName('develop')
 
-      expect(actual).toBeUndefined()
+      assert.strictEqual(actual, undefined)
     })
   })
 })

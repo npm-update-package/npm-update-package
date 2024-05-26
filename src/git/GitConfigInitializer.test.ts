@@ -1,53 +1,54 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
-  afterEach,
   describe,
-  expect,
-  it,
-  jest
-} from '@jest/globals'
+  it
+} from 'node:test'
 import type { Options } from '../options/Options.js'
 import type { Git } from './Git.js'
 import { GitConfigInitializer } from './GitConfigInitializer.js'
 
-describe('GitConfigInitializer', () => {
-  describe('initialize', () => {
-    const setConfigMock = jest.fn<Git['setConfig']>()
-    const git = {
-      setConfig: setConfigMock
-    } as unknown as Git
-
-    afterEach(() => {
-      jest.resetAllMocks()
-    })
-
-    it('sets git user name if options.gitUserName exists', async () => {
+await describe('GitConfigInitializer', async () => {
+  await describe('initialize', async () => {
+    await it('sets git user name if options.gitUserName exists', async ({ mock }) => {
+      const setConfigMock = mock.fn<Git['setConfig']>()
+      const git = {
+        setConfig: setConfigMock
+      } as unknown as Git
       const options = {
         gitUserName: 'octocat'
-      }
+      } as unknown as Options
       const gitConfigInitializer = new GitConfigInitializer({
-        options: options as Options,
+        options,
         git
       })
 
       await gitConfigInitializer.initialize()
 
-      expect(setConfigMock).toHaveBeenCalledWith('user.name', options.gitUserName)
+      assert.strictEqual(setConfigMock.mock.callCount(), 1)
+      assert.deepStrictEqual(setConfigMock.mock.calls.map(call => call.arguments), [
+        ['user.name', options.gitUserName]
+      ])
     })
 
-    it('sets git user email if options.gitUserEmail exists', async () => {
+    await it('sets git user email if options.gitUserEmail exists', async ({ mock }) => {
+      const setConfigMock = mock.fn<Git['setConfig']>()
+      const git = {
+        setConfig: setConfigMock
+      } as unknown as Git
       const options = {
         gitUserEmail: 'octocat@example.com'
-      }
+      } as unknown as Options
       const gitConfigInitializer = new GitConfigInitializer({
-        options: options as Options,
+        options,
         git
       })
 
       await gitConfigInitializer.initialize()
 
-      expect(setConfigMock).toHaveBeenCalledWith('user.email', options.gitUserEmail)
+      assert.strictEqual(setConfigMock.mock.callCount(), 1)
+      assert.deepStrictEqual(setConfigMock.mock.calls.map(call => call.arguments), [
+        ['user.email', options.gitUserEmail]
+      ])
     })
   })
 })

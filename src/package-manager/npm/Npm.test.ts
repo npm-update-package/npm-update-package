@@ -1,58 +1,70 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
-  afterEach,
   describe,
-  expect,
-  it,
-  jest
-} from '@jest/globals'
+  it
+} from 'node:test'
 import type { Terminal } from '../../terminal/Terminal.js'
 import { Npm } from './Npm.js'
 
-describe('Npm', () => {
-  const terminalRunMock = jest.fn<Terminal['run']>()
-  const terminal = {
-    run: terminalRunMock
-  } as unknown as Terminal
-  const npm = new Npm(terminal)
+await describe('Npm', async () => {
+  await describe('getVersions', async () => {
+    await describe('calls `npm info <package-name> versions --json', async () => {
+      const packageName = '@npm-async update-package/example'
 
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
-  describe('getVersions', () => {
-    describe('calls `npm info <package-name> versions --json', () => {
-      const packageName = '@npm-update-package/example'
-
-      it('returns versions if stdout is valid', async () => {
+      await it('returns versions if stdout is valid', async ({ mock }) => {
+        const runMock = mock.fn<Terminal['run']>()
+        const terminal = {
+          run: runMock
+        } as unknown as Terminal
+        const npm = new Npm(terminal)
         const expected = [
           '1.0.0',
           '2.0.0'
         ]
-        terminalRunMock.mockResolvedValue(JSON.stringify(expected))
+        runMock.mock.mockImplementation(async () => await Promise.resolve(JSON.stringify(expected)))
 
         const actual = await npm.getVersions(packageName)
 
-        expect(actual).toEqual(expected)
-        expect(terminalRunMock).toHaveBeenCalledWith('npm', 'info', packageName, 'versions', '--json')
+        assert.deepStrictEqual(actual, expected)
+        assert.strictEqual(runMock.mock.callCount(), 1)
+        assert.deepStrictEqual(runMock.mock.calls.map(call => call.arguments), [
+          ['npm', 'info', packageName, 'versions', '--json']
+        ])
       })
 
-      it('throws error if stdout is invalid', async () => {
-        terminalRunMock.mockResolvedValue(JSON.stringify({}))
+      await it('throws error if stdout is invalid', async ({ mock }) => {
+        const runMock = mock.fn<Terminal['run']>()
+        const terminal = {
+          run: runMock
+        } as unknown as Terminal
+        const npm = new Npm(terminal)
+        runMock.mock.mockImplementation(async () => await Promise.resolve(JSON.stringify({})))
 
-        await expect(async () => await npm.getVersions(packageName)).rejects.toThrow(Error)
+        await assert.rejects(async () => await npm.getVersions(packageName), Error)
 
-        expect(terminalRunMock).toHaveBeenCalledWith('npm', 'info', packageName, 'versions', '--json')
+        assert.strictEqual(runMock.mock.callCount(), 1)
+        assert.deepStrictEqual(runMock.mock.calls.map(call => call.arguments), [
+          ['npm', 'info', packageName, 'versions', '--json']
+        ])
       })
     })
   })
 
-  describe('install', () => {
-    it('calls `npm install', async () => {
+  await describe('install', async () => {
+    await it('calls `npm install', async ({ mock }) => {
+      const runMock = mock.fn<Terminal['run']>()
+      const terminal = {
+        run: runMock
+      } as unknown as Terminal
+      const npm = new Npm(terminal)
+      runMock.mock.mockImplementation(async () => await Promise.resolve(''))
+
       await npm.install()
 
-      expect(terminalRunMock).toHaveBeenCalledWith('npm', 'install')
+      assert.strictEqual(runMock.mock.callCount(), 1)
+      assert.deepStrictEqual(runMock.mock.calls.map(call => call.arguments), [
+        ['npm', 'install']
+      ])
     })
   })
 })

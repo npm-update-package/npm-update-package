@@ -1,29 +1,40 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
-import { toJSON } from './toJSON.js'
+} from 'node:test'
+import {
+  type Options,
+  toJSON
+} from './toJSON.js'
 
-describe('toJSON', () => {
-  describe('returns JSON string', () => {
-    interface TestCase {
-      value: unknown
-      options?: {
-        pretty?: boolean
-      }
-      expected: string
-    }
+await describe('toJSON', async () => {
+  await describe('returns JSON string', async () => {
+    const { each } = await import('test-each')
     const value = {
       number: 1,
       string: 'foo'
     }
-    const cases: TestCase[] = [
+    const inputs: Array<{
+      value: unknown
+      options: Options | undefined
+      expected: string
+    }> = [
       {
         value,
         options: undefined,
+        expected: '{"number":1,"string":"foo"}'
+      },
+      {
+        value,
+        options: {},
+        expected: '{"number":1,"string":"foo"}'
+      },
+      {
+        value,
+        options: {
+          pretty: false
+        },
         expected: '{"number":1,"string":"foo"}'
       },
       {
@@ -38,11 +49,12 @@ describe('toJSON', () => {
 }`
       }
     ]
+    each(inputs, ({ title }, { value, options, expected }) => {
+      void it(title, () => {
+        const actual = toJSON(value, options)
 
-    it.each(cases)('value=$value, options=$options', ({ value, options, expected }) => {
-      const actual = toJSON(value, options)
-
-      expect(actual).toBe(expected)
+        assert.strictEqual(actual, expected)
+      })
     })
   })
 })

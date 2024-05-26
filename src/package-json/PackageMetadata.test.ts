@@ -1,15 +1,14 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import { isPackageMetadata } from './PackageMetadata.js'
 import type { PackageMetadata } from './PackageMetadata.js'
 
-describe('isPackageMetadata', () => {
-  describe('returns whether value is PackageMetadata', () => {
+await describe('isPackageMetadata', async () => {
+  await describe('returns whether value is PackageMetadata', async () => {
+    const { each } = await import('test-each')
     const metadata: PackageMetadata = {
       name: '@npm-update-package/example',
       version: '1.0.0',
@@ -30,23 +29,16 @@ describe('isPackageMetadata', () => {
       },
       repository: 'npm-update-package/example'
     }
+    const inputs: Array<[value: unknown, expected: boolean]> = [
+      [metadata, true],
+      [{ ...metadata, name: undefined }, false]
+    ]
+    each(inputs, ({ title }, [value, expected]) => {
+      void it(title, () => {
+        const actual = isPackageMetadata(value)
 
-    it.each([
-      {
-        value: metadata,
-        expected: true
-      },
-      {
-        value: {
-          ...metadata,
-          name: undefined
-        },
-        expected: false
-      }
-    ])('value=$value', ({ value, expected }) => {
-      const actual = isPackageMetadata(value)
-
-      expect(actual).toBe(expected)
+        assert.strictEqual(actual, expected)
+      })
     })
   })
 })

@@ -1,53 +1,59 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
-  afterEach,
   describe,
-  expect,
-  it,
-  jest
-} from '@jest/globals'
+  it
+} from 'node:test'
 import { canReadWrite } from '../file/canReadWrite.js'
 import { detectPackageManager } from './detectPackageManager.js'
 import { PackageManagerName } from './PackageManagerName.js'
 
-jest.mock('../file/canReadWrite.js')
-
-describe('detectPackageManager', () => {
-  const canReadWriteMock = jest.mocked(canReadWrite)
-
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
-  it('returns PackageManagerName.Npm if package-lock.json exists', async () => {
-    canReadWriteMock.mockImplementation(async (path) => await Promise.resolve(path === 'package-lock.json'))
+await describe('detectPackageManager', async () => {
+  // TODO: Activate when mock.module can use.
+  await it.skip('returns PackageManagerName.Npm if package-lock.json exists', async ({ mock }) => {
+    const canReadWriteMock = mock.fn(canReadWrite)
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    const canReadWriteMockImplementation: typeof canReadWrite = async (path) => await Promise.resolve(path === 'package-lock.json')
+    canReadWriteMock.mock.mockImplementation(canReadWriteMockImplementation)
 
     const actual = await detectPackageManager()
 
-    expect(actual).toBe(PackageManagerName.Npm)
-    expect(canReadWriteMock).toHaveBeenCalledTimes(1)
-    expect(canReadWriteMock).toHaveBeenCalledWith('package-lock.json')
+    assert.strictEqual(actual, PackageManagerName.Npm)
+    assert.strictEqual(canReadWriteMock.mock.callCount(), 1)
+    assert.deepStrictEqual(canReadWriteMock.mock.calls.map(call => call.arguments), [
+      ['package-lock.json']
+    ])
   })
 
-  it('returns PackageManagerName.Yarn if package-lock.json does not exist and yarn.lock exists', async () => {
-    canReadWriteMock.mockImplementation(async (path) => await Promise.resolve(path === 'yarn.lock'))
+  // TODO: Activate when mock.module can use.
+  await it.skip('returns PackageManagerName.Yarn if package-lock.json does not exist and yarn.lock exists', async ({ mock }) => {
+    const canReadWriteMock = mock.fn(canReadWrite)
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    const canReadWriteMockImplementation: typeof canReadWrite = async (path) => await Promise.resolve(path === 'yarn.lock')
+    canReadWriteMock.mock.mockImplementation(canReadWriteMockImplementation)
 
     const actual = await detectPackageManager()
 
-    expect(actual).toBe(PackageManagerName.Yarn)
-    expect(canReadWriteMock).toHaveBeenCalledTimes(2)
-    expect(canReadWriteMock).toHaveBeenCalledWith('package-lock.json')
-    expect(canReadWriteMock).toHaveBeenCalledWith('yarn.lock')
+    assert.strictEqual(actual, PackageManagerName.Yarn)
+    assert.strictEqual(canReadWriteMock.mock.callCount(), 2)
+    assert.deepStrictEqual(canReadWriteMock.mock.calls.map(call => call.arguments), [
+      ['package-lock.json'],
+      ['yarn.lock']
+    ])
   })
 
-  it('throws error if no lock file exists', async () => {
-    canReadWriteMock.mockResolvedValue(false)
+  // TODO: Activate when mock.module can use.
+  await it.skip('throws error if no lock file exists', async ({ mock }) => {
+    const canReadWriteMock = mock.fn(canReadWrite)
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    const canReadWriteMockImplementation: typeof canReadWrite = async (path) => await Promise.resolve(false)
+    canReadWriteMock.mock.mockImplementation(canReadWriteMockImplementation)
 
-    await expect(async () => await detectPackageManager()).rejects.toThrow(Error)
+    assert.throws(async () => await detectPackageManager(), Error)
 
-    expect(canReadWriteMock).toHaveBeenCalledTimes(2)
-    expect(canReadWriteMock).toHaveBeenCalledWith('package-lock.json')
-    expect(canReadWriteMock).toHaveBeenCalledWith('yarn.lock')
+    assert.strictEqual(canReadWriteMock.mock.callCount(), 2)
+    assert.deepStrictEqual(canReadWriteMock.mock.calls.map(call => call.arguments), [
+      ['package-lock.json'],
+      ['yarn.lock']
+    ])
   })
 })

@@ -1,46 +1,33 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import { RequestError } from '@octokit/request-error'
 import type { RequestOptions } from '@octokit/types'
 import { StatusCodes } from 'http-status-codes'
 import { isNotFoundError } from './NotFoundError.js'
 
-describe('isNotFoundError', () => {
-  describe('returns whether value is NotFoundError', () => {
-    interface TestCase {
-      error: Error
-      expected: boolean
-    }
+await describe('isNotFoundError', async () => {
+  await describe('returns whether value is NotFoundError', async () => {
+    const { each } = await import('test-each')
     const request: RequestOptions = {
       method: 'GET',
       url: 'https://example.test/',
       headers: {}
     }
     const options = { request }
-    const cases: TestCase[] = [
-      {
-        error: new RequestError('test message', StatusCodes.NOT_FOUND, options),
-        expected: true
-      },
-      {
-        error: new RequestError('test message', StatusCodes.BAD_REQUEST, options),
-        expected: false
-      },
-      {
-        error: new Error('test message'),
-        expected: false
-      }
+    const inputs: Array<[error: Error, expected: boolean]> = [
+      [new RequestError('test message', StatusCodes.NOT_FOUND, options), true],
+      [new RequestError('test message', StatusCodes.BAD_REQUEST, options), false],
+      [new Error('test message'), false]
     ]
+    each(inputs, ({ title }, [error, expected]) => {
+      void it(title, () => {
+        const actual = isNotFoundError(error)
 
-    it.each(cases)('error=$error', ({ error, expected }) => {
-      const actual = isNotFoundError(error)
-
-      expect(actual).toBe(expected)
+        assert.strictEqual(actual, expected)
+      })
     })
   })
 })

@@ -1,20 +1,15 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import { SemVerLevel } from '../../../semver/SemVerLevel.js'
 import { isPullRequestMetadata } from './PullRequestMetadata.js'
 import type { PullRequestMetadata } from './PullRequestMetadata.js'
 
-describe('isPullRequestMetadata', () => {
-  describe('returns whether value is PullRequestMetadata', () => {
-    interface TestCase {
-      value: unknown
-      expected: boolean
-    }
+await describe('isPullRequestMetadata', async () => {
+  await describe('returns whether value is PullRequestMetadata', async () => {
+    const { each } = await import('test-each')
     const metadata: PullRequestMetadata = {
       version: '1.0.0',
       packages: [
@@ -26,31 +21,18 @@ describe('isPullRequestMetadata', () => {
         }
       ]
     }
-    const cases: TestCase[] = [
-      {
-        value: metadata,
-        expected: true
-      },
-      {
-        value: {
-          ...metadata,
-          version: undefined
-        },
-        expected: false
-      },
-      {
-        value: {
-          ...metadata,
-          packages: undefined
-        },
-        expected: false
-      }
+    const inputs: Array<[value: unknown, expected: boolean]> = [
+      [metadata, true],
+      [{ ...metadata, version: undefined }, false],
+      [{ ...metadata, packages: undefined }, false]
+
     ]
+    each(inputs, ({ title }, [value, expected]) => {
+      void it(title, () => {
+        const actual = isPullRequestMetadata(value)
 
-    it.each(cases)('value=$value', ({ value, expected }) => {
-      const actual = isPullRequestMetadata(value)
-
-      expect(actual).toBe(expected)
+        assert.strictEqual(actual, expected)
+      })
     })
   })
 })

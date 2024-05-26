@@ -1,29 +1,28 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import { isNpmVersions } from './NpmVersions.js'
 import type { NpmVersions } from './NpmVersions.js'
 
-describe('isNpmVersions', () => {
-  describe('returns whether value is NpmVersions', () => {
-    type TestCase = [unknown, boolean]
+await describe('isNpmVersions', async () => {
+  await describe('returns whether value is NpmVersions', async () => {
+    const { each } = await import('test-each')
     const versions: NpmVersions = [
       '1.0.0',
       '2.0.0'
     ]
-    const cases: TestCase[] = [
+    const inputs: Array<[value: unknown, expected: boolean]> = [
       [versions, true],
       [{ data: versions }, false]
     ]
+    each(inputs, ({ title }, [value, expected]) => {
+      void it(title, () => {
+        const actual = isNpmVersions(value)
 
-    it.each(cases)('value=%p', (value, expected) => {
-      const actual = isNpmVersions(value)
-
-      expect(actual).toBe(expected)
+        assert.strictEqual(actual, expected)
+      })
     })
   })
 })

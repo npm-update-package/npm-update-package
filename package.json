@@ -11,7 +11,7 @@
     "prebuild": "npm run clean",
     "prepublishOnly": "npm-run-all lint test build",
     "syncVersion": "tsx scripts/syncVersion.ts",
-    "test": "jest"
+    "test": "glob -c 'tsx --test' 'src/**/*.test.ts'"
   },
   "bin": "dist/bin/npm-update-package.js",
   "engines": {

@@ -1,28 +1,26 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
   afterEach,
   describe,
-  expect,
   it,
-  jest
-} from '@jest/globals'
+  mock
+} from 'node:test'
 import type { Terminal } from '../terminal/Terminal.js'
 import { Git } from './Git.js'
 
-describe('Git', () => {
-  const terminalRunMock = jest.fn<Terminal['run']>()
+await describe('Git', async () => {
+  const terminalRunMock = mock.fn<Terminal['run']>()
   const terminal = {
     run: terminalRunMock
   } as unknown as Terminal
   const git = new Git(terminal)
 
   afterEach(() => {
-    jest.resetAllMocks()
+    terminalRunMock.mock.resetCalls()
   })
 
-  describe('add', () => {
-    it('calls `git add <files>`', async () => {
+  await describe('add', async () => {
+    await it('calls `git add <files>`', async () => {
       const files = [
         'package.json',
         'package-lock.json'
@@ -30,64 +28,82 @@ describe('Git', () => {
 
       await git.add(...files)
 
-      expect(terminalRunMock).toHaveBeenCalledWith('git', 'add', ...files)
+      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
+      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+        ['git', 'add', ...files]
+      ])
     })
   })
 
-  describe('commit', () => {
-    it('calls `git commit --message <message>`', async () => {
+  await describe('commit', async () => {
+    await it('calls `git commit --message <message>`', async () => {
       const message = 'test message'
 
       await git.commit(message)
 
-      expect(terminalRunMock).toHaveBeenCalledWith('git', 'commit', '--message', message)
+      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
+      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+        ['git', 'commit', '--message', message]
+      ])
     })
   })
 
-  describe('createBranch', () => {
-    it('calls `git checkout -b <branchName>`', async () => {
+  await describe('createBranch', async () => {
+    await it('calls `git checkout -b <branchName>`', async () => {
       const branchName = 'test-branch-name'
 
       await git.createBranch(branchName)
 
-      expect(terminalRunMock).toHaveBeenCalledWith('git', 'checkout', '-b', branchName)
+      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
+      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+        ['git', 'checkout', '-b', branchName]
+      ])
     })
   })
 
-  describe('getRemoteUrl', () => {
-    it('calls `git remote get-url --push origin`', async () => {
+  await describe('getRemoteUrl', async () => {
+    await it('calls `git remote get-url --push origin`', async () => {
       const expected = 'https://github.com/npm-update-package/example.git'
-      terminalRunMock.mockResolvedValue(expected)
+      terminalRunMock.mock.mockImplementation(() => expected)
 
       const actual = await git.getRemoteUrl()
 
-      expect(actual).toBe(expected)
-      expect(terminalRunMock).toHaveBeenCalledWith('git', 'remote', 'get-url', '--push', 'origin')
+      assert.strictEqual(actual, expected)
+      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
+      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+        ['git', 'remote', 'get-url', '--push', 'origin']
+      ])
     })
   })
 
-  describe('push', () => {
-    it('calls `git push origin <branchName>`', async () => {
+  await describe('push', async () => {
+    await it('calls `git push origin <branchName>`', async () => {
       const branchName = 'test-branch-name'
 
       await git.push(branchName)
 
-      expect(terminalRunMock).toHaveBeenCalledWith('git', 'push', 'origin', branchName)
+      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
+      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+        ['git', 'push', 'origin', branchName]
+      ])
     })
   })
 
-  describe('removeBranch', () => {
-    it('calls `git branch -D <branchName>`', async () => {
+  await describe('removeBranch', async () => {
+    await it('calls `git branch -D <branchName>`', async () => {
       const branchName = 'test-branch-name'
 
       await git.removeBranch(branchName)
 
-      expect(terminalRunMock).toHaveBeenCalledWith('git', 'branch', '-D', branchName)
+      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
+      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+        ['git', 'branch', '-D', branchName]
+      ])
     })
   })
 
-  describe('restore', () => {
-    it('calls `git checkout <files>`', async () => {
+  await describe('restore', async () => {
+    await it('calls `git checkout <files>`', async () => {
       const files = [
         'package.json',
         'package-lock.json'
@@ -95,28 +111,37 @@ describe('Git', () => {
 
       await git.restore(...files)
 
-      expect(terminalRunMock).toHaveBeenCalledWith('git', 'checkout', ...files)
+      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
+      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+        ['git', 'checkout', ...files]
+      ])
     })
   })
 
-  describe('setConfig', () => {
-    it('calls `git config <key> <value>`', async () => {
+  await describe('setConfig', async () => {
+    await it('calls `git config <key> <value>`', async () => {
       const key = 'user.name'
       const value = 'octocat'
 
       await git.setConfig(key, value)
 
-      expect(terminalRunMock).toHaveBeenCalledWith('git', 'config', key, value)
+      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
+      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+        ['git', 'config', key, value]
+      ])
     })
   })
 
-  describe('switch', () => {
-    it('calls `git checkout <branchName>`', async () => {
+  await describe('switch', async () => {
+    await it('calls `git checkout <branchName>`', async () => {
       const branchName = 'test-branch-name'
 
       await git.switch(branchName)
 
-      expect(terminalRunMock).toHaveBeenCalledWith('git', 'checkout', branchName)
+      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
+      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+        ['git', 'checkout', branchName]
+      ])
     })
   })
 })

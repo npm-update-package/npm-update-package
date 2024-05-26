@@ -1,20 +1,18 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import { DependencyType } from '../../../package-json/DependencyType.js'
 import { SemVer } from '../../../semver/SemVer.js'
 import { SemVerLevel } from '../../../semver/SemVerLevel.js'
 import { PullRequestTitleCreator } from './PullRequestTitleCreator.js'
 
-describe('PullRequestTitleCreator', () => {
-  describe('create', () => {
-    const pullRequestTitleCreator = new PullRequestTitleCreator('chore({{{dependencyType}}}): {{{level}}} update {{{packageName}}} from {{{currentVersion}}} to v{{{newVersion}}}')
+await describe('PullRequestTitleCreator', async () => {
+  await describe('create', async () => {
+    await it('returns pull request title', () => {
+      const pullRequestTitleCreator = new PullRequestTitleCreator('chore({{{dependencyType}}}): {{{level}}} update {{{packageName}}} from {{{currentVersion}}} to v{{{newVersion}}}')
 
-    it('returns pull request title', () => {
       const actual = pullRequestTitleCreator.create({
         name: '@npm-update-package/example',
         currentVersion: SemVer.of('1.0.0'),
@@ -23,7 +21,7 @@ describe('PullRequestTitleCreator', () => {
         dependencyType: DependencyType.Dependencies
       })
 
-      expect(actual).toBe('chore(dependencies): major update @npm-update-package/example from 1.0.0 to v2.0.0')
+      assert.strictEqual(actual, 'chore(dependencies): major update @npm-update-package/example from 1.0.0 to v2.0.0')
     })
   })
 })

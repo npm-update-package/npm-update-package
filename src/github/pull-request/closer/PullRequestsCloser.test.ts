@@ -1,29 +1,20 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
-  afterEach,
   describe,
-  expect,
-  it,
-  jest
-} from '@jest/globals'
+  it
+} from 'node:test'
 import type { PullRequest } from '../../GitHub.js'
 import type { PullRequestCloser } from './PullRequestCloser.js'
 import { PullRequestsCloser } from './PullRequestsCloser.js'
 
-describe('PullRequestsCloser', () => {
-  describe('close', () => {
-    const pullRequestCloserCloseMock = jest.fn<PullRequestCloser['close']>()
-    const pullRequestCloser = {
-      close: pullRequestCloserCloseMock
-    } as unknown as PullRequestCloser
-    const pullRequestsCloser = new PullRequestsCloser(pullRequestCloser)
-
-    afterEach(() => {
-      jest.resetAllMocks()
-    })
-
-    it('closes pull requests', async () => {
+await describe('PullRequestsCloser', async () => {
+  await describe('close', async () => {
+    await it('closes pull requests', async ({ mock }) => {
+      const closeMock = mock.fn<PullRequestCloser['close']>()
+      const pullRequestCloser = {
+        close: closeMock
+      } as unknown as PullRequestCloser
+      const pullRequestsCloser = new PullRequestsCloser(pullRequestCloser)
       const pullRequest1 = {
         number: 1
       } as unknown as PullRequest
@@ -34,9 +25,11 @@ describe('PullRequestsCloser', () => {
 
       await pullRequestsCloser.close(pullRequests)
 
-      expect(pullRequestCloserCloseMock).toHaveBeenCalledTimes(2)
-      expect(pullRequestCloserCloseMock).toHaveBeenCalledWith(pullRequest1)
-      expect(pullRequestCloserCloseMock).toHaveBeenCalledWith(pullRequest2)
+      assert.strictEqual(closeMock.mock.callCount(), 2)
+      assert.deepStrictEqual(closeMock.mock.calls.map(call => call.arguments), [
+        [pullRequest1],
+        [pullRequest2]
+      ])
     })
   })
 })

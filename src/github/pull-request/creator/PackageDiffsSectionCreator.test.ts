@@ -1,13 +1,8 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
-  afterEach,
-  beforeEach,
   describe,
-  expect,
-  it,
-  jest
-} from '@jest/globals'
+  it
+} from 'node:test'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
 import { GitRepository } from '../../../git/GitRepository.js'
 import { DependencyType } from '../../../package-json/DependencyType.js'
@@ -16,27 +11,10 @@ import { SemVerLevel } from '../../../semver/SemVerLevel.js'
 import type { GitHubUrlOptimizer } from './GitHubUrlOptimizer.js'
 import { PackageDiffsSectionCreator } from './PackageDiffsSectionCreator.js'
 
-describe('PackageDiffsSectionCreator', () => {
-  describe('create', () => {
-    const optimizeMock = jest.fn<GitHubUrlOptimizer['optimize']>()
-    const gitHubUrlOptimizer = {
-      optimize: optimizeMock
-    } as unknown as GitHubUrlOptimizer
-    const packageDiffsSectionCreator = new PackageDiffsSectionCreator(gitHubUrlOptimizer)
-
-    beforeEach(() => {
-      optimizeMock.mockImplementation((url) => {
-        const newUrl = new URL(typeof url === 'string' ? url : url.toString())
-        newUrl.host = 'github.test'
-        return newUrl
-      })
-    })
-
-    afterEach(() => {
-      jest.resetAllMocks()
-    })
-
-    describe('returns Package Diffs section', () => {
+await describe('PackageDiffsSectionCreator', async () => {
+  await describe('create', async () => {
+    await describe('returns Package Diffs section', async () => {
+      const { each } = await import('test-each')
       const outdatedPackage: OutdatedPackage = {
         name: '@npm-update-package/example',
         currentVersion: SemVer.of('1.0.0'),
@@ -44,12 +22,11 @@ describe('PackageDiffsSectionCreator', () => {
         level: SemVerLevel.Major,
         dependencyType: DependencyType.Dependencies
       }
-      interface TestCase {
+      const inputs: Array<{
         gitRepo?: GitRepository
         expected: string
-      }
-      const cases: TestCase[] = [
-      // Repository does not exist
+      }> = [
+        // Repository does not exist
         {
           gitRepo: undefined,
           expected: `## Package diffs
@@ -69,26 +46,37 @@ describe('PackageDiffsSectionCreator', () => {
 - [Renovate Bot Package Diff](https://renovatebot.com/diffs/npm/@npm-update-package/example/1.0.0/2.0.0)`
         }
       ]
+      each(inputs, ({ title }, { gitRepo, expected }) => {
+        void it(title, ({ mock }) => {
+          const optimizeMock = mock.fn<GitHubUrlOptimizer['optimize']>()
+          const gitHubUrlOptimizer = {
+            optimize: optimizeMock
+          } as unknown as GitHubUrlOptimizer
+          const packageDiffsSectionCreator = new PackageDiffsSectionCreator(gitHubUrlOptimizer)
+          // eslint-disable-next-line unicorn/consistent-function-scoping
+          const optimizeMockImplementation: GitHubUrlOptimizer['optimize'] = (url) => {
+            const newUrl = new URL(typeof url === 'string' ? url : url.toString())
+            newUrl.host = 'github.test'
+            return newUrl
+          }
+          optimizeMock.mock.mockImplementation(optimizeMockImplementation)
 
-      it.each(cases)('gitRepo=$gitRepo', async ({
-        gitRepo,
-        expected
-      }) => {
-        const actual = packageDiffsSectionCreator.create({
-          outdatedPackage,
-          gitRepo
+          const actual = packageDiffsSectionCreator.create({
+            outdatedPackage,
+            gitRepo
+          })
+
+          assert.strictEqual(actual, expected)
+
+          if (gitRepo?.isGitHub === true) {
+            assert.strictEqual(optimizeMock.mock.callCount(), 1)
+            assert.deepStrictEqual(optimizeMock.mock.calls.map(call => call.arguments), [
+              ['https://github.com/npm-update-package/example/compare/v1.0.0...v2.0.0']
+            ])
+          } else {
+            assert.strictEqual(optimizeMock.mock.callCount(), 0)
+          }
         })
-
-        expect.assertions(2)
-        expect(actual).toBe(expected)
-
-        if (gitRepo?.isGitHub === true) {
-          // eslint-disable-next-line jest/no-conditional-expect
-          expect(optimizeMock).toHaveBeenCalledWith('https://github.com/npm-update-package/example/compare/v1.0.0...v2.0.0')
-        } else {
-          // eslint-disable-next-line jest/no-conditional-expect
-          expect(optimizeMock).not.toHaveBeenCalled()
-        }
       })
     })
   })

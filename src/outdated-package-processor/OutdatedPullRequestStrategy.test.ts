@@ -1,26 +1,28 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import {
   isOutdatedPullRequestStrategy,
   OutdatedPullRequestStrategy
 } from './OutdatedPullRequestStrategy.js'
 
-describe('isOutdatedPullRequestStrategy', () => {
-  describe('returns whether value is OutdatedPullRequestStrategy', () => {
-    it.each([
+await describe('isOutdatedPullRequestStrategy', async () => {
+  await describe('returns whether value is OutdatedPullRequestStrategy', async () => {
+    const { each } = await import('test-each')
+    const inputs: Array<[value: unknown, expected: boolean]> = [
       [OutdatedPullRequestStrategy.Create, true],
       [OutdatedPullRequestStrategy.Recreate, true],
       [OutdatedPullRequestStrategy.Skip, true],
       ['unknown', false]
-    ])('value=%p', (value, expected) => {
-      const actual = isOutdatedPullRequestStrategy(value)
+    ]
+    each(inputs, ({ title }, [value, expected]) => {
+      void it(title, () => {
+        const actual = isOutdatedPullRequestStrategy(value)
 
-      expect(actual).toBe(expected)
+        assert.strictEqual(actual, expected)
+      })
     })
   })
 })

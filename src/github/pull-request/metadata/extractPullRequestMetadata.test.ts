@@ -1,14 +1,12 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import { extractPullRequestMetadata } from './extractPullRequestMetadata.js'
 
-describe('extractPullRequestMetadata', () => {
-  it('returns PullRequestMetadata if body contains metadata', () => {
+await describe('extractPullRequestMetadata', async () => {
+  await it('returns PullRequestMetadata if body contains metadata', () => {
     const body = `<div id="npm-update-package-metadata">
 
 \`\`\`json
@@ -29,7 +27,7 @@ describe('extractPullRequestMetadata', () => {
 
     const actual = extractPullRequestMetadata(body)
 
-    expect(actual).toEqual({
+    assert.deepStrictEqual(actual, {
       version: '1.0.0',
       packages: [
         {
@@ -42,9 +40,9 @@ describe('extractPullRequestMetadata', () => {
     })
   })
 
-  describe('returns undefined if body does not contain metadata', () => {
-    type TestCase = string
-    const cases: TestCase[] = [
+  await describe('returns undefined if body does not contain metadata', async () => {
+    const { each } = await import('test-each')
+    const inputs: string[] = [
       '',
       `<div id="npm-update-package-metadata">
 
@@ -54,11 +52,12 @@ describe('extractPullRequestMetadata', () => {
 
 </div>`
     ]
+    each(inputs, ({ title }, body) => {
+      void it(title, () => {
+        const actual = extractPullRequestMetadata(body)
 
-    it.each(cases)('body=%p', (body) => {
-      const actual = extractPullRequestMetadata(body)
-
-      expect(actual).toBeUndefined()
+        assert.strictEqual(actual, undefined)
+      })
     })
   })
 })

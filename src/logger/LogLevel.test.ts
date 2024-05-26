@@ -1,19 +1,17 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import {
   isLogLevel,
   LogLevel
 } from './LogLevel.js'
 
-describe('isLogLevel', () => {
-  describe('returns whether value is LogLevel', () => {
-    type TestCase = [unknown, boolean]
-    const cases: TestCase[] = [
+await describe('isLogLevel', async () => {
+  await describe('returns whether value is LogLevel', async () => {
+    const { each } = await import('test-each')
+    const inputs: Array<[value: unknown, expected: boolean]> = [
       [LogLevel.Debug, true],
       [LogLevel.Error, true],
       [LogLevel.Fatal, true],
@@ -23,11 +21,12 @@ describe('isLogLevel', () => {
       [LogLevel.Warn, true],
       ['unknown', false]
     ]
+    each(inputs, ({ title }, [value, expected]) => {
+      void it(title, () => {
+        const actual = isLogLevel(value)
 
-    it.each(cases)('value=%p', (value, expected) => {
-      const actual = isLogLevel(value)
-
-      expect(actual).toBe(expected)
+        assert.strictEqual(actual, expected)
+      })
     })
   })
 })

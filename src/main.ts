@@ -28,6 +28,7 @@ import { logger } from './logger/logger.js'
 import { NpmCheckUpdates } from './npm-check-updates/NpmCheckUpdates.js'
 import type { Options } from './options/Options.js'
 import { OutdatedPackageProcessorCreator } from './outdated-package-processor/OutdatedPackageProcessorCreator.js'
+import { detectPackageManager } from './package-manager/detectPackageManager.js'
 import { PackageManagerCreator } from './package-manager/PackageManagerCreator.js'
 import { Terminal } from './terminal/Terminal.js'
 
@@ -92,7 +93,10 @@ export const main = async (options: Options): Promise<void> => {
   })
 
   const branchFinder = new BranchFinder(branches)
-  const packageManagerCreator = new PackageManagerCreator(options)
+  const packageManagerCreator = new PackageManagerCreator({
+    options,
+    detectPackageManager
+  })
   const packageManager = await packageManagerCreator.create(terminal)
   const pullRequestTitleCreator = new PullRequestTitleCreator(options.prTitle)
   const releasesFetcher = new ReleasesFetcher({

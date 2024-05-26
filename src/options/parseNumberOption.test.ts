@@ -1,32 +1,30 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import { InvalidArgumentError } from 'commander'
 import { parseNumberOption } from './parseNumberOption.js'
 
-describe('parseNumberOption', () => {
-  describe('returns number if value is valid', () => {
-    it.each([
+await describe('parseNumberOption', async () => {
+  await describe('returns number if value is valid', async () => {
+    const { each } = await import('test-each')
+    const inputs: Array<[value: string, expected: number]> = [
       ['0', 0],
       ['1', 1],
       ['-1', -1],
       ['0.1', 0.1]
-    ])('value=%p', (value, expected) => {
-      const actual = parseNumberOption(value)
+    ]
+    each(inputs, ({ title }, [value, expected]) => {
+      void it(title, () => {
+        const actual = parseNumberOption(value)
 
-      expect(actual).toBe(expected)
+        assert.strictEqual(actual, expected)
+      })
     })
-  })
 
-  describe('throws error if value is invalid', () => {
-    it.each([
-      'zero'
-    ])('value=%p', (value) => {
-      expect(() => parseNumberOption(value)).toThrow(InvalidArgumentError)
+    await it('throws error if value is invalid', () => {
+      assert.throws(() => parseNumberOption('zero'), InvalidArgumentError)
     })
   })
 })

@@ -1,10 +1,8 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import * as app from '../../../app.js'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
 import { DependencyType } from '../../../package-json/DependencyType.js'
@@ -12,8 +10,8 @@ import { SemVer } from '../../../semver/SemVer.js'
 import { SemVerLevel } from '../../../semver/SemVerLevel.js'
 import { createPullRequestMetadata } from './createPullRequestMetadata.js'
 
-describe('createPullRequestMetadata', () => {
-  it('returns PullRequestMetadata', () => {
+await describe('createPullRequestMetadata', async () => {
+  await it('returns PullRequestMetadata', () => {
     const outdatedPackages: OutdatedPackage[] = [
       {
         name: '@npm-update-package/example',
@@ -26,7 +24,7 @@ describe('createPullRequestMetadata', () => {
 
     const actual = createPullRequestMetadata(outdatedPackages)
 
-    expect(actual).toEqual({
+    assert.deepStrictEqual(actual, {
       version: app.version,
       packages: [
         {

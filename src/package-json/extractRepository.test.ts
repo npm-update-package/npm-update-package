@@ -1,18 +1,17 @@
-// TODO: Replace Jest with Node.js's test runner
-
-import { URL } from 'node:url'
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
+import { URL } from 'node:url'
 import { GitRepository } from '../git/GitRepository.js'
 import { extractRepository } from './extractRepository.js'
 import type { PackageMetadata } from './PackageMetadata.js'
 
-describe('extractRepository', () => {
-  describe('returns GitRepository instance if repository exists', () => {
-    interface TestCase {
+await describe('extractRepository', async () => {
+  await describe('returns GitRepository instance if repository exists', async () => {
+    const { each } = await import('test-each')
+    const inputs: Array<{
       metadata: PackageMetadata
       expected: {
         url: URL
@@ -20,8 +19,7 @@ describe('extractRepository', () => {
         name: string
         isGitHub: boolean
       }
-    }
-    const cases: TestCase[] = [
+    }> = [
       {
         metadata: {
           name: '@npm-update-package/example',
@@ -66,20 +64,20 @@ describe('extractRepository', () => {
         }
       }
     ]
+    each(inputs, ({ title }, { metadata, expected }) => {
+      void it(title, () => {
+        const actual = extractRepository(metadata)
 
-    it.each(cases)('metadata=$metadata', ({ metadata, expected }) => {
-      const actual = extractRepository(metadata)
-
-      expect(actual).toBeDefined()
-      expect(actual).toBeInstanceOf(GitRepository)
-      expect(actual?.url).toEqual(expected.url)
-      expect(actual?.owner).toBe(expected.owner)
-      expect(actual?.name).toBe(expected.name)
-      expect(actual?.isGitHub).toBe(expected.isGitHub)
+        assert.ok(actual instanceof GitRepository)
+        assert.strictEqual(actual.url.toString(), expected.url.toString())
+        assert.strictEqual(actual.owner, expected.owner)
+        assert.strictEqual(actual.name, expected.name)
+        assert.strictEqual(actual.isGitHub, expected.isGitHub)
+      })
     })
   })
 
-  it('returns undefined if repository does not exist', () => {
+  await it('returns undefined if repository does not exist', () => {
     const metadata: PackageMetadata = {
       name: '@npm-update-package/example',
       version: '1.0.0'
@@ -87,6 +85,6 @@ describe('extractRepository', () => {
 
     const actual = extractRepository(metadata)
 
-    expect(actual).toBeUndefined()
+    assert.strictEqual(actual, undefined)
   })
 })

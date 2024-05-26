@@ -1,28 +1,30 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import {
   isDependencyType,
   DependencyType
 } from './DependencyType.js'
 
-describe('isDependencyType', () => {
-  describe('returns whether value is DependencyType', () => {
-    it.each([
+await describe('isDependencyType', async () => {
+  await describe('returns whether value is DependencyType', async () => {
+    const { each } = await import('test-each')
+    const inputs: Array<[value: unknown, expected: boolean]> = [
       [DependencyType.Dependencies, true],
       [DependencyType.DevDependencies, true],
       [DependencyType.PeerDependencies, true],
       [DependencyType.BundledDependencies, true],
       [DependencyType.OptionalDependencies, true],
       ['unknown', false]
-    ])('value=%p', (value, expected) => {
-      const actual = isDependencyType(value)
+    ]
+    each(inputs, ({ title }, [value, expected]) => {
+      void it(title, () => {
+        const actual = isDependencyType(value)
 
-      expect(actual).toBe(expected)
+        assert.strictEqual(actual, expected)
+      })
     })
   })
 })

@@ -1,44 +1,37 @@
-// TODO: Replace Jest with Node.js's test runner
-
+import assert from 'node:assert'
 import fs from 'node:fs'
 import {
-  afterEach,
   describe,
-  expect,
-  it,
-  jest
-} from '@jest/globals'
+  it
+} from 'node:test'
 import { canReadWrite } from './canReadWrite.js'
 
-jest.mock('node:fs', () => ({
-  constants: {
-    R_OK: 4,
-    W_OK: 2
-  },
-  promises: {
-    access: jest.fn<typeof fs.promises.access>()
-  }
-}))
-
-describe('canReadWrite', () => {
+await describe('canReadWrite', async () => {
   const path = 'package.json'
-  const accessMock = jest.mocked(fs.promises.access)
 
-  afterEach(() => {
-    jest.resetAllMocks()
+  await it('returns true if the file is able to access.', async ({ mock }) => {
+    const accessMock = mock.method(fs.promises, 'access')
+    accessMock.mock.mockImplementation(async () => { await Promise.resolve() })
+
+    const actual = await canReadWrite(path)
+
+    assert.strictEqual(actual, true)
+    assert.strictEqual(accessMock.mock.callCount(), 1)
+    assert.deepStrictEqual(accessMock.mock.calls.map(call => call.arguments), [
+      [path, fs.constants.R_OK | fs.constants.W_OK]
+    ])
   })
 
-  it('returns true if the file is able to access.', async () => {
-    accessMock.mockResolvedValue()
+  await it('returns false if the file is not able to access.', async ({ mock }) => {
+    const accessMock = mock.method(fs.promises, 'access')
+    accessMock.mock.mockImplementation(async () => { await Promise.reject(new Error('error')) })
 
-    await expect(canReadWrite(path)).resolves.toBe(true)
-    expect(accessMock).toHaveBeenCalledWith(path, fs.constants.R_OK | fs.constants.W_OK)
-  })
+    const actual = await canReadWrite(path)
 
-  it('returns false if the file is not able to access.', async () => {
-    accessMock.mockRejectedValue(new Error('error'))
-
-    await expect(canReadWrite(path)).resolves.toBe(false)
-    expect(accessMock).toHaveBeenCalledWith(path, fs.constants.R_OK | fs.constants.W_OK)
+    assert.strictEqual(actual, false)
+    assert.strictEqual(accessMock.mock.callCount(), 1)
+    assert.deepStrictEqual(accessMock.mock.calls.map(call => call.arguments), [
+      [path, fs.constants.R_OK | fs.constants.W_OK]
+    ])
   })
 })
