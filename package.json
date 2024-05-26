@@ -10,8 +10,9 @@
     "postversion": "npm run syncVersion",
     "prebuild": "npm run clean",
     "prepublishOnly": "npm-run-all lint test build",
+    "pretest": "npm run build",
     "syncVersion": "tsx scripts/syncVersion.ts",
-    "test": "glob -c 'tsx --test' 'src/**/*.test.ts'"
+    "test":  "node --test dist/**/*.test.js"
   },
   "bin": "dist/bin/npm-update-package.js",
   "engines": {
