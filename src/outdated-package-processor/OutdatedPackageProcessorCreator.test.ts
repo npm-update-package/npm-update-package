@@ -4,7 +4,7 @@ import {
   it
 } from 'node:test'
 import { each } from 'test-each'
-import { type Class } from 'utility-types'
+import type { Class } from 'utility-types'
 import type { PackageUpdater } from '../core/PackageUpdater.js'
 import type { CommitMessageCreator } from '../git/CommitMessageCreator.js'
 import type { Git } from '../git/Git.js'
@@ -15,7 +15,7 @@ import type { PullRequestFinder } from '../github/pull-request/finder/PullReques
 import type { Options } from '../options/Options.js'
 import type { PackageManager } from '../package-manager/PackageManager.js'
 import { Create } from './create/Create.js'
-import { type OutdatedPackageProcessor } from './OutdatedPackageProcessor.js'
+import type { OutdatedPackageProcessor } from './OutdatedPackageProcessor.js'
 import { OutdatedPackageProcessorCreator } from './OutdatedPackageProcessorCreator.js'
 import { OutdatedPullRequestStrategy } from './OutdatedPullRequestStrategy.js'
 import { Recreate } from './recreate/Recreate.js'
