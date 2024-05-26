@@ -3,12 +3,12 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import { isPackageMetadataDependencies } from './PackageMetadataDependencies.js'
 import type { PackageMetadataDependencies } from './PackageMetadataDependencies.js'
 
 await describe('isPackageMetadataDependencies', async () => {
   await describe('returns whether value is PackageMetadataDependencies', async () => {
-    const { each } = await import('test-each')
     const dependencies: PackageMetadataDependencies = {
       '@npm-update-package/example': '1.0.0'
     }

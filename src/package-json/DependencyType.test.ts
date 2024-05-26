@@ -3,6 +3,7 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import {
   isDependencyType,
   DependencyType
@@ -10,7 +11,6 @@ import {
 
 await describe('isDependencyType', async () => {
   await describe('returns whether value is DependencyType', async () => {
-    const { each } = await import('test-each')
     const inputs: Array<[value: unknown, expected: boolean]> = [
       [DependencyType.Dependencies, true],
       [DependencyType.DevDependencies, true],

@@ -4,12 +4,11 @@ import {
   it
 } from 'node:test'
 import { URL } from 'node:url'
+import { each } from 'test-each'
 import { GitRepository } from './GitRepository.js'
 
 await describe('GitRepository', async () => {
   await describe('of', async () => {
-    const { each } = await import('test-each')
-
     await describe('returns new GitRepository instance if repository is valid', () => {
       const inputs: Array<{
         repository: string

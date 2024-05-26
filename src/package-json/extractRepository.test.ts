@@ -4,13 +4,13 @@ import {
   it
 } from 'node:test'
 import { URL } from 'node:url'
+import { each } from 'test-each'
 import { GitRepository } from '../git/GitRepository.js'
 import { extractRepository } from './extractRepository.js'
 import type { PackageMetadata } from './PackageMetadata.js'
 
 await describe('extractRepository', async () => {
   await describe('returns GitRepository instance if repository exists', async () => {
-    const { each } = await import('test-each')
     const inputs: Array<{
       metadata: PackageMetadata
       expected: {

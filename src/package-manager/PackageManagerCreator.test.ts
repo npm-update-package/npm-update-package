@@ -3,6 +3,7 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import type { Class } from 'utility-types'
 import type { Options } from '../options/Options.js'
 import type { Terminal } from '../terminal/Terminal.js'
@@ -15,7 +16,6 @@ import { Yarn } from './yarn/Yarn.js'
 
 await describe('PackageManagerCreator', async () => {
   await describe('create', async () => {
-    const { each } = await import('test-each')
     const terminal = {} as unknown as Terminal
     const inputs: Array<[packageManager: PackageManagerName, expected: Class<PackageManager>]> = [
       [PackageManagerName.Npm, Npm],

@@ -3,13 +3,13 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import { compareSemVers } from './compareSemVers.js'
 import { SemVer } from './SemVer.js'
 import { SemVerLevel } from './SemVerLevel.js'
 
 await describe('compareSemVers', async () => {
   await describe('returns SemVerLevel if both versions are different', async () => {
-    const { each } = await import('test-each')
     const inputs: Array<[version1: string, version2: string, expected: SemVerLevel]> = [
       ['1.0.0', '2.0.0', SemVerLevel.Major],
       ['1.0.0', '1.1.0', SemVerLevel.Minor],

@@ -3,12 +3,12 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import { isNpmCheckUpdatesResult } from './NpmCheckUpdatesResult.js'
 import type { NpmCheckUpdatesResult } from './NpmCheckUpdatesResult.js'
 
 await describe('isNpmCheckUpdatesResult', async () => {
   await describe('returns whether value is NpmCheckUpdatesResult', async () => {
-    const { each } = await import('test-each')
     const result: NpmCheckUpdatesResult = {
       '@npm-update-package/example': '1.0.0'
     }

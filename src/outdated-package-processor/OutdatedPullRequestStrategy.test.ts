@@ -3,6 +3,7 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import {
   isOutdatedPullRequestStrategy,
   OutdatedPullRequestStrategy
@@ -10,7 +11,6 @@ import {
 
 await describe('isOutdatedPullRequestStrategy', async () => {
   await describe('returns whether value is OutdatedPullRequestStrategy', async () => {
-    const { each } = await import('test-each')
     const inputs: Array<[value: unknown, expected: boolean]> = [
       [OutdatedPullRequestStrategy.Create, true],
       [OutdatedPullRequestStrategy.Recreate, true],

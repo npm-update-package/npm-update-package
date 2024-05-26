@@ -4,6 +4,7 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
 import { GitRepository } from '../../../git/GitRepository.js'
 import type { Options } from '../../../options/Options.js'
@@ -26,7 +27,6 @@ import type { ReleaseNotesSectionCreator } from './ReleaseNotesSectionCreator.js
 await describe('PullRequestBodyCreator', async () => {
   await describe('create', async () => {
     await describe('returns Markdown string', async () => {
-      const { each } = await import('test-each')
       const outdatedPackage: OutdatedPackage = {
         name: '@npm-update-package/example',
         currentVersion: SemVer.of('1.0.0'),

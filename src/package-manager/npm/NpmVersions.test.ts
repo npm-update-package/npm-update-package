@@ -3,12 +3,12 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import { isNpmVersions } from './NpmVersions.js'
 import type { NpmVersions } from './NpmVersions.js'
 
 await describe('isNpmVersions', async () => {
   await describe('returns whether value is NpmVersions', async () => {
-    const { each } = await import('test-each')
     const versions: NpmVersions = [
       '1.0.0',
       '2.0.0'

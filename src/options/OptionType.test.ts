@@ -3,6 +3,7 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import {
   isOptionType,
   OptionType
@@ -10,7 +11,6 @@ import {
 
 await describe('isOptionType', async () => {
   await describe('returns whether value is OptionType', async () => {
-    const { each } = await import('test-each')
     const inputs: Array<[value: unknown, expected: boolean]> = [
       [OptionType.Boolean, true],
       [OptionType.Number, true],

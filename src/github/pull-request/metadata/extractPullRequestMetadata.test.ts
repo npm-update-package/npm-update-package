@@ -3,6 +3,7 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import { extractPullRequestMetadata } from './extractPullRequestMetadata.js'
 
 await describe('extractPullRequestMetadata', async () => {
@@ -41,7 +42,6 @@ await describe('extractPullRequestMetadata', async () => {
   })
 
   await describe('returns undefined if body does not contain metadata', async () => {
-    const { each } = await import('test-each')
     const inputs: string[] = [
       '',
       `<div id="npm-update-package-metadata">

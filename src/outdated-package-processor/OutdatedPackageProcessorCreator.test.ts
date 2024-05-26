@@ -3,6 +3,7 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import { type Class } from 'utility-types'
 import type { PackageUpdater } from '../core/PackageUpdater.js'
 import type { CommitMessageCreator } from '../git/CommitMessageCreator.js'
@@ -23,7 +24,6 @@ import { Skip } from './skip/Skip.js'
 await describe('OutdatedPackageProcessorCreator', async () => {
   await describe('create', async () => {
     await describe('returns new OutdatedPackageProcessor instance', async () => {
-      const { each } = await import('test-each')
       const inputs: Array<[outdatedPrStrategy: OutdatedPullRequestStrategy, expected: Class<OutdatedPackageProcessor>]> = [
         [OutdatedPullRequestStrategy.Create, Create],
         [OutdatedPullRequestStrategy.Recreate, Recreate],

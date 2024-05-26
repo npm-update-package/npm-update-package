@@ -4,11 +4,10 @@ import {
   it
 } from 'node:test'
 import { InvalidArgumentError } from 'commander'
+import { each } from 'test-each'
 import { parseBooleanOption } from './parseBooleanOption.js'
 
 await describe('parseBooleanOption', async () => {
-  const { each } = await import('test-each')
-
   await describe('returns boolean if value is valid', () => {
     const inputs: Array<[value: string, expected: boolean]> = [
       ['true', true],

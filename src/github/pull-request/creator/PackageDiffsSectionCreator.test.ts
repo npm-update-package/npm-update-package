@@ -3,6 +3,7 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
 import { GitRepository } from '../../../git/GitRepository.js'
 import { DependencyType } from '../../../package-json/DependencyType.js'
@@ -14,7 +15,6 @@ import { PackageDiffsSectionCreator } from './PackageDiffsSectionCreator.js'
 await describe('PackageDiffsSectionCreator', async () => {
   await describe('create', async () => {
     await describe('returns Package Diffs section', async () => {
-      const { each } = await import('test-each')
       const outdatedPackage: OutdatedPackage = {
         name: '@npm-update-package/example',
         currentVersion: SemVer.of('1.0.0'),

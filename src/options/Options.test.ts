@@ -3,6 +3,7 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import { LogLevel } from '../logger/LogLevel.js'
 import { OutdatedPullRequestStrategy } from '../outdated-package-processor/OutdatedPullRequestStrategy.js'
 import { DependencyType } from '../package-json/DependencyType.js'
@@ -12,7 +13,6 @@ import type { Options } from './Options.js'
 
 await describe('isOptions', async () => {
   await describe('returns whether value is Options', async () => {
-    const { each } = await import('test-each')
     const options: Options = {
       additionalLabels: ['bot', 'dependencies'],
       commitMessage: 'test commitMessage',

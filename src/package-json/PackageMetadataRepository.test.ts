@@ -3,12 +3,12 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import { isPackageMetadataRepository } from './PackageMetadataRepository.js'
 import type { PackageMetadataRepository } from './PackageMetadataRepository.js'
 
 await describe('isPackageMetadataRepository', async () => {
   await describe('returns whether value is PackageMetadataRepository', async () => {
-    const { each } = await import('test-each')
     const repository: PackageMetadataRepository = {
       url: 'https://github.com/npm-update-package/example.git'
     }

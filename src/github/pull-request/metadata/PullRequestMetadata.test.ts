@@ -3,13 +3,13 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import { SemVerLevel } from '../../../semver/SemVerLevel.js'
 import { isPullRequestMetadata } from './PullRequestMetadata.js'
 import type { PullRequestMetadata } from './PullRequestMetadata.js'
 
 await describe('isPullRequestMetadata', async () => {
   await describe('returns whether value is PullRequestMetadata', async () => {
-    const { each } = await import('test-each')
     const metadata: PullRequestMetadata = {
       version: '1.0.0',
       packages: [

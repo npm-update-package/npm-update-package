@@ -3,6 +3,7 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import {
   type Options,
   toJSON
@@ -10,7 +11,6 @@ import {
 
 await describe('toJSON', async () => {
   await describe('returns JSON string', async () => {
-    const { each } = await import('test-each')
     const value = {
       number: 1,
       string: 'foo'

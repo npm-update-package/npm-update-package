@@ -4,11 +4,11 @@ import {
   it
 } from 'node:test'
 import { InvalidArgumentError } from 'commander'
+import { each } from 'test-each'
 import { parseNumberOption } from './parseNumberOption.js'
 
 await describe('parseNumberOption', async () => {
   await describe('returns number if value is valid', async () => {
-    const { each } = await import('test-each')
     const inputs: Array<[value: string, expected: number]> = [
       ['0', 0],
       ['1', 1],

@@ -3,12 +3,12 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import { isYarnVersions } from './YarnVersions.js'
 import type { YarnVersions } from './YarnVersions.js'
 
 await describe('isYarnVersions', async () => {
   await describe('returns whether value is YarnVersions', async () => {
-    const { each } = await import('test-each')
     const versions: YarnVersions = {
       type: 'inspect',
       data: [

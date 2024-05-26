@@ -3,13 +3,13 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import type { CLIOption } from './CLIOption.js'
 import { OptionType } from './OptionType.js'
 import { toCommanderOption } from './toCommanderOption.js'
 
 await describe('toCommanderOption', async () => {
   await describe('returns Commander Option', async () => {
-    const { each } = await import('test-each')
     const inputs: Array<{
       cliOption: CLIOption
       expected: {

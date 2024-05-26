@@ -4,11 +4,11 @@ import {
   it
 } from 'node:test'
 import { Octokit } from '@octokit/rest'
+import { each } from 'test-each'
 import { createOctokit } from './createOctokit.js'
 
 await describe('createOctokit', async () => {
   await describe('returns new Octokit instance', async () => {
-    const { each } = await import('test-each')
     const inputs: Array<{
       host: string
       token?: string

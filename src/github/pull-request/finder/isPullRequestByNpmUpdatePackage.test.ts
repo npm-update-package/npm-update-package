@@ -3,12 +3,12 @@ import {
   describe,
   it
 } from 'node:test'
+import { each } from 'test-each'
 import type { PullRequest } from '../../GitHub.js'
 import { isPullRequestByNpmUpdatePackage } from './isPullRequestByNpmUpdatePackage.js'
 
 await describe('isPullRequestByNpmUpdatePackage', async () => {
   await describe('returns whether pull request is by npm-update-package', async () => {
-    const { each } = await import('test-each')
     const inputs: Array<{
       pullRequest: PullRequest
       expected: boolean

@@ -6,11 +6,11 @@ import {
 import { RequestError } from '@octokit/request-error'
 import type { RequestOptions } from '@octokit/types'
 import { StatusCodes } from 'http-status-codes'
+import { each } from 'test-each'
 import { isNotFoundError } from './NotFoundError.js'
 
 await describe('isNotFoundError', async () => {
   await describe('returns whether value is NotFoundError', async () => {
-    const { each } = await import('test-each')
     const request: RequestOptions = {
       method: 'GET',
       url: 'https://example.test/',

@@ -4,13 +4,13 @@ import {
   it
 } from 'node:test'
 import { URL } from 'node:url'
+import { each } from 'test-each'
 import type { Options } from '../../../options/Options.js'
 import { GitHubUrlOptimizer } from './GitHubUrlOptimizer.js'
 
 await describe('GitHubUrlOptimizer', async () => {
   await describe('optimize', async () => {
     await describe('returns optimized URL', async () => {
-      const { each } = await import('test-each')
       const options = {
         prBodyGithubHost: 'github.test'
       } as unknown as Options
