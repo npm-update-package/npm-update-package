@@ -11,7 +11,7 @@ import {
 
 await describe('isSemVerLevel', async () => {
   await describe('returns whether value is SemVerLevel', async () => {
-    const inputs: Array<[value: unknown, boolean]> = [
+    const inputs: Array<[value: unknown, expected: boolean]> = [
       [SemVerLevel.Major, true],
       [SemVerLevel.Minor, true],
       [SemVerLevel.Patch, true],
