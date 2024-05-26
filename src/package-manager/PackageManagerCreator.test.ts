@@ -1,7 +1,9 @@
 import assert from 'node:assert'
 import {
+  afterEach,
   describe,
-  it
+  it,
+  mock
 } from 'node:test'
 import { each } from 'test-each'
 import type { Class } from 'utility-types'
@@ -16,16 +18,20 @@ import { Yarn } from './yarn/Yarn.js'
 
 await describe('PackageManagerCreator', async () => {
   await describe('create', async () => {
+    const detectPackageManagerMock = mock.fn<typeof detectPackageManager>()
     const terminal = {} as unknown as Terminal
     const inputs: Array<[packageManager: PackageManagerName, expected: Class<PackageManager>]> = [
       [PackageManagerName.Npm, Npm],
       [PackageManagerName.Yarn, Yarn]
     ]
 
+    afterEach(() => {
+      detectPackageManagerMock.mock.resetCalls()
+    })
+
     await describe('returns new PackageManager instance if packageManager option exists', () => {
       each(inputs, ({ title }, [packageManager, expected]) => {
-        void it(title, async ({ mock }) => {
-          const detectPackageManagerMock = mock.fn<typeof detectPackageManager>()
+        void it(title, async () => {
           const options = {
             packageManager
           } as unknown as Options
@@ -38,14 +44,14 @@ await describe('PackageManagerCreator', async () => {
 
           assert.ok(actual instanceof expected)
           assert.strictEqual(detectPackageManagerMock.mock.callCount(), 0)
+          assert.deepStrictEqual(detectPackageManagerMock.mock.calls.map(call => call.arguments), [])
         })
       })
     })
 
     await describe('returns new PackageManager instance if packageManager option does not exist', () => {
       each(inputs, ({ title }, [packageManager, expected]) => {
-        void it(title, async ({ mock }) => {
-          const detectPackageManagerMock = mock.fn<typeof detectPackageManager>()
+        void it(title, async () => {
           const options = {} as unknown as Options
           const packageManagerCreator = new PackageManagerCreator({
             options,

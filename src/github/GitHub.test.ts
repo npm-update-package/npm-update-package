@@ -173,14 +173,16 @@ await describe('GitHub', async () => {
 
       assert.strictEqual(issuesCreateLabelMock.mock.callCount(), 1)
       assert.deepStrictEqual(issuesCreateLabelMock.mock.calls.map(call => call.arguments), [
-        [{
-          owner,
-          repo,
-          name,
-          description,
-          color
-        }
-        ]])
+        [
+          {
+            owner,
+            repo,
+            name,
+            description,
+            color
+          }
+        ]
+      ])
     })
   })
 
@@ -312,12 +314,14 @@ await describe('GitHub', async () => {
       assert.strictEqual(actual, expected)
       assert.strictEqual(issuesGetLabelMock.mock.callCount(), 1)
       assert.deepStrictEqual(issuesGetLabelMock.mock.calls.map(call => call.arguments), [
-        [{
-          owner,
-          repo,
-          name
-        }
-        ]])
+        [
+          {
+            owner,
+            repo,
+            name
+          }
+        ]
+      ])
     })
   })
 
@@ -380,11 +384,13 @@ await describe('GitHub', async () => {
       assert.strictEqual(actual, expected)
       assert.strictEqual(reposGetMock.mock.callCount(), 1)
       assert.deepStrictEqual(reposGetMock.mock.calls.map(call => call.arguments), [
-        [{
-          owner,
-          repo
-        }
-        ]])
+        [
+          {
+            owner,
+            repo
+          }
+        ]
+      ])
     })
   })
 

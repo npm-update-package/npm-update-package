@@ -15,41 +15,16 @@ await describe('toJSON', async () => {
       number: 1,
       string: 'foo'
     }
-    const inputs: Array<{
-      value: unknown
-      options: Options | undefined
-      expected: string
-    }> = [
-      {
-        value,
-        options: undefined,
-        expected: '{"number":1,"string":"foo"}'
-      },
-      {
-        value,
-        options: {},
-        expected: '{"number":1,"string":"foo"}'
-      },
-      {
-        value,
-        options: {
-          pretty: false
-        },
-        expected: '{"number":1,"string":"foo"}'
-      },
-      {
-        value,
-        options: {
-          pretty: true
-        },
-        expected:
-`{
+    const inputs: Array<[options: Options | undefined, expected: string]> = [
+      [undefined, '{"number":1,"string":"foo"}'],
+      [{}, '{"number":1,"string":"foo"}'],
+      [{ pretty: false }, '{"number":1,"string":"foo"}'],
+      [{ pretty: true }, `{
   "number": 1,
   "string": "foo"
-}`
-      }
+}`]
     ]
-    each(inputs, ({ title }, { value, options, expected }) => {
+    each(inputs, ({ title }, [options, expected]) => {
       void it(title, () => {
         const actual = toJSON(value, options)
 

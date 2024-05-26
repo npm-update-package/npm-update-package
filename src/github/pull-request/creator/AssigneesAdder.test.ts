@@ -1,7 +1,9 @@
 import assert from 'node:assert'
 import {
+  afterEach,
   describe,
-  it
+  it,
+  mock
 } from 'node:test'
 import sampleSize from 'lodash/sampleSize.js'
 import type { GitRepository } from '../../../git/GitRepository.js'
@@ -10,6 +12,11 @@ import { AssigneesAdder } from './AssigneesAdder.js'
 
 await describe('AssigneesAdder', async () => {
   await describe('add', async () => {
+    const sampleSizeMock = mock.fn(sampleSize)
+    const addAssigneesMock = mock.fn<GitHub['addAssignees']>()
+    const github = {
+      addAssignees: addAssigneesMock
+    } as unknown as GitHub
     const gitRepo = {
       owner: 'npm-update-package',
       name: 'example',
@@ -18,13 +25,13 @@ await describe('AssigneesAdder', async () => {
     const issueNumber = 1
     const assignees = ['alice', 'bob']
 
+    afterEach(() => {
+      sampleSizeMock.mock.resetCalls()
+      addAssigneesMock.mock.resetCalls()
+    })
+
     // TODO: Activate when mock.module can use.
-    await it.skip('adds all assignees if size is not specified', async ({ mock }) => {
-      const sampleSizeMock = mock.fn(sampleSize)
-      const addAssigneesMock = mock.fn<GitHub['addAssignees']>()
-      const github = {
-        addAssignees: addAssigneesMock
-      } as unknown as GitHub
+    await it.skip('adds all assignees if size is not specified', async () => {
       const assigneesAdder = new AssigneesAdder({
         github,
         gitRepo
@@ -50,12 +57,7 @@ await describe('AssigneesAdder', async () => {
     })
 
     // TODO: Activate when mock.module can use.
-    await it.skip('adds specified number of assignees if size is specified', async ({ mock }) => {
-      const sampleSizeMock = mock.fn(sampleSize)
-      const addAssigneesMock = mock.fn<GitHub['addAssignees']>()
-      const github = {
-        addAssignees: addAssigneesMock
-      } as unknown as GitHub
+    await it.skip('adds specified number of assignees if size is specified', async () => {
       const assigneesAdder = new AssigneesAdder({
         github,
         gitRepo

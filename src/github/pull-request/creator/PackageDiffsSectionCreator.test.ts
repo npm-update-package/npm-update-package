@@ -75,6 +75,7 @@ await describe('PackageDiffsSectionCreator', async () => {
             ])
           } else {
             assert.strictEqual(optimizeMock.mock.callCount(), 0)
+            assert.deepStrictEqual(optimizeMock.mock.calls.map(call => call.arguments), [])
           }
         })
       })

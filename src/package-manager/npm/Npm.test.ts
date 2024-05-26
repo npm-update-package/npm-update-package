@@ -1,22 +1,29 @@
 import assert from 'node:assert'
 import {
+  afterEach,
   describe,
-  it
+  it,
+  mock
 } from 'node:test'
 import type { Terminal } from '../../terminal/Terminal.js'
 import { Npm } from './Npm.js'
 
 await describe('Npm', async () => {
+  const runMock = mock.fn<Terminal['run']>()
+  const terminal = {
+    run: runMock
+  } as unknown as Terminal
+  const npm = new Npm(terminal)
+
+  afterEach(() => {
+    runMock.mock.resetCalls()
+  })
+
   await describe('getVersions', async () => {
     await describe('calls `npm info <package-name> versions --json', async () => {
       const packageName = '@npm-async update-package/example'
 
-      await it('returns versions if stdout is valid', async ({ mock }) => {
-        const runMock = mock.fn<Terminal['run']>()
-        const terminal = {
-          run: runMock
-        } as unknown as Terminal
-        const npm = new Npm(terminal)
+      await it('returns versions if stdout is valid', async () => {
         const expected = [
           '1.0.0',
           '2.0.0'
@@ -32,12 +39,7 @@ await describe('Npm', async () => {
         ])
       })
 
-      await it('throws error if stdout is invalid', async ({ mock }) => {
-        const runMock = mock.fn<Terminal['run']>()
-        const terminal = {
-          run: runMock
-        } as unknown as Terminal
-        const npm = new Npm(terminal)
+      await it('throws error if stdout is invalid', async () => {
         runMock.mock.mockImplementation(async () => await Promise.resolve(JSON.stringify({})))
 
         await assert.rejects(async () => await npm.getVersions(packageName), Error)
@@ -51,12 +53,7 @@ await describe('Npm', async () => {
   })
 
   await describe('install', async () => {
-    await it('calls `npm install', async ({ mock }) => {
-      const runMock = mock.fn<Terminal['run']>()
-      const terminal = {
-        run: runMock
-      } as unknown as Terminal
-      const npm = new Npm(terminal)
+    await it('calls `npm install', async () => {
       runMock.mock.mockImplementation(async () => await Promise.resolve(''))
 
       await npm.install()

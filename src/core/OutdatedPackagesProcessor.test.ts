@@ -20,10 +20,10 @@ import type { SucceededResult } from './SucceededResult.js'
 await describe('OutdatedPackagesProcessor', async () => {
   await describe('process', async () => {
     await it('calls OutdatedPackageProcessor.process() by each packages', async ({ mock }) => {
-      const outdatedPackageProcessorProcessMock = mock.fn<OutdatedPackageProcessor['process']>()
-      const outdatedPackageProcessor: OutdatedPackageProcessor = {
-        process: outdatedPackageProcessorProcessMock
-      }
+      const processMock = mock.fn<OutdatedPackageProcessor['process']>()
+      const outdatedPackageProcessor = {
+        process: processMock
+      } as unknown as OutdatedPackageProcessor
       const outdatedPackagesProcessor = new OutdatedPackagesProcessor(outdatedPackageProcessor)
       const packageToBeCreated: OutdatedPackage = {
         name: '@npm-update-package/example-1',
@@ -58,7 +58,7 @@ await describe('OutdatedPackagesProcessor', async () => {
         outdatedPackage: packageToBeFailed,
         error: new Error('Failed to update package')
       })
-      outdatedPackageProcessorProcessMock.mock.mockImplementation(async (outdatedPackage: OutdatedPackage) => {
+      const processMockImplementation: OutdatedPackageProcessor['process'] = async (outdatedPackage) => {
         switch (outdatedPackage.name) {
           case packageToBeCreated.name:
             return createdResult
@@ -69,7 +69,8 @@ await describe('OutdatedPackagesProcessor', async () => {
           default:
             throw new Error('error')
         }
-      })
+      }
+      processMock.mock.mockImplementation(processMockImplementation)
 
       const actual = await outdatedPackagesProcessor.process([
         packageToBeCreated,
@@ -82,8 +83,8 @@ await describe('OutdatedPackagesProcessor', async () => {
         skippedResult,
         failedResult
       ])
-      assert.strictEqual(outdatedPackageProcessorProcessMock.mock.callCount(), 3)
-      assert.deepStrictEqual(outdatedPackageProcessorProcessMock.mock.calls.map(call => call.arguments), [
+      assert.strictEqual(processMock.mock.callCount(), 3)
+      assert.deepStrictEqual(processMock.mock.calls.map(call => call.arguments), [
         [packageToBeCreated],
         [packageToBeSkipped],
         [packageToBeFailed]

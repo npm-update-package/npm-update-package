@@ -1,7 +1,9 @@
 import assert from 'node:assert'
 import {
+  afterEach,
   describe,
-  it
+  it,
+  mock
 } from 'node:test'
 import type { NpmCheckUpdates } from '../npm-check-updates/NpmCheckUpdates.js'
 import { DependencyType } from '../package-json/DependencyType.js'
@@ -13,15 +15,21 @@ import { PackageUpdater } from './PackageUpdater.js'
 
 await describe('PackageUpdater', async () => {
   await describe('update', async () => {
-    await it('returns undefined if succeeded to install package', async ({ mock }) => {
-      const packageManagerInstallMock = mock.fn<PackageManager['install']>()
-      const packageManager = {
-        install: packageManagerInstallMock
-      } as unknown as PackageManager
-      const ncuUpdateMock = mock.fn<NpmCheckUpdates['update']>()
-      const ncu = {
-        update: ncuUpdateMock
-      } as unknown as NpmCheckUpdates
+    const packageManagerInstallMock = mock.fn<PackageManager['install']>()
+    const packageManager = {
+      install: packageManagerInstallMock
+    } as unknown as PackageManager
+    const ncuUpdateMock = mock.fn<NpmCheckUpdates['update']>()
+    const ncu = {
+      update: ncuUpdateMock
+    } as unknown as NpmCheckUpdates
+
+    afterEach(() => {
+      packageManagerInstallMock.mock.resetCalls()
+      ncuUpdateMock.mock.resetCalls()
+    })
+
+    await it('returns undefined if succeeded to install package', async () => {
       const packageUpdater = new PackageUpdater({
         packageManager,
         ncu
@@ -48,15 +56,7 @@ await describe('PackageUpdater', async () => {
       ])
     })
 
-    await it('throws error if failed to install package', async ({ mock }) => {
-      const packageManagerInstallMock = mock.fn<PackageManager['install']>()
-      const packageManager = {
-        install: packageManagerInstallMock
-      } as unknown as PackageManager
-      const ncuUpdateMock = mock.fn<NpmCheckUpdates['update']>()
-      const ncu = {
-        update: ncuUpdateMock
-      } as unknown as NpmCheckUpdates
+    await it('throws error if failed to install package', async () => {
       const packageUpdater = new PackageUpdater({
         packageManager,
         ncu
@@ -78,6 +78,7 @@ await describe('PackageUpdater', async () => {
         [outdatedPackage]
       ])
       assert.strictEqual(packageManagerInstallMock.mock.callCount(), 0)
+      assert.deepStrictEqual(packageManagerInstallMock.mock.calls.map(call => call.arguments), [])
     })
   })
 })

@@ -1,7 +1,8 @@
 import assert from 'node:assert'
 import {
   describe,
-  it
+  it,
+  mock
 } from 'node:test'
 import sampleSize from 'lodash/sampleSize.js'
 import type { GitRepository } from '../../../git/GitRepository.js'
@@ -10,6 +11,11 @@ import { ReviewersAdder } from './ReviewersAdder.js'
 
 await describe('ReviewersAdder', async () => {
   await describe('add', async () => {
+    const sampleSizeMock = mock.fn(sampleSize)
+    const requestReviewersMock = mock.fn<GitHub['requestReviewers']>()
+    const github = {
+      requestReviewers: requestReviewersMock
+    } as unknown as GitHub
     const gitRepo = {
       owner: 'npm-update-package',
       name: 'example',
@@ -19,12 +25,7 @@ await describe('ReviewersAdder', async () => {
     const reviewers = ['alice', 'bob']
 
     // TODO: Activate when mock.module can use.
-    await it.skip('adds all reviewers if size is not specified', async ({ mock }) => {
-      const sampleSizeMock = mock.fn(sampleSize)
-      const requestReviewersMock = mock.fn<GitHub['requestReviewers']>()
-      const github = {
-        requestReviewers: requestReviewersMock
-      } as unknown as GitHub
+    await it.skip('adds all reviewers if size is not specified', async () => {
       const reviewersAdder = new ReviewersAdder({
         github,
         gitRepo
@@ -50,9 +51,7 @@ await describe('ReviewersAdder', async () => {
     })
 
     // TODO: Activate when mock.module can use.
-    await it.skip('adds specified number of reviewers if size is specified', async ({ mock }) => {
-      const sampleSizeMock = mock.fn(sampleSize)
-      const requestReviewersMock = mock.fn<GitHub['requestReviewers']>()
+    await it.skip('adds specified number of reviewers if size is specified', async () => {
       const github = {
         requestReviewers: requestReviewersMock
       } as unknown as GitHub

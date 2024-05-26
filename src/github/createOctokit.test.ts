@@ -9,28 +9,15 @@ import { createOctokit } from './createOctokit.js'
 
 await describe('createOctokit', async () => {
   await describe('returns new Octokit instance', async () => {
-    const inputs: Array<{
-      host: string
-      token?: string
-    }> = [
+    const inputs: Array<[host: string, token: string | undefined]> = [
       // for GitHub without token
-      {
-        host: 'github.com',
-        token: undefined
-      },
+      ['github.com', undefined],
       // for GitHub with token
-      {
-        host: 'github.com',
-        token: 'test token'
-      },
+      ['github.com', 'test token'],
       // for GitHub Enterprise with token
-      {
-        host: 'git.test',
-        token: 'test token'
-      }
+      ['git.test', 'test token']
     ]
-
-    each(inputs, ({ title }, { host, token }) => {
+    each(inputs, ({ title }, [host, token]) => {
       void it(title, () => {
         const actual = createOctokit({
           host,

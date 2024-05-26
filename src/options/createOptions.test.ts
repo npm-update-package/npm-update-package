@@ -3,7 +3,8 @@ import {
   afterEach,
   beforeEach,
   describe,
-  it
+  it,
+  mock
 } from 'node:test'
 import { LogLevel } from '../logger/LogLevel.js'
 import { OutdatedPullRequestStrategy } from '../outdated-package-processor/OutdatedPullRequestStrategy.js'
@@ -15,9 +16,11 @@ import type { Options } from './Options.js'
 import { isOptions } from './Options.js'
 
 await describe('createOptions', async () => {
+  const isOptionsMock = mock.fn(isOptions)
   const { argv } = process
 
   beforeEach(() => {
+    isOptionsMock.mock.resetCalls()
     process.argv = [
       ...argv.slice(0, 2),
       '--additional-labels',
@@ -73,8 +76,7 @@ await describe('createOptions', async () => {
   })
 
   // TODO: Activate when mock.module can use.
-  await it.skip('returns Options if it is valid', ({ mock }) => {
-    const isOptionsMock = mock.fn(isOptions)
+  await it.skip('returns Options if it is valid', () => {
     // eslint-disable-next-line lodash/prefer-constant
     isOptionsMock.mock.mockImplementation(() => true)
 
@@ -109,8 +111,7 @@ await describe('createOptions', async () => {
   })
 
   // TODO: Activate when mock.module can use.
-  await it.skip('throws error if Options is invalid', ({ mock }) => {
-    const isOptionsMock = mock.fn(isOptions)
+  await it.skip('throws error if Options is invalid', () => {
     // eslint-disable-next-line lodash/prefer-constant
     isOptionsMock.mock.mockImplementation(() => false)
 

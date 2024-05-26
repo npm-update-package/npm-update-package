@@ -301,26 +301,18 @@ await describe('PullRequestBodyCreator', async () => {
               ])
             } else {
               assert.strictEqual(releaseNotesSectionCreatorCreateMock.mock.callCount(), 0)
-              assert.deepStrictEqual(releaseNotesSectionCreatorCreateMock.mock.calls.map(call => call.arguments), [
-                []
-              ])
+              assert.deepStrictEqual(releaseNotesSectionCreatorCreateMock.mock.calls.map(call => call.arguments), [])
             }
           } else {
             assert.strictEqual(releasesFetcherFetchMock.mock.callCount(), 0)
-            assert.deepStrictEqual(releasesFetcherFetchMock.mock.calls.map(call => call.arguments), [
-              []
-            ])
+            assert.deepStrictEqual(releasesFetcherFetchMock.mock.calls.map(call => call.arguments), [])
             assert.strictEqual(releaseNotesSectionCreatorCreateMock.mock.callCount(), 0)
-            assert.deepStrictEqual(releaseNotesSectionCreatorCreateMock.mock.calls.map(call => call.arguments), [
-              []
-            ])
+            assert.deepStrictEqual(releaseNotesSectionCreatorCreateMock.mock.calls.map(call => call.arguments), [])
           }
 
           if (options.prBodyNotes === undefined) {
             assert.strictEqual(createNotesSectionMock.mock.callCount(), 0)
-            assert.deepStrictEqual(createNotesSectionMock.mock.calls.map(call => call.arguments), [
-              []
-            ])
+            assert.deepStrictEqual(createNotesSectionMock.mock.calls.map(call => call.arguments), [])
           } else {
             assert.strictEqual(createNotesSectionMock.mock.callCount(), 1)
             assert.deepStrictEqual(createNotesSectionMock.mock.calls.map(call => call.arguments), [

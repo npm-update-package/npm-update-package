@@ -9,14 +9,14 @@ import type { Terminal } from '../terminal/Terminal.js'
 import { Git } from './Git.js'
 
 await describe('Git', async () => {
-  const terminalRunMock = mock.fn<Terminal['run']>()
+  const runMock = mock.fn<Terminal['run']>()
   const terminal = {
-    run: terminalRunMock
+    run: runMock
   } as unknown as Terminal
   const git = new Git(terminal)
 
   afterEach(() => {
-    terminalRunMock.mock.resetCalls()
+    runMock.mock.resetCalls()
   })
 
   await describe('add', async () => {
@@ -28,8 +28,8 @@ await describe('Git', async () => {
 
       await git.add(...files)
 
-      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
-      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+      assert.strictEqual(runMock.mock.callCount(), 1)
+      assert.deepStrictEqual(runMock.mock.calls.map(call => call.arguments), [
         ['git', 'add', ...files]
       ])
     })
@@ -41,8 +41,8 @@ await describe('Git', async () => {
 
       await git.commit(message)
 
-      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
-      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+      assert.strictEqual(runMock.mock.callCount(), 1)
+      assert.deepStrictEqual(runMock.mock.calls.map(call => call.arguments), [
         ['git', 'commit', '--message', message]
       ])
     })
@@ -54,8 +54,8 @@ await describe('Git', async () => {
 
       await git.createBranch(branchName)
 
-      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
-      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+      assert.strictEqual(runMock.mock.callCount(), 1)
+      assert.deepStrictEqual(runMock.mock.calls.map(call => call.arguments), [
         ['git', 'checkout', '-b', branchName]
       ])
     })
@@ -64,13 +64,13 @@ await describe('Git', async () => {
   await describe('getRemoteUrl', async () => {
     await it('calls `git remote get-url --push origin`', async () => {
       const expected = 'https://github.com/npm-update-package/example.git'
-      terminalRunMock.mock.mockImplementation(() => expected)
+      runMock.mock.mockImplementation(() => expected)
 
       const actual = await git.getRemoteUrl()
 
       assert.strictEqual(actual, expected)
-      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
-      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+      assert.strictEqual(runMock.mock.callCount(), 1)
+      assert.deepStrictEqual(runMock.mock.calls.map(call => call.arguments), [
         ['git', 'remote', 'get-url', '--push', 'origin']
       ])
     })
@@ -82,8 +82,8 @@ await describe('Git', async () => {
 
       await git.push(branchName)
 
-      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
-      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+      assert.strictEqual(runMock.mock.callCount(), 1)
+      assert.deepStrictEqual(runMock.mock.calls.map(call => call.arguments), [
         ['git', 'push', 'origin', branchName]
       ])
     })
@@ -95,8 +95,8 @@ await describe('Git', async () => {
 
       await git.removeBranch(branchName)
 
-      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
-      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+      assert.strictEqual(runMock.mock.callCount(), 1)
+      assert.deepStrictEqual(runMock.mock.calls.map(call => call.arguments), [
         ['git', 'branch', '-D', branchName]
       ])
     })
@@ -111,8 +111,8 @@ await describe('Git', async () => {
 
       await git.restore(...files)
 
-      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
-      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+      assert.strictEqual(runMock.mock.callCount(), 1)
+      assert.deepStrictEqual(runMock.mock.calls.map(call => call.arguments), [
         ['git', 'checkout', ...files]
       ])
     })
@@ -125,8 +125,8 @@ await describe('Git', async () => {
 
       await git.setConfig(key, value)
 
-      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
-      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+      assert.strictEqual(runMock.mock.callCount(), 1)
+      assert.deepStrictEqual(runMock.mock.calls.map(call => call.arguments), [
         ['git', 'config', key, value]
       ])
     })
@@ -138,8 +138,8 @@ await describe('Git', async () => {
 
       await git.switch(branchName)
 
-      assert.strictEqual(terminalRunMock.mock.callCount(), 1)
-      assert.deepStrictEqual(terminalRunMock.mock.calls.map(call => call.arguments), [
+      assert.strictEqual(runMock.mock.callCount(), 1)
+      assert.deepStrictEqual(runMock.mock.calls.map(call => call.arguments), [
         ['git', 'checkout', branchName]
       ])
     })

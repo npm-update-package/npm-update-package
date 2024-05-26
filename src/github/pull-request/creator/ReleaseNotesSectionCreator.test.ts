@@ -40,8 +40,10 @@ await describe('ReleaseNotesSectionCreator', async () => {
 - [v1.0.0](https://github.test/npm-update-package/example/releases/tag/v1.0.0)
 - [v2.0.0](https://github.test/npm-update-package/example/releases/tag/v2.0.0)`)
       assert.strictEqual(optimizeMock.mock.callCount(), 2)
-      assert.deepStrictEqual(optimizeMock.mock.calls[0]?.arguments, ['https://github.com/npm-update-package/example/releases/tag/v1.0.0'])
-      assert.deepStrictEqual(optimizeMock.mock.calls[1]?.arguments, ['https://github.com/npm-update-package/example/releases/tag/v2.0.0'])
+      assert.deepStrictEqual(optimizeMock.mock.calls.map(call => call.arguments), [
+        ['https://github.com/npm-update-package/example/releases/tag/v1.0.0'],
+        ['https://github.com/npm-update-package/example/releases/tag/v2.0.0']
+      ])
     })
   })
 })
