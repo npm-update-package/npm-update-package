@@ -15,7 +15,8 @@ import { createOptions } from './createOptions.js'
 import type { Options } from './Options.js'
 import { isOptions } from './Options.js'
 
-await describe('createOptions', async () => {
+// TODO: Activate when mock.module can use.
+await describe.skip('createOptions', async () => {
   const isOptionsMock = mock.fn(isOptions)
   const { argv } = process
 
@@ -75,8 +76,7 @@ await describe('createOptions', async () => {
     process.argv = argv
   })
 
-  // TODO: Activate when mock.module can use.
-  await it.skip('returns Options if it is valid', () => {
+  await it('returns Options if it is valid', () => {
     // eslint-disable-next-line lodash/prefer-constant
     isOptionsMock.mock.mockImplementation(() => true)
 
@@ -110,8 +110,7 @@ await describe('createOptions', async () => {
     assert.deepStrictEqual(actual, expected)
   })
 
-  // TODO: Activate when mock.module can use.
-  await it.skip('throws error if Options is invalid', () => {
+  await it('throws error if Options is invalid', () => {
     // eslint-disable-next-line lodash/prefer-constant
     isOptionsMock.mock.mockImplementation(() => false)
 

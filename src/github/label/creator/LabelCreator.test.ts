@@ -14,7 +14,8 @@ import type {
 import { LabelCreator } from './LabelCreator.js'
 
 await describe('LabelCreator', async () => {
-  await describe('create', async () => {
+  // TODO: Activate when mock.module can use.
+  await describe.skip('create', async () => {
     const isNotFoundErrorMock = mock.fn(isNotFoundError)
     const createLabelMock = mock.fn<GitHub['createLabel']>()
     const fetchLabelMock = mock.fn<GitHub['fetchLabel']>()
@@ -33,8 +34,7 @@ await describe('LabelCreator', async () => {
       fetchLabelMock.mock.resetCalls()
     })
 
-    // TODO: Activate when mock.module can use.
-    await it.skip('does not create label if it already exists', async () => {
+    await it('does not create label if it already exists', async () => {
       const labelCreator = new LabelCreator({
         github,
         gitRepo
@@ -65,8 +65,7 @@ await describe('LabelCreator', async () => {
       assert.deepStrictEqual(createLabelMock.mock.calls.map(call => call.arguments), [])
     })
 
-    // TODO: Activate when mock.module can use.
-    await it.skip('creates label if it does not exist', async () => {
+    await it('creates label if it does not exist', async () => {
       const labelCreator = new LabelCreator({
         github,
         gitRepo
@@ -109,8 +108,7 @@ await describe('LabelCreator', async () => {
       ])
     })
 
-    // TODO: Activate when mock.module can use.
-    await it.skip('throws error if it occurred when fetching label', async () => {
+    await it('throws error if it occurred when fetching label', async () => {
       const labelCreator = new LabelCreator({
         github,
         gitRepo

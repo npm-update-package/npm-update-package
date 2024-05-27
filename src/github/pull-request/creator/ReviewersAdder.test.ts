@@ -10,7 +10,8 @@ import type { GitHub } from '../../GitHub.js'
 import { ReviewersAdder } from './ReviewersAdder.js'
 
 await describe('ReviewersAdder', async () => {
-  await describe('add', async () => {
+  // TODO: Activate when mock.module can use.
+  await describe.skip('add', async () => {
     const sampleSizeMock = mock.fn(sampleSize)
     const requestReviewersMock = mock.fn<GitHub['requestReviewers']>()
     const github = {
@@ -24,8 +25,7 @@ await describe('ReviewersAdder', async () => {
     const pullNumber = 1
     const reviewers = ['alice', 'bob']
 
-    // TODO: Activate when mock.module can use.
-    await it.skip('adds all reviewers if size is not specified', async () => {
+    await it('adds all reviewers if size is not specified', async () => {
       const reviewersAdder = new ReviewersAdder({
         github,
         gitRepo
@@ -50,8 +50,7 @@ await describe('ReviewersAdder', async () => {
       ])
     })
 
-    // TODO: Activate when mock.module can use.
-    await it.skip('adds specified number of reviewers if size is specified', async () => {
+    await it('adds specified number of reviewers if size is specified', async () => {
       const github = {
         requestReviewers: requestReviewersMock
       } as unknown as GitHub

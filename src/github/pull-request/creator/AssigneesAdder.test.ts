@@ -11,7 +11,8 @@ import type { GitHub } from '../../GitHub.js'
 import { AssigneesAdder } from './AssigneesAdder.js'
 
 await describe('AssigneesAdder', async () => {
-  await describe('add', async () => {
+  // TODO: Activate when mock.module can use.
+  await describe.skip('add', async () => {
     const sampleSizeMock = mock.fn(sampleSize)
     const addAssigneesMock = mock.fn<GitHub['addAssignees']>()
     const github = {
@@ -30,8 +31,7 @@ await describe('AssigneesAdder', async () => {
       addAssigneesMock.mock.resetCalls()
     })
 
-    // TODO: Activate when mock.module can use.
-    await it.skip('adds all assignees if size is not specified', async () => {
+    await it('adds all assignees if size is not specified', async () => {
       const assigneesAdder = new AssigneesAdder({
         github,
         gitRepo
@@ -56,8 +56,7 @@ await describe('AssigneesAdder', async () => {
       ])
     })
 
-    // TODO: Activate when mock.module can use.
-    await it.skip('adds specified number of assignees if size is specified', async () => {
+    await it('adds specified number of assignees if size is specified', async () => {
       const assigneesAdder = new AssigneesAdder({
         github,
         gitRepo
