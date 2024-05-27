@@ -15,18 +15,18 @@ import { PackageUpdater } from './PackageUpdater.js'
 
 await describe('PackageUpdater', async () => {
   await describe('update', async () => {
-    const packageManagerInstallMock = mock.fn<PackageManager['install']>()
+    const installMock = mock.fn<PackageManager['install']>()
     const packageManager = {
-      install: packageManagerInstallMock
+      install: installMock
     } as unknown as PackageManager
-    const ncuUpdateMock = mock.fn<NpmCheckUpdates['update']>()
+    const updateMock = mock.fn<NpmCheckUpdates['update']>()
     const ncu = {
-      update: ncuUpdateMock
+      update: updateMock
     } as unknown as NpmCheckUpdates
 
     afterEach(() => {
-      packageManagerInstallMock.mock.resetCalls()
-      ncuUpdateMock.mock.resetCalls()
+      installMock.mock.resetCalls()
+      updateMock.mock.resetCalls()
     })
 
     await it('returns undefined if succeeded to install package', async () => {
@@ -41,17 +41,17 @@ await describe('PackageUpdater', async () => {
         level: SemVerLevel.Major,
         dependencyType: DependencyType.Dependencies
       }
-      ncuUpdateMock.mock.mockImplementation(async () => await Promise.resolve([outdatedPackage]))
-      packageManagerInstallMock.mock.mockImplementation(async () => { await Promise.resolve() })
+      updateMock.mock.mockImplementation(async () => await Promise.resolve([outdatedPackage]))
+      installMock.mock.mockImplementation(async () => { await Promise.resolve() })
 
       await packageUpdater.update(outdatedPackage)
 
-      assert.strictEqual(ncuUpdateMock.mock.callCount(), 1)
-      assert.deepStrictEqual(ncuUpdateMock.mock.calls.map(call => call.arguments), [
+      assert.strictEqual(updateMock.mock.callCount(), 1)
+      assert.deepStrictEqual(updateMock.mock.calls.map(call => call.arguments), [
         [outdatedPackage]
       ])
-      assert.strictEqual(packageManagerInstallMock.mock.callCount(), 1)
-      assert.deepStrictEqual(packageManagerInstallMock.mock.calls.map(call => call.arguments), [
+      assert.strictEqual(installMock.mock.callCount(), 1)
+      assert.deepStrictEqual(installMock.mock.calls.map(call => call.arguments), [
         []
       ])
     })
@@ -68,17 +68,17 @@ await describe('PackageUpdater', async () => {
         level: SemVerLevel.Major,
         dependencyType: DependencyType.Dependencies
       }
-      ncuUpdateMock.mock.mockImplementation(async () => await Promise.resolve([]))
-      packageManagerInstallMock.mock.mockImplementation(async () => { await Promise.resolve() })
+      updateMock.mock.mockImplementation(async () => await Promise.resolve([]))
+      installMock.mock.mockImplementation(async () => { await Promise.resolve() })
 
       await assert.rejects(packageUpdater.update(outdatedPackage), Error)
 
-      assert.strictEqual(ncuUpdateMock.mock.callCount(), 1)
-      assert.deepStrictEqual(ncuUpdateMock.mock.calls.map(call => call.arguments), [
+      assert.strictEqual(updateMock.mock.callCount(), 1)
+      assert.deepStrictEqual(updateMock.mock.calls.map(call => call.arguments), [
         [outdatedPackage]
       ])
-      assert.strictEqual(packageManagerInstallMock.mock.callCount(), 0)
-      assert.deepStrictEqual(packageManagerInstallMock.mock.calls.map(call => call.arguments), [])
+      assert.strictEqual(installMock.mock.callCount(), 0)
+      assert.deepStrictEqual(installMock.mock.calls.map(call => call.arguments), [])
     })
   })
 })
