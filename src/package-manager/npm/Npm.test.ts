@@ -21,7 +21,7 @@ await describe('Npm', async () => {
 
   await describe('getVersions', async () => {
     await describe('calls `npm info <package-name> versions --json', async () => {
-      const packageName = '@npm-async update-package/example'
+      const packageName = '@npm-update-package/example'
 
       await it('returns versions if stdout is valid', async () => {
         const expected = [
