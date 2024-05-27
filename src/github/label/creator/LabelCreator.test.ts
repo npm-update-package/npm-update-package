@@ -125,8 +125,7 @@ await describe('LabelCreator', async () => {
           description: 'Created by npm-update-package',
           color: 'A00F21'
         })
-      }
-      , error)
+      }, error)
 
       assert.strictEqual(fetchLabelMock.mock.callCount(), 1)
       assert.deepStrictEqual(fetchLabelMock.mock.calls.map(call => call.arguments), [

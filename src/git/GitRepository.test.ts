@@ -3,7 +3,6 @@ import {
   describe,
   it
 } from 'node:test'
-import { URL } from 'node:url'
 import { each } from 'test-each'
 import { GitRepository } from './GitRepository.js'
 
@@ -13,7 +12,7 @@ await describe('GitRepository', async () => {
       const inputs: Array<{
         repository: string
         expected: {
-          url: URL
+          url: string
           owner: string
           name: string
           isGitHub: boolean
@@ -22,7 +21,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'npm-update-package/example',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -31,7 +30,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'github:npm-update-package/example',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -40,7 +39,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'https://github.com/npm-update-package/example',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -49,7 +48,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'https://github.com/npm-update-package/example.git',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -58,7 +57,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'git://github.com/npm-update-package/example',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -67,7 +66,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'git://github.com/npm-update-package/example.git',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -76,7 +75,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'git+https://github.com/npm-update-package/example',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -85,7 +84,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'git+https://github.com/npm-update-package/example.git',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -94,7 +93,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'git+ssh://github.com/npm-update-package/example',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -103,7 +102,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'git+ssh://github.com/npm-update-package/example.git',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -112,7 +111,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'git@github.com:npm-update-package/example',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -121,7 +120,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'git@github.com:npm-update-package/example.git',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -130,7 +129,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'https://git.test/npm-update-package/example',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -139,7 +138,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'https://git.test/npm-update-package/example.git',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -148,7 +147,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'git://git.test/npm-update-package/example',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -157,7 +156,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'git://git.test/npm-update-package/example.git',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -166,7 +165,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'git+https://git.test/npm-update-package/example',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -175,7 +174,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'git+https://git.test/npm-update-package/example.git',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -184,7 +183,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'git+ssh://git.test/npm-update-package/example',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -193,7 +192,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'git+ssh://git.test/npm-update-package/example.git',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -202,7 +201,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'git@git.test:npm-update-package/example',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -211,7 +210,7 @@ await describe('GitRepository', async () => {
         {
           repository: 'git@git.test:npm-update-package/example.git',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -223,7 +222,7 @@ await describe('GitRepository', async () => {
           const actual = GitRepository.of(repository)
 
           assert.ok(actual instanceof GitRepository)
-          assert.strictEqual(actual.url.toString(), expected.url.toString())
+          assert.strictEqual(actual.url.toString(), expected.url)
           assert.strictEqual(actual.owner, expected.owner)
           assert.strictEqual(actual.name, expected.name)
           assert.strictEqual(actual.isGitHub, expected.isGitHub)

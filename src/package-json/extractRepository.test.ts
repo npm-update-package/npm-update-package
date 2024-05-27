@@ -3,7 +3,6 @@ import {
   describe,
   it
 } from 'node:test'
-import { URL } from 'node:url'
 import { each } from 'test-each'
 import { GitRepository } from '../git/GitRepository.js'
 import { extractRepository } from './extractRepository.js'
@@ -14,7 +13,7 @@ await describe('extractRepository', async () => {
     const inputs: Array<{
       metadata: PackageMetadata
       expected: {
-        url: URL
+        url: string
         owner: string
         name: string
         isGitHub: boolean
@@ -27,7 +26,7 @@ await describe('extractRepository', async () => {
           repository: 'npm-update-package/example'
         },
         expected: {
-          url: new URL('https://github.com/npm-update-package/example'),
+          url: 'https://github.com/npm-update-package/example',
           owner: 'npm-update-package',
           name: 'example',
           isGitHub: true
@@ -42,7 +41,7 @@ await describe('extractRepository', async () => {
           }
         },
         expected: {
-          url: new URL('https://github.com/npm-update-package/example'),
+          url: 'https://github.com/npm-update-package/example',
           owner: 'npm-update-package',
           name: 'example',
           isGitHub: true
@@ -57,7 +56,7 @@ await describe('extractRepository', async () => {
           }
         },
         expected: {
-          url: new URL('https://git.test/npm-update-package/example'),
+          url: 'https://git.test/npm-update-package/example',
           owner: 'npm-update-package',
           name: 'example',
           isGitHub: false
@@ -69,7 +68,7 @@ await describe('extractRepository', async () => {
         const actual = extractRepository(metadata)
 
         assert.ok(actual instanceof GitRepository)
-        assert.strictEqual(actual.url.toString(), expected.url.toString())
+        assert.strictEqual(actual.url.toString(), expected.url)
         assert.strictEqual(actual.owner, expected.owner)
         assert.strictEqual(actual.name, expected.name)
         assert.strictEqual(actual.isGitHub, expected.isGitHub)
