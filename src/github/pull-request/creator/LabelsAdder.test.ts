@@ -39,6 +39,7 @@ await describe('LabelsAdder', async () => {
 
       await labelsAdder.add(issueNumber)
 
+      assert.strictEqual(addLabelsMock.mock.callCount(), 1)
       assert.deepStrictEqual(addLabelsMock.mock.calls.map(call => call.arguments), [
         [
           {
@@ -61,6 +62,7 @@ await describe('LabelsAdder', async () => {
 
       await labelsAdder.add(issueNumber)
 
+      assert.strictEqual(addLabelsMock.mock.callCount(), 1)
       assert.deepStrictEqual(addLabelsMock.mock.calls.map(call => call.arguments), [
         [
           {
