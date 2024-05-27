@@ -42,7 +42,6 @@ await describe('PackageManagerCreator', async () => {
 
           assert.ok(actual instanceof expected)
           assert.strictEqual(detectPackageManagerMock.mock.callCount(), 0)
-          assert.deepStrictEqual(detectPackageManagerMock.mock.calls.map(call => call.arguments), [])
         })
       })
     })

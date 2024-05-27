@@ -60,9 +60,7 @@ await describe('LabelCreator', async () => {
         ]
       ])
       assert.strictEqual(isNotFoundErrorMock.mock.callCount(), 0)
-      assert.deepStrictEqual(isNotFoundErrorMock.mock.calls.map(call => call.arguments), [])
       assert.strictEqual(createLabelMock.mock.callCount(), 0)
-      assert.deepStrictEqual(createLabelMock.mock.calls.map(call => call.arguments), [])
     })
 
     await it('creates label if it does not exist', async () => {
@@ -140,7 +138,6 @@ await describe('LabelCreator', async () => {
         [error]
       ])
       assert.strictEqual(createLabelMock.mock.callCount(), 0)
-      assert.deepStrictEqual(createLabelMock.mock.calls.map(call => call.arguments), [])
     })
   })
 })

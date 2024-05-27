@@ -36,7 +36,6 @@ await describe('ReviewersAdder', async () => {
       })
 
       assert.strictEqual(sampleSizeMock.mock.callCount(), 0)
-      assert.deepStrictEqual(sampleSizeMock.mock.calls.map(call => call.arguments), [])
       assert.strictEqual(requestReviewersMock.mock.callCount(), 1)
       assert.deepStrictEqual(requestReviewersMock.mock.calls.map(call => call.arguments), [
         [

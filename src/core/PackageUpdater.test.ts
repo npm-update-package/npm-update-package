@@ -67,7 +67,6 @@ await describe('PackageUpdater', async () => {
         [outdatedPackage]
       ])
       assert.strictEqual(installMock.mock.callCount(), 0)
-      assert.deepStrictEqual(installMock.mock.calls.map(call => call.arguments), [])
     })
   })
 })
