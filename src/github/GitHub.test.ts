@@ -198,7 +198,7 @@ await describe('GitHub', async () => {
       const title = 'test title'
       const body = 'test body'
       const draft = true
-      pullsCreateMock.mock.mockImplementation(async () => await Promise.resolve({ data: expected } as unknown as Awaited<ReturnType<typeof pullsCreateMock>>))
+      pullsCreateMock.mock.mockImplementation(async () => await Promise.resolve({ data: expected } as unknown as Awaited<ReturnType<Octokit['pulls']['create']>>))
 
       const actual = await github.createPullRequest({
         owner,
@@ -303,7 +303,7 @@ await describe('GitHub', async () => {
       const owner = 'npm-update-package'
       const repo = 'example'
       const name = 'test label'
-      issuesGetLabelMock.mock.mockImplementation(async () => await Promise.resolve({ data: expected } as unknown as Awaited<ReturnType<typeof issuesGetLabelMock>>))
+      issuesGetLabelMock.mock.mockImplementation(async () => await Promise.resolve({ data: expected } as unknown as Awaited<ReturnType<Octokit['issues']['getLabel']>>))
 
       const actual = await github.fetchLabel({
         owner,
@@ -374,7 +374,7 @@ await describe('GitHub', async () => {
       } as unknown as Repository
       const owner = 'npm-update-package'
       const repo = 'example'
-      reposGetMock.mock.mockImplementation(async () => await Promise.resolve({ data: expected } as unknown as Awaited<ReturnType<typeof reposGetMock>>))
+      reposGetMock.mock.mockImplementation(async () => await Promise.resolve({ data: expected } as unknown as Awaited<ReturnType<Octokit['repos']['get']>>))
 
       const actual = await github.fetchRepository({
         owner,
