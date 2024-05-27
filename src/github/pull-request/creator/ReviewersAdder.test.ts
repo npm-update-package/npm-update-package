@@ -1,5 +1,6 @@
 import assert from 'node:assert'
 import {
+  afterEach,
   describe,
   it,
   mock
@@ -28,6 +29,11 @@ await describe('ReviewersAdder', async () => {
     })
     const pullNumber = 1
     const reviewers = ['alice', 'bob']
+
+    afterEach(() => {
+      sampleSizeMock.mock.resetCalls()
+      requestReviewersMock.mock.resetCalls()
+    })
 
     await it('adds all reviewers if size is not specified', async () => {
       await reviewersAdder.add({
