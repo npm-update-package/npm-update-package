@@ -261,7 +261,6 @@ await describe('PullRequestBodyCreator', async () => {
           assert.deepStrictEqual(createOutdatedPackagesTableMock.mock.calls.map(call => call.arguments), [
             [outdatedPackage]
           ])
-
           assert.strictEqual(packageDiffsSectionCreatorCreateMock.mock.callCount(), 1)
           assert.deepStrictEqual(packageDiffsSectionCreatorCreateMock.mock.calls.map(call => call.arguments), [
             [
