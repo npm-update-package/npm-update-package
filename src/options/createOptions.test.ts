@@ -20,7 +20,6 @@ await describe('createOptions', async () => {
   const { argv } = process
 
   beforeEach(() => {
-    isOptionsMock.mock.resetCalls()
     process.argv = [
       ...argv.slice(0, 2),
       '--additional-labels',
@@ -72,6 +71,7 @@ await describe('createOptions', async () => {
   })
 
   afterEach(() => {
+    isOptionsMock.mock.resetCalls()
     process.argv = argv
   })
 
