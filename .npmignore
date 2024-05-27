@@ -1,4 +1,3 @@
 # NOTE: The `files` field of `package.json` file doesn't work properly, so we are using the `.npmignore` file.
 **/*
 !/dist/**/*
-/dist/**/*.test.js
