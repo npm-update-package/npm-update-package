@@ -27,19 +27,6 @@ import type { ReleaseNotesSectionCreator } from './ReleaseNotesSectionCreator.js
 await describe('PullRequestBodyCreator', async () => {
   await describe('create', async () => {
     await describe('returns Markdown string', async () => {
-      const outdatedPackage: OutdatedPackage = {
-        name: '@npm-update-package/example',
-        currentVersion: SemVer.of('1.0.0'),
-        newVersion: SemVer.of('2.0.0'),
-        level: SemVerLevel.Major,
-        dependencyType: DependencyType.Dependencies
-      }
-      const packageMetadata: PackageMetadata = {
-        name: '@npm-update-package/example',
-        version: '1.0.0',
-        repository: 'npm-update-package/example'
-      }
-      const packageJson = JSON.stringify(packageMetadata)
       const inputs: Array<{
         options: Options
         gitRepo?: GitRepository
@@ -192,7 +179,6 @@ await describe('PullRequestBodyCreator', async () => {
 <footer>`
         }
       ]
-
       each(inputs, ({ title }, {
         options,
         gitRepo,
@@ -232,6 +218,19 @@ await describe('PullRequestBodyCreator', async () => {
             packageDiffsSectionCreator,
             releaseNotesSectionCreator
           })
+          const outdatedPackage: OutdatedPackage = {
+            name: '@npm-update-package/example',
+            currentVersion: SemVer.of('1.0.0'),
+            newVersion: SemVer.of('2.0.0'),
+            level: SemVerLevel.Major,
+            dependencyType: DependencyType.Dependencies
+          }
+          const packageMetadata: PackageMetadata = {
+            name: '@npm-update-package/example',
+            version: '1.0.0',
+            repository: 'npm-update-package/example'
+          }
+          const packageJson = JSON.stringify(packageMetadata)
           readFileMock.mock.mockImplementation(async () => await Promise.resolve(packageJson))
           parsePackageJsonMock.mock.mockImplementation(() => packageMetadata)
           extractRepositoryMock.mock.mockImplementation(() => gitRepo)
