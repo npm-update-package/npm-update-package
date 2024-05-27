@@ -27,6 +27,10 @@ await describe('LabelCreator', async () => {
       owner: 'npm-update-package',
       name: 'example'
     } as unknown as GitRepository
+    const labelCreator = new LabelCreator({
+      github,
+      gitRepo
+    })
 
     afterEach(() => {
       isNotFoundErrorMock.mock.resetCalls()
@@ -35,10 +39,6 @@ await describe('LabelCreator', async () => {
     })
 
     await it('does not create label if it already exists', async () => {
-      const labelCreator = new LabelCreator({
-        github,
-        gitRepo
-      })
       fetchLabelMock.mock.mockImplementation(async () => await Promise.resolve({
         name: 'npm-update-package'
       } as unknown as Label))
@@ -64,10 +64,6 @@ await describe('LabelCreator', async () => {
     })
 
     await it('creates label if it does not exist', async () => {
-      const labelCreator = new LabelCreator({
-        github,
-        gitRepo
-      })
       const error = new Error('error')
       fetchLabelMock.mock.mockImplementation(async () => await Promise.reject(error))
       isNotFoundErrorMock.mock.mockImplementation(async () => await Promise.resolve(true))
@@ -107,10 +103,6 @@ await describe('LabelCreator', async () => {
     })
 
     await it('throws error if it occurred when fetching label', async () => {
-      const labelCreator = new LabelCreator({
-        github,
-        gitRepo
-      })
       const error = new Error('error')
       fetchLabelMock.mock.mockImplementation(async () => await Promise.reject(error))
       isNotFoundErrorMock.mock.mockImplementation(async () => await Promise.resolve(false))

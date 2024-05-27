@@ -23,6 +23,10 @@ await describe('AssigneesAdder', async () => {
       name: 'example',
       url: 'https://github.com/npm-update-package/example'
     } as unknown as GitRepository
+    const assigneesAdder = new AssigneesAdder({
+      github,
+      gitRepo
+    })
     const issueNumber = 1
     const assignees = ['alice', 'bob']
 
@@ -32,10 +36,6 @@ await describe('AssigneesAdder', async () => {
     })
 
     await it('adds all assignees if size is not specified', async () => {
-      const assigneesAdder = new AssigneesAdder({
-        github,
-        gitRepo
-      })
       await assigneesAdder.add({
         issueNumber,
         assignees
@@ -56,10 +56,6 @@ await describe('AssigneesAdder', async () => {
     })
 
     await it('adds specified number of assignees if size is specified', async () => {
-      const assigneesAdder = new AssigneesAdder({
-        github,
-        gitRepo
-      })
       const size = 1
       sampleSizeMock.mock.mockImplementation(() => ['bob'])
 

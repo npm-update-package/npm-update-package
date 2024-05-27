@@ -58,6 +58,10 @@ await describe('GitHub', async () => {
     }
   } as unknown as Octokit
   const github = new GitHub(octokit)
+  const owner = 'npm-update-package'
+  const repo = 'example'
+  const issueNumber = 1
+  const pullNumber = 2
 
   afterEach(() => {
     gitDeleteRefMock.mock.resetCalls()
@@ -75,9 +79,6 @@ await describe('GitHub', async () => {
 
   await describe('addAssignees', async () => {
     await it('calls octokit.issues.addAssignees()', async () => {
-      const owner = 'npm-update-package'
-      const repo = 'example'
-      const issueNumber = 1
       const assignees = ['npm-update-package-bot']
 
       await github.addAssignees({
@@ -103,9 +104,6 @@ await describe('GitHub', async () => {
 
   await describe('addLabels', async () => {
     await it('calls octokit.issues.addLabels()', async () => {
-      const owner = 'npm-update-package'
-      const repo = 'example'
-      const issueNumber = 1
       const labels = ['test label']
 
       await github.addLabels({
@@ -131,10 +129,6 @@ await describe('GitHub', async () => {
 
   await describe('closePullRequest', async () => {
     await it('calls octokit.pulls.update()', async () => {
-      const owner = 'npm-update-package'
-      const repo = 'example'
-      const pullNumber = 1
-
       await github.closePullRequest({
         owner,
         repo,
@@ -157,8 +151,6 @@ await describe('GitHub', async () => {
 
   await describe('createLabel', async () => {
     await it('calls octokit.issues.createLabel()', async () => {
-      const owner = 'npm-update-package'
-      const repo = 'example'
       const name = 'test label'
       const description = 'test description'
       const color = 'FFFFFF'
@@ -188,16 +180,14 @@ await describe('GitHub', async () => {
 
   await describe('createPullRequest', async () => {
     await it('calls octokit.pulls.create()', async () => {
-      const expected = {
-        id: 1
-      } as unknown as CreatedPullRequest
-      const owner = 'npm-update-package'
-      const repo = 'example'
       const baseBranch = 'master'
       const headBranch = 'develop'
       const title = 'test title'
       const body = 'test body'
       const draft = true
+      const expected = {
+        id: 1
+      } as unknown as CreatedPullRequest
       pullsCreateMock.mock.mockImplementation(async () => await Promise.resolve({ data: expected } as unknown as Awaited<ReturnType<Octokit['pulls']['create']>>))
 
       const actual = await github.createPullRequest({
@@ -230,8 +220,6 @@ await describe('GitHub', async () => {
 
   await describe('deleteBranch', async () => {
     await it('calls octokit.git.deleteRef()', async () => {
-      const owner = 'npm-update-package'
-      const repo = 'example'
       const branch = 'develop'
 
       await github.deleteBranch({
@@ -267,8 +255,6 @@ await describe('GitHub', async () => {
         [9, createBranches(801, 901)],
         [10, []]
       ])
-      const owner = 'npm-update-package'
-      const repo = 'example'
       reposListBranchesMock.mock.mockImplementation((async (params) => {
         const branches = params?.page === undefined ? undefined : branchesByPage.get(params.page)
         return await (branches === undefined ? Promise.reject(new Error('error')) : Promise.resolve({ data: branches }))
@@ -297,12 +283,10 @@ await describe('GitHub', async () => {
 
   await describe('fetchLabel', async () => {
     await it('calls octokit.issues.getLabel()', async () => {
+      const name = 'test label'
       const expected = {
         id: 1
       } as unknown as Label
-      const owner = 'npm-update-package'
-      const repo = 'example'
-      const name = 'test label'
       issuesGetLabelMock.mock.mockImplementation(async () => await Promise.resolve({ data: expected } as unknown as Awaited<ReturnType<Octokit['issues']['getLabel']>>))
 
       const actual = await github.fetchLabel({
@@ -339,8 +323,6 @@ await describe('GitHub', async () => {
         [9, createPullRequests(801, 901)],
         [10, []]
       ])
-      const owner = 'npm-update-package'
-      const repo = 'example'
       pullsListMock.mock.mockImplementation((async (params) => {
         const pullRequests = params?.page === undefined ? undefined : pullRequestsByPage.get(params.page)
         return await (pullRequests === undefined ? Promise.reject(new Error('error')) : Promise.resolve({ data: pullRequests }))
@@ -372,8 +354,6 @@ await describe('GitHub', async () => {
       const expected = {
         id: 1
       } as unknown as Repository
-      const owner = 'npm-update-package'
-      const repo = 'example'
       reposGetMock.mock.mockImplementation(async () => await Promise.resolve({ data: expected } as unknown as Awaited<ReturnType<Octokit['repos']['get']>>))
 
       const actual = await github.fetchRepository({
@@ -396,9 +376,6 @@ await describe('GitHub', async () => {
 
   await describe('requestReviewers', async () => {
     await it('calls octokit.pulls.requestReviewers()', async () => {
-      const owner = 'npm-update-package'
-      const repo = 'example'
-      const pullNumber = 1
       const reviewers = ['npm-update-package-bot']
 
       await github.requestReviewers({

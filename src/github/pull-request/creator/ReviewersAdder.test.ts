@@ -22,14 +22,14 @@ await describe('ReviewersAdder', async () => {
       name: 'example',
       url: 'https://github.com/npm-update-package/example'
     } as unknown as GitRepository
+    const reviewersAdder = new ReviewersAdder({
+      github,
+      gitRepo
+    })
     const pullNumber = 1
     const reviewers = ['alice', 'bob']
 
     await it('adds all reviewers if size is not specified', async () => {
-      const reviewersAdder = new ReviewersAdder({
-        github,
-        gitRepo
-      })
       await reviewersAdder.add({
         pullNumber,
         reviewers
@@ -50,13 +50,6 @@ await describe('ReviewersAdder', async () => {
     })
 
     await it('adds specified number of reviewers if size is specified', async () => {
-      const github = {
-        requestReviewers: requestReviewersMock
-      } as unknown as GitHub
-      const reviewersAdder = new ReviewersAdder({
-        github,
-        gitRepo
-      })
       const size = 1
       sampleSizeMock.mock.mockImplementation(() => ['bob'])
 
