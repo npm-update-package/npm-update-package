@@ -23,6 +23,17 @@ await describe('PackageUpdater', async () => {
     const ncu = {
       update: updateMock
     } as unknown as NpmCheckUpdates
+    const packageUpdater = new PackageUpdater({
+      packageManager,
+      ncu
+    })
+    const outdatedPackage: OutdatedPackage = {
+      name: '@npm-update-package/example',
+      currentVersion: SemVer.of('1.0.0'),
+      newVersion: SemVer.of('2.0.0'),
+      level: SemVerLevel.Major,
+      dependencyType: DependencyType.Dependencies
+    }
 
     afterEach(() => {
       installMock.mock.resetCalls()
@@ -30,17 +41,6 @@ await describe('PackageUpdater', async () => {
     })
 
     await it('returns undefined if succeeded to install package', async () => {
-      const packageUpdater = new PackageUpdater({
-        packageManager,
-        ncu
-      })
-      const outdatedPackage: OutdatedPackage = {
-        name: '@npm-update-package/example',
-        currentVersion: SemVer.of('1.0.0'),
-        newVersion: SemVer.of('2.0.0'),
-        level: SemVerLevel.Major,
-        dependencyType: DependencyType.Dependencies
-      }
       updateMock.mock.mockImplementation(async () => await Promise.resolve([outdatedPackage]))
       installMock.mock.mockImplementation(async () => { await Promise.resolve() })
 
@@ -57,17 +57,6 @@ await describe('PackageUpdater', async () => {
     })
 
     await it('throws error if failed to install package', async () => {
-      const packageUpdater = new PackageUpdater({
-        packageManager,
-        ncu
-      })
-      const outdatedPackage: OutdatedPackage = {
-        name: '@npm-update-package/example',
-        currentVersion: SemVer.of('1.0.0'),
-        newVersion: SemVer.of('2.0.0'),
-        level: SemVerLevel.Major,
-        dependencyType: DependencyType.Dependencies
-      }
       updateMock.mock.mockImplementation(async () => await Promise.resolve([]))
       installMock.mock.mockImplementation(async () => { await Promise.resolve() })
 
