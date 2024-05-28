@@ -1,5 +1,5 @@
 import { Octokit } from '@octokit/rest'
-import pkg from '../../package.json'
+import pkg from '../../package.json' with { type: 'json '}
 
 export const createOctokit = ({
   host,
