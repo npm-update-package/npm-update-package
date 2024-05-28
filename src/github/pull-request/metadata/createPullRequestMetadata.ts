@@ -1,6 +1,6 @@
+import pkg from '../../../../package.json'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
 import type { PullRequestMetadata } from './PullRequestMetadata.js'
-const { default: pkg } = await import('../../../../package.json')
 
 export const createPullRequestMetadata = (outdatedPackages: OutdatedPackage[]): PullRequestMetadata => {
   return {
