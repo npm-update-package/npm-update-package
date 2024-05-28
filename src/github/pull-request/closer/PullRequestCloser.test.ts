@@ -1,31 +1,24 @@
+import assert from 'node:assert'
 import {
-  afterEach,
   describe,
-  expect,
-  it,
-  jest
-} from '@jest/globals'
+  it
+} from 'node:test'
 import type {
   GitHub,
   PullRequest
 } from '../../GitHub.js'
 import { PullRequestCloser } from './PullRequestCloser.js'
 
-describe('PullRequestCloser', () => {
-  describe('close', () => {
-    const githubClosePullRequestMock = jest.fn<GitHub['closePullRequest']>()
-    const githubDeleteBranchMock = jest.fn<GitHub['deleteBranch']>()
-    const github = {
-      closePullRequest: githubClosePullRequestMock,
-      deleteBranch: githubDeleteBranchMock
-    } as unknown as GitHub
-    const pullRequestCreator = new PullRequestCloser(github)
-
-    afterEach(() => {
-      jest.resetAllMocks()
-    })
-
-    it('closes pull request', async () => {
+await describe('PullRequestCloser', async () => {
+  await describe('close', async () => {
+    await it('closes pull request', async ({ mock }) => {
+      const closePullRequestMock = mock.fn<GitHub['closePullRequest']>()
+      const deleteBranchMock = mock.fn<GitHub['deleteBranch']>()
+      const github = {
+        closePullRequest: closePullRequestMock,
+        deleteBranch: deleteBranchMock
+      } as unknown as GitHub
+      const pullRequestCreator = new PullRequestCloser(github)
       const pullRequest = {
         number: 1,
         head: {
@@ -43,16 +36,26 @@ describe('PullRequestCloser', () => {
 
       await pullRequestCreator.close(pullRequest)
 
-      expect(githubClosePullRequestMock).toHaveBeenCalledWith({
-        owner: pullRequest.base.repo.owner.login,
-        repo: pullRequest.base.repo.name,
-        pullNumber: pullRequest.number
-      })
-      expect(githubDeleteBranchMock).toHaveBeenCalledWith({
-        owner: pullRequest.base.repo.owner.login,
-        repo: pullRequest.base.repo.name,
-        branch: pullRequest.head.ref
-      })
+      assert.strictEqual(closePullRequestMock.mock.callCount(), 1)
+      assert.deepStrictEqual(closePullRequestMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner: pullRequest.base.repo.owner.login,
+            repo: pullRequest.base.repo.name,
+            pullNumber: pullRequest.number
+          }
+        ]
+      ])
+      assert.strictEqual(deleteBranchMock.mock.callCount(), 1)
+      assert.deepStrictEqual(deleteBranchMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner: pullRequest.base.repo.owner.login,
+            repo: pullRequest.base.repo.name,
+            branch: pullRequest.head.ref
+          }
+        ]
+      ])
     })
   })
 })

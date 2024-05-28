@@ -1,28 +1,27 @@
-import { URL } from 'node:url'
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
+import { each } from 'test-each'
 import { GitRepository } from './GitRepository.js'
 
-describe('GitRepository', () => {
-  describe('of', () => {
-    describe('returns new GitRepository instance if repository is valid', () => {
-      interface TestCase {
+await describe('GitRepository', async () => {
+  await describe('of', async () => {
+    await describe('returns new GitRepository instance if repository is valid', () => {
+      const inputs: Array<{
         repository: string
         expected: {
-          url: URL
+          url: string
           owner: string
           name: string
           isGitHub: boolean
         }
-      }
-      const cases: TestCase[] = [
+      }> = [
         {
           repository: 'npm-update-package/example',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -31,7 +30,7 @@ describe('GitRepository', () => {
         {
           repository: 'github:npm-update-package/example',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -40,7 +39,7 @@ describe('GitRepository', () => {
         {
           repository: 'https://github.com/npm-update-package/example',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -49,7 +48,7 @@ describe('GitRepository', () => {
         {
           repository: 'https://github.com/npm-update-package/example.git',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -58,7 +57,7 @@ describe('GitRepository', () => {
         {
           repository: 'git://github.com/npm-update-package/example',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -67,7 +66,7 @@ describe('GitRepository', () => {
         {
           repository: 'git://github.com/npm-update-package/example.git',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -76,7 +75,7 @@ describe('GitRepository', () => {
         {
           repository: 'git+https://github.com/npm-update-package/example',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -85,7 +84,7 @@ describe('GitRepository', () => {
         {
           repository: 'git+https://github.com/npm-update-package/example.git',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -94,7 +93,7 @@ describe('GitRepository', () => {
         {
           repository: 'git+ssh://github.com/npm-update-package/example',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -103,7 +102,7 @@ describe('GitRepository', () => {
         {
           repository: 'git+ssh://github.com/npm-update-package/example.git',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -112,7 +111,7 @@ describe('GitRepository', () => {
         {
           repository: 'git@github.com:npm-update-package/example',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -121,7 +120,7 @@ describe('GitRepository', () => {
         {
           repository: 'git@github.com:npm-update-package/example.git',
           expected: {
-            url: new URL('https://github.com/npm-update-package/example'),
+            url: 'https://github.com/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: true
@@ -130,7 +129,7 @@ describe('GitRepository', () => {
         {
           repository: 'https://git.test/npm-update-package/example',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -139,7 +138,7 @@ describe('GitRepository', () => {
         {
           repository: 'https://git.test/npm-update-package/example.git',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -148,7 +147,7 @@ describe('GitRepository', () => {
         {
           repository: 'git://git.test/npm-update-package/example',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -157,7 +156,7 @@ describe('GitRepository', () => {
         {
           repository: 'git://git.test/npm-update-package/example.git',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -166,7 +165,7 @@ describe('GitRepository', () => {
         {
           repository: 'git+https://git.test/npm-update-package/example',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -175,7 +174,7 @@ describe('GitRepository', () => {
         {
           repository: 'git+https://git.test/npm-update-package/example.git',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -184,7 +183,7 @@ describe('GitRepository', () => {
         {
           repository: 'git+ssh://git.test/npm-update-package/example',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -193,7 +192,7 @@ describe('GitRepository', () => {
         {
           repository: 'git+ssh://git.test/npm-update-package/example.git',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -202,7 +201,7 @@ describe('GitRepository', () => {
         {
           repository: 'git@git.test:npm-update-package/example',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
@@ -211,29 +210,28 @@ describe('GitRepository', () => {
         {
           repository: 'git@git.test:npm-update-package/example.git',
           expected: {
-            url: new URL('https://git.test/npm-update-package/example'),
+            url: 'https://git.test/npm-update-package/example',
             owner: 'npm-update-package',
             name: 'example',
             isGitHub: false
           }
         }
       ]
+      each(inputs, ({ title }, { repository, expected }) => {
+        void it(title, () => {
+          const actual = GitRepository.of(repository)
 
-      it.each(cases)('repository=$repository', ({ repository, expected }) => {
-        const actual = GitRepository.of(repository)
-
-        expect(actual).toBeDefined()
-        expect(actual).toBeInstanceOf(GitRepository)
-        expect(actual?.url).toEqual(expected.url)
-        expect(actual?.owner).toBe(expected.owner)
-        expect(actual?.name).toBe(expected.name)
-        expect(actual?.isGitHub).toBe(expected.isGitHub)
+          assert.ok(actual instanceof GitRepository)
+          assert.strictEqual(actual.url.toString(), expected.url)
+          assert.strictEqual(actual.owner, expected.owner)
+          assert.strictEqual(actual.name, expected.name)
+          assert.strictEqual(actual.isGitHub, expected.isGitHub)
+        })
       })
     })
 
-    describe('returns undefined if repository is invalid', () => {
-      type TestCase = string
-      const cases: TestCase[] = [
+    await describe('returns undefined if repository is invalid', () => {
+      const inputs: string[] = [
         '',
         'gist:npm-update-package/example',
         'bitbucket:npm-update-package/example',
@@ -242,11 +240,12 @@ describe('GitRepository', () => {
         'https://github.com',
         'https://github.com/npm-update-package'
       ]
+      each(inputs, ({ title }, repository) => {
+        void it(title, () => {
+          const actual = GitRepository.of(repository)
 
-      it.each(cases)('repository=%p', (repository) => {
-        const actual = GitRepository.of(repository)
-
-        expect(actual).toBeUndefined()
+          assert.strictEqual(actual, undefined)
+        })
       })
     })
   })

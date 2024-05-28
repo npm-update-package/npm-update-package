@@ -1,18 +1,18 @@
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
+import { each } from 'test-each'
 import type { PullRequest } from '../../GitHub.js'
 import { isPullRequestByNpmUpdatePackage } from './isPullRequestByNpmUpdatePackage.js'
 
-describe('isPullRequestByNpmUpdatePackage', () => {
-  describe('returns whether pull request is by npm-update-package', () => {
-    interface TestCase {
+await describe('isPullRequestByNpmUpdatePackage', async () => {
+  await describe('returns whether pull request is by npm-update-package', async () => {
+    const inputs: Array<{
       pullRequest: PullRequest
       expected: boolean
-    }
-    const cases: TestCase[] = [
+    }> = [
       {
         pullRequest: {
           labels: [
@@ -30,11 +30,12 @@ describe('isPullRequestByNpmUpdatePackage', () => {
         expected: false
       }
     ]
+    each(inputs, ({ title }, { pullRequest, expected }) => {
+      void it(title, () => {
+        const actual = isPullRequestByNpmUpdatePackage(pullRequest)
 
-    it.each(cases)('pullRequest=$pullRequest', ({ pullRequest, expected }) => {
-      const actual = isPullRequestByNpmUpdatePackage(pullRequest)
-
-      expect(actual).toBe(expected)
+        assert.strictEqual(actual, expected)
+      })
     })
   })
 })

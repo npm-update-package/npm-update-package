@@ -1,35 +1,27 @@
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
+import { each } from 'test-each'
 import { isPackageMetadataRepository } from './PackageMetadataRepository.js'
 import type { PackageMetadataRepository } from './PackageMetadataRepository.js'
 
-describe('isPackageMetadataRepository', () => {
-  describe('returns whether value is PackageMetadataRepository', () => {
-    interface TestCase {
-      value: unknown
-      expected: boolean
-    }
+await describe('isPackageMetadataRepository', async () => {
+  await describe('returns whether value is PackageMetadataRepository', async () => {
     const repository: PackageMetadataRepository = {
       url: 'https://github.com/npm-update-package/example.git'
     }
-    const cases: TestCase[] = [
-      {
-        value: repository,
-        expected: true
-      },
-      {
-        value: {},
-        expected: false
-      }
+    const inputs: Array<[value: unknown, expected: boolean]> = [
+      [repository, true],
+      [{}, false]
     ]
+    each(inputs, ({ title }, [value, expected]) => {
+      void it(title, () => {
+        const actual = isPackageMetadataRepository(value)
 
-    it.each(cases)('value=$value', ({ value, expected }) => {
-      const actual = isPackageMetadataRepository(value)
-
-      expect(actual).toBe(expected)
+        assert.strictEqual(actual, expected)
+      })
     })
   })
 })

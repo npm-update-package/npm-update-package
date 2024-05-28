@@ -1,59 +1,70 @@
+import assert from 'node:assert'
 import {
   afterEach,
   describe,
-  expect,
   it,
-  jest
-} from '@jest/globals'
+  mock
+} from 'node:test'
 import type { Terminal } from '../../terminal/Terminal.js'
 import { Yarn } from './Yarn.js'
 
-describe('Yarn', () => {
-  const terminalRunMock = jest.fn<Terminal['run']>()
+await describe('Yarn', async () => {
+  const runMock = mock.fn<Terminal['run']>()
   const terminal = {
-    run: terminalRunMock
+    run: runMock
   } as unknown as Terminal
   const yarn = new Yarn(terminal)
 
   afterEach(() => {
-    jest.resetAllMocks()
+    runMock.mock.resetCalls()
   })
 
-  describe('getVersions', () => {
-    describe('calls `yarn info <package-name> versions --json', () => {
+  await describe('getVersions', async () => {
+    await describe('calls `yarn info <package-name> versions --json', async () => {
       const packageName = '@npm-update-package/example'
 
-      it('returns versions if stdout is valid', async () => {
+      await it('returns versions if stdout is valid', async () => {
         const expected = [
           '1.0.0',
           '2.0.0'
         ]
-        terminalRunMock.mockResolvedValue(JSON.stringify({
+        runMock.mock.mockImplementation(async () => await Promise.resolve(JSON.stringify({
           type: 'inspect',
           data: expected
-        }))
+        })))
 
         const actual = await yarn.getVersions(packageName)
 
-        expect(actual).toEqual(expected)
-        expect(terminalRunMock).toHaveBeenCalledWith('yarn', 'info', packageName, 'versions', '--json')
+        assert.deepStrictEqual(actual, expected)
+        assert.strictEqual(runMock.mock.callCount(), 1)
+        assert.deepStrictEqual(runMock.mock.calls.map(call => call.arguments), [
+          ['yarn', 'info', packageName, 'versions', '--json']
+        ])
       })
 
-      it('throws error if stdout is invalid', async () => {
-        terminalRunMock.mockResolvedValue(JSON.stringify({}))
+      await it('throws error if stdout is invalid', async () => {
+        runMock.mock.mockImplementation(async () => await Promise.resolve(JSON.stringify({})))
 
-        await expect(async () => await yarn.getVersions(packageName)).rejects.toThrow(Error)
+        await assert.rejects(async () => await yarn.getVersions(packageName), Error)
 
-        expect(terminalRunMock).toHaveBeenCalledWith('yarn', 'info', packageName, 'versions', '--json')
+        assert.strictEqual(runMock.mock.callCount(), 1)
+        assert.deepStrictEqual(runMock.mock.calls.map(call => call.arguments), [
+          ['yarn', 'info', packageName, 'versions', '--json']
+        ])
       })
     })
   })
 
-  describe('install', () => {
-    it('calls `yarn install`', async () => {
+  await describe('install', async () => {
+    await it('calls `yarn install`', async () => {
+      runMock.mock.mockImplementation(async () => { await Promise.resolve('') })
+
       await yarn.install()
 
-      expect(terminalRunMock).toHaveBeenCalledWith('yarn', 'install')
+      assert.strictEqual(runMock.mock.callCount(), 1)
+      assert.deepStrictEqual(runMock.mock.calls.map(call => call.arguments), [
+        ['yarn', 'install']
+      ])
     })
   })
 })

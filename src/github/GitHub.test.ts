@@ -1,10 +1,10 @@
+import assert from 'node:assert'
 import {
   afterEach,
   describe,
-  expect,
   it,
-  jest
-} from '@jest/globals'
+  mock
+} from 'node:test'
 import type { Octokit } from '@octokit/rest'
 import range from 'lodash/range.js'
 import type {
@@ -17,27 +17,25 @@ import type {
 import { GitHub } from './GitHub.js'
 
 const createBranches = (start: number, end: number): Branch[] => {
-  return range(start, end).map(num => ({
-    name: `branch ${num}`
-  } as unknown as Branch))
+  return range(start, end).map(num => ({ name: `branch ${num}` } as unknown as Branch))
 }
 
 const createPullRequests = (start: number, end: number): PullRequest[] => {
   return range(start, end).map(id => ({ id } as unknown as PullRequest))
 }
 
-describe('GitHub', () => {
-  const gitDeleteRefMock = jest.fn<Octokit['git']['deleteRef']>()
-  const issuesAddAssigneesMock = jest.fn<Octokit['issues']['addAssignees']>()
-  const issuesAddLabelsMock = jest.fn<Octokit['issues']['addLabels']>()
-  const issuesCreateLabelMock = jest.fn<Octokit['issues']['createLabel']>()
-  const issuesGetLabelMock = jest.fn<Octokit['issues']['getLabel']>()
-  const pullsCreateMock = jest.fn<Octokit['pulls']['create']>()
-  const pullsListMock = jest.fn<Octokit['pulls']['list']>()
-  const pullsRequestReviewersMock = jest.fn<Octokit['pulls']['requestReviewers']>()
-  const pullsUpdateMock = jest.fn<Octokit['pulls']['update']>()
-  const reposGetMock = jest.fn<Octokit['repos']['get']>()
-  const reposListBranchesMock = jest.fn<Octokit['repos']['listBranches']>()
+await describe('GitHub', async () => {
+  const gitDeleteRefMock = mock.fn<Octokit['git']['deleteRef']>()
+  const issuesAddAssigneesMock = mock.fn<Octokit['issues']['addAssignees']>()
+  const issuesAddLabelsMock = mock.fn<Octokit['issues']['addLabels']>()
+  const issuesCreateLabelMock = mock.fn<Octokit['issues']['createLabel']>()
+  const issuesGetLabelMock = mock.fn<Octokit['issues']['getLabel']>()
+  const pullsCreateMock = mock.fn<Octokit['pulls']['create']>()
+  const pullsListMock = mock.fn<Octokit['pulls']['list']>()
+  const pullsRequestReviewersMock = mock.fn<Octokit['pulls']['requestReviewers']>()
+  const pullsUpdateMock = mock.fn<Octokit['pulls']['update']>()
+  const reposGetMock = mock.fn<Octokit['repos']['get']>()
+  const reposListBranchesMock = mock.fn<Octokit['repos']['listBranches']>()
   const octokit = {
     git: {
       deleteRef: gitDeleteRefMock
@@ -60,16 +58,27 @@ describe('GitHub', () => {
     }
   } as unknown as Octokit
   const github = new GitHub(octokit)
+  const owner = 'npm-update-package'
+  const repo = 'example'
+  const issueNumber = 1
+  const pullNumber = 2
 
   afterEach(() => {
-    jest.resetAllMocks()
+    gitDeleteRefMock.mock.resetCalls()
+    issuesAddAssigneesMock.mock.resetCalls()
+    issuesAddLabelsMock.mock.resetCalls()
+    issuesCreateLabelMock.mock.resetCalls()
+    issuesGetLabelMock.mock.resetCalls()
+    pullsCreateMock.mock.resetCalls()
+    pullsListMock.mock.resetCalls()
+    pullsRequestReviewersMock.mock.resetCalls()
+    pullsUpdateMock.mock.resetCalls()
+    reposGetMock.mock.resetCalls()
+    reposListBranchesMock.mock.resetCalls()
   })
 
-  describe('addAssignees', () => {
-    it('calls octokit.issues.addAssignees()', async () => {
-      const owner = 'npm-update-package'
-      const repo = 'example'
-      const issueNumber = 1
+  await describe('addAssignees', async () => {
+    await it('calls octokit.issues.addAssignees()', async () => {
       const assignees = ['npm-update-package-bot']
 
       await github.addAssignees({
@@ -79,20 +88,22 @@ describe('GitHub', () => {
         assignees
       })
 
-      expect(issuesAddAssigneesMock).toHaveBeenCalledWith({
-        owner,
-        repo,
-        issue_number: issueNumber,
-        assignees
-      })
+      assert.strictEqual(issuesAddAssigneesMock.mock.callCount(), 1)
+      assert.deepStrictEqual(issuesAddAssigneesMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner,
+            repo,
+            issue_number: issueNumber,
+            assignees
+          }
+        ]
+      ])
     })
   })
 
-  describe('addLabels', () => {
-    it('calls octokit.issues.addLabels()', async () => {
-      const owner = 'npm-update-package'
-      const repo = 'example'
-      const issueNumber = 1
+  await describe('addLabels', async () => {
+    await it('calls octokit.issues.addLabels()', async () => {
       const labels = ['test label']
 
       await github.addLabels({
@@ -102,40 +113,44 @@ describe('GitHub', () => {
         labels
       })
 
-      expect(issuesAddLabelsMock).toHaveBeenCalledWith({
-        owner,
-        repo,
-        issue_number: issueNumber,
-        labels
-      })
+      assert.strictEqual(issuesAddLabelsMock.mock.callCount(), 1)
+      assert.deepStrictEqual(issuesAddLabelsMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner,
+            repo,
+            issue_number: issueNumber,
+            labels
+          }
+        ]
+      ])
     })
   })
 
-  describe('closePullRequest', () => {
-    it('calls octokit.pulls.update()', async () => {
-      const owner = 'npm-update-package'
-      const repo = 'example'
-      const pullNumber = 1
-
+  await describe('closePullRequest', async () => {
+    await it('calls octokit.pulls.update()', async () => {
       await github.closePullRequest({
         owner,
         repo,
         pullNumber
       })
 
-      expect(pullsUpdateMock).toHaveBeenCalledWith({
-        owner,
-        repo,
-        pull_number: pullNumber,
-        state: 'closed'
-      })
+      assert.strictEqual(pullsUpdateMock.mock.callCount(), 1)
+      assert.deepStrictEqual(pullsUpdateMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner,
+            repo,
+            pull_number: pullNumber,
+            state: 'closed'
+          }
+        ]
+      ])
     })
   })
 
-  describe('createLabel', () => {
-    it('calls octokit.issues.createLabel()', async () => {
-      const owner = 'npm-update-package'
-      const repo = 'example'
+  await describe('createLabel', async () => {
+    await it('calls octokit.issues.createLabel()', async () => {
       const name = 'test label'
       const description = 'test description'
       const color = 'FFFFFF'
@@ -148,29 +163,32 @@ describe('GitHub', () => {
         color
       })
 
-      expect(issuesCreateLabelMock).toHaveBeenCalledWith({
-        owner,
-        repo,
-        name,
-        description,
-        color
-      })
+      assert.strictEqual(issuesCreateLabelMock.mock.callCount(), 1)
+      assert.deepStrictEqual(issuesCreateLabelMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner,
+            repo,
+            name,
+            description,
+            color
+          }
+        ]
+      ])
     })
   })
 
-  describe('createPullRequest', () => {
-    it('calls octokit.pulls.create()', async () => {
-      const expected = {
-        id: 1
-      } as unknown as CreatedPullRequest
-      pullsCreateMock.mockResolvedValue({ data: expected } as unknown as Awaited<ReturnType<typeof pullsCreateMock>>)
-      const owner = 'npm-update-package'
-      const repo = 'example'
+  await describe('createPullRequest', async () => {
+    await it('calls octokit.pulls.create()', async () => {
       const baseBranch = 'master'
       const headBranch = 'develop'
       const title = 'test title'
       const body = 'test body'
       const draft = true
+      const expected = {
+        id: 1
+      } as unknown as CreatedPullRequest
+      pullsCreateMock.mock.mockImplementation(async () => await Promise.resolve({ data: expected } as unknown as Awaited<ReturnType<Octokit['pulls']['create']>>))
 
       const actual = await github.createPullRequest({
         owner,
@@ -182,23 +200,26 @@ describe('GitHub', () => {
         draft
       })
 
-      expect(actual).toBe(expected)
-      expect(pullsCreateMock).toHaveBeenCalledWith({
-        owner,
-        repo,
-        base: baseBranch,
-        head: headBranch,
-        title,
-        body,
-        draft
-      })
+      assert.strictEqual(actual, expected)
+      assert.strictEqual(pullsCreateMock.mock.callCount(), 1)
+      assert.deepStrictEqual(pullsCreateMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner,
+            repo,
+            base: baseBranch,
+            head: headBranch,
+            title,
+            body,
+            draft
+          }
+        ]
+      ])
     })
   })
 
-  describe('deleteBranch', () => {
-    it('calls octokit.git.deleteRef()', async () => {
-      const owner = 'npm-update-package'
-      const repo = 'example'
+  await describe('deleteBranch', async () => {
+    await it('calls octokit.git.deleteRef()', async () => {
       const branch = 'develop'
 
       await github.deleteBranch({
@@ -207,16 +228,21 @@ describe('GitHub', () => {
         branch
       })
 
-      expect(gitDeleteRefMock).toHaveBeenCalledWith({
-        owner,
-        repo,
-        ref: `heads/${branch}`
-      })
+      assert.strictEqual(gitDeleteRefMock.mock.callCount(), 1)
+      assert.deepStrictEqual(gitDeleteRefMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner,
+            repo,
+            ref: `heads/${branch}`
+          }
+        ]
+      ])
     })
   })
 
-  describe('fetchBranches', () => {
-    it('calls octokit.repos.listBranches()', async () => {
+  await describe('fetchBranches', async () => {
+    await it('calls octokit.repos.listBranches()', async () => {
       const branchesByPage = new Map([
         [1, createBranches(1, 101)],
         [2, createBranches(101, 201)],
@@ -229,41 +255,39 @@ describe('GitHub', () => {
         [9, createBranches(801, 901)],
         [10, []]
       ])
-      reposListBranchesMock.mockImplementation((async (params) => {
+      reposListBranchesMock.mock.mockImplementation((async (params) => {
         const branches = params?.page === undefined ? undefined : branchesByPage.get(params.page)
         return await (branches === undefined ? Promise.reject(new Error('error')) : Promise.resolve({ data: branches }))
       }) as Octokit['repos']['listBranches'])
-      const owner = 'npm-update-package'
-      const repo = 'example'
 
       const actual = await github.fetchBranches({
         owner,
         repo
       })
 
-      expect.assertions(2 + 10)
-      expect(actual).toEqual(Array.from(branchesByPage.values()).flat())
-      expect(reposListBranchesMock).toHaveBeenCalledTimes(10)
-      Array.from(branchesByPage.keys()).forEach(page => {
-        expect(reposListBranchesMock).toHaveBeenCalledWith({
-          owner,
-          repo,
-          per_page: 100,
-          page
-        })
-      })
+      assert.deepStrictEqual(actual, Array.from(branchesByPage.values()).flat())
+      assert.strictEqual(reposListBranchesMock.mock.callCount(), 10)
+      assert.deepStrictEqual(
+        reposListBranchesMock.mock.calls.map(call => call.arguments),
+        Array.from(branchesByPage.keys()).map(page => [
+          {
+            owner,
+            repo,
+            per_page: 100,
+            page
+          }
+        ])
+      )
     })
   })
 
-  describe('fetchLabel', () => {
-    it('calls octokit.issues.getLabel()', async () => {
+  await describe('fetchLabel', async () => {
+    await it('calls octokit.issues.getLabel()', async () => {
+      const name = 'test label'
       const expected = {
         id: 1
       } as unknown as Label
-      issuesGetLabelMock.mockResolvedValue({ data: expected } as unknown as Awaited<ReturnType<typeof issuesGetLabelMock>>)
-      const owner = 'npm-update-package'
-      const repo = 'example'
-      const name = 'test label'
+      issuesGetLabelMock.mock.mockImplementation(async () => await Promise.resolve({ data: expected } as unknown as Awaited<ReturnType<Octokit['issues']['getLabel']>>))
 
       const actual = await github.fetchLabel({
         owner,
@@ -271,17 +295,22 @@ describe('GitHub', () => {
         name
       })
 
-      expect(actual).toBe(expected)
-      expect(issuesGetLabelMock).toHaveBeenCalledWith({
-        owner,
-        repo,
-        name
-      })
+      assert.strictEqual(actual, expected)
+      assert.strictEqual(issuesGetLabelMock.mock.callCount(), 1)
+      assert.deepStrictEqual(issuesGetLabelMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner,
+            repo,
+            name
+          }
+        ]
+      ])
     })
   })
 
-  describe('fetchPullRequests', () => {
-    it('calls octokit.pulls.list()', async () => {
+  await describe('fetchPullRequests', async () => {
+    await it('calls octokit.pulls.list()', async () => {
       const pullRequestsByPage = new Map([
         [1, createPullRequests(1, 101)],
         [2, createPullRequests(101, 201)],
@@ -294,59 +323,59 @@ describe('GitHub', () => {
         [9, createPullRequests(801, 901)],
         [10, []]
       ])
-      pullsListMock.mockImplementation((async (params) => {
+      pullsListMock.mock.mockImplementation((async (params) => {
         const pullRequests = params?.page === undefined ? undefined : pullRequestsByPage.get(params.page)
         return await (pullRequests === undefined ? Promise.reject(new Error('error')) : Promise.resolve({ data: pullRequests }))
       }) as Octokit['pulls']['list'])
-      const owner = 'npm-update-package'
-      const repo = 'example'
 
       const actual = await github.fetchPullRequests({
         owner,
         repo
       })
 
-      expect.assertions(2 + 10)
-      expect(actual).toEqual(Array.from(pullRequestsByPage.values()).flat())
-      expect(pullsListMock).toHaveBeenCalledTimes(10)
-      Array.from(pullRequestsByPage.keys()).forEach(page => {
-        expect(pullsListMock).toHaveBeenCalledWith({
-          owner,
-          repo,
-          per_page: 100,
-          page
-        })
-      })
+      assert.deepStrictEqual(actual, Array.from(pullRequestsByPage.values()).flat())
+      assert.strictEqual(pullsListMock.mock.callCount(), 10)
+      assert.deepStrictEqual(
+        pullsListMock.mock.calls.map(call => call.arguments),
+        Array.from(pullRequestsByPage.keys()).map(page => [
+          {
+            owner,
+            repo,
+            per_page: 100,
+            page
+          }
+        ])
+      )
     })
   })
 
-  describe('fetchRepository', () => {
-    it('calls octokit.repos.get()', async () => {
+  await describe('fetchRepository', async () => {
+    await it('calls octokit.repos.get()', async () => {
       const expected = {
         id: 1
       } as unknown as Repository
-      reposGetMock.mockResolvedValue({ data: expected } as unknown as Awaited<ReturnType<typeof reposGetMock>>)
-      const owner = 'npm-update-package'
-      const repo = 'example'
+      reposGetMock.mock.mockImplementation(async () => await Promise.resolve({ data: expected } as unknown as Awaited<ReturnType<Octokit['repos']['get']>>))
 
       const actual = await github.fetchRepository({
         owner,
         repo
       })
 
-      expect(actual).toBe(expected)
-      expect(reposGetMock).toHaveBeenCalledWith({
-        owner,
-        repo
-      })
+      assert.strictEqual(actual, expected)
+      assert.strictEqual(reposGetMock.mock.callCount(), 1)
+      assert.deepStrictEqual(reposGetMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner,
+            repo
+          }
+        ]
+      ])
     })
   })
 
-  describe('requestReviewers', () => {
-    it('calls octokit.pulls.requestReviewers()', async () => {
-      const owner = 'npm-update-package'
-      const repo = 'example'
-      const pullNumber = 1
+  await describe('requestReviewers', async () => {
+    await it('calls octokit.pulls.requestReviewers()', async () => {
       const reviewers = ['npm-update-package-bot']
 
       await github.requestReviewers({
@@ -356,12 +385,17 @@ describe('GitHub', () => {
         reviewers
       })
 
-      expect(pullsRequestReviewersMock).toHaveBeenCalledWith({
-        owner,
-        repo,
-        pull_number: pullNumber,
-        reviewers
-      })
+      assert.strictEqual(pullsRequestReviewersMock.mock.callCount(), 1)
+      assert.deepStrictEqual(pullsRequestReviewersMock.mock.calls.map(call => call.arguments), [
+        [
+          {
+            owner,
+            repo,
+            pull_number: pullNumber,
+            reviewers
+          }
+        ]
+      ])
     })
   })
 })

@@ -1,8 +1,9 @@
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
+import { each } from 'test-each'
 import { LogLevel } from '../logger/LogLevel.js'
 import { OutdatedPullRequestStrategy } from '../outdated-package-processor/OutdatedPullRequestStrategy.js'
 import { DependencyType } from '../package-json/DependencyType.js'
@@ -10,12 +11,8 @@ import { PackageManagerName } from '../package-manager/PackageManagerName.js'
 import { isOptions } from './Options.js'
 import type { Options } from './Options.js'
 
-describe('isOptions', () => {
-  describe('returns whether value is Options', () => {
-    interface TestCase {
-      value: unknown
-      expected: boolean
-    }
+await describe('isOptions', async () => {
+  await describe('returns whether value is Options', async () => {
     const options: Options = {
       additionalLabels: ['bot', 'dependencies'],
       commitMessage: 'test commitMessage',
@@ -41,24 +38,16 @@ describe('isOptions', () => {
       prBodyNotes: 'test prBodyNotes',
       reviewers: ['npm-update-package-bot']
     }
-    const cases: TestCase[] = [
-      {
-        value: options,
-        expected: true
-      },
-      {
-        value: {
-          ...options,
-          githubToken: undefined
-        },
-        expected: false
-      }
+    const inputs: Array<[value: unknown, expected: boolean]> = [
+      [options, true],
+      [{ ...options, githubToken: undefined }, false]
     ]
+    each(inputs, ({ title }, [value, expected]) => {
+      void it(title, () => {
+        const actual = isOptions(value)
 
-    it.each(cases)('value=$value', ({ value, expected }) => {
-      const actual = isOptions(value)
-
-      expect(actual).toBe(expected)
+        assert.strictEqual(actual, expected)
+      })
     })
   })
 })

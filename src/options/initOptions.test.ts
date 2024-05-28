@@ -1,10 +1,8 @@
+import assert from 'node:assert'
 import {
-  afterEach,
   describe,
-  expect,
-  it,
-  jest
-} from '@jest/globals'
+  it
+} from 'node:test'
 import { LogLevel } from '../logger/LogLevel.js'
 import { OutdatedPullRequestStrategy } from '../outdated-package-processor/OutdatedPullRequestStrategy.js'
 import { DependencyType } from '../package-json/DependencyType.js'
@@ -14,16 +12,10 @@ import { createOptions } from './createOptions.js'
 import { initOptions } from './initOptions.js'
 import type { Options } from './Options.js'
 
-jest.mock('./createOptions')
-
-describe('initOptions', () => {
-  const createOptionsMock = jest.mocked(createOptions)
-
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
-  it('returns Options', () => {
+await describe('initOptions', async () => {
+  // TODO: Activate when mock.module can use.
+  await it.skip('returns Options', ({ mock }) => {
+    const createOptionsMock = mock.fn(createOptions)
     const expected: Options = {
       commitMessage: 'test commitMessage',
       dependencyTypes: [
@@ -48,11 +40,14 @@ describe('initOptions', () => {
       prBodyNotes: 'test prBodyNotes',
       reviewers: ['npm-update-package-bot']
     }
-    createOptionsMock.mockReturnValue(expected)
+    createOptionsMock.mock.mockImplementation(() => expected)
 
     const actual = initOptions()
 
-    expect(actual).toBe(expected)
-    expect(createOptionsMock).toHaveBeenCalledWith(cliOptions)
+    assert.deepStrictEqual(actual, expected)
+    assert.strictEqual(createOptionsMock.mock.callCount(), 1)
+    assert.deepStrictEqual(createOptionsMock.mock.calls.map(call => call.arguments), [
+      [cliOptions]
+    ])
   })
 })

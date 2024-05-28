@@ -1,10 +1,8 @@
+import assert from 'node:assert'
 import {
-  afterEach,
   describe,
-  expect,
-  it,
-  jest
-} from '@jest/globals'
+  it
+} from 'node:test'
 import {
   left,
   right
@@ -19,19 +17,14 @@ import type { OutdatedPackage } from './OutdatedPackage.js'
 import { OutdatedPackagesProcessor } from './OutdatedPackagesProcessor.js'
 import type { SucceededResult } from './SucceededResult.js'
 
-describe('OutdatedPackagesProcessor', () => {
-  describe('process', () => {
-    const outdatedPackageProcessorProcessMock = jest.fn<OutdatedPackageProcessor['process']>()
-    const outdatedPackageProcessor = {
-      process: outdatedPackageProcessorProcessMock
-    } as unknown as OutdatedPackageProcessor
-    const outdatedPackagesProcessor = new OutdatedPackagesProcessor(outdatedPackageProcessor)
-
-    afterEach(() => {
-      jest.resetAllMocks()
-    })
-
-    it('calls OutdatedPackageProcessor.process() by each packages', async () => {
+await describe('OutdatedPackagesProcessor', async () => {
+  await describe('process', async () => {
+    await it('calls OutdatedPackageProcessor.process() by each packages', async ({ mock }) => {
+      const processMock = mock.fn<OutdatedPackageProcessor['process']>()
+      const outdatedPackageProcessor = {
+        process: processMock
+      } as unknown as OutdatedPackageProcessor
+      const outdatedPackagesProcessor = new OutdatedPackagesProcessor(outdatedPackageProcessor)
       const packageToBeCreated: OutdatedPackage = {
         name: '@npm-update-package/example-1',
         currentVersion: SemVer.of('1.0.0'),
@@ -65,7 +58,7 @@ describe('OutdatedPackagesProcessor', () => {
         outdatedPackage: packageToBeFailed,
         error: new Error('Failed to update package')
       })
-      outdatedPackageProcessorProcessMock.mockImplementation(async (outdatedPackage: OutdatedPackage) => {
+      const processMockImplementation: OutdatedPackageProcessor['process'] = async (outdatedPackage) => {
         switch (outdatedPackage.name) {
           case packageToBeCreated.name:
             return createdResult
@@ -76,7 +69,8 @@ describe('OutdatedPackagesProcessor', () => {
           default:
             throw new Error('error')
         }
-      })
+      }
+      processMock.mock.mockImplementation(processMockImplementation)
 
       const actual = await outdatedPackagesProcessor.process([
         packageToBeCreated,
@@ -84,15 +78,17 @@ describe('OutdatedPackagesProcessor', () => {
         packageToBeFailed
       ])
 
-      expect(actual).toEqual([
+      assert.deepStrictEqual(actual, [
         createdResult,
         skippedResult,
         failedResult
       ])
-      expect(outdatedPackageProcessorProcessMock).toHaveBeenCalledTimes(3)
-      expect(outdatedPackageProcessorProcessMock).toHaveBeenCalledWith(packageToBeCreated)
-      expect(outdatedPackageProcessorProcessMock).toHaveBeenCalledWith(packageToBeSkipped)
-      expect(outdatedPackageProcessorProcessMock).toHaveBeenCalledWith(packageToBeFailed)
+      assert.strictEqual(processMock.mock.callCount(), 3)
+      assert.deepStrictEqual(processMock.mock.calls.map(call => call.arguments), [
+        [packageToBeCreated],
+        [packageToBeSkipped],
+        [packageToBeFailed]
+      ])
     })
   })
 })
