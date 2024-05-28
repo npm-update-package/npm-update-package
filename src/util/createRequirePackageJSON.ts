@@ -2,6 +2,9 @@ import { createRequire } from 'node:module'
 import { isPackageMetadata } from '../package-json/PackageMetadata.js'
 import type { PackageMetadata } from '../package-json/PackageMetadata.js'
 
+type Path = Parameters<typeof createRequire>[0]
+type ID = Parameters<ReturnType<typeof createRequire>>[0]
+
 /**
  * @example
  * ```typescript
@@ -9,7 +12,7 @@ import type { PackageMetadata } from '../package-json/PackageMetadata.js'
  * const packageJSON = requirePackageJSON('path/to/package.json')
  * ```
  */
-export const createRequirePackageJSON = (path: string | URL): (id: string) => PackageMetadata => {
+export const createRequirePackageJSON = (path: Path): (id: ID) => PackageMetadata => {
   const require = createRequire(path)
   return (id) => {
     const packageJSON = require(id)
