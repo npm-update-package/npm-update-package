@@ -1,10 +1,10 @@
+import assert from 'node:assert'
 import {
   afterEach,
   describe,
-  expect,
   it,
-  jest
-} from '@jest/globals'
+  mock
+} from 'node:test'
 import type { NpmCheckUpdates } from '../npm-check-updates/NpmCheckUpdates.js'
 import { DependencyType } from '../package-json/DependencyType.js'
 import type { PackageManager } from '../package-manager/PackageManager.js'
@@ -13,15 +13,15 @@ import { SemVerLevel } from '../semver/SemVerLevel.js'
 import type { OutdatedPackage } from './OutdatedPackage.js'
 import { PackageUpdater } from './PackageUpdater.js'
 
-describe('PackageUpdater', () => {
-  describe('update', () => {
-    const packageManagerInstallMock = jest.fn<PackageManager['install']>()
+await describe('PackageUpdater', async () => {
+  await describe('update', async () => {
+    const installMock = mock.fn<PackageManager['install']>()
     const packageManager = {
-      install: packageManagerInstallMock
+      install: installMock
     } as unknown as PackageManager
-    const ncuUpdateMock = jest.fn<NpmCheckUpdates['update']>()
+    const updateMock = mock.fn<NpmCheckUpdates['update']>()
     const ncu = {
-      update: ncuUpdateMock
+      update: updateMock
     } as unknown as NpmCheckUpdates
     const packageUpdater = new PackageUpdater({
       packageManager,
@@ -36,25 +36,37 @@ describe('PackageUpdater', () => {
     }
 
     afterEach(() => {
-      jest.resetAllMocks()
+      installMock.mock.resetCalls()
+      updateMock.mock.resetCalls()
     })
 
-    it('returns undefined if succeeded to install package', async () => {
-      ncuUpdateMock.mockResolvedValue([outdatedPackage])
+    await it('returns undefined if succeeded to install package', async () => {
+      updateMock.mock.mockImplementation(async () => await Promise.resolve([outdatedPackage]))
+      installMock.mock.mockImplementation(async () => { await Promise.resolve() })
 
       await packageUpdater.update(outdatedPackage)
 
-      expect(ncuUpdateMock).toHaveBeenCalledWith(outdatedPackage)
-      expect(packageManagerInstallMock).toHaveBeenCalledWith()
+      assert.strictEqual(updateMock.mock.callCount(), 1)
+      assert.deepStrictEqual(updateMock.mock.calls.map(call => call.arguments), [
+        [outdatedPackage]
+      ])
+      assert.strictEqual(installMock.mock.callCount(), 1)
+      assert.deepStrictEqual(installMock.mock.calls.map(call => call.arguments), [
+        []
+      ])
     })
 
-    it('throws error if failed to install package', async () => {
-      ncuUpdateMock.mockResolvedValue([])
+    await it('throws error if failed to install package', async () => {
+      updateMock.mock.mockImplementation(async () => await Promise.resolve([]))
+      installMock.mock.mockImplementation(async () => { await Promise.resolve() })
 
-      await expect(packageUpdater.update(outdatedPackage)).rejects.toThrow(Error)
+      await assert.rejects(packageUpdater.update(outdatedPackage), Error)
 
-      expect(ncuUpdateMock).toHaveBeenCalledWith(outdatedPackage)
-      expect(packageManagerInstallMock).not.toHaveBeenCalled()
+      assert.strictEqual(updateMock.mock.callCount(), 1)
+      assert.deepStrictEqual(updateMock.mock.calls.map(call => call.arguments), [
+        [outdatedPackage]
+      ])
+      assert.strictEqual(installMock.mock.callCount(), 0)
     })
   })
 })

@@ -1,28 +1,29 @@
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
+import { each } from 'test-each'
 import {
   isOptionType,
   OptionType
 } from './OptionType.js'
 
-describe('isOptionType', () => {
-  describe('returns whether value is OptionType', () => {
-    type TestCase = [unknown, boolean]
-    const cases: TestCase[] = [
+await describe('isOptionType', async () => {
+  await describe('returns whether value is OptionType', async () => {
+    const inputs: Array<[value: unknown, expected: boolean]> = [
       [OptionType.Boolean, true],
       [OptionType.Number, true],
       [OptionType.String, true],
       [OptionType.StringArray, true],
       ['unknown', false]
     ]
+    each(inputs, ({ title }, [value, expected]) => {
+      void it(title, () => {
+        const actual = isOptionType(value)
 
-    it.each(cases)('value=%p', (value, expected) => {
-      const actual = isOptionType(value)
-
-      expect(actual).toBe(expected)
+        assert.strictEqual(actual, expected)
+      })
     })
   })
 })
