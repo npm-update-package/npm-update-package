@@ -35,7 +35,7 @@
   "devDependencies": {
     "@munierujp/eslint-config-typescript": "46.0.0",
     "@tsconfig/node20": "20.1.4",
-    "@types/lodash": "4.17.1",
+    "@types/lodash": "4.17.4",
     "@types/mustache": "4.2.5",
     "@types/node": "20.12.12",
     "@types/parse-github-url": "1.0.3",
