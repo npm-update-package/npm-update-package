@@ -3,12 +3,12 @@ import {
   describe,
   it
 } from 'node:test'
-import pkg from '../../../../package.json'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
 import { DependencyType } from '../../../package-json/DependencyType.js'
 import { SemVer } from '../../../semver/SemVer.js'
 import { SemVerLevel } from '../../../semver/SemVerLevel.js'
 import { createMetadataSection } from './createMetadataSection.js'
+const { default: pkg } = await import('../../../../package.json')
 
 await describe('createMetadataSection', async () => {
   await it('returns metadata section', () => {
