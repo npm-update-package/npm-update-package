@@ -1,8 +1,6 @@
 import { createRequire } from 'node:module'
-import {
-  type PackageMetadata,
-  isPackageMetadata
-} from '../package-json/PackageMetadata.js'
+import { isPackageMetadata } from '../package-json/PackageMetadata.js'
+import type { PackageMetadata } from '../package-json/PackageMetadata.js'
 
 /**
  * @example
