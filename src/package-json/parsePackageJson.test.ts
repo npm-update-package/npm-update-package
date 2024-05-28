@@ -1,31 +1,31 @@
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import type { PackageMetadata } from './PackageMetadata.js'
 import { parsePackageJson } from './parsePackageJson.js'
 
-describe('parsePackageJson', () => {
+await describe('parsePackageJson', async () => {
   const metadata: PackageMetadata = {
     name: '@npm-update-package/example',
     version: '1.0.0'
   }
 
-  it('returns parsed object if json is valid', () => {
+  await it('returns parsed object if json is valid', () => {
     const json = JSON.stringify(metadata)
 
     const actual = parsePackageJson(json)
 
-    expect(actual).toEqual(metadata)
+    assert.deepStrictEqual(actual, metadata)
   })
 
-  it('throws error if json is invalid', () => {
+  await it('throws error if json is invalid', () => {
     const json = JSON.stringify({
       ...metadata,
       version: undefined
     })
 
-    expect(() => parsePackageJson(json)).toThrow(Error)
+    assert.throws(() => parsePackageJson(json), Error)
   })
 })

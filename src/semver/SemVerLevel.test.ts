@@ -1,27 +1,28 @@
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
+import { each } from 'test-each'
 import {
   isSemVerLevel,
   SemVerLevel
 } from './SemVerLevel.js'
 
-describe('isSemVerLevel', () => {
-  describe('returns whether value is SemVerLevel', () => {
-    type TestCase = [unknown, boolean]
-    const cases: TestCase[] = [
+await describe('isSemVerLevel', async () => {
+  await describe('returns whether value is SemVerLevel', async () => {
+    const inputs: Array<[value: unknown, expected: boolean]> = [
       [SemVerLevel.Major, true],
       [SemVerLevel.Minor, true],
       [SemVerLevel.Patch, true],
       ['unknown', false]
     ]
+    each(inputs, ({ title }, [value, expected]) => {
+      void it(title, () => {
+        const actual = isSemVerLevel(value)
 
-    it.each(cases)('value=%p', (value, expected) => {
-      const actual = isSemVerLevel(value)
-
-      expect(actual).toBe(expected)
+        assert.strictEqual(actual, expected)
+      })
     })
   })
 })

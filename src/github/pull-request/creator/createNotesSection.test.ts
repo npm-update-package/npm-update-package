@@ -1,16 +1,17 @@
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import { createNotesSection } from './createNotesSection.js'
 
-describe('createNotesSection', () => {
-  it('returns Notes section', () => {
+await describe('createNotesSection', async () => {
+  await it('returns Notes section', () => {
     const notes = '**:warning: Please see diff and release notes before merging.**'
+
     const actual = createNotesSection(notes)
 
-    expect(actual).toBe(`## Notes
+    assert.strictEqual(actual, `## Notes
 
 ${notes}`)
   })

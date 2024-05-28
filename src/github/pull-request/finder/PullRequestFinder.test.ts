@@ -1,14 +1,14 @@
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import type { PullRequest } from '../../GitHub.js'
 import { PullRequestFinder } from './PullRequestFinder.js'
 
-describe('PullRequestFinder', () => {
-  describe('findByPackageName', () => {
-    it('returns pull requests for specified package', () => {
+await describe('PullRequestFinder', async () => {
+  await describe('findByPackageName', async () => {
+    await it('returns pull requests for specified package', () => {
       const expected = [
         {
           labels: [
@@ -17,22 +17,22 @@ describe('PullRequestFinder', () => {
             }
           ],
           body: `<div id="npm-update-package-metadata">
-    
-    \`\`\`json
+
+\`\`\`json
+{
+  "version": "1.0.0",
+  "packages": [
     {
-    "version": "1.0.0",
-    "packages": [
-      {
-        "name": "@npm-update-package/foo",
-        "currentVersion": "1.0.0",
-        "newVersion": "2.0.0",
-        "level": "major"
-      }
-    ]
+      "name": "@npm-update-package/foo",
+      "currentVersion": "1.0.0",
+      "newVersion": "2.0.0",
+      "level": "major"
     }
-    \`\`\`
-    
-    </div>`
+  ]
+}
+\`\`\`
+
+</div>`
         }
       ] as unknown as PullRequest[]
       const pullRequests = [
@@ -45,21 +45,21 @@ describe('PullRequestFinder', () => {
           ],
           body: `<div id="npm-update-package-metadata">
   
-  \`\`\`json
-  {
-    "version": "1.0.0",
-    "packages": [
-      {
-        "name": "@npm-update-package/bar",
-        "currentVersion": "1.0.0",
-        "newVersion": "2.0.0",
-        "level": "major"
-      }
-    ]
-  }
-  \`\`\`
-  
-  </div>`
+\`\`\`json
+{
+  "version": "1.0.0",
+  "packages": [
+    {
+      "name": "@npm-update-package/bar",
+      "currentVersion": "1.0.0",
+      "newVersion": "2.0.0",
+      "level": "major"
+    }
+  ]
+}
+\`\`\`
+
+</div>`
         },
         {
           labels: [
@@ -88,7 +88,7 @@ describe('PullRequestFinder', () => {
 
       const actual = pullRequestFinder.findByPackageName('@npm-update-package/foo')
 
-      expect(actual).toEqual(expected)
+      assert.deepStrictEqual(actual, expected)
     })
   })
 })

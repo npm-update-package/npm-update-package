@@ -1,4 +1,4 @@
-interface Options {
+export interface Options {
   pretty?: boolean
 }
 
