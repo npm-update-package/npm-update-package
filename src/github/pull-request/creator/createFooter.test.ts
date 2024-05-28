@@ -3,7 +3,7 @@ import {
   describe,
   it
 } from 'node:test'
-import pkg from '../../../../package.json' with { type: 'json '}
+import pkg from '../../../../package.json'
 import { createFooter } from './createFooter.js'
 
 await describe('createFooter', async () => {

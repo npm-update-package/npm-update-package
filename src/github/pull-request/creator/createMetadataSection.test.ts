@@ -3,7 +3,7 @@ import {
   describe,
   it
 } from 'node:test'
-import pkg from '../../../../package.json' with { type: 'json '}
+import pkg from '../../../../package.json'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
 import { DependencyType } from '../../../package-json/DependencyType.js'
 import { SemVer } from '../../../semver/SemVer.js'
