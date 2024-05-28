@@ -1,4 +1,4 @@
-import pkg from '../../../../package.json' with { type: 'json '}
+import pkg from '../../../../package.json'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
 import type { PullRequestMetadata } from './PullRequestMetadata.js'
 
