@@ -1,91 +1,87 @@
-import { setTimeout } from 'node:timers/promises'
+import assert from 'node:assert'
 import {
   afterEach,
   describe,
-  expect,
-  it,
-  jest
-} from '@jest/globals'
+  it
+} from 'node:test'
+import { setTimeout } from 'node:timers/promises'
 import { StatusCodes } from 'http-status-codes'
-import type { GitRepository } from '../../../git/GitRepository.js'
+import nock from 'nock'
+import { GitRepository } from '../../../git/GitRepository.js'
 import type { Options } from '../../../options/Options.js'
 import type { PackageManager } from '../../../package-manager/PackageManager.js'
 import { SemVer } from '../../../semver/SemVer.js'
 import { ReleasesFetcher } from './ReleasesFetcher.js'
 
-jest.mock('node:timers/promises')
-
-describe('ReleasesFetcher', () => {
-  describe('fetch', () => {
-    const fetchSpy = jest.spyOn(global, 'fetch')
-    const setTimeoutMock = jest.mocked(setTimeout)
-    const getVersionsMock = jest.fn<PackageManager['getVersions']>()
-    const options = {
-      fetchInterval: 1000
-    }
-    const packageManager = {
-      getVersions: getVersionsMock
-    } as unknown as PackageManager
-    const releasesFetcher = new ReleasesFetcher({
-      options: options as Options,
-      packageManager
-    })
-
+await describe('ReleasesFetcher', async () => {
+  await describe('fetch', async () => {
     afterEach(() => {
-      jest.resetAllMocks()
+      nock.restore()
     })
 
-    it('returns releases', async () => {
-      getVersionsMock.mockResolvedValue([
+    // TODO: Activate when mock.module can use.
+    await it.skip('returns releases', async ({ mock }) => {
+      const setTimeoutMock = mock.fn(setTimeout)
+      const getVersionsMock = mock.fn<PackageManager['getVersions']>()
+      const options = {
+        fetchInterval: 1000
+      } as unknown as Options
+      const packageManager = {
+        getVersions: getVersionsMock
+      } as unknown as PackageManager
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const gitRepo = GitRepository.of('https://github.com/npm-update-package/example')!
+      const packageName = '@npm-update-package/example'
+      const versions: string[] = [
         '1.0.0',
         '1.1.0',
         '1.1.1',
         '2.0.0',
         '2.1.0'
-      ])
-      setTimeoutMock.mockResolvedValue(undefined)
-      fetchSpy.mockImplementation((async (url) => {
-        return typeof url === 'string' && url.endsWith('v1.1.1')
-          ? await Promise.resolve({
-            ok: false,
-            status: StatusCodes.NOT_FOUND
-          })
-          : await Promise.resolve({
-            ok: true,
-            status: StatusCodes.OK
-          })
-      }) as typeof fetch)
-      const gitRepo = {
-        owner: 'npm-update-package',
-        name: 'example',
-        url: 'https://github.com/npm-update-package/example'
-      } as unknown as GitRepository
+      ]
+      const from = SemVer.of('1.1.0')
+      const to = SemVer.of('2.0.0')
+      getVersionsMock.mock.mockImplementation(async () => await Promise.resolve(versions))
+      setTimeoutMock.mock.mockImplementation(async () => { await Promise.resolve(undefined) })
+      nock('https://github.com')
+        .get(`/${gitRepo.owner}/${gitRepo.name}/releases/tag/v1.1.0`)
+        .reply(StatusCodes.OK)
+        .get(`/${gitRepo.owner}/${gitRepo.name}/releases/tag/v1.1.1`)
+        .reply(StatusCodes.NOT_FOUND)
+        .get(`/${gitRepo.owner}/${gitRepo.name}/releases/tag/v2.0.0`)
+        .reply(StatusCodes.OK)
 
+      const releasesFetcher = new ReleasesFetcher({
+        options,
+        packageManager
+      })
       const actual = await releasesFetcher.fetch({
         gitRepo,
-        packageName: '@npm-update-package/example',
-        from: SemVer.of('1.1.0'),
-        to: SemVer.of('2.0.0')
+        packageName,
+        from,
+        to
       })
 
-      expect(actual).toEqual([
+      assert.deepStrictEqual(actual, [
         {
           tag: 'v1.1.0',
-          url: 'https://github.com/npm-update-package/example/releases/tag/v1.1.0'
+          url: `${gitRepo.url.toString()}/releases/tag/v1.1.0`
         },
-        // v1.1.1 is missing
         {
           tag: 'v2.0.0',
-          url: 'https://github.com/npm-update-package/example/releases/tag/v2.0.0'
+          url: `${gitRepo.url.toString()}/releases/tag/v2.0.0`
         }
       ])
-      expect(getVersionsMock).toHaveBeenCalledWith('@npm-update-package/example')
-      expect(setTimeoutMock).toHaveBeenCalledTimes(2)
-      expect(setTimeoutMock).toHaveBeenCalledWith(options.fetchInterval)
-      expect(fetchSpy).toHaveBeenCalledTimes(3)
-      expect(fetchSpy).toHaveBeenCalledWith('https://github.com/npm-update-package/example/releases/tag/v1.1.0')
-      expect(fetchSpy).toHaveBeenCalledWith('https://github.com/npm-update-package/example/releases/tag/v1.1.1')
-      expect(fetchSpy).toHaveBeenCalledWith('https://github.com/npm-update-package/example/releases/tag/v2.0.0')
+      assert.strictEqual(getVersionsMock.mock.callCount(), 1)
+      assert.deepStrictEqual(getVersionsMock.mock.calls.map(call => call.arguments), [
+        [packageName]
+      ])
+      assert.strictEqual(setTimeoutMock.mock.callCount(), 2)
+      assert.deepStrictEqual(setTimeoutMock.mock.calls.map(call => call.arguments), [
+        [options.fetchInterval],
+        [options.fetchInterval]
+      ])
+      assert.ok(nock.isDone())
     })
   })
 })

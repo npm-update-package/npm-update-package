@@ -9,7 +9,6 @@
 const config = {
   extends: [
     '@munierujp/eslint-config-typescript',
-    'plugin:jest/recommended',
     'lodash'
   ],
   parserOptions: {

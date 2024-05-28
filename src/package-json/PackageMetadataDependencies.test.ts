@@ -1,35 +1,27 @@
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
+import { each } from 'test-each'
 import { isPackageMetadataDependencies } from './PackageMetadataDependencies.js'
 import type { PackageMetadataDependencies } from './PackageMetadataDependencies.js'
 
-describe('isPackageMetadataDependencies', () => {
-  describe('returns whether value is PackageMetadataDependencies', () => {
-    interface TestCase {
-      value: unknown
-      expected: boolean
-    }
+await describe('isPackageMetadataDependencies', async () => {
+  await describe('returns whether value is PackageMetadataDependencies', async () => {
     const dependencies: PackageMetadataDependencies = {
       '@npm-update-package/example': '1.0.0'
     }
-    const cases: TestCase[] = [
-      {
-        value: dependencies,
-        expected: true
-      },
-      {
-        value: [dependencies],
-        expected: false
-      }
+    const inputs: Array<[value: unknown, expected: boolean]> = [
+      [dependencies, true],
+      [[dependencies], false]
     ]
+    each(inputs, ({ title }, [value, expected]) => {
+      void it(title, () => {
+        const actual = isPackageMetadataDependencies(value)
 
-    it.each(cases)('value=$value', ({ value, expected }) => {
-      const actual = isPackageMetadataDependencies(value)
-
-      expect(actual).toBe(expected)
+        assert.strictEqual(actual, expected)
+      })
     })
   })
 })
