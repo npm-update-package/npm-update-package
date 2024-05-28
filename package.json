@@ -1,6 +1,6 @@
 {
   "name": "npm-update-package",
-  "version": "4.0.7",
+  "version": "4.0.8",
   "description": "CLI tool for creating pull requests to update npm packages",
   "type": "module",
   "scripts": {
@@ -21,7 +21,7 @@
     "@octokit/rest": "20.1.1",
     "commander": "12.0.0",
     "execa": "9.1.0",
-    "fp-ts": "2.16.5",
+    "fp-ts": "2.16.6",
     "http-status-codes": "2.3.0",
     "io-ts": "2.2.21",
     "lodash": "4.17.21",
