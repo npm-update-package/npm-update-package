@@ -3,7 +3,7 @@ import {
   describe,
   it
 } from 'node:test'
-import * as app from '../../../app.js'
+import pkg from '../../../../package.json'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
 import { DependencyType } from '../../../package-json/DependencyType.js'
 import { SemVer } from '../../../semver/SemVer.js'
@@ -31,7 +31,7 @@ await describe('createMetadataSection', async () => {
 
 \`\`\`json
 {
-  "version": "${app.version}",
+  "version": "${pkg.version}",
   "packages": [
     {
       "name": "@npm-update-package/example",
