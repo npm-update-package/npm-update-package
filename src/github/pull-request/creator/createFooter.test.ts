@@ -3,8 +3,8 @@ import {
   describe,
   it
 } from 'node:test'
+import pkg from '../../../../package.json'
 import { createFooter } from './createFooter.js'
-const { default: pkg } = await import('../../../../package.json')
 
 await describe('createFooter', async () => {
   await it('returns footer', () => {

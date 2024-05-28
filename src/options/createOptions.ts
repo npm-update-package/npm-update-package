@@ -1,9 +1,9 @@
 import { program } from 'commander'
+import pkg from '../../package.json'
 import type { CLIOption } from './CLIOption.js'
 import type { Options } from './Options.js'
 import { isOptions } from './Options.js'
 import { toCommanderOption } from './toCommanderOption.js'
-const { default: pkg } = await import('../../package.json')
 
 export const createOptions = (cliOptions: CLIOption[]): Options => {
   program.version(pkg.version)
