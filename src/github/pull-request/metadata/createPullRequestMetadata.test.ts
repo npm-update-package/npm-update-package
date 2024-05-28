@@ -3,12 +3,14 @@ import {
   describe,
   it
 } from 'node:test'
-import pkg from '../../../../package.json'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
 import { DependencyType } from '../../../package-json/DependencyType.js'
 import { SemVer } from '../../../semver/SemVer.js'
 import { SemVerLevel } from '../../../semver/SemVerLevel.js'
+import { createRequirePackageJSON } from '../../../util/createRequirePackageJSON.js'
 import { createPullRequestMetadata } from './createPullRequestMetadata.js'
+
+const pkg = createRequirePackageJSON(import.meta.url)('../../../../package.json')
 
 await describe('createPullRequestMetadata', async () => {
   await it('returns PullRequestMetadata', () => {
