@@ -1,5 +1,5 @@
 import { program } from 'commander'
-import pkg from '../../package.json' with { type: 'json '}
+import pkg from '../../package.json'
 import type { CLIOption } from './CLIOption.js'
 import type { Options } from './Options.js'
 import { isOptions } from './Options.js'
