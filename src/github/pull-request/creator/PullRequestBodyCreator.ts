@@ -1,5 +1,5 @@
+import { readFile } from 'node:fs/promises'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
-import { readFile } from '../../../file/readFile.js'
 import type { GitRepository } from '../../../git/GitRepository.js'
 import type { Options } from '../../../options/Options.js'
 import { extractRepository } from '../../../package-json/extractRepository.js'
@@ -74,7 +74,7 @@ export class PullRequestBodyCreator {
   }
 
   private async extractRepository (outdatedPackage: OutdatedPackage): Promise<GitRepository | undefined> {
-    const packageJson = await readFile(`node_modules/${outdatedPackage.name}/package.json`)
+    const packageJson = await readFile(`node_modules/${outdatedPackage.name}/package.json`, 'utf8')
     const pkg = parsePackageJson(packageJson)
     return extractRepository(pkg)
   }

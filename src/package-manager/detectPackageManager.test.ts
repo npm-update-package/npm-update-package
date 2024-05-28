@@ -1,51 +1,62 @@
+import assert from 'node:assert'
 import {
   afterEach,
   describe,
-  expect,
   it,
-  jest
-} from '@jest/globals'
+  mock
+} from 'node:test'
 import { canReadWrite } from '../file/canReadWrite.js'
 import { detectPackageManager } from './detectPackageManager.js'
 import { PackageManagerName } from './PackageManagerName.js'
 
-jest.mock('../file/canReadWrite.js')
-
-describe('detectPackageManager', () => {
-  const canReadWriteMock = jest.mocked(canReadWrite)
+// TODO: Activate when mock.module can use.
+await describe.skip('detectPackageManager', async () => {
+  const canReadWriteMock = mock.fn(canReadWrite)
 
   afterEach(() => {
-    jest.resetAllMocks()
+    canReadWriteMock.mock.resetCalls()
   })
 
-  it('returns PackageManagerName.Npm if package-lock.json exists', async () => {
-    canReadWriteMock.mockImplementation(async (path) => await Promise.resolve(path === 'package-lock.json'))
+  await it('returns PackageManagerName.Npm if package-lock.json exists', async () => {
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    const canReadWriteMockImplementation: typeof canReadWrite = async (path) => await Promise.resolve(path === 'package-lock.json')
+    canReadWriteMock.mock.mockImplementation(canReadWriteMockImplementation)
 
     const actual = await detectPackageManager()
 
-    expect(actual).toBe(PackageManagerName.Npm)
-    expect(canReadWriteMock).toHaveBeenCalledTimes(1)
-    expect(canReadWriteMock).toHaveBeenCalledWith('package-lock.json')
+    assert.strictEqual(actual, PackageManagerName.Npm)
+    assert.strictEqual(canReadWriteMock.mock.callCount(), 1)
+    assert.deepStrictEqual(canReadWriteMock.mock.calls.map(call => call.arguments), [
+      ['package-lock.json']
+    ])
   })
 
-  it('returns PackageManagerName.Yarn if package-lock.json does not exist and yarn.lock exists', async () => {
-    canReadWriteMock.mockImplementation(async (path) => await Promise.resolve(path === 'yarn.lock'))
+  await it('returns PackageManagerName.Yarn if package-lock.json does not exist and yarn.lock exists', async () => {
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    const canReadWriteMockImplementation: typeof canReadWrite = async (path) => await Promise.resolve(path === 'yarn.lock')
+    canReadWriteMock.mock.mockImplementation(canReadWriteMockImplementation)
 
     const actual = await detectPackageManager()
 
-    expect(actual).toBe(PackageManagerName.Yarn)
-    expect(canReadWriteMock).toHaveBeenCalledTimes(2)
-    expect(canReadWriteMock).toHaveBeenCalledWith('package-lock.json')
-    expect(canReadWriteMock).toHaveBeenCalledWith('yarn.lock')
+    assert.strictEqual(actual, PackageManagerName.Yarn)
+    assert.strictEqual(canReadWriteMock.mock.callCount(), 2)
+    assert.deepStrictEqual(canReadWriteMock.mock.calls.map(call => call.arguments), [
+      ['package-lock.json'],
+      ['yarn.lock']
+    ])
   })
 
-  it('throws error if no lock file exists', async () => {
-    canReadWriteMock.mockResolvedValue(false)
+  await it('throws error if no lock file exists', async () => {
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    const canReadWriteMockImplementation: typeof canReadWrite = async (path) => await Promise.resolve(false)
+    canReadWriteMock.mock.mockImplementation(canReadWriteMockImplementation)
 
-    await expect(async () => await detectPackageManager()).rejects.toThrow(Error)
+    assert.throws(async () => await detectPackageManager(), Error)
 
-    expect(canReadWriteMock).toHaveBeenCalledTimes(2)
-    expect(canReadWriteMock).toHaveBeenCalledWith('package-lock.json')
-    expect(canReadWriteMock).toHaveBeenCalledWith('yarn.lock')
+    assert.strictEqual(canReadWriteMock.mock.callCount(), 2)
+    assert.deepStrictEqual(canReadWriteMock.mock.calls.map(call => call.arguments), [
+      ['package-lock.json'],
+      ['yarn.lock']
+    ])
   })
 })

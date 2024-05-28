@@ -1,12 +1,11 @@
+import assert from 'node:assert'
+import { readFile } from 'node:fs/promises'
 import {
-  afterEach,
   describe,
-  expect,
-  it,
-  jest
-} from '@jest/globals'
+  it
+} from 'node:test'
+import { each } from 'test-each'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
-import { readFile } from '../../../file/readFile.js'
 import { GitRepository } from '../../../git/GitRepository.js'
 import type { Options } from '../../../options/Options.js'
 import { DependencyType } from '../../../package-json/DependencyType.js'
@@ -25,42 +24,10 @@ import type { PackageDiffsSectionCreator } from './PackageDiffsSectionCreator.js
 import { PullRequestBodyCreator } from './PullRequestBodyCreator.js'
 import type { ReleaseNotesSectionCreator } from './ReleaseNotesSectionCreator.js'
 
-jest.mock('../../../file/readFile.js')
-jest.mock('../../../package-json/extractRepository.js')
-jest.mock('../../../package-json/parsePackageJson.js')
-jest.mock('./createFooter.js')
-jest.mock('./createMetadataSection.js')
-jest.mock('./createNotesSection.js')
-jest.mock('./createOutdatedPackagesTable.js')
-
-describe('PullRequestBodyCreator', () => {
-  describe('create', () => {
-    const readFileMock = jest.mocked(readFile)
-    const parsePackageJsonMock = jest.mocked(parsePackageJson)
-    const extractRepositoryMock = jest.mocked(extractRepository)
-    const createOutdatedPackagesTableMock = jest.mocked(createOutdatedPackagesTable)
-    const createNotesSectionMock = jest.mocked(createNotesSection)
-    const createMetadataSectionMock = jest.mocked(createMetadataSection)
-    const createFooterMock = jest.mocked(createFooter)
-    const releasesFetcherFetchMock = jest.fn<ReleasesFetcher['fetch']>()
-    const releasesFetcher = {
-      fetch: releasesFetcherFetchMock
-    } as unknown as ReleasesFetcher
-    const packageDiffsSectionCreatorCreateMock = jest.fn<PackageDiffsSectionCreator['create']>()
-    const packageDiffsSectionCreator = {
-      create: packageDiffsSectionCreatorCreateMock
-    } as unknown as PackageDiffsSectionCreator
-    const releaseNotesSectionCreatorCreateMock = jest.fn<ReleaseNotesSectionCreator['create']>()
-    const releaseNotesSectionCreator = {
-      create: releaseNotesSectionCreatorCreateMock
-    } as unknown as ReleaseNotesSectionCreator
-
-    afterEach(() => {
-      jest.resetAllMocks()
-    })
-
-    describe('returns Markdown string', () => {
-      interface TestCase {
+await describe('PullRequestBodyCreator', async () => {
+  await describe('create', async () => {
+    await describe('returns Markdown string', async () => {
+      const inputs: Array<{
         options: Options
         gitRepo?: GitRepository
         outdatedPackagesTable: string
@@ -71,8 +38,7 @@ describe('PullRequestBodyCreator', () => {
         releases: Release[]
         releaseNotesSection: string
         expected: string
-      }
-      const cases: TestCase[] = [
+      }> = [
         // options.fetchReleaseNotes is false
         {
           options: {
@@ -213,21 +179,7 @@ describe('PullRequestBodyCreator', () => {
 <footer>`
         }
       ]
-      const outdatedPackage: OutdatedPackage = {
-        name: '@npm-update-package/example',
-        currentVersion: SemVer.of('1.0.0'),
-        newVersion: SemVer.of('2.0.0'),
-        level: SemVerLevel.Major,
-        dependencyType: DependencyType.Dependencies
-      }
-      const packageMetadata: PackageMetadata = {
-        name: '@npm-update-package/example',
-        version: '1.0.0',
-        repository: 'npm-update-package/example'
-      }
-      const packageJson = JSON.stringify(packageMetadata)
-
-      it.each(cases)('options=$options, gitRepo=$gitRepo, releases=$releases', async ({
+      each(inputs, ({ title }, {
         options,
         gitRepo,
         outdatedPackagesTable,
@@ -239,68 +191,129 @@ describe('PullRequestBodyCreator', () => {
         releaseNotesSection,
         expected
       }) => {
-        readFileMock.mockResolvedValue(packageJson)
-        parsePackageJsonMock.mockReturnValue(packageMetadata)
-        extractRepositoryMock.mockReturnValue(gitRepo)
-        createOutdatedPackagesTableMock.mockReturnValue(outdatedPackagesTable)
-        packageDiffsSectionCreatorCreateMock.mockReturnValue(packageDiffsSection)
-        createNotesSectionMock.mockReturnValue(notesSection)
-        createMetadataSectionMock.mockReturnValue(metadataSection)
-        createFooterMock.mockReturnValue(footer)
-        releasesFetcherFetchMock.mockResolvedValue(releases)
-        releaseNotesSectionCreatorCreateMock.mockReturnValue(releaseNotesSection)
-        const pullRequestBodyCreator = new PullRequestBodyCreator({
-          options,
-          releasesFetcher,
-          packageDiffsSectionCreator,
-          releaseNotesSectionCreator
-        })
-
-        const actual = await pullRequestBodyCreator.create(outdatedPackage)
-
-        expect.assertions(11)
-        expect(actual).toBe(expected)
-        expect(readFileMock).toHaveBeenCalledWith('node_modules/@npm-update-package/example/package.json')
-        expect(parsePackageJsonMock).toHaveBeenCalledWith(packageJson)
-        expect(extractRepositoryMock).toHaveBeenCalledWith(packageMetadata)
-        expect(createOutdatedPackagesTableMock).toHaveBeenCalledWith(outdatedPackage)
-        expect(packageDiffsSectionCreatorCreateMock).toHaveBeenCalledWith({
-          outdatedPackage,
-          gitRepo
-        })
-        expect(createMetadataSectionMock).toHaveBeenCalledWith(outdatedPackage)
-        expect(createFooterMock).toHaveBeenCalledWith()
-
-        if (options.fetchReleaseNotes && gitRepo?.isGitHub === true) {
-          // eslint-disable-next-line jest/no-conditional-expect
-          expect(releasesFetcherFetchMock).toHaveBeenCalledWith({
-            gitRepo,
-            packageName: outdatedPackage.name,
-            from: outdatedPackage.currentVersion,
-            to: outdatedPackage.newVersion
+        // TODO: Activate when mock.module can use.
+        void it.skip(title, async ({ mock }) => {
+          const readFileMock = mock.fn(readFile)
+          const parsePackageJsonMock = mock.fn(parsePackageJson)
+          const extractRepositoryMock = mock.fn(extractRepository)
+          const createOutdatedPackagesTableMock = mock.fn(createOutdatedPackagesTable)
+          const createNotesSectionMock = mock.fn(createNotesSection)
+          const createMetadataSectionMock = mock.fn(createMetadataSection)
+          const createFooterMock = mock.fn(createFooter)
+          const releasesFetcherFetchMock = mock.fn<ReleasesFetcher['fetch']>()
+          const releasesFetcher = {
+            fetch: releasesFetcherFetchMock
+          } as unknown as ReleasesFetcher
+          const packageDiffsSectionCreatorCreateMock = mock.fn<PackageDiffsSectionCreator['create']>()
+          const packageDiffsSectionCreator = {
+            create: packageDiffsSectionCreatorCreateMock
+          } as unknown as PackageDiffsSectionCreator
+          const releaseNotesSectionCreatorCreateMock = mock.fn<ReleaseNotesSectionCreator['create']>()
+          const releaseNotesSectionCreator = {
+            create: releaseNotesSectionCreatorCreateMock
+          } as unknown as ReleaseNotesSectionCreator
+          const pullRequestBodyCreator = new PullRequestBodyCreator({
+            options,
+            releasesFetcher,
+            packageDiffsSectionCreator,
+            releaseNotesSectionCreator
           })
-
-          if (releases.length > 0) {
-            // eslint-disable-next-line jest/no-conditional-expect
-            expect(releaseNotesSectionCreatorCreateMock).toHaveBeenCalledWith(releases)
-          } else {
-            // eslint-disable-next-line jest/no-conditional-expect
-            expect(releaseNotesSectionCreatorCreateMock).not.toHaveBeenCalled()
+          const outdatedPackage: OutdatedPackage = {
+            name: '@npm-update-package/example',
+            currentVersion: SemVer.of('1.0.0'),
+            newVersion: SemVer.of('2.0.0'),
+            level: SemVerLevel.Major,
+            dependencyType: DependencyType.Dependencies
           }
-        } else {
-          // eslint-disable-next-line jest/no-conditional-expect
-          expect(releasesFetcherFetchMock).not.toHaveBeenCalled()
-          // eslint-disable-next-line jest/no-conditional-expect
-          expect(releaseNotesSectionCreatorCreateMock).not.toHaveBeenCalled()
-        }
+          const packageMetadata: PackageMetadata = {
+            name: '@npm-update-package/example',
+            version: '1.0.0',
+            repository: 'npm-update-package/example'
+          }
+          const packageJson = JSON.stringify(packageMetadata)
+          readFileMock.mock.mockImplementation(async () => await Promise.resolve(packageJson))
+          parsePackageJsonMock.mock.mockImplementation(() => packageMetadata)
+          extractRepositoryMock.mock.mockImplementation(() => gitRepo)
+          createOutdatedPackagesTableMock.mock.mockImplementation(() => outdatedPackagesTable)
+          packageDiffsSectionCreatorCreateMock.mock.mockImplementation(() => packageDiffsSection)
+          createNotesSectionMock.mock.mockImplementation(() => notesSection)
+          createMetadataSectionMock.mock.mockImplementation(() => metadataSection)
+          createFooterMock.mock.mockImplementation(() => footer)
+          releasesFetcherFetchMock.mock.mockImplementation(async () => await Promise.resolve(releases))
+          releaseNotesSectionCreatorCreateMock.mock.mockImplementation(() => releaseNotesSection)
 
-        if (options.prBodyNotes === undefined) {
-          // eslint-disable-next-line jest/no-conditional-expect
-          expect(createNotesSectionMock).not.toHaveBeenCalled()
-        } else {
-          // eslint-disable-next-line jest/no-conditional-expect
-          expect(createNotesSectionMock).toHaveBeenCalledWith(options.prBodyNotes)
-        }
+          const actual = await pullRequestBodyCreator.create(outdatedPackage)
+
+          assert.strictEqual(actual, expected)
+          assert.strictEqual(readFileMock.mock.callCount(), 1)
+          assert.deepStrictEqual(readFileMock.mock.calls.map(call => call.arguments), [
+            ['node_modules/@npm-update-package/example/package.json']
+          ])
+          assert.strictEqual(parsePackageJsonMock.mock.callCount(), 1)
+          assert.deepStrictEqual(parsePackageJsonMock.mock.calls.map(call => call.arguments), [
+            [packageJson]
+          ])
+          assert.strictEqual(extractRepositoryMock.mock.callCount(), 1)
+          assert.deepStrictEqual(extractRepositoryMock.mock.calls.map(call => call.arguments), [
+            [packageMetadata]
+          ])
+          assert.strictEqual(createOutdatedPackagesTableMock.mock.callCount(), 1)
+          assert.deepStrictEqual(createOutdatedPackagesTableMock.mock.calls.map(call => call.arguments), [
+            [outdatedPackage]
+          ])
+          assert.strictEqual(packageDiffsSectionCreatorCreateMock.mock.callCount(), 1)
+          assert.deepStrictEqual(packageDiffsSectionCreatorCreateMock.mock.calls.map(call => call.arguments), [
+            [
+              {
+                outdatedPackage,
+                gitRepo
+              }
+            ]
+          ])
+          assert.strictEqual(createMetadataSectionMock.mock.callCount(), 1)
+          assert.deepStrictEqual(createMetadataSectionMock.mock.calls.map(call => call.arguments), [
+            [outdatedPackage]
+          ])
+          assert.strictEqual(createFooterMock.mock.callCount(), 1)
+          assert.deepStrictEqual(createFooterMock.mock.calls.map(call => call.arguments), [
+            []
+          ])
+
+          if (options.fetchReleaseNotes && gitRepo?.isGitHub === true) {
+            assert.strictEqual(releasesFetcherFetchMock.mock.callCount(), 1)
+            assert.deepStrictEqual(releasesFetcherFetchMock.mock.calls.map(call => call.arguments), [
+              [
+                {
+                  gitRepo,
+                  packageName: outdatedPackage.name,
+                  from: outdatedPackage.currentVersion,
+                  to: outdatedPackage.newVersion
+                }
+              ]
+            ])
+
+            if (releases.length > 0) {
+              assert.strictEqual(releaseNotesSectionCreatorCreateMock.mock.callCount(), 1)
+              assert.deepStrictEqual(releaseNotesSectionCreatorCreateMock.mock.calls.map(call => call.arguments), [
+                [releases]
+              ])
+            } else {
+              assert.strictEqual(releaseNotesSectionCreatorCreateMock.mock.callCount(), 0)
+            }
+          } else {
+            assert.strictEqual(releasesFetcherFetchMock.mock.callCount(), 0)
+            assert.strictEqual(releaseNotesSectionCreatorCreateMock.mock.callCount(), 0)
+          }
+
+          if (options.prBodyNotes === undefined) {
+            assert.strictEqual(createNotesSectionMock.mock.callCount(), 0)
+          } else {
+            assert.strictEqual(createNotesSectionMock.mock.callCount(), 1)
+            assert.deepStrictEqual(createNotesSectionMock.mock.calls.map(call => call.arguments), [
+              [options.prBodyNotes]
+            ])
+          }
+        })
       })
     })
   })

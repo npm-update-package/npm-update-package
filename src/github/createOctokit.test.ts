@@ -1,42 +1,31 @@
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import { Octokit } from '@octokit/rest'
+import { each } from 'test-each'
 import { createOctokit } from './createOctokit.js'
 
-describe('createOctokit', () => {
-  describe('returns new Octokit instance', () => {
-    interface TestCase {
-      host: string
-      token?: string
-    }
-    const cases: TestCase[] = [
+await describe('createOctokit', async () => {
+  await describe('returns new Octokit instance', async () => {
+    const inputs: Array<[host: string, token: string | undefined]> = [
       // for GitHub without token
-      {
-        host: 'github.com',
-        token: undefined
-      },
+      ['github.com', undefined],
       // for GitHub with token
-      {
-        host: 'github.com',
-        token: 'test token'
-      },
+      ['github.com', 'test token'],
       // for GitHub Enterprise with token
-      {
-        host: 'git.test',
-        token: 'test token'
-      }
+      ['git.test', 'test token']
     ]
+    each(inputs, ({ title }, [host, token]) => {
+      void it(title, () => {
+        const actual = createOctokit({
+          host,
+          token
+        })
 
-    it.each(cases)('host=$host, token=$token', ({ host, token }) => {
-      const actual = createOctokit({
-        host,
-        token
+        assert.ok(actual instanceof Octokit)
       })
-
-      expect(actual).toBeInstanceOf(Octokit)
     })
   })
 })

@@ -1,31 +1,38 @@
+import assert from 'node:assert'
 import {
   describe,
-  expect,
   it
-} from '@jest/globals'
+} from 'node:test'
 import { InvalidArgumentError } from 'commander'
+import { each } from 'test-each'
 import { parseBooleanOption } from './parseBooleanOption.js'
 
-describe('parseBooleanOption', () => {
-  describe('returns boolean if value is valid', () => {
-    it.each([
+await describe('parseBooleanOption', async () => {
+  await describe('returns boolean if value is valid', () => {
+    const inputs: Array<[value: string, expected: boolean]> = [
       ['true', true],
       ['false', false]
-    ])('value=%p', (value, expected) => {
-      const actual = parseBooleanOption(value)
+    ]
+    each(inputs, ({ title }, [value, expected]) => {
+      void it(title, () => {
+        const actual = parseBooleanOption(value)
 
-      expect(actual).toBe(expected)
+        assert.strictEqual(actual, expected)
+      })
     })
   })
 
-  describe('throws error if value is invalid', () => {
-    it.each([
+  await describe('throws error if value is invalid', () => {
+    const inputs: string[] = [
       'TRUE',
       'FALSE',
       '',
       'unknown'
-    ])('value=%p', (value) => {
-      expect(() => parseBooleanOption(value)).toThrow(InvalidArgumentError)
+    ]
+    each(inputs, ({ title }, value) => {
+      void it(title, () => {
+        assert.throws(() => parseBooleanOption(value), InvalidArgumentError)
+      })
     })
   })
 })
