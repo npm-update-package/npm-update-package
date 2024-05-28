@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import pkg from '../../package.json'
 import { logger } from '../logger/logger.js'
 import { main } from '../main.js'
 import { initOptions } from '../options/initOptions.js'
+const { default: pkg } = await import('../../package.json')
 
 try {
   const options = initOptions()

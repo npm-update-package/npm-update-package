@@ -1,5 +1,5 @@
 import { Octokit } from '@octokit/rest'
-import pkg from '../../package.json'
+const { default: pkg } = await import('../../package.json')
 
 export const createOctokit = ({
   host,
