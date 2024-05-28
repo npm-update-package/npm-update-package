@@ -1,6 +1,8 @@
-import pkg from '../../../../package.json'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
+import { createRequirePackageJSON } from '../../../util/createRequirePackageJSON.js'
 import type { PullRequestMetadata } from './PullRequestMetadata.js'
+
+const pkg = createRequirePackageJSON(import.meta.url)('../../../../package.json')
 
 export const createPullRequestMetadata = (outdatedPackages: OutdatedPackage[]): PullRequestMetadata => {
   return {

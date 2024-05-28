@@ -3,8 +3,10 @@ import {
   describe,
   it
 } from 'node:test'
-import pkg from '../../../../package.json'
+import { createRequirePackageJSON } from '../../../util/createRequirePackageJSON.js'
 import { createFooter } from './createFooter.js'
+
+const pkg = createRequirePackageJSON(import.meta.url)('../../../../package.json')
 
 await describe('createFooter', async () => {
   await it('returns footer', () => {
