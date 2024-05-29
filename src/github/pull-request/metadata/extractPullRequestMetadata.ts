@@ -1,8 +1,13 @@
+import { parseHTML } from '../../../html/parseHTML.js'
+import { parseMarkdown } from '../../../markdown/parseMarkdown.js'
 import type { PullRequestMetadata } from './PullRequestMetadata.js'
 import { isPullRequestMetadata } from './PullRequestMetadata.js'
 
 export const extractPullRequestMetadata = (pullRequestBody: string): PullRequestMetadata | undefined => {
-  const json = pullRequestBody.match(/<div id="npm-update-package-metadata">\n+```json\n(.+)\n```\n+<\/div>/s)?.[1]
+  const html = parseMarkdown(pullRequestBody)
+  const document = parseHTML(html)
+  const jsonElement = document.querySelector('#npm-update-package-metadata code')
+  const json = jsonElement?.textContent ?? undefined
 
   if (json === undefined) {
     return undefined
