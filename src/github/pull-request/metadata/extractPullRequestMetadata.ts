@@ -2,24 +2,15 @@ import type { PullRequestMetadata } from './PullRequestMetadata.js'
 import { isPullRequestMetadata } from './PullRequestMetadata.js'
 
 export const extractPullRequestMetadata = (pullRequestBody: string): PullRequestMetadata | undefined => {
-  const matched = pullRequestBody.match(/<div id="npm-update-package-metadata">\s*```json\s*([\S\s]+?)\s*```\s*<\/div>/)
+  const json = pullRequestBody.match(/<div id="npm-update-package-metadata">\n+```json\n(.+)\n```\n+<\/div>/s)?.[1]
 
-  if (matched === null) {
-    return undefined
-  }
-
-  const json = matched[1]
-
-  /* istanbul ignore if: I can't write a test to reach here. */
   if (json === undefined) {
     return undefined
   }
 
   const metadata: unknown = JSON.parse(json)
 
-  if (!isPullRequestMetadata(metadata)) {
-    return undefined
+  if (isPullRequestMetadata(metadata)) {
+    return metadata
   }
-
-  return metadata
 }
