@@ -1,6 +1,6 @@
 {
   "name": "npm-update-package",
-  "version": "4.0.10",
+  "version": "4.0.11",
   "description": "CLI tool for creating pull requests to update npm packages",
   "type": "module",
   "scripts": {
