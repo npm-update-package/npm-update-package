@@ -9,6 +9,7 @@
 const config = {
   extends: [
     '@munierujp/eslint-config-typescript',
+    'plugin:regexp/recommended',
     'lodash'
   ],
   parserOptions: {
