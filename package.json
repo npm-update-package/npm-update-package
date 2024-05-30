@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "clean": "rimraf dist",
-    "lint": "eslint --ignore-path .gitignore　'**/*.{js,mjs,cjs,ts,mts,cts}'",
+    "lint": "eslint --ignore-path .gitignore '**/*.{js,mjs,cjs,ts,mts,cts}'",
     "postbuild": "cp package.json dist/package.json",
     "prebuild": "npm run clean",
     "prepublishOnly": "npm-run-all lint test build",
