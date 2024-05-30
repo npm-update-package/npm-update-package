@@ -10,7 +10,7 @@
     "postbuild": "cp package.json dist/package.json",
     "prebuild": "npm run clean",
     "prepublishOnly": "npm-run-all lint test build",
-    "test": "glob -c 'tsx --test' 'src/**/*.test.ts'"
+    "test": "glob -c 'node --test --import tsx/esm' 'src/**/*.test.ts'"
   },
   "bin": "dist/src/bin/npm-update-package.js",
   "engines": {
