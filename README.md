@@ -86,7 +86,7 @@ Labels other than `npm-update-package` to add to pull request.
 |Name|Value|
 |---|---|
 |type|string[]|
-|required|-|
+|required|❌|
 
 Example:
 
@@ -103,7 +103,7 @@ User names to assign to pull request.
 |Name|Value|
 |---|---|
 |type|string[]|
-|required|-|
+|required|❌|
 
 Example:
 
@@ -120,7 +120,7 @@ How many members to be assigned to assignees.
 |Name|Value|
 |---|---|
 |type|number|
-|required|-|
+|required|❌|
 
 Example:
 
@@ -138,7 +138,7 @@ Commit message template.
 |Name|Value|
 |---|---|
 |type|string|
-|required|-|
+|required|❌|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
 
 Available variables:
@@ -166,7 +166,7 @@ Dependency types to be updated.
 |Name|Value|
 |---|---|
 |type|string[]|
-|required|-|
+|required|❌|
 |default|`dependencies`, `devDependencies`, `peerDependencies`, `bundledDependencies`, `optionalDependencies`|
 
 Allowed values:
@@ -195,7 +195,7 @@ Whether to create pull request as draft.
 |Name|Value|
 |---|---|
 |type|boolean|
-|required|-|
+|required|❌|
 |default|`false`|
 
 Example:
@@ -213,7 +213,7 @@ Sleep time between fetching (ms).
 |Name|Value|
 |---|---|
 |type|number|
-|required|-|
+|required|❌|
 |default|`1000`|
 
 Example:
@@ -231,7 +231,7 @@ Whether to fetch release notes.
 |Name|Value|
 |---|---|
 |type|boolean|
-|required|-|
+|required|❌|
 |default|`true`|
 
 Example:
@@ -249,7 +249,7 @@ Git user email.
 |Name|Value|
 |---|---|
 |type|string|
-|required|-|
+|required|❌|
 
 Example:
 
@@ -266,7 +266,7 @@ Git user name.
 |Name|Value|
 |---|---|
 |type|string|
-|required|-|
+|required|❌|
 
 Example:
 
@@ -283,7 +283,7 @@ npx npm-update-package \
 |Name|Value|
 |---|---|
 |type|string|
-|required|✔️|
+|required|✅|
 
 ### `--ignore-packages`
 
@@ -292,7 +292,7 @@ Package names to ignore.
 |Name|Value|
 |---|---|
 |type|string[]|
-|required|-|
+|required|❌|
 
 Example:
 
@@ -309,7 +309,7 @@ Log level to show.
 |Name|Value|
 |---|---|
 |type|string|
-|required|-|
+|required|❌|
 |default|`info`|
 
 Allowed values:
@@ -339,7 +339,7 @@ What to do when outdated pull requests exist.
 |Name|Value|
 |---|---|
 |type|string|
-|required|-|
+|required|❌|
 |default|`recreate`|
 
 Allowed values:
@@ -366,7 +366,7 @@ Since npm-update-package automatically determines which package manager to use, 
 |Name|Value|
 |---|---|
 |type|string|
-|required|-|
+|required|❌|
 
 Allowed values:
 
@@ -390,7 +390,7 @@ GitHub host of pull request body.
 |Name|Value|
 |---|---|
 |type|string|
-|required|-|
+|required|❌|
 |default|`togithub.com`|
 
 Example:
@@ -408,7 +408,7 @@ Additional notes for Pull request body.
 |Name|Value|
 |---|---|
 |type|string|
-|required|-|
+|required|❌|
 
 Example:
 
@@ -425,7 +425,7 @@ Pull request title template.
 |Name|Value|
 |---|---|
 |type|string|
-|required|-|
+|required|❌|
 |default|`chore(deps): {{{level}}} update {{{packageName}}} to v{{{newVersion}}}`|
 
 Available variables:
@@ -453,7 +453,7 @@ User names to request reviews.
 |Name|Value|
 |---|---|
 |type|string[]|
-|required|-|
+|required|❌|
 
 Example:
 
@@ -470,7 +470,7 @@ How many members to be assigned to reviewers.
 |Name|Value|
 |---|---|
 |type|number|
-|required|-|
+|required|❌|
 
 Example:
 
