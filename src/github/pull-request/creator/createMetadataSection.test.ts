@@ -3,12 +3,14 @@ import {
   describe,
   it
 } from 'node:test'
-import * as app from '../../../app.js'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
 import { DependencyType } from '../../../package-json/DependencyType.js'
 import { SemVer } from '../../../semver/SemVer.js'
 import { SemVerLevel } from '../../../semver/SemVerLevel.js'
+import { createRequirePackageJSON } from '../../../util/createRequirePackageJSON.js'
 import { createMetadataSection } from './createMetadataSection.js'
+
+const pkg = createRequirePackageJSON(import.meta.url)('../../../../package.json')
 
 await describe('createMetadataSection', async () => {
   await it('returns metadata section', () => {
@@ -31,7 +33,7 @@ await describe('createMetadataSection', async () => {
 
 \`\`\`json
 {
-  "version": "${app.version}",
+  "version": "${pkg.version}",
   "packages": [
     {
       "name": "@npm-update-package/example",

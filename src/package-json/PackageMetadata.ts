@@ -20,7 +20,8 @@ const PackageMetadata = intersection([
     peerDependencies: PackageMetadataDependencies,
     bundledDependencies: PackageMetadataDependencies,
     optionalDependencies: PackageMetadataDependencies,
-    repository: union([string, PackageMetadataRepository])
+    repository: union([string, PackageMetadataRepository]),
+    homepage: string
   })
 ])
 // eslint-disable-next-line @typescript-eslint/no-redeclare

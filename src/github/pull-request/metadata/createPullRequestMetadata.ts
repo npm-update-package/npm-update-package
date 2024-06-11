@@ -1,10 +1,12 @@
-import * as app from '../../../app.js'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
+import { createRequirePackageJSON } from '../../../util/createRequirePackageJSON.js'
 import type { PullRequestMetadata } from './PullRequestMetadata.js'
+
+const pkg = createRequirePackageJSON(import.meta.url)('../../../../package.json')
 
 export const createPullRequestMetadata = (outdatedPackages: OutdatedPackage[]): PullRequestMetadata => {
   return {
-    version: app.version,
+    version: pkg.version,
     packages: outdatedPackages.map(({
       name,
       currentVersion,

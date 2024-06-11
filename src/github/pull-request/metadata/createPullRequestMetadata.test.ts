@@ -3,12 +3,14 @@ import {
   describe,
   it
 } from 'node:test'
-import * as app from '../../../app.js'
 import type { OutdatedPackage } from '../../../core/OutdatedPackage.js'
 import { DependencyType } from '../../../package-json/DependencyType.js'
 import { SemVer } from '../../../semver/SemVer.js'
 import { SemVerLevel } from '../../../semver/SemVerLevel.js'
+import { createRequirePackageJSON } from '../../../util/createRequirePackageJSON.js'
 import { createPullRequestMetadata } from './createPullRequestMetadata.js'
+
+const pkg = createRequirePackageJSON(import.meta.url)('../../../../package.json')
 
 await describe('createPullRequestMetadata', async () => {
   await it('returns PullRequestMetadata', () => {
@@ -25,7 +27,7 @@ await describe('createPullRequestMetadata', async () => {
     const actual = createPullRequestMetadata(outdatedPackages)
 
     assert.deepStrictEqual(actual, {
-      version: app.version,
+      version: pkg.version,
       packages: [
         {
           name: '@npm-update-package/example',
