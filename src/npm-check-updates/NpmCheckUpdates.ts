@@ -2,7 +2,6 @@ import {
   run,
   type RunOptions
 } from 'npm-check-updates'
-import { isNotUndefined } from 'type-guards'
 import type { OutdatedPackage } from '../core/OutdatedPackage.js'
 import { logger } from '../logger/logger.js'
 import type { Options } from '../options/Options.js'
@@ -89,8 +88,7 @@ export class NpmCheckUpdates {
         logger.trace(`outdatedPackage=${JSON.stringify(outdatedPackage)}`)
         return outdatedPackage
       })
-      // eslint-disable-next-line unicorn/no-array-callback-reference
-      .filter(isNotUndefined)
+      .filter(outdatedPackage => outdatedPackage !== undefined)
     logger.trace(`outdatedPackages=${JSON.stringify(outdatedPackages)}`)
 
     if (resultEntries.length !== outdatedPackages.length) {
