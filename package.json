@@ -30,8 +30,7 @@
     "npm-check-updates": "16.3.11",
     "parse-github-url": "1.0.2",
     "safe-marked": "16.0.0",
-    "semver": "7.5.4",
-    "type-guards": "0.15.0"
+    "semver": "7.5.4"
   },
   "devDependencies": {
     "@munierujp/eslint-config-typescript": "47.1.1",
@@ -44,13 +43,13 @@
     "@types/semver": "7.5.8",
     "eslint": "8.57.0",
     "eslint-config-lodash": "4.0.3",
-    "glob": "10.4.1",
+    "glob": "10.4.2",
     "nock": "14.0.0-beta.6",
     "npm-run-all2": "6.2.0",
     "rimraf": "5.0.7",
     "test-each": "7.0.0",
     "tsx": "4.15.5",
-    "typescript": "5.4.5",
+    "typescript": "5.5.2",
     "utility-types": "3.11.0"
   },
   "repository": {
