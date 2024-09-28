@@ -1,6 +1,6 @@
 {
   "name": "npm-update-package",
-  "version": "4.0.27",
+  "version": "4.0.28",
   "description": "CLI tool for creating pull requests to update npm packages",
   "type": "module",
   "scripts": {
@@ -36,7 +36,7 @@
     "@munierujp/eslint-config-typescript": "47.1.1",
     "@tsconfig/node20": "20.1.4",
     "@types/jsdom": "21.1.7",
-    "@types/lodash": "4.17.7",
+    "@types/lodash": "4.17.9",
     "@types/mustache": "4.2.5",
     "@types/node": "20.14.12",
     "@types/parse-github-url": "1.0.3",
@@ -49,7 +49,7 @@
     "rimraf": "6.0.1",
     "test-each": "7.0.0",
     "tsx": "4.19.0",
-    "typescript": "5.5.4",
+    "typescript": "5.6.2",
     "utility-types": "3.11.0"
   },
   "repository": {
