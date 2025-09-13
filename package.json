@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@octokit/rest": "22.0.0",
-    "commander": "12.1.0",
+    "commander": "14.0.1",
     "execa": "9.1.0",
     "fp-ts": "2.16.10",
     "http-status-codes": "2.3.0",
