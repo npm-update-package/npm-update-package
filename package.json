@@ -46,7 +46,7 @@
     "glob": "11.0.3",
     "nock": "14.0.10",
     "npm-run-all2": "8.0.4",
-    "rimraf": "6.0.1",
+    "rimraf": "6.1.0",
     "test-each": "7.0.1",
     "tsx": "4.20.4",
     "typescript": "5.9.3",
