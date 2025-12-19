@@ -55,7 +55,7 @@ CLI tool for creating pull requests to update npm packages
 - npm or Yarn
 - Git
 
-## 🧩 Supported platforms
+## 🌐 Supported platforms
 
 - GitHub
 - GitHub Enterprise
@@ -481,7 +481,7 @@ npx npm-update-package \
   --reviewers-sample-size 1
 ```
 
-## 🔐 GitHub token
+## 🔑 GitHub token
 
 GitHub token is required to run npm-update-package.  
 Available tokens and permissions required for each token are as follows.
@@ -592,7 +592,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 ```
 
-## 🏗️ Architecture
+## 🧱 Architecture
 
 The following shows the process flow of npm-update-package.
 
@@ -661,7 +661,7 @@ end
 
 [![](https://www.plantuml.com/plantuml/png/hLH1Rjim4Bpp5NEpV31oboyf0ZGeK211Wpw0aTOM4OfaoMNTzFNLHfHQebPxoSKcTuSxdE7Ojubrv3nQzRPGv-XpW0lZ8OTUCns2xbxqcLJxoHassfgV11_OU9UE1JrgurHxJmoVMGxrAAScY38dD1-iNKlGaP33WVr1i7lmG0xDAwMz0iZrYcmYDCxlrRGp9wNQZyJTW4YZPy9prAuRP7QfXsmj8dtBb7XX_AoVoQBtbE0yWtwOn3KLshj8cWbMeCU_M2l5zuRHUNSovqNqGv7wM6GzHjzHIZugTHcC9JIbCtEdFKnQgQ-E-3q140bV_fJxRob0kXYnel7BpFZ4SLgSN-T-fqLTzwPuhgm658RZKlqQPCBoNiSQN9czzkIgtwj1XJ1IeSIxSzvPdsXDN1s2_ryilPYm-21cFroTWzwxtPRbst8s1MrBshuli2QpxETybjNyyAf65OHyprcJJ4ii2qAj3U1cjvrbx6vK-pJu2oAbRCNO-gJyz0LKLQ_yVHICkfq-ycX_0G00)](https://www.plantuml.com/plantuml/uml/hLH1Rjim4Bpp5NEpV31oboyf0ZGeK211Wpw0aTOM4OfaoMNTzFNLHfHQebPxoSKcTuSxdE7Ojubrv3nQzRPGv-XpW0lZ8OTUCns2xbxqcLJxoHassfgV11_OU9UE1JrgurHxJmoVMGxrAAScY38dD1-iNKlGaP33WVr1i7lmG0xDAwMz0iZrYcmYDCxlrRGp9wNQZyJTW4YZPy9prAuRP7QfXsmj8dtBb7XX_AoVoQBtbE0yWtwOn3KLshj8cWbMeCU_M2l5zuRHUNSovqNqGv7wM6GzHjzHIZugTHcC9JIbCtEdFKnQgQ-E-3q140bV_fJxRob0kXYnel7BpFZ4SLgSN-T-fqLTzwPuhgm658RZKlqQPCBoNiSQN9czzkIgtwj1XJ1IeSIxSzvPdsXDN1s2_ryilPYm-21cFroTWzwxtPRbst8s1MrBshuli2QpxETybjNyyAf65OHyprcJJ4ii2qAj3U1cjvrbx6vK-pJu2oAbRCNO-gJyz0LKLQ_yVHICkfq-ycX_0G00)
 
-## ❓ FAQ
+## 🙋 FAQ
 
 ### What is the purpose of npm-update-package?
 
