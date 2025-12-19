@@ -7,7 +7,7 @@
 
 CLI tool for creating pull requests to update npm packages
 
-## Table of Contents
+## 🔖 Table of Contents
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -49,18 +49,18 @@ CLI tool for creating pull requests to update npm packages
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Requirements
+## ✅ Requirements
 
 - Node.js v20 or later
 - npm or Yarn
 - Git
 
-## Supported platforms
+## 🧩 Supported platforms
 
 - GitHub
 - GitHub Enterprise
 
-## Usage
+## 📖 Usage
 
 The simplest use of npm-update-package is just run the following command:
 
@@ -74,7 +74,7 @@ Alternatively, you can use a specific version as follows:
 npx npm-update-package@4 --github-token <github-token>
 ```
 
-## Options
+## ⚙️ Options
 
 You can customize behavior via CLI options.  
 Some options can embed variables like `{{packageName}}`(HTML-escaped) or `{{{packageName}}}`(not HTML-escaped).
@@ -481,7 +481,7 @@ npx npm-update-package \
   --reviewers-sample-size 1
 ```
 
-## GitHub token
+## 🔐 GitHub token
 
 GitHub token is required to run npm-update-package.  
 Available tokens and permissions required for each token are as follows.
@@ -508,7 +508,7 @@ We recommend using GitHub App for the following reasons.
 - Personal access token relies on personal account.
 - When you use the Personal access token, the author of pull requests will be the user who issued the token.
 
-## How to run on GitHub Actions
+## 🤖 How to run on GitHub Actions
 
 ### Use token of GitHub Actions
 
@@ -592,7 +592,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 ```
 
-## Architecture
+## 🏗️ Architecture
 
 The following shows the process flow of npm-update-package.
 
@@ -661,7 +661,7 @@ end
 
 [![](https://www.plantuml.com/plantuml/png/hLH1Rjim4Bpp5NEpV31oboyf0ZGeK211Wpw0aTOM4OfaoMNTzFNLHfHQebPxoSKcTuSxdE7Ojubrv3nQzRPGv-XpW0lZ8OTUCns2xbxqcLJxoHassfgV11_OU9UE1JrgurHxJmoVMGxrAAScY38dD1-iNKlGaP33WVr1i7lmG0xDAwMz0iZrYcmYDCxlrRGp9wNQZyJTW4YZPy9prAuRP7QfXsmj8dtBb7XX_AoVoQBtbE0yWtwOn3KLshj8cWbMeCU_M2l5zuRHUNSovqNqGv7wM6GzHjzHIZugTHcC9JIbCtEdFKnQgQ-E-3q140bV_fJxRob0kXYnel7BpFZ4SLgSN-T-fqLTzwPuhgm658RZKlqQPCBoNiSQN9czzkIgtwj1XJ1IeSIxSzvPdsXDN1s2_ryilPYm-21cFroTWzwxtPRbst8s1MrBshuli2QpxETybjNyyAf65OHyprcJJ4ii2qAj3U1cjvrbx6vK-pJu2oAbRCNO-gJyz0LKLQ_yVHICkfq-ycX_0G00)](https://www.plantuml.com/plantuml/uml/hLH1Rjim4Bpp5NEpV31oboyf0ZGeK211Wpw0aTOM4OfaoMNTzFNLHfHQebPxoSKcTuSxdE7Ojubrv3nQzRPGv-XpW0lZ8OTUCns2xbxqcLJxoHassfgV11_OU9UE1JrgurHxJmoVMGxrAAScY38dD1-iNKlGaP33WVr1i7lmG0xDAwMz0iZrYcmYDCxlrRGp9wNQZyJTW4YZPy9prAuRP7QfXsmj8dtBb7XX_AoVoQBtbE0yWtwOn3KLshj8cWbMeCU_M2l5zuRHUNSovqNqGv7wM6GzHjzHIZugTHcC9JIbCtEdFKnQgQ-E-3q140bV_fJxRob0kXYnel7BpFZ4SLgSN-T-fqLTzwPuhgm658RZKlqQPCBoNiSQN9czzkIgtwj1XJ1IeSIxSzvPdsXDN1s2_ryilPYm-21cFroTWzwxtPRbst8s1MrBshuli2QpxETybjNyyAf65OHyprcJJ4ii2qAj3U1cjvrbx6vK-pJu2oAbRCNO-gJyz0LKLQ_yVHICkfq-ycX_0G00)
 
-## FAQ
+## ❓ FAQ
 
 ### What is the purpose of npm-update-package?
 
@@ -671,6 +671,6 @@ npm-update-package can be used in environments where Renovate cannot be used for
 
 If you have difficulty resolving it manually, close the pull request and run npm-update-package again.
 
-## How to development
+## 🧑‍💻 How to development
 
 See [Wiki](https://github.com/npm-update-package/npm-update-package/wiki).
