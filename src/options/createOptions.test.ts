@@ -77,7 +77,6 @@ await describe.skip('createOptions', async () => {
   })
 
   await it('returns Options if it is valid', () => {
-    // eslint-disable-next-line lodash/prefer-constant
     isOptionsMock.mock.mockImplementation(() => true)
 
     const actual = createOptions(cliOptions)
@@ -111,7 +110,6 @@ await describe.skip('createOptions', async () => {
   })
 
   await it('throws error if Options is invalid', () => {
-    // eslint-disable-next-line lodash/prefer-constant
     isOptionsMock.mock.mockImplementation(() => false)
 
     assert.throws(() => createOptions(cliOptions), Error)
