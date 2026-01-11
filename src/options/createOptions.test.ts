@@ -77,7 +77,7 @@ await describe.skip('createOptions', async () => {
   })
 
   await it('returns Options if it is valid', () => {
-    isOptionsMock.mock.mockImplementation(() => true)
+    isOptionsMock.mock.mockImplementation((value): value is Options => true)
 
     const actual = createOptions(cliOptions)
 
@@ -110,7 +110,7 @@ await describe.skip('createOptions', async () => {
   })
 
   await it('throws error if Options is invalid', () => {
-    isOptionsMock.mock.mockImplementation(() => false)
+    isOptionsMock.mock.mockImplementation((value): value is Options => false)
 
     assert.throws(() => createOptions(cliOptions), Error)
   })
