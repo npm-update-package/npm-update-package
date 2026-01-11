@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "clean": "rimraf dist",
-    "lint": "eslint --ignore-path .gitignore '**/*.{js,mjs,cjs,ts,mts,cts}'",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
     "postbuild": "cp package.json dist/package.json",
     "prebuild": "npm run clean",
     "prepublishOnly": "npm-run-all lint test build",
@@ -33,7 +34,7 @@
     "semver": "7.7.3"
   },
   "devDependencies": {
-    "@munierujp/eslint-config-typescript": "47.1.1",
+    "@eslint-community/eslint-plugin-eslint-comments": "4.5.0",
     "@tsconfig/bases": "1.0.16",
     "@types/jsdom": "21.1.7",
     "@types/lodash": "4.17.23",
@@ -41,9 +42,9 @@
     "@types/node": "20.14.12",
     "@types/parse-github-url": "1.0.3",
     "@types/semver": "7.7.1",
-    "eslint": "8.57.0",
-    "eslint-config-lodash": "4.0.3",
+    "eslint": "9.39.2",
     "glob": "11.1.0",
+    "neostandard": "0.12.2",
     "nock": "14.0.10",
     "npm-run-all2": "8.0.4",
     "rimraf": "6.1.2",
