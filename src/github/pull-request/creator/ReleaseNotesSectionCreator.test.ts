@@ -25,7 +25,6 @@ await describe('ReleaseNotesSectionCreator', async () => {
           url: 'https://github.com/npm-update-package/example/releases/tag/v2.0.0'
         }
       ]
-      // eslint-disable-next-line unicorn/consistent-function-scoping
       const optimizeMockImplementation: GitHubUrlOptimizer['optimize'] = (url) => {
         const newUrl = new URL(typeof url === 'string' ? url : url.toString())
         newUrl.host = 'github.test'
