@@ -53,7 +53,7 @@ await describe('extractPullRequestMetadata', async () => {
 </div>`
     ]
     each(inputs, ({ title }, body) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = extractPullRequestMetadata(body)
 
         assert.strictEqual(actual, undefined)

@@ -18,7 +18,7 @@ await describe('isNpmVersions', async () => {
       [{ data: versions }, false]
     ]
     each(inputs, ({ title }, [value, expected]) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = isNpmVersions(value)
 
         assert.strictEqual(actual, expected)

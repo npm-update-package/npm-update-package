@@ -22,7 +22,7 @@ await describe('isYarnVersions', async () => {
       [{ ...versions, data: undefined }, false]
     ]
     each(inputs, ({ title }, [value, expected]) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = isYarnVersions(value)
 
         assert.strictEqual(actual, expected)

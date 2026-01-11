@@ -23,7 +23,7 @@ await describe('isNotFoundError', async () => {
       [new Error('test message'), false]
     ]
     each(inputs, ({ title }, [error, expected]) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = isNotFoundError(error)
 
         assert.strictEqual(actual, expected)

@@ -47,7 +47,7 @@ await describe('PackageDiffsSectionCreator', async () => {
         }
       ]
       each(inputs, ({ title }, { gitRepo, expected }) => {
-        void it(title, ({ mock }) => {
+        it(title, ({ mock }) => {
           const optimizeMock = mock.fn<GitHubUrlOptimizer['optimize']>()
           const gitHubUrlOptimizer = {
             optimize: optimizeMock

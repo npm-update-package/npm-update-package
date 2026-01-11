@@ -24,7 +24,7 @@ await describe('GitHubUrlOptimizer', async () => {
         [new URL('https://github.com.test/foo/'), 'https://github.com.test/foo/']
       ]
       each(inputs, ({ title }, [url, expected]) => {
-        void it(title, () => {
+        it(title, () => {
           const actual = gitHubUrlOptimizer.optimize(url)
 
           assert.strictEqual(actual.toString(), expected)

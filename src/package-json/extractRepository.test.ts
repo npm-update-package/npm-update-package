@@ -64,7 +64,7 @@ await describe('extractRepository', async () => {
       }
     ]
     each(inputs, ({ title }, { metadata, expected }) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = extractRepository(metadata)
 
         assert.ok(actual instanceof GitRepository)

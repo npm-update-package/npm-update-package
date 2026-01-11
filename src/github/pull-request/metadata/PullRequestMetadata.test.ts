@@ -28,7 +28,7 @@ await describe('isPullRequestMetadata', async () => {
 
     ]
     each(inputs, ({ title }, [value, expected]) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = isPullRequestMetadata(value)
 
         assert.strictEqual(actual, expected)
