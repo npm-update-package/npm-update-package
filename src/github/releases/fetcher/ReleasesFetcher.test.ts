@@ -29,7 +29,7 @@ await describe('ReleasesFetcher', async () => {
       const packageManager = {
         getVersions: getVersionsMock
       } as unknown as PackageManager
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
       const gitRepo = GitRepository.of('https://github.com/npm-update-package/example')!
       const packageName = '@npm-update-package/example'
       const versions: string[] = [
