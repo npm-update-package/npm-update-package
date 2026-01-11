@@ -51,7 +51,7 @@ await describe('PackageManagerCreator', async () => {
         it(title, async () => {
           const options = {} as unknown as Options
           const packageManagerCreator = new PackageManagerCreator(options)
-          detectPackageManagerMock.mock.mockImplementation(() => packageManager)
+          detectPackageManagerMock.mock.mockImplementation(async () => packageManager)
 
           const actual = await packageManagerCreator.create(terminal)
 
