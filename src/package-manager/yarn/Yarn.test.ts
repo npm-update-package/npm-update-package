@@ -57,7 +57,7 @@ await describe('Yarn', async () => {
 
   await describe('install', async () => {
     await it('calls `yarn install`', async () => {
-      runMock.mock.mockImplementation(async () => { await Promise.resolve('') })
+      runMock.mock.mockImplementation(async () => '')
 
       await yarn.install()
 

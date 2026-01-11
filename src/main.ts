@@ -161,7 +161,6 @@ export const main = async (options: Options): Promise<void> => {
   logger.debug(`results=${JSON.stringify(results)}`)
 
   const succeededResults = results
-    // eslint-disable-next-line unicorn/no-array-callback-reference
     .filter(isRight)
     .map(({ right }) => right)
   logger.debug(`succeededResults=${JSON.stringify(succeededResults)}`)
@@ -177,7 +176,6 @@ export const main = async (options: Options): Promise<void> => {
   logger.debug(`skippedPackages=${JSON.stringify(skippedPackages)}`)
 
   const failedResults = results
-    // eslint-disable-next-line unicorn/no-array-callback-reference
     .filter(isLeft)
     .map(({ left }) => left)
   logger.debug(`failedResults=${JSON.stringify(failedResults)}`)

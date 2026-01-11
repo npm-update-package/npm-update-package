@@ -17,7 +17,7 @@ await describe('isPackageManagerName', async () => {
       ['unknown', false]
     ]
     each(inputs, ({ title }, [value, expected]) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = isPackageManagerName(value)
 
         assert.strictEqual(actual, expected)

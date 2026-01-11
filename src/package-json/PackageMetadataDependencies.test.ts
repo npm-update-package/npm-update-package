@@ -17,7 +17,7 @@ await describe('isPackageMetadataDependencies', async () => {
       [[dependencies], false]
     ]
     each(inputs, ({ title }, [value, expected]) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = isPackageMetadataDependencies(value)
 
         assert.strictEqual(actual, expected)

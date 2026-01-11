@@ -17,7 +17,7 @@ await describe('isNpmCheckUpdatesResult', async () => {
       [[result], false]
     ]
     each(inputs, ({ title }, [value, expected]) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = isNpmCheckUpdatesResult(value)
 
         assert.strictEqual(actual, expected)

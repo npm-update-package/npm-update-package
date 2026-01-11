@@ -34,7 +34,7 @@ await describe('isPackageMetadata', async () => {
       [{ ...metadata, name: undefined }, false]
     ]
     each(inputs, ({ title }, [value, expected]) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = isPackageMetadata(value)
 
         assert.strictEqual(actual, expected)

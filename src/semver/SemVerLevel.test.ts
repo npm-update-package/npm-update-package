@@ -18,7 +18,7 @@ await describe('isSemVerLevel', async () => {
       ['unknown', false]
     ]
     each(inputs, ({ title }, [value, expected]) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = isSemVerLevel(value)
 
         assert.strictEqual(actual, expected)

@@ -75,12 +75,10 @@ await describe('PullRequestFinder', async () => {
               name: 'npm-update-package'
             }
           ],
-          // eslint-disable-next-line unicorn/no-null
           body: null
         },
         {
           labels: [],
-          // eslint-disable-next-line unicorn/no-null
           body: null
         }
       ] as unknown as PullRequest[]

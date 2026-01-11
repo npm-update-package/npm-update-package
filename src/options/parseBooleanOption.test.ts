@@ -14,7 +14,7 @@ await describe('parseBooleanOption', async () => {
       ['false', false]
     ]
     each(inputs, ({ title }, [value, expected]) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = parseBooleanOption(value)
 
         assert.strictEqual(actual, expected)
@@ -30,7 +30,7 @@ await describe('parseBooleanOption', async () => {
       'unknown'
     ]
     each(inputs, ({ title }, value) => {
-      void it(title, () => {
+      it(title, () => {
         assert.throws(() => parseBooleanOption(value), InvalidArgumentError)
       })
     })

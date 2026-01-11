@@ -19,7 +19,7 @@ await describe('isOptionType', async () => {
       ['unknown', false]
     ]
     each(inputs, ({ title }, [value, expected]) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = isOptionType(value)
 
         assert.strictEqual(actual, expected)

@@ -18,7 +18,7 @@ await describe('createOctokit', async () => {
       ['git.test', 'test token']
     ]
     each(inputs, ({ title }, [host, token]) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = createOctokit({
           host,
           token

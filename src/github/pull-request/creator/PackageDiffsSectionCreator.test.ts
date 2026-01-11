@@ -47,13 +47,12 @@ await describe('PackageDiffsSectionCreator', async () => {
         }
       ]
       each(inputs, ({ title }, { gitRepo, expected }) => {
-        void it(title, ({ mock }) => {
+        it(title, ({ mock }) => {
           const optimizeMock = mock.fn<GitHubUrlOptimizer['optimize']>()
           const gitHubUrlOptimizer = {
             optimize: optimizeMock
           } as unknown as GitHubUrlOptimizer
           const packageDiffsSectionCreator = new PackageDiffsSectionCreator(gitHubUrlOptimizer)
-          // eslint-disable-next-line unicorn/consistent-function-scoping
           const optimizeMockImplementation: GitHubUrlOptimizer['optimize'] = (url) => {
             const newUrl = new URL(typeof url === 'string' ? url : url.toString())
             newUrl.host = 'github.test'

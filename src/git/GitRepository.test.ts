@@ -218,7 +218,7 @@ await describe('GitRepository', async () => {
         }
       ]
       each(inputs, ({ title }, { repository, expected }) => {
-        void it(title, () => {
+        it(title, () => {
           const actual = GitRepository.of(repository)
 
           assert.ok(actual instanceof GitRepository)
@@ -241,7 +241,7 @@ await describe('GitRepository', async () => {
         'https://github.com/npm-update-package'
       ]
       each(inputs, ({ title }, repository) => {
-        void it(title, () => {
+        it(title, () => {
           const actual = GitRepository.of(repository)
 
           assert.strictEqual(actual, undefined)
