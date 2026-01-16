@@ -32,7 +32,7 @@ await describe('PackageManagerCreator', async () => {
 
     await describe('returns new PackageManager instance if packageManager option exists', () => {
       each(inputs, ({ title }, [packageManager, expected]) => {
-        void it(title, async () => {
+        it(title, async () => {
           const options = {
             packageManager
           } as unknown as Options
@@ -48,10 +48,10 @@ await describe('PackageManagerCreator', async () => {
 
     await describe('returns new PackageManager instance if packageManager option does not exist', () => {
       each(inputs, ({ title }, [packageManager, expected]) => {
-        void it(title, async () => {
+        it(title, async () => {
           const options = {} as unknown as Options
           const packageManagerCreator = new PackageManagerCreator(options)
-          detectPackageManagerMock.mock.mockImplementation(() => packageManager)
+          detectPackageManagerMock.mock.mockImplementation(async () => packageManager)
 
           const actual = await packageManagerCreator.create(terminal)
 

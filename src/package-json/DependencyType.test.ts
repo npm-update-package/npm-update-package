@@ -20,7 +20,7 @@ await describe('isDependencyType', async () => {
       ['unknown', false]
     ]
     each(inputs, ({ title }, [value, expected]) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = isDependencyType(value)
 
         assert.strictEqual(actual, expected)

@@ -192,7 +192,7 @@ await describe('PullRequestBodyCreator', async () => {
         expected
       }) => {
         // TODO: Activate when mock.module can use.
-        void it.skip(title, async ({ mock }) => {
+        it.skip(title, async ({ mock }) => {
           const readFileMock = mock.fn(readFile)
           const parsePackageJsonMock = mock.fn(parsePackageJson)
           const extractRepositoryMock = mock.fn(extractRepository)

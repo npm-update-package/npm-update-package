@@ -30,7 +30,7 @@ await describe('OutdatedPackageProcessorCreator', async () => {
         [OutdatedPullRequestStrategy.Skip, Skip]
       ]
       each(inputs, ({ title }, [outdatedPrStrategy, expected]) => {
-        void it(title, () => {
+        it(title, () => {
           const options = {
             outdatedPrStrategy
           } as unknown as Options

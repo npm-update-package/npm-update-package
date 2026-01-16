@@ -43,7 +43,7 @@ await describe('isOptions', async () => {
       [{ ...options, githubToken: undefined }, false]
     ]
     each(inputs, ({ title }, [value, expected]) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = isOptions(value)
 
         assert.strictEqual(actual, expected)

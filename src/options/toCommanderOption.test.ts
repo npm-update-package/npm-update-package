@@ -205,7 +205,7 @@ await describe('toCommanderOption', async () => {
       }
     ]
     each(inputs, ({ title }, { cliOption, expected }) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = toCommanderOption(cliOption)
 
         assert.strictEqual(actual.name(), expected.name)

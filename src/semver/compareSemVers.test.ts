@@ -16,7 +16,7 @@ await describe('compareSemVers', async () => {
       ['1.0.0', '1.0.1', SemVerLevel.Patch]
     ]
     each(inputs, ({ title }, [version1, version2, expected]) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = compareSemVers(SemVer.of(version1), SemVer.of(version2))
 
         assert.strictEqual(actual, expected)

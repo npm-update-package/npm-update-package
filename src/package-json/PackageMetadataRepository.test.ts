@@ -17,7 +17,7 @@ await describe('isPackageMetadataRepository', async () => {
       [{}, false]
     ]
     each(inputs, ({ title }, [value, expected]) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = isPackageMetadataRepository(value)
 
         assert.strictEqual(actual, expected)

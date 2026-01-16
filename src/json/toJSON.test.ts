@@ -25,7 +25,7 @@ await describe('toJSON', async () => {
 }`]
     ]
     each(inputs, ({ title }, [options, expected]) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = toJSON(value, options)
 
         assert.strictEqual(actual, expected)

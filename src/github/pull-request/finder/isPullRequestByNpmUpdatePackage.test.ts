@@ -31,7 +31,7 @@ await describe('isPullRequestByNpmUpdatePackage', async () => {
       }
     ]
     each(inputs, ({ title }, { pullRequest, expected }) => {
-      void it(title, () => {
+      it(title, () => {
         const actual = isPullRequestByNpmUpdatePackage(pullRequest)
 
         assert.strictEqual(actual, expected)
