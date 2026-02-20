@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@munierujp/eslint-config-typescript": "47.1.1",
-    "@tsconfig/bases": "1.0.17",
+    "@tsconfig/bases": "1.0.22",
     "@types/jsdom": "21.1.7",
     "@types/lodash": "4.17.23",
     "@types/mustache": "4.2.6",
