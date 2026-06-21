@@ -51,7 +51,7 @@
 
 ## ✅ Requirements
 
-- Node.js v20 or later
+- Node.js v22 or later
 - npm or Yarn
 - Git
 
