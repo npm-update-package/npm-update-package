@@ -1,6 +1,6 @@
 {
   "extends": [
-    "@tsconfig/bases/node20"
+    "@tsconfig/bases/node22"
   ],
   "compilerOptions": {
     "noUncheckedIndexedAccess": true,
